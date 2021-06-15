@@ -1,5 +1,5 @@
 +++
-title = "Miscellany"
+title = "Miscellany | Niemiro"
 +++
 
 Interesting papers, resources, etc. (Mostly math-related.)

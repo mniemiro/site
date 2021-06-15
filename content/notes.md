@@ -1,5 +1,5 @@
 +++
-title = "Notes"
+title = "Notes | Niemiro"
 +++
 
 **Category Theory**
