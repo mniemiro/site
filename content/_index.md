@@ -1,7 +1,3 @@
-+++
-title = "About | Niemiro"
-+++
-
 Hi, my name is Matthew Niemiro. 
 
 ## About Me
