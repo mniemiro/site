@@ -16,8 +16,6 @@ I made this site to organize my mathematical notes, papers, thoughts, etc. that 
 
 ## About My Notes
 
-For the most part, my notes will include anything I have written that is (i) small in scope, (ii) not written for some major assignment, and (iii) coherent to general readers.
-
-As a personal project, I try to write at least one short note every 2-4 weeks focusing on a topic I feel I ought to understand better.
+As a personal project, I try to write short and focused notes about topics I think I ought to understand better. Writing these is helpful to me, and hopefully helpful to others.
 
 

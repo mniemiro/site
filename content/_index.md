@@ -1,3 +1,7 @@
++++
+title = "About | Niemiro"
++++
+
 Hi, my name is Matthew Niemiro. 
 
 ## About Me
@@ -12,8 +16,6 @@ I made this site to organize my mathematical notes, papers, thoughts, etc. that 
 
 ## About My Notes
 
-For the most part, my notes will include anything I have written that is (i) small in scope, (ii) not written for some major assignment, and (iii) coherent to general readers.
-
-As a personal project, I try to write at least one short note every 2-4 weeks focusing on a topic I feel I ought to understand better.
+As a personal project, I try to write short and focused notes on topics I want to understand better. I write these semi-regularly and make them available at my [Notes](/notes) page. Ideally, my notes will eventually compound into a far-reaching and cohesive mathematical resource.
 
 
