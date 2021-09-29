@@ -6,9 +6,7 @@ Notes I upload are not necessarily complete. If you have anything at all to say 
 
 **Toward tmf**
 
-{{< math >}}
-\begin{pmatrix}
-a & b \\
-c & d
-\end{pmatrix}
-{{< /math >}}
+$$
+f(x) = \int_{-\infty}^\infty \hat{f} (\xi), e^{2 \pi i \xi x} d\xi
+$$
+
