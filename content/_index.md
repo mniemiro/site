@@ -12,10 +12,10 @@ My email: (mylastname)2(at)illinois(dot)edu
 
 ## About This Site
 
-I made this site to organize my mathematical notes, papers, thoughts, etc. that I have written or plan to write. It is also motivational, since in theory other people now see my work.
+I made this site to organize my mathematical notes, papers, thoughts, etc. that I have written or plan to write. It is partly motivational, since in theory other people now see my writing.
 
 ## About My Notes
 
-As a personal project, I try to write short and focused notes on topics I want to understand better. I write these semi-regularly and make them available at my [Notes](/notes) page. Ideally, my notes will eventually compound into a far-reaching and cohesive mathematical resource.
+As a personal project, I try to write short and focused notes on topics I want to understand better. 
 
 
