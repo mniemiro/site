@@ -3,7 +3,7 @@ baseURL = ""
 theme = "researcher"
 disableKinds = ["taxonomy", "term"]
 enableEmoji = false
-math = true          # enable KaTeX (https://katex.org/) globally
+math: true          # enable KaTeX (https://katex.org/) globally
 
 [params]
   author = "Matthew A. Niemiro"
