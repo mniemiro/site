@@ -16,6 +16,6 @@ I made this site to organize my mathematical notes, papers, thoughts, etc. that 
 
 ## About My Notes
 
-As a personal project, I try to write short and focused notes about topics I think I ought to understand better. Writing these is helpful to me, and hopefully helpful to others.
+As a personal project, I try to write short and focused notes on topics I want to understand better.
 
 
