@@ -14,4 +14,6 @@ My email: (mylastname)2(at)illinois(dot)edu
 
 I made this site to organize my mathematical notes, papers, thoughts, etc. that I have written or plan to write. It is partly motivational, since in theory other people now see my writing.
 
+{{ $quotes := getCSV ";" "static/quotes.csv" }}
+{{ $quotes | shuffle | first 1 }}
 
