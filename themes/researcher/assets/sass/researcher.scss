@@ -4,7 +4,7 @@ $avatar-size: {{ .Param "style.avatarSize" | default "90px;" }};
 
 // Colors
 $black: {{ .Param "style.colorBlack" | default "#222222" }};
-$red: {{ .Param "style.colorRed" | default "#c2492b" }};
+$red: {{ .Param "style.colorRed" | default "#e04728" }};
 // previous color: #dc3545
 
 // Font
