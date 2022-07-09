@@ -1,5 +1,5 @@
 +++
-title = "Notes | Niemiro"
+title = "Notes & Papers | Niemiro"
 math = true
 +++
 
