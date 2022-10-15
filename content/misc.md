@@ -10,7 +10,12 @@ Interesting papers, resources, etc. (Mostly math-related):
 4. [A visualization of the Hopf fibration](https://nilesjohnson.net/hopf.html) by Niles Johnson.
 5. [Tohoku](https://inference-review.com/article/tohoku), an enjoyably-technical, if not somewhat sensational, article about Grothendieck's Tohoku paper.
 6. [Lose your fear of tensor products.](https://www.dpmms.cam.ac.uk/~wtg10/tensors3.html)
-7. [Jesper Grodal's academic page.](http://web.math.ku.dk/~jg/)
+
+Academic pages/blogs I like:
+1. [Jesper Grodal.](http://web.math.ku.dk/~jg/)
+2. [Maxime Razi.](https://sites.google.com/view/maxime-ramzi-en/home?authuser=0)
+3. [Tom Leinster.](https://www.maths.ed.ac.uk/~tl/)
+4. [Bjørn Ian Dundas.](https://folk.uib.no/nmabd/)
 
 Additional interesting papers:
 
