@@ -1,5 +1,5 @@
 +++
-title = "Miscellany | Niemiro"
+title = "Matthew Niemiro"
 +++
 
 Interesting papers, resources, etc. (Mostly math-related):
@@ -16,8 +16,9 @@ Academic pages/blogs I like:
 2. [Maxime Razi.](https://sites.google.com/view/maxime-ramzi-en/home?authuser=0)
 3. [Tom Leinster.](https://www.maths.ed.ac.uk/~tl/)
 4. [Bjørn Ian Dundas.](https://folk.uib.no/nmabd/)
+5. [Rok Gregoric.](https://web.ma.utexas.edu/users/gregoric/)
 
-Additional interesting papers:
+More interesting papers:
 
 1. [The Yoneda embedding is natural](https://arxiv.org/abs/2209.12575), Maxime Razi (2022).
 2. [Definability, interpretations and étale fundamental groups](https://arxiv.org/abs/1906.05052), Romin Abdolahzadi and Boris Zilber (2020).

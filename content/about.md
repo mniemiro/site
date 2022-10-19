@@ -1,5 +1,5 @@
 +++
-title = "About | Niemiro"
+title = "Matthew Niemiro"
 +++
 
 Hi, my name is Matthew Niemiro. 
