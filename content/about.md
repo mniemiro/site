@@ -2,7 +2,7 @@
 title = "Matthew Niemiro"
 +++
 
-Hi, my name is Matthew Niemiro. 
+Hi, my name is Matthew Niemiro, welcome to my math (blog?)
 
 ## About Me
 
@@ -12,4 +12,4 @@ My email: (mylastname)2(at)illinois(dot)edu
 
 ## About This Site
 
-I made this site to organize my mathematical notes, papers, thoughts, etc. that I have written or plan to write. It is partly motivational, since in theory other people now see my writing.
+I made this site to organize my mathematical stuff. It is partly motivational, since in theory other people now see my writing.

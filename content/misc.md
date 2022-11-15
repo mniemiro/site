@@ -18,11 +18,12 @@ Academic pages/blogs I like:
 4. [Bjørn Ian Dundas.](https://folk.uib.no/nmabd/)
 5. [Rok Gregoric.](https://web.ma.utexas.edu/users/gregoric/)
 
-More interesting papers:
+Some papers:
 
 1. [The Yoneda embedding is natural](https://arxiv.org/abs/2209.12575), Maxime Razi (2022).
 2. [Definability, interpretations and étale fundamental groups](https://arxiv.org/abs/1906.05052), Romin Abdolahzadi and Boris Zilber (2020).
 3. [Codensity and the ultrafilter monad](https://arxiv.org/abs/1209.3606), Tom Leinster (2013).
+4. [On G and the Stable Adams Conjecture](https://math.mit.edu/~hrm/papers/miller-priddy-g-stable.pdf), Haynes Miller and Stewart Priddy (1977).
 
 Biographical writing, which I enjoy reading and think is mathematically valuable:
 
