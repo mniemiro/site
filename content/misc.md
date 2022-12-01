@@ -2,7 +2,7 @@
 title = "Matthew Niemiro"
 +++
 
-Interesting papers, resources, etc. (Mostly math-related):
+Interesting papers, resources, etc. (math-related):
 
 1. [Quiver](https://q.uiver.app/): a modern commutative diagram editor.
 2. [Grothendieck-Serre correspondences](https://webusers.imj-prg.fr/~leila.schneps/grothendieckcircle/Letters/GS.pdf): a collection of correspondences between Alexander Grothendieck and Jean-Pierre Serre.
@@ -24,7 +24,7 @@ Some papers:
 3. [Codensity and the ultrafilter monad](https://arxiv.org/abs/1209.3606), Tom Leinster (2013).
 4. [Gödel diffeomorphisms](https://arxiv.org/abs/2009.06735), Matthew Foreman (2020). A self-diffeomorphism of the torus need not be "measure-theoretically isomorphic" to its inverse (defined on page 4). This paper explains how certain statements (e.g. the Riemann hyothesis, Goldbach's conjecture) are equivalent to certain self-diffeomorphisms of the torus being isomorphic to their inverses(!)
 
-Biographical writing, which I enjoy reading and think is mathematically valuable:
+Biographical writing:
 
 1. [Daniel Quillen's memorial in Notices.](https://www.ams.org/notices/201210/rtx121001392p.pdf)
 2. [Life and work of Friedrich Hirzebruch.](https://people.mpim-bonn.mpg.de/zagier/files/doi/10.1365/s13291-015-0114-1/dmv-FH.pdf)
