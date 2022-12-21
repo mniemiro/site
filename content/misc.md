@@ -23,6 +23,7 @@ Some papers:
 2. [Definability, interpretations and étale fundamental groups](https://arxiv.org/abs/1906.05052), Romin Abdolahzadi and Boris Zilber (2020).
 3. [Codensity and the ultrafilter monad](https://arxiv.org/abs/1209.3606), Tom Leinster (2013).
 4. [Gödel diffeomorphisms](https://arxiv.org/abs/2009.06735), Matthew Foreman (2020). A self-diffeomorphism of the torus need not be "measure-theoretically isomorphic" to its inverse (defined on page 4). This paper explains how certain statements (e.g. the Riemann hyothesis, Goldbach's conjecture) are equivalent to certain self-diffeomorphisms of the torus being isomorphic to their inverses(!)
+5. [A non-constructive proof of the Four Colour Theorem](https://arxiv.org/abs/2212.09835), D.M. Jackson and L.B. Richmond (2022).
 
 Biographical writing:
 
