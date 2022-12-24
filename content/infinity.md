@@ -1,4 +1,4 @@
-≤+++
++++
 title = "Matthew Niemiro"
 math = true
 +++
