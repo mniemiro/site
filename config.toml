@@ -17,9 +17,9 @@ math = true          # enable KaTeX (https://katex.org/) globally
     url = "/"
     weight = 1
   [[menu.main]]
-    weight = 2
-    url = "/∞"
     name = "∞"
+    url = "/infinity"
+    weight = 2
   [[menu.main]]
     name = "Notes"
     url = "/notes"
