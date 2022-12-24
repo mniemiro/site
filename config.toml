@@ -17,13 +17,17 @@ math = true          # enable KaTeX (https://katex.org/) globally
     url = "/"
     weight = 1
   [[menu.main]]
+    weight = 2
+    url = "/∞"
+    name = "∞"
+  [[menu.main]]
     name = "Notes"
     url = "/notes"
-    weight = 2
+    weight = 3
 	[[menu.main]]
     name = "Miscellany"
     url = "/misc"
-    weight = 3
+    weight = 4
 
 [markup.goldmark.renderer]
   unsafe = true  # allow raw HTML in markdown files
