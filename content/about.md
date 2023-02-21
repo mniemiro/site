@@ -12,4 +12,4 @@ My email: (mylastname)2(at)illinois(dot)edu
 
 ## About This Site
 
-I made this site to organize my mathematical stuff. It is partly motivational, since other people now see my writing.
+I made this site to organize my mathematical stuff. It is partly motivational, since other people now see my writing. This will probably become more serious when I'm in graduate school.
