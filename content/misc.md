@@ -7,7 +7,7 @@ Interesting papers, resources, etc. (math-related):
 1. [Quiver](https://q.uiver.app/): a modern commutative diagram editor.
 2. [Grothendieck-Serre correspondences](https://webusers.imj-prg.fr/~leila.schneps/grothendieckcircle/Letters/GS.pdf): a collection of correspondences between Alexander Grothendieck and Jean-Pierre Serre.
 3. [A visualization of the Hopf fibration](https://nilesjohnson.net/hopf.html), Niles Johnson.
-4. [Tohoku](https://inference-review.com/article/tohoku) by Rick Jardine. An informative, if not a little sensational, article about Grothendieck's Tohoku paper.
+4. [Tohoku](https://inference-review.com/article/tohoku) by Rick Jardine. An article about Grothendieck's Tohoku paper.
 5. [Lose your fear of tensor products.](https://www.dpmms.cam.ac.uk/~wtg10/tensors3.html)
 
 Some other academic pages/blogs:
@@ -23,7 +23,6 @@ Some papers:
 2. [Definability, interpretations and étale fundamental groups](https://arxiv.org/abs/1906.05052), Romin Abdolahzadi and Boris Zilber (2020).
 3. [Codensity and the ultrafilter monad](https://arxiv.org/abs/1209.3606), Tom Leinster (2013).
 4. [Gödel diffeomorphisms](https://arxiv.org/abs/2009.06735), Matthew Foreman (2020). A self-diffeomorphism of the torus need not be "measure-theoretically isomorphic" to its inverse (defined on page 4). This paper explains how certain statements (e.g. the Riemann hyothesis, Goldbach's conjecture) are equivalent to certain self-diffeomorphisms of the torus being isomorphic to their inverses(!)
-5. [A non-constructive proof of the Four Colour Theorem](https://arxiv.org/abs/2212.09835), D.M. Jackson and L.B. Richmond (2022).
 
 Biographical writing:
 

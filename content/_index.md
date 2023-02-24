@@ -2,11 +2,11 @@
 title = "Matthew Niemiro"
 +++
 
-Hi, my name is Matthew Niemiro, I study space and algebra. This is my math (blog?)
+Hi, my name is Matthew Niemiro. I study space (topology, homotopy, ...). This is my math (blog?)
 
 ## About Me
 
-I am an undergraduate at the [University of Illinois at Urbana-Champaign](https://illinois.edu/). I will graduate in 2024 with a degree in mathematics (major) and computer science (minor).
+I'm a student at the [University of Illinois at Urbana-Champaign](https://illinois.edu/). I will graduate in 2024 with a degree in mathematics (major) and computer science (minor).
 
 My email: (mylastname)2(at)illinois(dot)edu
 
