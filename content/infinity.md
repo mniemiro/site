@@ -8,6 +8,6 @@ It's a basic, cool, and important fact that spaces and categories have a common 
 
 So, I'm studying higher category theory with Lurie's *Higher Topos Theory* as the main reference. It is not really suitable as a standalone read, so I'll be using lots of additional references.
 
-As a personal project, I'm texing [notes](/htt6.pdf) for this. The motto is "slow and steady." I'm not pruning these notes, they're for my own reference. Maybe they will be useful for something more intentional and comprehensive in the future.
+As a personal project, I'm texing [notes](/htt.pdf) for this. The motto is "slow and steady." I'm not pruning these notes, they're for my own reference. Maybe they will be useful for something more intentional and comprehensive in the future.
 
 UPDATE: this spring, some grad students are arranging a similar project. I am joining them for the time. They are following closely Charles Rezk's notes (under his advision). 
