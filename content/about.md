@@ -2,7 +2,7 @@
 title = "Matthew Niemiro"
 +++
 
-Hi, my name is Matthew Niemiro. I study space (topology, homotopy, ...). This is my math (blog?)
+Hi, my name is Matthew Niemiro. I study space. This is my math (blog?)
 
 ## About Me
 
