@@ -29,3 +29,4 @@ Biographical writing:
 1. [Daniel Quillen's memorial in Notices.](https://www.ams.org/notices/201210/rtx121001392p.pdf)
 2. [Life and work of Friedrich Hirzebruch.](https://people.mpim-bonn.mpg.de/zagier/files/doi/10.1365/s13291-015-0114-1/dmv-FH.pdf)
 3. [Mikhail Postnikov's life, work, and legacy.](https://www.impan.pl/shop/publication/transaction/download/product/85974) Kind of hard to find.
+4. [F. William Lawvere.](https://ems.press/journals/mag/articles/11170869)
