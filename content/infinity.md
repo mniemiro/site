@@ -8,4 +8,4 @@ It's a basic, cool, and important fact that spaces and categories have a common 
 
 The subject is very big and formal. Maybe a good way to learn it is to chip away slowly and consistently. As a personal project, I'm going to try this. Probably a serious goal is to read Jacob Lurie's *Higher Topos Theory*, but that's a big read, and not all-encompassing. So I'll be drawing on many references.
 
-I'm texing [notes](/godisnotalive.pdf) for this. The motto is "slow and steady." I'm writing these notes as I learn and I'm trying to not prune them. Maybe they will be useful for something more intentional and comprehensive in the future.
+I'm texing [notes](/godisdead.pdf) for this. The motto is "slow and steady." I'm writing these notes as I learn and I'm trying to not prune them. Maybe they will be useful for something more intentional and comprehensive in the future.
