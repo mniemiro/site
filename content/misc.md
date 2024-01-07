@@ -30,3 +30,4 @@ Biographical writing:
 2. [Life and work of Friedrich Hirzebruch.](https://people.mpim-bonn.mpg.de/zagier/files/doi/10.1365/s13291-015-0114-1/dmv-FH.pdf)
 3. [Mikhail Postnikov's life, work, and legacy.](https://www.impan.pl/shop/publication/transaction/download/product/85974) Kind of hard to find.
 4. [F. William Lawvere.](https://ems.press/journals/mag/articles/11170869)
+5. [50 Years of Masaki Kashiwara.](https://arxiv.org/pdf/1809.00586.pdf)
