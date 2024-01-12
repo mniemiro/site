@@ -2,7 +2,7 @@
 title = "Matthew Niemiro"
 +++
 
-Hi, my name is Matthew Niemiro. I study space and how we study space. This is my math (blog?)
+Hi, my name is Matthew Niemiro. I study topology (shapes, spaces). I am also be interested in algebra, combinatorics, and probability. This is my math (blog?)
 
 ## About Me
 
