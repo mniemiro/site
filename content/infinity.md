@@ -10,6 +10,6 @@ Higher category theory is a big and formal language. I am not sure how to learn 
 
 I'm texing personal notes for this. The motto is "slow and steady." I am not trying to prune them, there are mistakes, and my citations are sloppy. (Feel free to point out any mistakes to me.) Maybe they will be useful for something more intentional and comprehensive in the future.
 
-[Here](/static/nb1.pdf) are my 2023 notes. Look at how far it's come!
+[Here](/nb1.pdf) are my 2023 notes. Look at how far it's come!
 
-[Here](/static/nb2.pdf) are my 2024 notes. With new and improved tex!
+[Here](/nb2.pdf) are my 2024 notes. With new and improved tex!
