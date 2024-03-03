@@ -6,7 +6,7 @@ Hi, my name is Matthew Niemiro. I study topology (shapes, spaces). I am also be 
 
 ## About Me
 
-I'm a senior at the [University of Illinois at Urbana-Champaign](https://illinois.edu/). I will start my PhD at Harvard in fall 2024.
+I'm a senior at the [University of Illinois at Urbana-Champaign](https://illinois.edu/). I will start my PhD at Harvard in the fall.
 
 My email: (mylastname)2(at)illinois(dot)edu
 
