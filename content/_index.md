@@ -2,13 +2,13 @@
 title = "Matthew Niemiro"
 +++
 
-Hi, my name is Matthew Niemiro. I study topology (shapes, spaces). I am also be interested in algebra, combinatorics, and probability. This is my math (blog?)
+Hi, my name is Matthew Niemiro. Here is my [CV](/niemiro_cv.pdf). I study topology (shapes, spaces). This is my math (blog?)
 
 ## About Me
 
-I'm a senior at the [University of Illinois at Urbana-Champaign](https://illinois.edu/). I will start my PhD at Harvard in the fall.
+I'm a first-year PhD student at Harvard University. I did my undergraduate at the [University of Illinois at Urbana-Champaign](https://illinois.edu/).
 
-My email: (mylastname)2(at)illinois(dot)edu
+My email: mniemiro@math.harvard.edu
 
 ## About This Site
 
