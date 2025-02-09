@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export const Navigation = () => {
   return (
-    <header className="w-full border-b-[1px] bg-background">
+    <header className="w-full border-b-[3px] bg-background">
       <div className="container max-w-3xl h-24 pt-12 pb-2 flex items-start justify-between px-4">
         <Link 
           to="/" 
@@ -12,7 +12,7 @@ export const Navigation = () => {
         </Link>
         <nav className="flex items-start gap-2 text-base pt-2">
           <Link
-            to="/about"
+            to="/"
             className="text-orange-500 hover:text-orange-600 hover:underline transition-colors"
           >
             About
