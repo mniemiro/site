@@ -32,11 +32,12 @@ export const PaperList = ({ papers }: PaperListProps) => {
               <div className="font-bold text-[13px]">
                 [{index + 1}] {paper.title}
               </div>
-              <div className="flex justify-between items-center mt-0.5">
+              <div className="flex justify-between items-center mt-0.3">
+                {/* Spacing between title and subtitle is controlled by mt-0.5 above ☝️ */}
                 <span className="font-light italic text-[13px]">
                   {paper.subtitle}
                 </span>
-                <span className="text-[12px] text-muted-foreground ml-4">
+                <span className="text-[12px] text-muted-foreground ml-4 text-right">
                   {paper.date}
                 </span>
               </div>
