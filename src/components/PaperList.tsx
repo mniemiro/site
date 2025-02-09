@@ -27,17 +27,16 @@ export const PaperList = ({ papers }: PaperListProps) => {
           <div className="flex justify-between items-start">
             <button 
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              className="text-left hover:text-orange-500 transition-colors"
+              className="text-left hover:text-orange-500 transition-colors w-full"
             >
               <div className="font-bold text-[13px]">
                 [{index + 1}] {paper.title}
               </div>
-              <div className="flex justify-between items-center mt-0.3">
-                {/* Spacing between title and subtitle is controlled by mt-0.5 above ☝️ */}
+              <div className="flex justify-between items-center mt-0.5 w-full">
                 <span className="font-light italic text-[13px]">
                   {paper.subtitle}
                 </span>
-                <span className="text-[12px] text-muted-foreground ml-4 text-right">
+                <span className="text-[12px] text-muted-foreground ml-auto opacity-80">
                   {paper.date}
                 </span>
               </div>
