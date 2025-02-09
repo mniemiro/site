@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto Mono", monospace;
   }
   :root {
     --background: 0 0% 95%;

@@ -89,7 +89,7 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out'
 			},
 			fontFamily: {
-				sans: ["Roboto", "sans-serif"],
+				sans: ['"Roboto Mono"', 'monospace'],
 			},
 		}
 	},
