@@ -24,33 +24,33 @@ export const PaperList = ({ papers }: PaperListProps) => {
               {openIndex === index ? '-' : '+'}
             </span>
           </div>
-          <div className="flex justify-between items-start">
+          <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
             <button 
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              className="text-left hover:text-orange-500 transition-colors w-full"
+              className="text-left hover:text-orange-500 transition-colors"
             >
               <div className="font-bold text-[13px]">
                 [{index + 1}] {paper.title}
               </div>
-              <div className="grid grid-cols-[1fr,auto] gap-4 items-center mt-0.5">
-                <span className="font-light italic text-[13px]">
-                  {paper.subtitle}
-                </span>
-                <span className="text-[12px] text-muted-foreground opacity-80">
-                  {paper.date}
-                </span>
+              <div className="font-light italic text-[13px] mt-0.5">
+                {paper.subtitle}
               </div>
             </button>
-            {paper.link && (
-              <a 
-                href={paper.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[13px] text-orange-500 hover:text-orange-600 hover:underline ml-4"
-              >
-                [link]
-              </a>
-            )}
+            <div className="flex flex-col items-end">
+              {paper.link && (
+                <a 
+                  href={paper.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[13px] text-orange-500 hover:text-orange-600 hover:underline"
+                >
+                  [link]
+                </a>
+              )}
+              <span className="text-[12px] text-muted-foreground opacity-80 mt-0.5">
+                {paper.date}
+              </span>
+            </div>
           </div>
           {openIndex === index && (
             <div className="pl-4 mt-2 text-[13px]">
