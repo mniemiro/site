@@ -32,11 +32,11 @@ export const PaperList = ({ papers }: PaperListProps) => {
               <div className="font-bold text-[13px]">
                 [{index + 1}] {paper.title}
               </div>
-              <div className="flex justify-between items-center mt-0.5 w-full">
+              <div className="grid grid-cols-[1fr,auto] gap-4 items-center mt-0.5">
                 <span className="font-light italic text-[13px]">
                   {paper.subtitle}
                 </span>
-                <span className="text-[12px] text-muted-foreground ml-auto opacity-80">
+                <span className="text-[12px] text-muted-foreground opacity-80">
                   {paper.date}
                 </span>
               </div>
