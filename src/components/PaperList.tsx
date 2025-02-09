@@ -32,8 +32,13 @@ export const PaperList = ({ papers }: PaperListProps) => {
               <div className="font-bold text-[13px]">
                 [{index + 1}] {paper.title}
               </div>
-              <div className="font-light italic text-[13px] mt-1">
-                {paper.subtitle}
+              <div className="flex justify-between items-center mt-0.5">
+                <span className="font-light italic text-[13px]">
+                  {paper.subtitle}
+                </span>
+                <span className="text-[12px] text-muted-foreground ml-4">
+                  {paper.date}
+                </span>
               </div>
             </button>
             {paper.link && (
@@ -46,9 +51,6 @@ export const PaperList = ({ papers }: PaperListProps) => {
                 [link]
               </a>
             )}
-          </div>
-          <div className="text-right text-[12px] text-muted-foreground mt-1">
-            {paper.date}
           </div>
           {openIndex === index && (
             <div className="pl-4 mt-2 text-[13px]">
