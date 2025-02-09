@@ -1,12 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
 import Confetti from 'react-confetti';
 
-interface DropdownSectionProps {
+interface Publication {
   title: string;
-  content: React.ReactNode;
+  date?: string;  // Optional date
+  link?: string;  // Optional link
 }
 
-const DropdownSection = ({ title, content }: DropdownSectionProps) => {
+interface DropdownSectionProps {
+  title: string;
+  content?: React.ReactNode;  // Made optional since we might only have publications
+  publications?: Publication[];  // Optional array of publications
+}
+
+const DropdownSection = ({ title, content, publications }: DropdownSectionProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -16,8 +23,8 @@ const DropdownSection = ({ title, content }: DropdownSectionProps) => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setDimensions({
-        width: rect.width + 200, // Add some extra width
-        height: 200,             // Fixed height for confetti fall
+        width: rect.width + 200,
+        height: 200,
         x: rect.x,
         y: rect.y
       });
@@ -52,7 +59,7 @@ const DropdownSection = ({ title, content }: DropdownSectionProps) => {
           }}
           drawShape={ctx => {
             ctx.beginPath();
-            ctx.arc(0, 0, 1.5, 0, 2 * Math.PI); // Even smaller circles
+            ctx.arc(0, 0, 1.5, 0, 2 * Math.PI);
             ctx.fill();
           }}
         />
@@ -67,7 +74,27 @@ const DropdownSection = ({ title, content }: DropdownSectionProps) => {
       </button>
       {isOpen && (
         <div className="pl-4 mt-2">
-          {content}
+          {publications && publications.map((pub, index) => (
+            <div key={index} className="mb-4">
+              <div className="flex justify-between items-start">
+                <div className="text-[13px]">{pub.title}</div>
+                {pub.link && (
+                  <a 
+                    href={pub.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[13px] text-orange-500 hover:text-orange-600 hover:underline ml-4"
+                  >
+                    [link]
+                  </a>
+                )}
+              </div>
+              <div className="text-right text-[12px] text-muted-foreground">
+                {pub.date}
+              </div>
+            </div>
+          ))}
+          {content && <div className="mt-2">{content}</div>}
         </div>
       )}
     </div>

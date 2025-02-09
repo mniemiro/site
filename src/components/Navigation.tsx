@@ -10,7 +10,7 @@ export const Navigation = () => {
         >
           M.A. Niemiro
         </Link>
-        <nav className="flex items-start gap-2 text-base pt-2">
+        <nav className="flex items-start gap-2 text-base pt-2 pb-0.5">
           <Link
             to="/"
             className="text-orange-500 hover:text-orange-600 hover:underline transition-colors"
