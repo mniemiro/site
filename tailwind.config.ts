@@ -90,6 +90,7 @@ export default {
 			},
 			fontFamily: {
 				sans: ['"Roboto Mono"', 'monospace'],
+				inconsolata: ['"Inconsolata"', 'monospace'],
 			},
 		}
 	},

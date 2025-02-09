@@ -2,15 +2,15 @@ import { Link } from 'react-router-dom';
 
 export const Navigation = () => {
   return (
-    <header className="w-full border-b-[1px] bg-background font-['Anonymous_Pro']">
+    <header className="w-full border-b-[1px] bg-background">
       <div className="container max-w-3xl h-24 pt-12 pb-2 flex items-start justify-between px-4">
         <Link 
           to="/" 
-          className="text-3xl font-['Anonymous_Pro'] font-thin text-foreground hover:text-orange-500 transition-colors"
+          className="text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors"
         >
           M.A. Niemiro
         </Link>
-        <nav className="flex items-start gap-2 font-['Roboto_Mono'] text-base pt-2">
+        <nav className="flex items-start gap-2 text-base pt-2">
           <Link
             to="/about"
             className="text-orange-500 hover:text-orange-600 hover:underline transition-colors"
