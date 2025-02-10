@@ -10,7 +10,7 @@ export const HomePage = () => {
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
-        This spring, I am organizing the <a href="https://math.mit.edu/topology/babytop/" className="metallic-shimmer !text-transparent">Harvard-MIT Babytop seminar</a>.
+        This spring, I am organizing the <a href="https://math.mit.edu/topology/babytop/" className="metallic-shimmer">Harvard-MIT Babytop seminar</a>.
       </p>
     </div>
   );

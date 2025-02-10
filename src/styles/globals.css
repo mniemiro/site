@@ -10,7 +10,7 @@ a.metallic-shimmer {
   background-size: 200% auto !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
+  color: #e2b007 !important;  /* Base color if gradient fails */
   animation: shimmer 3s linear infinite !important;
   position: relative !important;
   display: inline-block !important;
