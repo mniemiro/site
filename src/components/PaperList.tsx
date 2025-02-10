@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import confetti from 'canvas-confetti';
 
 interface Paper {
@@ -24,12 +24,14 @@ export const PaperList = ({ papers }: PaperListProps) => {
       const y = rect.top / window.innerHeight;
       
       confetti({
-        particleCount: 50,
-        spread: 30,
+        particleCount: 60,
+        spread: 50,
+        startVelocity: 1,
+        gravity: 2,
         origin: { x, y },
         scalar: 0.7,
-        gravity: 0.3,
-        ticks: 100
+        ticks: 100,
+        angle: 90
       });
     }
     setOpenIndex(openIndex === index ? null : index);
