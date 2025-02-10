@@ -41,30 +41,33 @@ export const PaperList = ({ papers }: PaperListProps) => {
   }, [openIndex]);
 
   return (
-    <div className="space-y-6">
-      {showConfetti && (
-        <Confetti
-          width={dimensions.width}
-          height={dimensions.height}
-          recycle={false}
-          numberOfPieces={30}
-          gravity={0.1}
-          wind={0.005}
-          friction={0.99}
-          initialVelocityY={1}
-          style={{
-            position: 'fixed',
-            left: dimensions.x,
-            top: dimensions.y,
-            pointerEvents: 'none'
-          }}
-          drawShape={ctx => {
-            ctx.beginPath();
-            ctx.arc(0, 0, 1.5, 0, 2 * Math.PI);
-            ctx.fill();
-          }}
-        />
-      )}
+    <div className="space-y-6 relative">
+      <div className="absolute" style={{ pointerEvents: 'none' }}>
+        {showConfetti && (
+          <Confetti
+            width={dimensions.width}
+            height={dimensions.height}
+            recycle={false}
+            numberOfPieces={30}
+            gravity={0.1}
+            wind={0.005}
+            friction={0.99}
+            initialVelocityY={1}
+            style={{
+              position: 'fixed',
+              left: dimensions.x,
+              top: dimensions.y,
+              pointerEvents: 'none',
+              zIndex: 50
+            }}
+            drawShape={ctx => {
+              ctx.beginPath();
+              ctx.arc(0, 0, 1.5, 0, 2 * Math.PI);
+              ctx.fill();
+            }}
+          />
+        )}
+      </div>
       {papers.map((paper, index) => (
         <div key={index} className="paper-entry relative">
           <div className="absolute -left-4 -top-0.5">
