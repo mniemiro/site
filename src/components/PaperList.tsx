@@ -18,28 +18,30 @@ export const PaperList = ({ papers }: PaperListProps) => {
 
   const handleClick = (event: React.MouseEvent, index: number) => {
     if (openIndex !== index) {
-      // const button = event.currentTarget;
-      // const rect = button.getBoundingClientRect();
+      const button = event.currentTarget;
+      const rect = button.getBoundingClientRect();
       
-      // // Create multiple confetti bursts across the width
-      // const burstCount = 5; // Number of confetti bursts
-      // for (let i = 0; i < burstCount; i++) {
-      //   const x = (rect.left + (rect.width * (i / (burstCount - 1)))) / window.innerWidth;
-      //   const y = rect.top / window.innerHeight;
+      // Create multiple confetti bursts across the width
+      const burstCount = 5; // Number of confetti bursts
+      for (let i = 0; i < burstCount; i++) {
+        const x = (rect.left + (rect.width * (i / (burstCount - 1)))) / window.innerWidth;
+        const y = rect.top / window.innerHeight;
         
-      //   confetti({
-      //     particleCount: 1,
-      //     spread: 100,
-      //     startVelocity: 5,
-      //     gravity: 0.8,
-      //     drift: 2,  // Adds horizontal movement
-      //     origin: { x, y },
-      //     scalar: 0.7,
-      //     ticks: 150,
-      //     angle: 90,
-      //     colors: ['#FFB6B9', '#FAE3D9', '#BBDED6', '#61C0BF']  // Optional: pastel colors
-      //   });
-      // }
+        confetti({
+          particleCount: 1,
+          spread: 100,
+          startVelocity: 5,
+          gravity: 0.8,
+          drift: 2,
+          origin: { x, y },
+          scalar: 0.7,
+          ticks: 150,
+          angle: 90,
+          colors: ['#FFB6B9', '#FAE3D9', '#BBDED6', '#61C0BF'],
+          disableForReducedMotion: true,  // Accessibility consideration
+          zIndex: 999999  // Ensure confetti appears above other content
+        });
+      }
     }
     setOpenIndex(openIndex === index ? null : index);
   };
