@@ -22,15 +22,15 @@ export const PaperList = ({ papers }: PaperListProps) => {
       const rect = button.getBoundingClientRect();
       
       // Create multiple confetti bursts across the width
-      const burstCount = 5; // Number of confetti bursts
+      const burstCount = 12; // Number of confetti bursts
       for (let i = 0; i < burstCount; i++) {
         const x = (rect.left + (rect.width * (i / (burstCount - 1)))) / window.innerWidth;
         const y = rect.top / window.innerHeight;
         
         confetti({
-          particleCount: 12,
-          spread: 100,
-          startVelocity: 2,
+          particleCount: 8,
+          spread: 70,
+          startVelocity: 1,
           gravity: 0.8,
           drift: 2,
           origin: { x, y },
