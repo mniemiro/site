@@ -19,7 +19,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
     <div className="space-y-6">
       {papers.map((paper, index) => (
         <div key={index} className="paper-entry relative">
-          <div className="absolute -left-4">
+          <div className="absolute -left-4 -top-0.5">
             <span className="text-[13px]">
               {openIndex === index ? '-' : '+'}
             </span>
