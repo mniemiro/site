@@ -19,7 +19,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
     <div className="space-y-6">
       {papers.map((paper, index) => (
         <div key={index} className="paper-entry relative">
-          <div className="absolute -left-4 top-1">
+          <div className="absolute -left-4 top-0">
             <span className="text-[13px]">
               {openIndex === index ? '-' : '+'}
             </span>
@@ -27,12 +27,12 @@ export const PaperList = ({ papers }: PaperListProps) => {
           <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
             <button 
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              className="text-left hover:text-orange-500 transition-colors"
+              className="text-left hover:text-orange-500 transition-colors leading-tight"
             >
               <div className="font-bold text-[13px]">
                 [{index + 1}] {paper.title}
               </div>
-              <div className="font-light italic text-[13px] mt-[1px]">
+              <div className="font-light italic text-[13px]">
                 {paper.subtitle}
               </div>
             </button>
