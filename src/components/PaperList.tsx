@@ -29,13 +29,15 @@ export const PaperList = ({ papers }: PaperListProps) => {
         
         confetti({
           particleCount: 20,
-          spread: 50,
-          startVelocity: 1,
-          gravity: 2,
+          spread: 100,
+          startVelocity: 15,
+          gravity: 0.8,
+          drift: 2,  // Adds horizontal movement
           origin: { x, y },
           scalar: 0.7,
-          ticks: 100,
-          angle: 90
+          ticks: 150,
+          angle: 90,
+          colors: ['#FFB6B9', '#FAE3D9', '#BBDED6', '#61C0BF']  // Optional: pastel colors
         });
       }
     }
