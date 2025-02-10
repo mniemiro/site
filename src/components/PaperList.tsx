@@ -72,10 +72,10 @@ export const PaperList = ({ papers }: PaperListProps) => {
       {papers.map((paper, index) => (
         <div 
           key={index} 
-          className="paper-entry relative min-h-[2.5rem]"
+          className="paper-entry relative"
           ref={el => paperRefs.current[index] = el}
         >
-          <div className="absolute -left-4 top-1">
+          <div className="absolute -left-4 top-0">
             <span className="text-[13px]">
               {openIndices.has(index) ? '-' : '+'}
             </span>

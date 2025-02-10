@@ -26,14 +26,14 @@ const Notes = () => {
     {
       title: "Introduction to de Rham cohomology",
       subtitle: "Old notes",
-      description: "Notes on de Rham cohomology I wrotea long time ago.",
+      description: "Notes on de Rham cohomology I wrote a long time ago.",
       date: "2021",
       link: "#"
     }
   ];
 
   return (
-    <div className="max-w-3xl px-4">
+    <div className="max-w-3xl">
       <h2 className="text-xl font-bold pt-8 pb-4">Unsorted</h2>
       <PaperList papers={notes} />
     </div>
