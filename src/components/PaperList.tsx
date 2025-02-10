@@ -20,19 +20,24 @@ export const PaperList = ({ papers }: PaperListProps) => {
     if (openIndex !== index) {
       const button = event.currentTarget;
       const rect = button.getBoundingClientRect();
-      const x = (rect.left + rect.width / 2) / window.innerWidth;
-      const y = rect.top / window.innerHeight;
       
-      confetti({
-        particleCount: 60,
-        spread: 50,
-        startVelocity: 1,
-        gravity: 2,
-        origin: { x, y },
-        scalar: 0.7,
-        ticks: 100,
-        angle: 90
-      });
+      // Create multiple confetti bursts across the width
+      const burstCount = 3; // Number of confetti bursts
+      for (let i = 0; i < burstCount; i++) {
+        const x = (rect.left + (rect.width * (i / (burstCount - 1)))) / window.innerWidth;
+        const y = rect.top / window.innerHeight;
+        
+        confetti({
+          particleCount: 20,
+          spread: 50,
+          startVelocity: 1,
+          gravity: 2,
+          origin: { x, y },
+          scalar: 0.7,
+          ticks: 100,
+          angle: 90
+        });
+      }
     }
     setOpenIndex(openIndex === index ? null : index);
   };
