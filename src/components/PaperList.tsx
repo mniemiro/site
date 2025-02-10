@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import confetti from 'canvas-confetti';
+import { useState, useRef, useEffect } from 'react';
+import Confetti from 'react-confetti';
 
 interface Paper {
   title: string;
@@ -15,37 +15,55 @@ interface PaperListProps {
 
 export const PaperList = ({ papers }: PaperListProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0, x: 0, y: 0 });
 
-  const handleClick = (event: React.MouseEvent, index: number) => {
+  useEffect(() => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDimensions({
+        width: rect.width + 200,
+        height: 200,
+        x: rect.x,
+        y: rect.y
+      });
+    }
+  }, [openIndex]);
+
+  const handleClick = (index: number) => {
     if (openIndex !== index) {
-      const button = event.currentTarget;
-      const rect = button.getBoundingClientRect();
-      
-      // Create multiple confetti bursts across the width
-      const burstCount = 5; // Number of confetti bursts
-      for (let i = 0; i < burstCount; i++) {
-        const x = (rect.left + (rect.width * (i / (burstCount - 1)))) / window.innerWidth;
-        const y = rect.top / window.innerHeight;
-        
-        confetti({
-          particleCount: 10,
-          spread: 100,
-          startVelocity: 5,
-          gravity: 0.8,
-          drift: 2.5,  // Adds horizontal movement
-          origin: { x, y },
-          scalar: 0.7,
-          ticks: 150,
-          angle: 90,
-          colors: ['#FFB6B9', '#FAE3D9', '#BBDED6', '#61C0BF']  // Optional: pastel colors
-        });
-      }
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 2000);
     }
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
     <div className="space-y-6">
+      {showConfetti && (
+        <Confetti
+          width={dimensions.width}
+          height={dimensions.height}
+          recycle={false}
+          numberOfPieces={30}
+          gravity={0.1}
+          wind={0.005}
+          friction={0.99}
+          initialVelocityY={1}
+          style={{
+            position: 'fixed',
+            left: dimensions.x,
+            top: dimensions.y,
+            pointerEvents: 'none'
+          }}
+          drawShape={ctx => {
+            ctx.beginPath();
+            ctx.arc(0, 0, 1.5, 0, 2 * Math.PI);
+            ctx.fill();
+          }}
+        />
+      )}
       {papers.map((paper, index) => (
         <div key={index} className="paper-entry relative">
           <div className="absolute -left-4 -top-0.5">
@@ -55,7 +73,8 @@ export const PaperList = ({ papers }: PaperListProps) => {
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
             <button 
-              onClick={(e) => handleClick(e, index)}
+              ref={buttonRef}
+              onClick={() => handleClick(index)}
               className="text-left hover:text-orange-500 transition-colors leading-tight"
             >
               <div className="font-bold text-[13px]">
