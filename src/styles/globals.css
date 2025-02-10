@@ -6,15 +6,16 @@ a.metallic-shimmer {
     #e8d795 50%,
     #fff7e6 75%,
     #e2b007 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 3s linear infinite;
-  position: relative;
-  display: inline-block;
-  font-weight: 500;
+  ) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: shimmer 3s linear infinite !important;
+  position: relative !important;
+  display: inline-block !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
 }
 
 @keyframes shimmer {
