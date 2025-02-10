@@ -6,7 +6,7 @@ export const Navigation = () => {
       <div className="container max-w-3xl h-24 pt-12 pb-4 flex items-start justify-between px-4">
         <Link 
           to="/" 
-          className="text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors"
+          className="text-2xl sm:text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors"
         >
           M.A. Niemiro
         </Link>
