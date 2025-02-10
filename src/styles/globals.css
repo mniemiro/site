@@ -1,0 +1,26 @@
+.metallic-shimmer {
+  background: linear-gradient(
+    90deg,
+    #ffd700 0%,
+    #ff69b4 25%,
+    #87ceeb 50%,
+    #98fb98 75%,
+    #ffd700 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: shimmer 3s linear infinite;
+  text-decoration: none;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.metallic-shimmer:hover {
+  animation: shimmer 1.5s linear infinite;
+} 

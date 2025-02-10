@@ -28,9 +28,9 @@ export const PaperList = ({ papers }: PaperListProps) => {
         const y = rect.top / window.innerHeight;
         
         confetti({
-          particleCount: 10,
+          particleCount: 12,
           spread: 100,
-          startVelocity: 10,
+          startVelocity: 2,
           gravity: 0.8,
           drift: 2,
           origin: { x, y },
