@@ -8,26 +8,36 @@
 }
 
 a.metallic-shimmer {
-  background: linear-gradient(
-    to right,
-    #462523 0,
-    #cb9b51 22%, 
-    #f6e27a 45%,
-    #f6f2c0 50%,
-    #f6e27a 55%,
-    #cb9b51 78%,
-    #462523 100%
-  ) !important;
-  background-size: 200% auto !important;
-  color: transparent !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  animation: shimmer 3s linear infinite !important;
+  position: relative !important;
+  color: #cb9b51 !important;
   display: inline-block !important;
   font-weight: 600 !important;
   text-decoration: underline;
-  will-change: background-position;
+}
+
+a.metallic-shimmer::before {
+  content: '';
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 100%
+  ) !important;
+  animation: shimmerEffect 2s infinite !important;
+}
+
+@keyframes shimmerEffect {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 .metallic-shimmer:hover {
