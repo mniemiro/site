@@ -34,9 +34,7 @@ const Notes = () => {
 
   return (
     <div className="max-w-3xl px-4">
-      <div className="py-8">
-        <h2 className="text-xl font-bold mb-4">Unsorted</h2>
-      </div>
+      <h2 className="text-xl font-bold pt-8 pb-4">Unsorted</h2>
       <PaperList papers={notes} />
     </div>
   );
