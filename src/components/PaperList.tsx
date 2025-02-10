@@ -14,7 +14,7 @@ interface PaperListProps {
 }
 
 export const PaperList = ({ papers }: PaperListProps) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndices, setOpenIndices] = useState<Set<number>>(new Set());
   const [showConfetti, setShowConfetti] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0, x: 0, y: 0 });
@@ -29,14 +29,20 @@ export const PaperList = ({ papers }: PaperListProps) => {
         y: rect.y
       });
     }
-  }, [openIndex]);
+  }, [openIndices]);
 
   const handleClick = (index: number) => {
-    if (openIndex !== index) {
-      setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 2000);
-    }
-    setOpenIndex(openIndex === index ? null : index);
+    setOpenIndices(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 2000);
+      }
+      return newSet;
+    });
   };
 
   return (
@@ -68,7 +74,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
         <div key={index} className="paper-entry relative">
           <div className="absolute -left-4 -top-0.5">
             <span className="text-[13px]">
-              {openIndex === index ? '-' : '+'}
+              {openIndices.has(index) ? '-' : '+'}
             </span>
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
@@ -100,7 +106,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
               </span>
             </div>
           </div>
-          {openIndex === index && (
+          {openIndices.has(index) && (
             <div className="pl-4 mt-2 text-[13px]">
               {paper.description}
             </div>
