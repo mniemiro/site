@@ -19,7 +19,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
     <div className="space-y-6">
       {papers.map((paper, index) => (
         <div key={index} className="paper-entry relative">
-          <div className="absolute -left-4 top-0">
+          <div className="absolute -left-4 top-0.5">
             <span className="text-[13px]">
               {openIndex === index ? '-' : '+'}
             </span>
@@ -32,11 +32,11 @@ export const PaperList = ({ papers }: PaperListProps) => {
               <div className="font-bold text-[13px]">
                 [{index + 1}] {paper.title}
               </div>
-              <div className="font-light italic text-[13px]">
+              <div className="font-light italic text-[12px]">
                 {paper.subtitle}
               </div>
             </button>
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-end leading-tight">
               {paper.link && (
                 <a 
                   href={paper.link}
@@ -47,7 +47,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
                   [link]
                 </a>
               )}
-              <span className="text-[12px] text-muted-foreground opacity-80 mt-0.5">
+              <span className="text-[12px] text-muted-foreground opacity-80">
                 {paper.date}
               </span>
             </div>
