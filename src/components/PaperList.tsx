@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import confetti from 'canvas-confetti';
+import ReactConfetti from 'react-confetti';
+import { useState, useCallback } from 'react';
 
 interface Paper {
   title: string;
@@ -15,39 +15,35 @@ interface PaperListProps {
 
 export const PaperList = ({ papers }: PaperListProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [isConfettiActive, setIsConfettiActive] = useState(false);
+  const [confettiPosition, setConfettiPosition] = useState({ x: 0, y: 0 });
 
-  const handleClick = (event: React.MouseEvent, index: number) => {
-    if (openIndex !== index) {
-      const button = event.currentTarget;
-      const rect = button.getBoundingClientRect();
-      
-      // Create multiple confetti bursts across the width
-      const burstCount = 30; // Number of confetti bursts
-      for (let i = 0; i < burstCount; i++) {
-        const x = (rect.left + (rect.width * (i / (burstCount - 1)))) / window.innerWidth;
-        const y = rect.top / window.innerHeight;
-        
-        confetti({
-          particleCount: 4,
-          spread: 120,
-          startVelocity: 1,
-          gravity: 0.7,
-          drift: 2,
-          origin: { x, y },
-          scalar: 0.8,
-          ticks: 200,
-          angle: 90,
-          colors: ['#FFB6B9', '#FAE3D9', '#BBDED6', '#61C0BF'],
-          disableForReducedMotion: true,  // Accessibility consideration
-          zIndex: 999999  // Ensure confetti appears above other content
-        });
-      }
-    }
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    
+    setConfettiPosition({ x, y });
+    setIsConfettiActive(true);
+    setTimeout(() => setIsConfettiActive(false), 3000); // Stop after 3 seconds
+  }, []);
 
   return (
     <div className="space-y-6">
+      {isConfettiActive && (
+        <ReactConfetti
+          numberOfPieces={200}
+          recycle={false}
+          confettiSource={{
+            x: confettiPosition.x,
+            y: confettiPosition.y,
+            w: 10,
+            h: 10
+          }}
+          style={{ position: 'fixed', pointerEvents: 'none', zIndex: 999999 }}
+          colors={['#FFB6B9', '#FAE3D9', '#BBDED6', '#61C0BF']}
+        />
+      )}
       {papers.map((paper, index) => (
         <div key={index} className="paper-entry relative">
           <div className="absolute -left-4 -top-0.5">
@@ -57,7 +53,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
             <button 
-              onClick={(e) => handleClick(e, index)}
+              onClick={(e) => handleClick(e)}
               className="text-left hover:text-orange-500 transition-colors leading-tight"
             >
               <div className="font-bold text-[13px]">
