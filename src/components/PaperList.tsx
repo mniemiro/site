@@ -1,6 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import Confetti from 'react-confetti';
-import { MathJax } from 'better-react-mathjax';
+import { useState } from 'react';
+import confetti from 'canvas-confetti';
 
 interface Paper {
   title: string;
@@ -15,78 +14,54 @@ interface PaperListProps {
 }
 
 export const PaperList = ({ papers }: PaperListProps) => {
-  const [openIndices, setOpenIndices] = useState<Set<number>>(new Set());
-  const [showConfetti, setShowConfetti] = useState(false);
-  const paperRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0, x: 0, y: 0 });
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const handleClick = (index: number) => {
-    setOpenIndices(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        const paperElement = paperRefs.current[index];
-        if (paperElement) {
-          const rect = paperElement.getBoundingClientRect();
-          setDimensions({
-            width: rect.width,
-            height: 200,
-            x: rect.x,
-            y: rect.y
-          });
-        }
-        newSet.add(index);
-        setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 2000);
-      }
-      return newSet;
-    });
+  const handleClick = (event: React.MouseEvent, index: number) => {
+    if (openIndex !== index) {
+      // const button = event.currentTarget;
+      // const rect = button.getBoundingClientRect();
+      
+      // // Create multiple confetti bursts across the width
+      // const burstCount = 5; // Number of confetti bursts
+      // for (let i = 0; i < burstCount; i++) {
+      //   const x = (rect.left + (rect.width * (i / (burstCount - 1)))) / window.innerWidth;
+      //   const y = rect.top / window.innerHeight;
+        
+      //   confetti({
+      //     particleCount: 1,
+      //     spread: 100,
+      //     startVelocity: 5,
+      //     gravity: 0.8,
+      //     drift: 2,  // Adds horizontal movement
+      //     origin: { x, y },
+      //     scalar: 0.7,
+      //     ticks: 150,
+      //     angle: 90,
+      //     colors: ['#FFB6B9', '#FAE3D9', '#BBDED6', '#61C0BF']  // Optional: pastel colors
+      //   });
+      // }
+    }
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
     <div className="space-y-6">
-      {showConfetti && (
-        <Confetti
-          width={dimensions.width}
-          height={dimensions.height}
-          recycle={false}
-          numberOfPieces={50}
-          gravity={0.07}
-          wind={0.005}
-          friction={0.99}
-          initialVelocityY={1}
-          style={{
-            position: 'fixed',
-            left: dimensions.x,
-            top: dimensions.y,
-            pointerEvents: 'none'
-          }}
-          drawShape={ctx => {
-            ctx.beginPath();
-            ctx.arc(0, 0, 1.5, 0, 2 * Math.PI);
-            ctx.fill();
-          }}
-        />
-      )}
       {papers.map((paper, index) => (
-        <div 
-          key={index} 
-          className="paper-entry"
-          ref={el => paperRefs.current[index] = el}
-        >
-          <div className="grid grid-cols-[12px,1fr,auto] gap-4 items-start">
-            <div className="text-[13px]">
-              {openIndices.has(index) ? '-' : '+'}
-            </div>
+        <div key={index} className="paper-entry relative">
+          <div className="absolute -left-4 -top-0.5">
+            <span className="text-[13px]">
+              {openIndex === index ? '-' : '+'}
+            </span>
+          </div>
+          <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
             <button 
-              onClick={() => handleClick(index)}
-              className="text-left hover:text-orange-500 transition-colors leading-tight w-full focus:outline-none"
+              onClick={(e) => handleClick(e, index)}
+              className="text-left hover:text-orange-500 transition-colors leading-tight"
             >
-              <div className="font-bold text-[13px]" title={paper.title}>
-                <MathJax>{`[${index + 1}] ${paper.title}`}</MathJax>
+              <div className="font-bold text-[13px]">
+                [{index + 1}] {paper.title}
               </div>
-              <div className="font-light italic text-[11px] mt-[1px]" title={paper.subtitle}>
+              <div className="font-light italic text-[11px] mt-[1px]">
                 {paper.subtitle}
               </div>
             </button>
@@ -106,9 +81,9 @@ export const PaperList = ({ papers }: PaperListProps) => {
               </span>
             </div>
           </div>
-          {openIndices.has(index) && (
-            <div className="pl-8 mt-2 text-[13px]">
-              <MathJax>{paper.description}</MathJax>
+          {openIndex === index && (
+            <div className="pl-4 mt-2 text-[13px]">
+              {paper.description}
             </div>
           )}
         </div>
