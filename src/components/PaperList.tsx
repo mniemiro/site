@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Confetti from 'react-confetti';
+import { MathJax } from 'better-react-mathjax';
 
 interface Paper {
   title: string;
@@ -50,8 +51,8 @@ export const PaperList = ({ papers }: PaperListProps) => {
           width={dimensions.width}
           height={dimensions.height}
           recycle={false}
-          numberOfPieces={30}
-          gravity={0.1}
+          numberOfPieces={50}
+          gravity={0.07}
           wind={0.005}
           friction={0.99}
           initialVelocityY={1}
@@ -82,12 +83,12 @@ export const PaperList = ({ papers }: PaperListProps) => {
           <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
             <button 
               onClick={() => handleClick(index)}
-              className="text-left hover:text-orange-500 transition-colors leading-tight"
+              className="text-left hover:text-orange-500 transition-colors leading-tight w-full"
             >
-              <div className="font-bold text-[13px]">
-                [{index + 1}] {paper.title}
+              <div className="font-bold text-[13px] truncate max-w-[75%]" title={paper.title}>
+                <MathJax>{`[${index + 1}] ${paper.title}`}</MathJax>
               </div>
-              <div className="font-light italic text-[11px] mt-[1px]">
+              <div className="font-light italic text-[11px] mt-[1px] truncate max-w-[75%]" title={paper.subtitle}>
                 {paper.subtitle}
               </div>
             </button>
@@ -109,7 +110,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
           </div>
           {openIndices.has(index) && (
             <div className="pl-4 mt-2 text-[13px]">
-              {paper.description}
+              <MathJax>{paper.description}</MathJax>
             </div>
           )}
         </div>

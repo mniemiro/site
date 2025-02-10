@@ -7,16 +7,6 @@ const About = () => {
       <p className="text-[12px] mb-6">
         A collection of thoughts on mathematics.
       </p>
-
-      <DropdownSection 
-        title="Course Notes" 
-        content={
-          <div className="space-y-2 text-[8px]">
-            <p>Advanced Algebra</p>
-            <p>Category Theory</p>
-            <p>Algebraic Geometry</p>
-          </div>
-        }
       />
     </div>
   );

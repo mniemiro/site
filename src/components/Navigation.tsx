@@ -13,28 +13,28 @@ export const Navigation = () => {
         <nav className="flex items-start gap-2 text-base pt-2 pb-0.5">
           <Link
             to="/"
-            className="text-orange-500 hover:text-orange-600 hover:underline transition-colors"
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
           >
-            About
+            Home
           </Link>
           <span className="text-foreground">/</span>
           <Link
             to="/infinity"
-            className="text-orange-500 hover:text-orange-600 hover:underline transition-colors"
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
           >
             ∞
           </Link>
           <span className="text-foreground">/</span>
           <Link
             to="/notes"
-            className="text-orange-500 hover:text-orange-600 hover:underline transition-colors"
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
           >
             Notes
           </Link>
           <span className="text-foreground">/</span>
           <Link
             to="/miscellany"
-            className="text-orange-500 hover:text-orange-600 hover:underline transition-colors"
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
           >
             Miscellany
           </Link>
