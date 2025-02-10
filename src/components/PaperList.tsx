@@ -72,10 +72,10 @@ export const PaperList = ({ papers }: PaperListProps) => {
       {papers.map((paper, index) => (
         <div 
           key={index} 
-          className="paper-entry relative"
+          className="paper-entry relative min-h-[2.5rem]"
           ref={el => paperRefs.current[index] = el}
         >
-          <div className="absolute -left-4 -top-0.5">
+          <div className="absolute -left-4 top-1">
             <span className="text-[13px]">
               {openIndices.has(index) ? '-' : '+'}
             </span>
@@ -83,12 +83,12 @@ export const PaperList = ({ papers }: PaperListProps) => {
           <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
             <button 
               onClick={() => handleClick(index)}
-              className="text-left hover:text-orange-500 transition-colors leading-tight w-full"
+              className="text-left hover:text-orange-500 transition-colors leading-tight w-full focus:outline-none"
             >
-              <div className="font-bold text-[13px] truncate max-w-[75%]" title={paper.title}>
+              <div className="font-bold text-[13px]" title={paper.title}>
                 <MathJax>{`[${index + 1}] ${paper.title}`}</MathJax>
               </div>
-              <div className="font-light italic text-[11px] mt-[1px] truncate max-w-[75%]" title={paper.subtitle}>
+              <div className="font-light italic text-[11px] mt-[1px]" title={paper.subtitle}>
                 {paper.subtitle}
               </div>
             </button>
