@@ -3,24 +3,39 @@ import { PaperList } from '../components/PaperList';
 const Notes = () => {
   const notes = [
     {
-      title: "Introduction to Category Theory",
-      subtitle: "A Gentle Guide to Abstract Mathematics",
-      description: "These notes provide an accessible introduction to category theory, starting from basic definitions and building up to advanced concepts. Topics include functors, natural transformations, and universal properties.",
-      date: "April 2024",
-      link: "the"
+      title: "Ambidexterity and Semiadditivity",
+      subtitle: "Coming soon?",
+      description: "My paper for the University of Chicago 2023 REU. Thanks to Peter May for advising me.",
+      date: "2023",
+      link: "#"
     },
     {
-      title: "The Riemann Hypothesis",
-      subtitle: "Understanding the Distribution of Prime Numbers",
-      description: "A comprehensive overview of the Riemann Hypothesis and its implications for number theory. Includes historical context, key concepts, and modern developments.",
-      date: "March 2024",
-      link: "https://example.com/riemann-notes"
+      title: "The Adams Conjecture and the K-theory of finite fields",
+      subtitle: "jt with Zhong Zhang",
+      description: "My paper written at the University of Chicago 2022 REU. Thanks to Peter May for advising me.",
+      date: "2022",
+      link: "#"
+    },
+    {
+      title: "The derived functor approach to sheaf cohomology",
+      subtitle: "",
+      description: "My paper written at the University of Chicago 2021 REU. Thanks to Max Johnson for mentoring me.",
+      date: "2021",
+      link: "#"
+    },
+    {
+      title: "Introduction to de Rham cohomology",
+      subtitle: "",
+      description: "Notes on de Rham cohomology a long time ago.",
+      date: "2021",
+      link: "#"
     }
   ];
 
   return (
     <div className="container max-w-3xl px-4 py-8">
       <h1 className="text-2xl mb-6">Notes</h1>
+      <h2 className="text-xl font-bold mb-4">Unsorted</h2>
       <PaperList papers={notes} />
     </div>
   );
