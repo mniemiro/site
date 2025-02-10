@@ -28,14 +28,14 @@ export const PaperList = ({ papers }: PaperListProps) => {
         const y = rect.top / window.innerHeight;
         
         confetti({
-          particleCount: 1,
+          particleCount: 10,
           spread: 100,
-          startVelocity: 5,
+          startVelocity: 10,
           gravity: 0.8,
           drift: 2,
           origin: { x, y },
-          scalar: 0.7,
-          ticks: 150,
+          scalar: 0.8,
+          ticks: 200,
           angle: 90,
           colors: ['#FFB6B9', '#FAE3D9', '#BBDED6', '#61C0BF'],
           disableForReducedMotion: true,  // Accessibility consideration
