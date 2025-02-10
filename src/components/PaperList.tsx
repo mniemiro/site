@@ -1,5 +1,6 @@
 import ReactConfetti from 'react-confetti';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import Confetti from 'react-confetti';
 
 interface Paper {
   title: string;
@@ -15,33 +16,53 @@ interface PaperListProps {
 
 export const PaperList = ({ papers }: PaperListProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [isConfettiActive, setIsConfettiActive] = useState(false);
-  const [confettiPosition, setConfettiPosition] = useState({ x: 0, y: 0 });
+  const [showConfetti, setShowConfetti] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0, x: 0, y: 0 });
 
-  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    
-    setConfettiPosition({ x, y });
-    setIsConfettiActive(true);
-    setTimeout(() => setIsConfettiActive(false), 3000); // Stop after 3 seconds
-  }, []);
+  useEffect(() => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDimensions({
+        width: rect.width + 200,
+        height: 200,
+        x: rect.x,
+        y: rect.y
+      });
+    }
+  }, [openIndex]);
+
+  const handleClick = useCallback((index: number) => {
+    if (openIndex !== index) {
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 2000);
+    }
+    setOpenIndex(openIndex === index ? null : index);
+  }, [openIndex]);
 
   return (
     <div className="space-y-6">
-      {isConfettiActive && (
-        <ReactConfetti
-          numberOfPieces={200}
+      {showConfetti && (
+        <Confetti
+          width={dimensions.width}
+          height={dimensions.height}
           recycle={false}
-          confettiSource={{
-            x: confettiPosition.x,
-            y: confettiPosition.y,
-            w: 10,
-            h: 10
+          numberOfPieces={30}
+          gravity={0.1}
+          wind={0.005}
+          friction={0.99}
+          initialVelocityY={1}
+          style={{
+            position: 'fixed',
+            left: dimensions.x,
+            top: dimensions.y,
+            pointerEvents: 'none'
           }}
-          style={{ position: 'fixed', pointerEvents: 'none', zIndex: 999999 }}
-          colors={['#FFB6B9', '#FAE3D9', '#BBDED6', '#61C0BF']}
+          drawShape={ctx => {
+            ctx.beginPath();
+            ctx.arc(0, 0, 1.5, 0, 2 * Math.PI);
+            ctx.fill();
+          }}
         />
       )}
       {papers.map((paper, index) => (
@@ -53,7 +74,8 @@ export const PaperList = ({ papers }: PaperListProps) => {
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
             <button 
-              onClick={(e) => handleClick(e)}
+              ref={index === openIndex ? buttonRef : null}
+              onClick={() => handleClick(index)}
               className="text-left hover:text-orange-500 transition-colors leading-tight"
             >
               <div className="font-bold text-[13px]">
