@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import confetti from 'canvas-confetti';
 
 interface Paper {
   title: string;
@@ -15,6 +16,25 @@ interface PaperListProps {
 export const PaperList = ({ papers }: PaperListProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const handleClick = (event: React.MouseEvent, index: number) => {
+    if (openIndex !== index) {
+      const button = event.currentTarget;
+      const rect = button.getBoundingClientRect();
+      const x = (rect.left + rect.width / 2) / window.innerWidth;
+      const y = rect.top / window.innerHeight;
+      
+      confetti({
+        particleCount: 50,
+        spread: 30,
+        origin: { x, y },
+        scalar: 0.7,
+        gravity: 0.3,
+        ticks: 100
+      });
+    }
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
     <div className="space-y-6">
       {papers.map((paper, index) => (
@@ -26,7 +46,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
             <button 
-              onClick={() => setOpenIndex(openIndex === index ? null : index)}
+              onClick={(e) => handleClick(e, index)}
               className="text-left hover:text-orange-500 transition-colors leading-tight"
             >
               <div className="font-bold text-[13px]">
