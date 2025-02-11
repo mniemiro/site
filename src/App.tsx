@@ -1,24 +1,58 @@
-import React from "react";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Navigation } from "./components/Navigation";
+import HomePage from "./pages/HomePage";
+import Notes from './pages/Notes';
+import Infinity from './pages/Infinity';
+import Miscellany from './pages/Miscellany';
+import NotFound from "./pages/NotFound";
+import { MathJaxContext } from 'better-react-mathjax';
 
-function App() {
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Centered container with a maximum width */}
-      <div className="max-w-2xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-foreground mb-4">
-          Your Site Title
-        </h1>
-        <p className="text-foreground mb-4">
-          Here is some introductory content that explains what your site is
-          about.
-        </p>
-        <p className="text-foreground">
-          And here is the seminar announcement:&nbsp;
-          <span className="font-bold">Harvard-MIT Babytop Seminar</span>.
-        </p>
-      </div>
-    </div>
-  );
-}
+const queryClient = new QueryClient();
+
+const config = {
+  loader: { load: ["[tex]/html"] },
+  tex: {
+    packages: { "[+]": ["html"] },
+    inlineMath: [
+      ["$", "$"],
+      ["\\(", "\\)"]
+    ],
+    displayMath: [
+      ["$$", "$$"],
+      ["\\[", "\\]"]
+    ]
+  }
+};
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <MathJaxContext config={config}>
+        <Router>
+          <div className="min-h-screen bg-background">
+            <div className="max-w-lg mx-auto px-4 py-8">
+              <Navigation />
+              <main>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/notes" element={<Notes />} />
+                  <Route path="/infinity" element={<Infinity />} />
+                  <Route path="/miscellany" element={<Miscellany />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+            </div>
+          </div>
+        </Router>
+      </MathJaxContext>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
