@@ -36,18 +36,16 @@ const App = () => (
       <MathJaxContext config={config}>
         <Router>
           <div className="min-h-screen bg-background">
-            <div className="container mx-auto px-4 py-8">
-              <Navigation />
-              <main>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/notes" element={<Notes />} />
-                  <Route path="/infinity" element={<Infinity />} />
-                  <Route path="/miscellany" element={<Miscellany />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-            </div>
+            <Navigation />
+            <main className="container mx-auto px-4 py-8">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/notes" element={<Notes />} />
+                <Route path="/infinity" element={<Infinity />} />
+                <Route path="/miscellany" element={<Miscellany />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
           </div>
         </Router>
       </MathJaxContext>
