@@ -37,7 +37,7 @@ const App = () => (
         <Router>
           <div className="min-h-screen bg-background">
             <Navigation />
-            <main className="container max-w-3xl px-4 py-8">
+            <main className="container mx-auto px-4 py-8">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/notes" element={<Notes />} />
