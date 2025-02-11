@@ -48,7 +48,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
             width={dimensions.width}
             height={dimensions.height}
             recycle={false}
-            numberOfPieces={30}
+            numberOfPieces={40}
             gravity={0.1}
             wind={0.005}
             friction={0.99}
