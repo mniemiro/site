@@ -6,7 +6,7 @@ export const HomePage = () => {
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
-        Here is my <a href="/vita.pdf" className="text-orange-500 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300">CV</a>. My email is <a href="mailto:mniemiro@math.harvard.edu" className="text-orange-500 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300">mniemiro@math.harvard.edu</a>. If you really want to scare me, I can be cornered in SC 425c.
+        Here is my <a href="/docs/cv.pdf" className="text-orange-500 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300">CV</a>. You can email me at <a href="mailto:mniemiro@math.harvard.edu" className="text-orange-500 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300">mniemiro@math.harvard.edu</a>. If you really want to scare me, I can be cornered in SC 425c.
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
