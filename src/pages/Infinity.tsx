@@ -1,23 +1,50 @@
-import DropdownSection from '../components/DropdownSection';
-
 const Infinity = () => {
   return (
     <div className="space-y-4">
       <h1 className="text-[19px] mb-1 font-bold">∞</h1>
       <p className="text-[12px] mb-6">
-        A collection of thoughts on infinity.
+      It's a basic, cool, and important fact that spaces and categories have a common generalization in ∞-categories. This is a first step toward realizing an important relationship between space and algebra that opens for "homotopy theory" and "higher algebra." These are complicated subjects, but are also the decided language for a sizeable chunk of algebraic topology, geometry, K-theory, ... So, in my undergraduate, I started a journal to record my ∞-category learning throes. I have learned a lot since then, and a lot about learning. 
       </p>
 
-      <DropdownSection 
-        title="Course Notes" 
-        content={
-          <div className="space-y-2 text-[8px]">
-            <p>Set Theory</p>
-            <p>Ordinals and Cardinals</p>
-            <p>Transfinite Induction</p>
-          </div>
-        }
-      />
+      <p className="text-[12px] mb-6">
+        For accountability and pedagogical purposes, I'll share my notes here:
+      </p>
+
+      <div className="text-[12px]">
+        <h3 className="font-semibold mb-2">Notebooks:</h3>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>
+            <a 
+              href="/docs/nb2023.pdf" 
+              className="text-blue-600 hover:text-blue-800 hover:underline"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Notebook 2023
+            </a>
+          </li>
+          <li>
+            <a 
+              href="/docs/nb2024.pdf" 
+              className="text-blue-600 hover:text-blue-800 hover:underline"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Notebook 2024
+            </a>
+          </li>
+          <li>
+            <a 
+              href="/docs/nb2025.pdf" 
+              className="text-blue-600 hover:text-blue-800 hover:underline"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Notebook 2025
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
