@@ -5,19 +5,19 @@ export const Navigation = () => {
   const location = useLocation();
 
   return (
-    <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-      <div className="container max-w-3xl px-4 h-16 flex items-center justify-between">
+    <header className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+      <div className="container max-w-3xl px-6 h-20 flex items-center justify-between">
       <Link 
           to="/" 
-          className="text-2xl sm:text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors py-1"
+          className="text-2xl sm:text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors py-2 px-1"
         >
           M.A. Niemiro
         </Link>
         
-        <nav className="flex items-center space-x-3 text-base">
+        <nav className="flex items-center space-x-2 text-base">
           <Link
             to="/"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-2 py-1 ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 ${
               location.pathname === "/" ? "font-bold" : ""
             }`}
           >
