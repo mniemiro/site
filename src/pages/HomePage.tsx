@@ -1,3 +1,5 @@
+import HolographicLink from '../components/HolographicLink';
+
 export const HomePage = () => {
   return (
     <div className="prose dark:prose-invert max-w-none">
@@ -10,7 +12,7 @@ export const HomePage = () => {
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
-        This spring, I am organizing the <a href="https://math.mit.edu/topology/babytop/" className="text-orange-500 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300">Harvard-MIT Babytop seminar</a>.
+        This spring, I am organizing the <HolographicLink href="https://math.mit.edu/topology/babytop/">Harvard-MIT Babytop seminar</HolographicLink>.
       </p>
     </div>
   );
