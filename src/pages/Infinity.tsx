@@ -20,7 +20,7 @@ const Infinity = () => {
               target="_blank" 
               rel="noopener noreferrer"
             >
-              Notebook 2023
+              2023
             </a>
           </li>
           <li>
@@ -30,7 +30,7 @@ const Infinity = () => {
               target="_blank" 
               rel="noopener noreferrer"
             >
-              Notebook 2024
+              2024
             </a>
             <span className="ml-2">Look how far it's come!</span>
           </li>
@@ -41,7 +41,7 @@ const Infinity = () => {
               target="_blank" 
               rel="noopener noreferrer"
             >
-              Notebook 2025
+              2025
             </a>
             <span className="ml-2">With new and improved TeX!</span>
           </li>
