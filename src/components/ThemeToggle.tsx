@@ -27,13 +27,13 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setIsDarkMode(!isDarkMode)}
-      className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700"
+      className="focus:outline-none"
       aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDarkMode ? (
-        <Sun className="h-5 w-5 text-yellow-500" />
+        <Sun className="h-4 w-4 text-yellow-500" />
       ) : (
-        <Moon className="h-5 w-5 text-gray-700" />
+        <Moon className="h-4 w-4 text-orange-500" />
       )}
     </button>
   );
