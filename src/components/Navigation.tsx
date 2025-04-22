@@ -14,16 +14,16 @@ export const Navigation = () => {
           M.A. Niemiro
         </Link>
         
-        <nav className="flex items-center space-x-2 text-sm">
+        <nav className="flex items-end space-x-2 text-sm pb-1">
           <Link
             to="/"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-1 ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1 ${
               location.pathname === "/" ? "font-bold" : ""
             }`}
           >
             Home
           </Link>
-          <span className="mt-1">/</span>
+          <span>/</span>
           <Link
             to="/notes"
             className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-2 py-1 ${
