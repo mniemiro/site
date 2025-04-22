@@ -9,15 +9,15 @@ export const Navigation = () => {
       <div className="container max-w-3xl px-4 h-16 flex items-center justify-between">
       <Link 
           to="/" 
-          className="text-2xl sm:text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors"
+          className="text-2xl sm:text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors py-1"
         >
           M.A. Niemiro
         </Link>
         
-        <nav className="flex items-center space-x-1 text-sm pb-1">
+        <nav className="flex items-center space-x-3 text-base">
           <Link
             to="/"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-2 py-1 ${
               location.pathname === "/" ? "font-bold" : ""
             }`}
           >
@@ -26,7 +26,7 @@ export const Navigation = () => {
           <span>/</span>
           <Link
             to="/notes"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-2 py-1 ${
               location.pathname === "/notes" ? "font-bold" : ""
             }`}
           >
@@ -35,7 +35,7 @@ export const Navigation = () => {
           <span>/</span>
           <Link
             to="/infinity"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-2 py-1 ${
               location.pathname === "/infinity" ? "font-bold" : ""
             }`}
           >
@@ -44,7 +44,7 @@ export const Navigation = () => {
           <span>/</span>
           <Link
             to="/miscellany"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-2 py-1 ${
               location.pathname === "/miscellany" ? "font-bold" : ""
             }`}
           >
