@@ -6,10 +6,10 @@ export const Navigation = () => {
 
   return (
     <header className="border-b border-gray-200 dark:border-gray-700 bg-background dark:bg-gray-900">
-      <div className="container max-w-3xl px-6 h-20 flex items-center justify-between">
+      <div className="container max-w-3xl px-6 h-24 flex items-center justify-between">
       <Link 
           to="/" 
-          className="text-2xl sm:text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors py-2 px-1"
+          className="text-2xl sm:text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors"
         >
           M.A. Niemiro
         </Link>
@@ -17,13 +17,13 @@ export const Navigation = () => {
         <nav className="flex items-center space-x-2 text-base">
           <Link
             to="/"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-1 ${
               location.pathname === "/" ? "font-bold" : ""
             }`}
           >
             Home
           </Link>
-          <span>/</span>
+          <span className="mt-1">/</span>
           <Link
             to="/notes"
             className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-2 py-1 ${
