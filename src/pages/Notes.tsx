@@ -11,7 +11,7 @@ const Notes = () => {
     },
     {
       title: "The Adams Conjecture and the K-theory of finite fields",
-      subtitle: <>Chicago REU 2022, Joint w/ <a href="https://zhongzhang-math.github.io/about/" className="no-underline">Zhong Zhang</a></>,
+      subtitle: <>Chicago REU 2022, Joint w/ <a href="https://zhongzhang-math.github.io/about/" className="no-underline" target="_blank" rel="noopener noreferrer">Zhong Zhang</a></>,
       description: "My paper written at the University of Chicago 2022 REU. Thanks to Peter May for advising us.",
       date: "2022",
       link: "/docs/reu_2022_paper.pdf"

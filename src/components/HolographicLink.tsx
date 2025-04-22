@@ -15,11 +15,14 @@ const HolographicLink: React.FC<HolographicLinkProps> = ({
   target = "_blank",
   rel = "noopener noreferrer"
 }) => {
+  // Check if the link is external
+  const isExternal = href && !href.startsWith('/') && !href.startsWith('#');
+  
   return (
     <a
       href={href}
-      target={target}
-      rel={rel}
+      target={isExternal ? target : undefined}
+      rel={isExternal ? rel : undefined}
       className={`
         relative inline-block
         bg-gradient-to-r from-cyan-300 via-purple-500 to-pink-400
