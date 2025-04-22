@@ -9,7 +9,7 @@ export const Navigation = () => {
       <div className="container max-w-3xl px-6 h-24 flex items-center justify-between">
       <Link 
           to="/" 
-          className="text-2xl sm:text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors"
+          className="text-2xl sm:text-3xl font-inconsolata font-normal text-foreground hover:text-orange-500 transition-colors"
         >
           M.A. Niemiro
         </Link>
