@@ -3,62 +3,53 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export const Navigation = () => {
   const location = useLocation();
-  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="border-b border-gray-200 dark:border-gray-700">
-      <div className="container flex items-center justify-between h-16 max-w-3xl">
-        <div>
-          <Link to="/" className="text-sm hover:text-gray-700 dark:hover:text-gray-300">
-            M.A. Niemiro
-          </Link>
-        </div>
-        
-        <nav className="flex items-center space-x-1 text-sm">
+    <header className="w-full border-b-[1px] bg-background">
+      <div className="container max-w-3xl h-24 pt-12 pb-4 flex items-start justify-between px-4">
+        <Link 
+          to="/" 
+          className="text-2xl sm:text-3xl font-inconsolata font-thin text-foreground hover:text-orange-500 transition-colors"
+        >
+          M.A. Niemiro
+        </Link>
+        <nav className="flex items-start gap-2 text-base pt-2 pb-0.5">
           <Link
             to="/"
-            className={`px-2 py-1 rounded-md ${
-              isActive("/")
-                ? "font-bold"
-                : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors ${
+              location.pathname === "/" ? "font-bold" : ""
             }`}
           >
             Home
           </Link>
-          <span className="text-gray-400 dark:text-gray-600">/</span>
+          <span>/</span>
           <Link
             to="/notes"
-            className={`px-2 py-1 rounded-md ${
-              isActive("/notes")
-                ? "font-bold"
-                : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors ${
+              location.pathname === "/notes" ? "font-bold" : ""
             }`}
           >
             Notes
           </Link>
-          <span className="text-gray-400 dark:text-gray-600">/</span>
+          <span>/</span>
           <Link
             to="/infinity"
-            className={`px-2 py-1 rounded-md ${
-              isActive("/infinity")
-                ? "font-bold"
-                : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors ${
+              location.pathname === "/infinity" ? "font-bold" : ""
             }`}
           >
             ∞
           </Link>
-          <span className="text-gray-400 dark:text-gray-600">/</span>
+          <span>/</span>
           <Link
             to="/miscellany"
-            className={`px-2 py-1 rounded-md ${
-              isActive("/miscellany")
-                ? "font-bold"
-                : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors ${
+              location.pathname === "/miscellany" ? "font-bold" : ""
             }`}
           >
             Miscellany
           </Link>
-          <span className="text-gray-400 dark:text-gray-600">/</span>
+          <span>/</span>
           <ThemeToggle />
         </nav>
       </div>
