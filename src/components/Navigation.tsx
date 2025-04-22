@@ -5,7 +5,7 @@ export const Navigation = () => {
   const location = useLocation();
 
   return (
-    <header className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+    <header className="border-b border-gray-200 dark:border-gray-700 bg-background dark:bg-gray-900">
       <div className="container max-w-3xl px-6 h-20 flex items-center justify-between">
       <Link 
           to="/" 
