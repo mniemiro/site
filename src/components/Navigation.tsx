@@ -8,6 +8,12 @@ export const Navigation = () => {
   return (
     <header className="border-b border-gray-200 dark:border-gray-700">
       <div className="container flex items-center justify-between h-16 max-w-3xl">
+        <div className="font-bold">
+          <Link to="/" className="hover:text-gray-700 dark:hover:text-gray-300">
+            M.A. Niemiro
+          </Link>
+        </div>
+        
         <div className="flex items-center space-x-1 text-sm">
           <Link
             to="/"
