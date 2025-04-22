@@ -51,7 +51,7 @@ export const Navigation = () => {
             Miscellany
           </Link>
           <span className="mt-2">/</span>
-          <div className="mt-[10px]">
+          <div className="mt-3">
             <ThemeToggle />
           </div>
         </nav>
