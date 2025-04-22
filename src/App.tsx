@@ -35,7 +35,7 @@ const App = () => (
       <Sonner />
       <MathJaxContext config={config}>
         <Router>
-          <div className="min-h-screen bg-background">
+          <div className="min-h-screen bg-background dark:bg-gray-900 dark:text-white">
             <Navigation />
             <main className="container max-w-3xl px-4 py-8">
               <Routes>
