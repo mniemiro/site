@@ -8,13 +8,13 @@ export const Navigation = () => {
   return (
     <header className="border-b border-gray-200 dark:border-gray-700">
       <div className="container flex items-center justify-between h-16 max-w-3xl">
-        <div className="font-bold">
-          <Link to="/" className="hover:text-gray-700 dark:hover:text-gray-300">
+        <div>
+          <Link to="/" className="text-sm hover:text-gray-700 dark:hover:text-gray-300">
             M.A. Niemiro
           </Link>
         </div>
         
-        <div className="flex items-center space-x-1 text-sm">
+        <nav className="flex items-center space-x-1 text-sm">
           <Link
             to="/"
             className={`px-2 py-1 rounded-md ${
@@ -60,7 +60,7 @@ export const Navigation = () => {
           </Link>
           <span className="text-gray-400 dark:text-gray-600">/</span>
           <ThemeToggle />
-        </div>
+        </nav>
       </div>
     </header>
   );
