@@ -1,20 +1,19 @@
 const Infinity = () => {
   return (
     <div className="space-y-4">
-      
-      <p className="text-[12px] mb-6">
-      It's a basic, cool, and important fact that spaces and categories have a common generalization in ∞-categories. This is a first step toward realizing an important relationship between space and algebra that opens for "homotopy theory" and "higher algebra." These are complicated subjects, but are also the decided language for a sizeable chunk of algebraic topology, geometry, K-theory, ... So, in my undergraduate, I started a journal to record my ∞-category learning throes. I have learned a lot since then, and a lot about learning. 
+
+      <p className="text-[13px] mb-6">
+      It's a basic, cool, and important fact that spaces and categories have a common generalization in ∞-categories. This is a first step toward realizing an important relationship between space and algebra that opens for "homotopy theory" and "higher algebra." These are complicated subjects, but are also the decided language for a sizeable chunk of algebraic topology, geometry, K-theory, ... 
       </p>
 
-      <p className="text-[12px] mb-6">
-        For accountability and pedagogical purposes, I'll share my notes here:
+      <p className="text-[13px] mb-6">
+      In undergraduate, I started a journal to record my ∞-category learning throes. I have learned a lot about the subject since then, and a lot about learning. My notes are evolving accordingly. For self-accountability and reference, here are my notes (which I caution away from taking very seriously):
       </p>
 
-      <div className="text-[12px]">
+      <div className="text-[13px]">
         <h3 className="font-semibold mb-2">Notebooks:</h3>
-        <ul className="pl-8 space-y-1">
-          <li className="flex items-start">
-            <span className="mr-2 inline-block w-4">∞</span>
+        <ul className="list-disc pl-8 space-y-1">
+        <li>
             <a 
               href="/docs/nb2023.pdf" 
               className="text-blue-600 hover:text-blue-800 hover:underline"
@@ -24,8 +23,7 @@ const Infinity = () => {
               Notebook 2023
             </a>
           </li>
-          <li className="flex items-start">
-            <span className="mr-2 inline-block w-4">∞</span>
+          <li>
             <a 
               href="/docs/nb2024.pdf" 
               className="text-blue-600 hover:text-blue-800 hover:underline"
@@ -34,10 +32,9 @@ const Infinity = () => {
             >
               Notebook 2024
             </a>
+            <span className="ml-2">Look how far it's come!</span>
           </li>
-          <div className="pl-6 my-1">Hello world!</div>
-          <li className="flex items-start">
-            <span className="mr-2 inline-block w-4">∞</span>
+          <li>
             <a 
               href="/docs/nb2025.pdf" 
               className="text-blue-600 hover:text-blue-800 hover:underline"
@@ -46,6 +43,7 @@ const Infinity = () => {
             >
               Notebook 2025
             </a>
+            <span className="ml-2">With new and improved TeX!</span>
           </li>
         </ul>
       </div>
