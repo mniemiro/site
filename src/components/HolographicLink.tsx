@@ -36,7 +36,7 @@ const HolographicLink: React.FC<HolographicLinkProps> = ({
         after:absolute after:left-0 after:top-0
         after:bg-gradient-to-r after:from-purple-400 after:via-pink-500 after:to-cyan-400
         after:text-transparent after:bg-clip-text
-        after:animate-hologram after:animation-delay-400
+        after:animate-hologram after:animation-delay-350
         ${className}
       `}
       data-content={typeof children === 'string' ? children : ''}

@@ -34,7 +34,6 @@ const Notes = () => {
 
   return (
     <div className="max-w-3xl">
-      <h2 className="text-xl font-bold pt-2 pb-4 select-none">Unsorted</h2>
       <PaperList papers={notes} />
     </div>
   );
