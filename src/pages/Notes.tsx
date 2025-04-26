@@ -32,12 +32,22 @@ const Notes = () => {
     }
   ];
 
+  const strayNotes = [
+    {
+      title: "Lecture notes for Chromatic Homotopy Theory (252x) by Jacob Lurie",
+      subtitle: "Collated into one PDF with bookmarks",
+      description: "",
+      date: "",
+      link: "/docs/Lurie_252x_bookmarks.pdf"
+    }
+  ];
+
   return (
     <div className="max-w-3xl">
       <PaperList papers={notes} />
-      <p className="mt-4 text-sm">
-        Here is a <a href="/docs/Lurie_252x_bookmarks.pdf" className="no-underline text-orange-500 hover:text-orange-700" target="_blank" rel="noopener noreferrer">PDF with bookmarks</a> of Jacob Lurie's "Chromatic Homotopy Theory (252x)" lecture notes.
-      </p>
+      
+      <h3 className="mt-8 text-lg font-medium">Stray notes and links</h3>
+      <PaperList papers={strayNotes} />
     </div>
   );
 };
