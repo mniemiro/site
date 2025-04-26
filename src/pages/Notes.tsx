@@ -34,7 +34,7 @@ const Notes = () => {
 
   const strayNotes = [
     {
-      title: "Lecture notes for Chromatic Homotopy Theory (252x) by Jacob Lurie",
+      title: "Bookmarked notes for Jacob Lurie's Chromatic Homotopy Theory (252x) course",
       subtitle: "Collated into one PDF with bookmarks",
       description: "",
       date: "",

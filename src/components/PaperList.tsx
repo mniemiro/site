@@ -33,12 +33,15 @@ export const PaperList = ({ papers }: PaperListProps) => {
   }, [openIndex]);
 
   const handleClick = useCallback((index: number) => {
+    // Only handle clicks for papers with descriptions
+    if (!papers[index].description) return;
+    
     if (openIndex !== index) {
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 2000);
     }
     setOpenIndex(openIndex === index ? null : index);
-  }, [openIndex]);
+  }, [openIndex, papers]);
 
   return (
     <div className="space-y-6 relative">
@@ -70,16 +73,17 @@ export const PaperList = ({ papers }: PaperListProps) => {
       </div>
       {papers.map((paper, index) => (
         <div key={index} className="paper-entry relative">
-          <div className="absolute -left-4 -top-0.5">
-            <span className="text-[13px]">
-              {openIndex === index ? '-' : '+'}
-            </span>
-          </div>
+          {paper.description && (
+            <div className="absolute -left-4 -top-0.5">
+              <span className="text-[13px]">
+                {openIndex === index ? '-' : '+'}
+              </span>
+            </div>
+          )}
           <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
-            <button 
-              ref={index === openIndex ? buttonRef : null}
-              onClick={() => handleClick(index)}
-              className="text-left hover:text-orange-500 transition-colors leading-tight"
+            <div 
+              className={paper.description ? "cursor-pointer" : ""}
+              onClick={paper.description ? () => handleClick(index) : undefined}
             >
               <div className="font-bold text-[13px]">
                 [{index + 1}] {paper.title}
@@ -87,7 +91,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
               <div className="font-light italic text-[11px] mt-[1px]">
                 {paper.subtitle}
               </div>
-            </button>
+            </div>
             <div className="flex flex-col items-end leading-tight">
               {paper.link && (
                 <a 
@@ -104,7 +108,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
               </span>
             </div>
           </div>
-          {openIndex === index && (
+          {openIndex === index && paper.description && (
             <div className="pl-4 mt-2 text-[13px]">
               {paper.description}
             </div>
