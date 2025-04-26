@@ -46,7 +46,7 @@ const Notes = () => {
     <div className="max-w-3xl">
       <PaperList papers={notes} />
       
-      <h3 className="mt-8 text-lg font-medium text-right mb-3">
+      <h3 className="mt-8 text-lg font-medium text-right mb-4">
         Stray notes and links
       </h3>
       <PaperList papers={strayNotes} />

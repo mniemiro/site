@@ -18,7 +18,7 @@ export const Navigation = () => {
           <Link
             to="/"
             className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-2 ${
-              location.pathname === "/" ? "font-bold" : ""
+              location.pathname === "/" ? "font-light" : ""
             }`}
           >
             Home
@@ -27,7 +27,7 @@ export const Navigation = () => {
           <Link
             to="/notes"
             className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-2 ${
-              location.pathname === "/notes" ? "font-bold" : ""
+              location.pathname === "/notes" ? "font-light" : ""
             }`}
           >
             Notes
@@ -36,7 +36,7 @@ export const Navigation = () => {
           <Link
             to="/infinity"
             className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-2 ${
-              location.pathname === "/infinity" ? "font-bold" : ""
+              location.pathname === "/infinity" ? "font-light" : ""
             }`}
           >
             ∞
@@ -45,7 +45,7 @@ export const Navigation = () => {
           <Link
             to="/miscellany"
             className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-2 ${
-              location.pathname === "/miscellany" ? "font-bold" : ""
+              location.pathname === "/miscellany" ? "font-light" : ""
             }`}
           >
             Miscellany
