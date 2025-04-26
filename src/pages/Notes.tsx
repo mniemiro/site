@@ -34,8 +34,8 @@ const Notes = () => {
 
   const strayNotes = [
     {
-      title: "Bookmarked notes for Jacob Lurie's Chromatic Homotopy Theory (252x) course",
-      subtitle: "Collated into one PDF with bookmarks",
+      title: "BOOKMARKED Chromatic Homotopy Theory (252x) lecture notes by Jacob Lurie",
+      subtitle: "Collated into one PDF, with bookmarks!!",
       description: "",
       date: "",
       link: "/docs/Lurie_252x_bookmarks.pdf"
@@ -46,7 +46,9 @@ const Notes = () => {
     <div className="max-w-3xl">
       <PaperList papers={notes} />
       
-      <h3 className="mt-8 text-lg font-medium">Stray notes and links</h3>
+      <h3 className="mt-8 text-lg font-medium text-right">
+        Stray notes and links
+      </h3>
       <PaperList papers={strayNotes} />
     </div>
   );

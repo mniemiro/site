@@ -94,7 +94,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
               <div className="font-bold text-[13px]">
                 [{index + 1}] {paper.title}
               </div>
-              <div className="font-light italic text-[11px] mt-[1px]">
+              <div className="font-light italic text-[11px] mt-[1px] tracking-wide">
                 {paper.subtitle}
               </div>
             </div>
