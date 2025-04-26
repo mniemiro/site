@@ -46,7 +46,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
   }, [openIndex, papers]);
 
   return (
-    <div className="space-y-6 relative">
+    <div className="relative">
       <div className="absolute" style={{ pointerEvents: 'none' }}>
         {showConfetti && (
           <Confetti
@@ -73,54 +73,56 @@ export const PaperList = ({ papers }: PaperListProps) => {
           />
         )}
       </div>
-      {papers.map((paper, index) => (
-        <div 
-          key={index} 
-          className="paper-entry relative"
-          ref={el => paperRefs.current[index] = el}
-        >
-          {paper.description && (
-            <div className="absolute -left-4 -top-0.5">
-              <span className="text-[13px]">
-                {openIndex === index ? '-' : '+'}
-              </span>
-            </div>
-          )}
-          <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
-            <div 
-              className={paper.description ? "cursor-pointer" : ""}
-              onClick={paper.description ? () => handleClick(index) : undefined}
-            >
-              <div className="font-bold text-[13px]">
-                [{index + 1}] {paper.title}
+      <div className="space-y-6">
+        {papers.map((paper, index) => (
+          <div 
+            key={index} 
+            className="paper-entry relative"
+            ref={el => paperRefs.current[index] = el}
+          >
+            {paper.description && (
+              <div className="absolute -left-4 -top-0.5">
+                <span className="text-[13px]">
+                  {openIndex === index ? '-' : '+'}
+                </span>
               </div>
-              <div className="font-light italic text-[11px] mt-[1px] tracking-wide">
-                {paper.subtitle}
+            )}
+            <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
+              <div 
+                className={paper.description ? "cursor-pointer" : ""}
+                onClick={paper.description ? () => handleClick(index) : undefined}
+              >
+                <div className="font-bold text-[13px]">
+                  [{index + 1}] {paper.title}
+                </div>
+                <div className="font-light italic text-[11px] mt-[1px] tracking-wide">
+                  {paper.subtitle}
+                </div>
+              </div>
+              <div className="flex flex-col items-end leading-tight">
+                {paper.link && (
+                  <a 
+                    href={paper.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[13px] text-orange-500 hover:text-orange-600 hover:underline"
+                  >
+                    [link]
+                  </a>
+                )}
+                <span className="text-[12px] text-muted-foreground opacity-80 mt-[1px]">
+                  {paper.date}
+                </span>
               </div>
             </div>
-            <div className="flex flex-col items-end leading-tight">
-              {paper.link && (
-                <a 
-                  href={paper.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[13px] text-orange-500 hover:text-orange-600 hover:underline"
-                >
-                  [link]
-                </a>
-              )}
-              <span className="text-[12px] text-muted-foreground opacity-80 mt-[1px]">
-                {paper.date}
-              </span>
-            </div>
+            {openIndex === index && paper.description && (
+              <div className="pl-4 mt-2 text-[13px]">
+                {paper.description}
+              </div>
+            )}
           </div>
-          {openIndex === index && paper.description && (
-            <div className="pl-4 mt-2 text-[13px]">
-              {paper.description}
-            </div>
-          )}
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }; 
