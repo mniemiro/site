@@ -7,7 +7,11 @@ const Infinity = () => {
       </p>
 
       <p className="text-[13px] mb-6">
-      In undergraduate, I started a journal to record my ∞-category learning throes. I have learned a lot about the subject since then, and a lot about learning. My notes are evolving accordingly. For self-accountability and reference, here are my notes (which I caution away from taking very seriously):
+      In undergraduate, I started a journal to record my ∞-category learning throes. I have learned a lot about the subject since then, and a lot about learning.
+      </p>
+
+      <p className="text-[13px] mb-6">
+      For accountability, and because it is easier than recompiling whenever I need to recall something,here are my notes (which I caution away from taking seriously):
       </p>
 
       <div className="text-[13px]">
