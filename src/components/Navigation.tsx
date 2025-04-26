@@ -7,9 +7,9 @@ export const Navigation = () => {
   return (
     <header className="border-b border-gray-200 dark:border-gray-700 bg-background dark:bg-gray-900">
       <div className="container max-w-3xl px-6 h-24 flex items-center justify-between">
-      <Link 
+        <Link 
           to="/" 
-          className="text-2xl sm:text-3xl font-inconsolata font-normal text-foreground hover:text-orange-500 transition-colors"
+          className="text-2xl sm:text-3xl font-inconsolata font-normal text-foreground hover:text-orange-500 transition-colors tracking-tight"
         >
           M.A. Niemiro
         </Link>
