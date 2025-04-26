@@ -14,10 +14,10 @@ export const Navigation = () => {
           M.A. Niemiro
         </Link>
         
-        <nav className="flex items-center space-x-2 text-sm">
+        <nav className="flex items-center space-x-1 sm:space-x-2 text-sm">
           <Link
             to="/"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-2 font-light ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
               location.pathname === "/" ? "font-normal" : ""
             }`}
           >
@@ -26,7 +26,7 @@ export const Navigation = () => {
           <span className="mt-2">/</span>
           <Link
             to="/notes"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-2 font-light ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
               location.pathname === "/notes" ? "font-normal" : ""
             }`}
           >
@@ -35,7 +35,7 @@ export const Navigation = () => {
           <span className="mt-2">/</span>
           <Link
             to="/infinity"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-2 font-light ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
               location.pathname === "/infinity" ? "font-normal" : ""
             }`}
           >
@@ -44,7 +44,7 @@ export const Navigation = () => {
           <span className="mt-2">/</span>
           <Link
             to="/miscellany"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-1.5 py-1.5 mt-2 font-light ${
+            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
               location.pathname === "/miscellany" ? "font-normal" : ""
             }`}
           >
