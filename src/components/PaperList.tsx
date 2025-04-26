@@ -17,18 +17,20 @@ interface PaperListProps {
 export const PaperList = ({ papers }: PaperListProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const paperRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0, x: 0, y: 0 });
 
   useEffect(() => {
-    if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      setDimensions({
-        width: rect.width + 200,
-        height: 200,
-        x: rect.x,
-        y: rect.y
-      });
+    if (openIndex !== null && paperRefs.current[openIndex]) {
+      const rect = paperRefs.current[openIndex]?.getBoundingClientRect();
+      if (rect) {
+        setDimensions({
+          width: rect.width + 200,
+          height: 200,
+          x: rect.x,
+          y: rect.y
+        });
+      }
     }
   }, [openIndex]);
 
@@ -72,7 +74,11 @@ export const PaperList = ({ papers }: PaperListProps) => {
         )}
       </div>
       {papers.map((paper, index) => (
-        <div key={index} className="paper-entry relative">
+        <div 
+          key={index} 
+          className="paper-entry relative"
+          ref={el => paperRefs.current[index] = el}
+        >
           {paper.description && (
             <div className="absolute -left-4 -top-0.5">
               <span className="text-[13px]">
