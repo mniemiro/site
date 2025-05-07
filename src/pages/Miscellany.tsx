@@ -10,7 +10,7 @@ const Miscellany = () => {
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
         Various things
       </h3>
-      <ul className="list-disc pl-5 space-y-2">
+      <ul className="list-disc pl-5 space-y-2 text-[13px]">
         <li>
           <a 
             href="https://arxiv.org/abs/2212.09835v4" 
@@ -38,7 +38,7 @@ const Miscellany = () => {
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
         Biographies
       </h3>
-      <ul className="list-disc pl-5 space-y-2">
+      <ul className="list-disc pl-5 space-y-2 text-[13px]">
         <li>Biography 1</li>
         <li>Biography 2</li>
         <li>Biography 3</li>
