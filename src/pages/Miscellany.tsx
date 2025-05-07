@@ -3,9 +3,9 @@ import DropdownSection from '../components/DropdownSection';
 const Miscellany = () => {
   return (
     <div className="max-w-3xl">
-      <p className="text-[12px] mb-6">
+      {/* <p className="text-[12px] mb-6">
         A collection of mathematical notes and observations.
-      </p>
+      </p> */}
 
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
         Various things
