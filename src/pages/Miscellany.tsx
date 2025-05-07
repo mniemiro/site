@@ -3,7 +3,6 @@ import DropdownSection from '../components/DropdownSection';
 const Miscellany = () => {
   return (
     <div className="max-w-3xl">
-      <h1 className="text-[19px] mb-1 font-bold">Miscellany</h1>
       <p className="text-[12px] mb-6">
         A collection of mathematical notes and observations.
       </p>
