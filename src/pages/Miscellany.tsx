@@ -22,6 +22,17 @@ const Miscellany = () => {
           </a>
           , D.M. Jackson and L.B. Richmond.
         </li>
+        <li>
+          <a 
+            href="https://arxiv.org/abs/2009.06735" 
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Gödel diffeomorphisms
+          </a>
+          , Matthew Foreman.
+        </li>
       </ul>
       
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
