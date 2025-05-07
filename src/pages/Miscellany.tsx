@@ -11,9 +11,17 @@ const Miscellany = () => {
         Various things
       </h3>
       <ul className="list-disc pl-5 space-y-2">
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
+        <li>
+          <a 
+            href="https://arxiv.org/abs/2212.09835v4" 
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            A non-constructive proof of the four-color theorem
+          </a>
+          , D.M. Jackson and L.B. Richmond.
+        </li>
       </ul>
       
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
