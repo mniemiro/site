@@ -3,14 +3,22 @@ import DropdownSection from '../components/DropdownSection';
 const Miscellany = () => {
   return (
     <div className="max-w-3xl">
-      {/* <p className="text-[12px] mb-6">
-        A collection of mathematical notes and observations.
-      </p> */}
 
-      <h3 className="mt-8 text-lg font-medium text-right mb-4">
+      <h3 className="mt-0 text-lg font-medium text-right mb-4">
         Various things
       </h3>
       <ul className="list-disc pl-5 space-y-2 text-[13px]">
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=cysvEtrxNck&list=LL&index=1"
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Clutching TS^3
+          </a>
+          , Mohammad Javad Azavi. An animation of a clutching construction for the tangent bundle of the 3-sphere.
+        </li>
         <li>
           <a 
             href="https://arxiv.org/abs/2212.09835v4" 
@@ -36,12 +44,42 @@ const Miscellany = () => {
       </ul>
       
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
-        Biographies
+        Biographical writing
       </h3>
       <ul className="list-disc pl-5 space-y-2 text-[13px]">
-        <li>Biography 1</li>
-        <li>Biography 2</li>
-        <li>Biography 3</li>
+        <li>
+          <a 
+            href="/postnikov_memorial.pdf" 
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Mikhail Postnikov: his life, work, and legacy
+          </a>
+          , Y. Rudyak. Kind of hard to find.
+        </li>
+        <li>
+          <a 
+            href="https://www.ams.org/notices/201210/rtx121001392p.pdf" 
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Daniel Quillen
+          </a>
+          .
+        </li>
+        <li>
+        <a 
+            href="https://people.mpim-bonn.mpg.de/zagier/files/doi/10.1365/s13291-015-0114-1/dmv-FH.pdf" 
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Life and work of Friedrich Hirzebruch
+          </a>
+          , D. Zagier.
+        </li>
       </ul>
     </div>
   );
