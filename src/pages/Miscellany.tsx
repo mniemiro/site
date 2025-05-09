@@ -20,6 +20,17 @@ const Miscellany = () => {
           , Mohammad Javad Azavi. An animation of a clutching construction for the tangent bundle of the 3-sphere.
         </li>
         <li>
+          <a
+            href="https://www.cameronsworld.net"
+            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Cameron's world
+          </a>
+          .
+        </li>
+        <li>
           <a 
             href="https://arxiv.org/abs/2212.09835v4" 
             className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
