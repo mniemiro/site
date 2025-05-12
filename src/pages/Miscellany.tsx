@@ -11,7 +11,7 @@ const Miscellany = () => {
         <li>
           <a
             href="https://www.youtube.com/watch?v=cysvEtrxNck&list=LL&index=1"
-            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -22,7 +22,7 @@ const Miscellany = () => {
         <li>
           <a
             href="https://www.cameronsworld.net"
-            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -33,7 +33,7 @@ const Miscellany = () => {
         <li>
           <a 
             href="https://arxiv.org/abs/2212.09835v4" 
-            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -44,7 +44,7 @@ const Miscellany = () => {
         <li>
           <a 
             href="https://arxiv.org/abs/2009.06735" 
-            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -61,7 +61,7 @@ const Miscellany = () => {
         <li>
           <a 
             href="/postnikov_memorial.pdf" 
-            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -72,7 +72,7 @@ const Miscellany = () => {
         <li>
           <a 
             href="https://www.ams.org/notices/201210/rtx121001392p.pdf" 
-            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -83,7 +83,7 @@ const Miscellany = () => {
         <li>
         <a 
             href="https://people.mpim-bonn.mpg.de/zagier/files/doi/10.1365/s13291-015-0114-1/dmv-FH.pdf" 
-            className="text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >

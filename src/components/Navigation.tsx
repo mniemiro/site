@@ -9,7 +9,7 @@ export const Navigation = () => {
       <div className="container max-w-3xl px-6 h-24 flex items-center justify-between">
         <Link 
           to="/" 
-          className="text-2xl sm:text-3xl font-inconsolata font-normal text-foreground hover:text-orange-500 transition-colors tracking-tight"
+          className="text-2xl sm:text-3xl font-inconsolata font-normal text-foreground hover:text-link transition-colors tracking-tight"
         >
           M.A. Niemiro
         </Link>
@@ -17,7 +17,7 @@ export const Navigation = () => {
         <nav className="flex items-center space-x-1 sm:space-x-2 text-sm">
           <Link
             to="/"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
+            className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
               location.pathname === "/" ? "font-normal" : ""
             }`}
           >
@@ -26,7 +26,7 @@ export const Navigation = () => {
           <span className="mt-2">/</span>
           <Link
             to="/notes"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
+            className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
               location.pathname === "/notes" ? "font-normal" : ""
             }`}
           >
@@ -35,7 +35,7 @@ export const Navigation = () => {
           <span className="mt-2">/</span>
           <Link
             to="/infinity"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
+            className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
               location.pathname === "/infinity" ? "font-normal" : ""
             }`}
           >
@@ -44,7 +44,7 @@ export const Navigation = () => {
           <span className="mt-2">/</span>
           <Link
             to="/miscellany"
-            className={`text-orange-500 hover:text-orange-600 hover:border-b-2 hover:border-orange-600 transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
+            className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
               location.pathname === "/miscellany" ? "font-normal" : ""
             }`}
           >

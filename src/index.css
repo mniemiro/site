@@ -9,6 +9,8 @@
   :root {
     --background: 0 0% 95%;
     --foreground: 222.2 84% 4.9%;
+    --link-color: 221 83% 53%; /* Blue for light mode */
+    --link-hover-color: 221 83% 43%; /* Darker blue for hover in light mode */
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -41,6 +43,8 @@
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
+    --link-color: 24 95% 53%; /* Orange for dark mode */
+    --link-hover-color: 24 95% 43%; /* Darker orange for hover in dark mode */
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
@@ -54,6 +58,9 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  a {
+    @apply text-[hsl(var(--link-color))] hover:text-[hsl(var(--link-hover-color))] transition-colors;
   }
 }
 
