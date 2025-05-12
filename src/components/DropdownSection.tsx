@@ -67,7 +67,7 @@ const DropdownSection = ({ title, content, publications }: DropdownSectionProps)
       <button
         ref={buttonRef}
         onClick={handleClick}
-        className="flex items-center gap-2 text-[13px] hover:text-orange-500 transition-colors"
+        className="flex items-center gap-2 text-[13px] hover:text-link transition-colors"
       >
         <span>{isOpen ? '-' : '+'}</span>
         {title}
@@ -83,7 +83,7 @@ const DropdownSection = ({ title, content, publications }: DropdownSectionProps)
                     href={pub.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[13px] text-orange-500 hover:text-orange-600 hover:underline ml-4"
+                    className="text-[13px] text-link hover:text-link-hover hover:underline ml-4"
                   >
                     [link]
                   </a>
