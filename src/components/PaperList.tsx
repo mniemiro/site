@@ -105,7 +105,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
                     href={paper.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[13px] text-orange-500 hover:text-orange-600 hover:underline"
+                    className="text-[13px] text-link hover:text-link-hover hover:underline"
                   >
                     [link]
                   </a>

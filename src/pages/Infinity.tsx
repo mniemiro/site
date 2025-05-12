@@ -20,7 +20,7 @@ const Infinity = () => {
         <li>
             <a 
               href="/docs/nb2023.pdf" 
-              className="text-blue-600 hover:text-blue-800 hover:underline"
+              className="text-link hover:text-link-hover hover:underline"
               target="_blank" 
               rel="noopener noreferrer"
             >
@@ -30,7 +30,7 @@ const Infinity = () => {
           <li>
             <a 
               href="/docs/nb2024.pdf" 
-              className="text-blue-600 hover:text-blue-800 hover:underline"
+              className="text-link hover:text-link-hover hover:underline"
               target="_blank" 
               rel="noopener noreferrer"
             >
@@ -41,7 +41,7 @@ const Infinity = () => {
           <li>
             <a 
               href="/docs/nb2025.pdf" 
-              className="text-blue-600 hover:text-blue-800 hover:underline"
+              className="text-link hover:text-link-hover hover:underline"
               target="_blank" 
               rel="noopener noreferrer"
             >
