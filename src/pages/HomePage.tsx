@@ -14,6 +14,10 @@ export const HomePage = () => {
       <p className="text-[13px]">
         This spring, I am organizing the <HolographicLink href="https://math.mit.edu/topology/babytop/">Harvard-MIT Babytop seminar</HolographicLink>.
       </p>
+      <p>&nbsp;</p>
+      <p className="text-[13px]">
+        Eventually, my site will use a new link: <a href="https://freeloop.space" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">www.freeloop.space</a>.
+      </p>
     </div>
   );
 };
