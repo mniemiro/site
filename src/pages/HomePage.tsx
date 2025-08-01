@@ -4,7 +4,7 @@ export const HomePage = () => {
   return (
     <div className="prose dark:prose-invert max-w-none">
       <p className="text-[13px]">
-        Hi, my name is Matthew Niemiro. I am a PhD student at <a href="https://www.math.harvard.edu" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">Harvard University</a> working in algebra and topology (shapes, spaces). This is my math (blog?)
+        Hi, my name is Matthew Niemiro. I am a PhD student at <a href="https://www.math.harvard.edu" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">Harvard University</a> working in algebra and topology (shapes, spaces). This is my math blog(?)
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
@@ -12,7 +12,7 @@ export const HomePage = () => {
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
-        This spring, I am organizing the <HolographicLink href="https://math.mit.edu/topology/babytop/">Harvard-MIT Babytop seminar</HolographicLink>.
+        This fall, I am organizing the <HolographicLink href="https://math.mit.edu/topology/babytop/">Harvard-MIT Babytop seminar</HolographicLink> with Logan Hyslop.
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
