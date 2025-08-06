@@ -11,7 +11,7 @@ export const Seminars = () => {
         <li className="before:content-['(Fall 2025)'] before:inline-block before:w-16 before:text-right before:mr-4 before:font-mono">
           (Fall 2024) Harvard/MIT Babytop Seminar --- <a href="https://math.mit.edu/topology/babytop/" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">Trace methods I</a>, joint w/ Logan Hyslop
         </li>
-        <li className="before:content-['(Spring 2024)'] before:inline-block before:w-16 before:text-right before:mr-4 before:font-mono">
+        <li className="before:content-['(Spring 2025)'] before:inline-block before:w-16 before:text-right before:mr-4 before:font-mono">
           (Spring 2024) Harvard/MIT Babytop Seminar --- <a href="https://math.mit.edu/topology/babytop/" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">Chromatic homotopy theory</a>
         </li>
         <li className="before:content-['(Summer 2022)'] before:inline-block before:w-16 before:text-right before:mr-4 before:font-mono">
