@@ -25,6 +25,15 @@ export const Navigation = () => {
           </Link>
           <span className="mt-2">/</span>
           <Link
+            to="/seminars"
+            className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
+              location.pathname === "/seminars" ? "font-normal" : ""
+            }`}
+          >
+            Seminars
+          </Link>
+          <span className="mt-2">/</span>
+          <Link
             to="/notes"
             className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
               location.pathname === "/notes" ? "font-normal" : ""
@@ -49,15 +58,6 @@ export const Navigation = () => {
             }`}
           >
             Miscellany
-          </Link>
-          <span className="mt-2">/</span>
-          <Link
-            to="/seminars"
-            className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
-              location.pathname === "/seminars" ? "font-normal" : ""
-            }`}
-          >
-            Seminars
           </Link>
           <span className="mt-2">/</span>
           <div className="mt-3">

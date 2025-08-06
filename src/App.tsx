@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import Notes from './pages/Notes';
 import Infinity from './pages/Infinity';
 import Miscellany from './pages/Miscellany';
+import Seminars from './pages/Seminars';
 import NotFound from "./pages/NotFound";
 import { MathJaxContext } from 'better-react-mathjax';
 
@@ -43,6 +44,7 @@ const App = () => (
                 <Route path="/notes" element={<Notes />} />
                 <Route path="/infinity" element={<Infinity />} />
                 <Route path="/miscellany" element={<Miscellany />} />
+                <Route path="/seminars" element={<Seminars />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
