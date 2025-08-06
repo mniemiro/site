@@ -92,10 +92,10 @@ export const PaperList = ({ papers }: PaperListProps) => {
                 className={paper.description ? "cursor-pointer" : ""}
                 onClick={paper.description ? () => handleClick(index) : undefined}
               >
-                <div className="font-bold text-[13px]">
+                <div className="font-bold text-[14px]">
                   [{index + 1}] {paper.title}
                 </div>
-                <div className="font-light italic text-[11px] mt-[1px] tracking-wide">
+                <div className="font-light italic text-[12px] mt-[1px] tracking-wide">
                   {paper.subtitle}
                 </div>
               </div>
