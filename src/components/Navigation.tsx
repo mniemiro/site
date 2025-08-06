@@ -14,7 +14,7 @@ export const Navigation = () => {
           M.A. Niemiro
         </Link>
         
-        <nav className="flex flex-col sm:flex-row items-start sm:items-center space-y-1 sm:space-y-0 sm:space-x-1 sm:space-x-2 text-sm">
+        <nav className="flex flex-col sm:flex-row items-start sm:items-center space-y-0.5 sm:space-y-0 sm:space-x-1 sm:space-x-2 text-sm">
           <Link
             to="/"
             className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
