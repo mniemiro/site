@@ -14,7 +14,7 @@ export const Navigation = () => {
           M.A. Niemiro
         </Link>
         
-        <nav className="flex items-center space-x-1 sm:space-x-2 text-sm">
+        <nav className="flex flex-col sm:flex-row items-start sm:items-center space-y-1 sm:space-y-0 sm:space-x-1 sm:space-x-2 text-sm">
           <Link
             to="/"
             className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
@@ -23,7 +23,7 @@ export const Navigation = () => {
           >
             Home
           </Link>
-          <span className="mt-2">/</span>
+          <span className="hidden sm:block mt-2">/</span>
           <Link
             to="/seminars"
             className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
@@ -32,7 +32,7 @@ export const Navigation = () => {
           >
             Seminars
           </Link>
-          <span className="mt-2">/</span>
+          <span className="hidden sm:block mt-2">/</span>
           <Link
             to="/notes"
             className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
@@ -41,7 +41,7 @@ export const Navigation = () => {
           >
             Notes
           </Link>
-          <span className="mt-2">/</span>
+          <span className="hidden sm:block mt-2">/</span>
           <Link
             to="/infinity"
             className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
@@ -50,7 +50,7 @@ export const Navigation = () => {
           >
             ∞
           </Link>
-          <span className="mt-2">/</span>
+          <span className="hidden sm:block mt-2">/</span>
           <Link
             to="/miscellany"
             className={`text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors px-0.5 sm:px-1.5 py-1.5 mt-2 font-light ${
@@ -59,8 +59,8 @@ export const Navigation = () => {
           >
             Miscellany
           </Link>
-          <span className="mt-2">/</span>
-          <div className="mt-3">
+          <span className="hidden sm:block mt-2">/</span>
+          <div className="mt-3 sm:mt-3">
             <ThemeToggle />
           </div>
         </nav>
