@@ -57,7 +57,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
             gravity={0.3}
             wind={0.005}
             friction={0.99}
-            initialVelocityY={1}
+            initialVelocityY={1.2}
             style={{
               position: 'fixed',
               left: dimensions.x,
