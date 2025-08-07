@@ -54,7 +54,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
             height={dimensions.height}
             recycle={false}
             numberOfPieces={40}
-            gravity={0.1}
+            gravity={0.3}
             wind={0.005}
             friction={0.99}
             initialVelocityY={1}
