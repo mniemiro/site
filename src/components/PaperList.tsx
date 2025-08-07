@@ -40,7 +40,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
     
     if (openIndex !== index) {
       setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 4500);
+      setTimeout(() => setShowConfetti(false), 4000);
     }
     setOpenIndex(openIndex === index ? null : index);
   }, [openIndex, papers]);
