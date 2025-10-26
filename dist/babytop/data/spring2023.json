@@ -1,0 +1,105 @@
+{
+  "semester": "Spring 2023",
+  "topic": "In Spring 2023, Babytop was about telescopically localized stable homotopy theory.",
+  "meeting": "",
+  "calendarLink": "",
+  "organizers": ["Ishan Levy"],
+  "talks": [
+    {
+      "date": "Feb 07",
+      "year": "2023",
+      "title": "Overview",
+      "speaker": "Ishan Levy",
+      "affiliation": "",
+      "abstract": "The goal of the seminar is to learn about the T(n)-localizations of the stable homotopy category. In the first part of the seminar, we will first go over some of the basics of chromatic homotopy theory and introduce the T(n)-local and K(n)-local categories. We will then focus on understanding ambidexterity and its consequences, which is one of the fundamental features of these categories. In the second part of the seminar, we will read works surrounding the telescope conjecture. In particular, we will learn about the original proofs of the telescope conjecture, attempted disproofs and related conjectures at higher heights, and implications of these conjectures on the size of the stable homotopy groups of spheres."
+    },
+    {
+      "date": "Feb 14",
+      "year": "2023",
+      "title": "Chromatic crash course",
+      "speaker": "Eunice Sukarto",
+      "affiliation": "",
+      "abstract": "This will be a crash course on chromatic homotopy theory. We will first look at the connection between stable homotopy theory and formal groups. Then, we will define the Morava E-theories E(n) and the Morava K-theories K(n) and state the nilpotence and periodicity theorems. Finally, we will look at K(n) vs T(n) localizations and state the telescope conjecture."
+    },
+    {
+      "date": "Feb 21",
+      "year": "2023",
+      "title": "Ambidexterity",
+      "speaker": "Rushil Mallarapu",
+      "affiliation": "",
+      "abstract": "We will introduce and give motivating examples of the categorical phenomena of ambidexterity. The main goal is to outline the proof that pi-finite Kan complexes are ambidextrous in K(n)-local spectra, and reduce this to questions about the behavior of K(n)-local E_n-modules. Along the way, we'll introduce some interesting ideas about alternating powers of formal groups to contextualize these computations."
+    },
+    {
+      "date": "Feb 28",
+      "year": "2023",
+      "title": "Bootstrapping ambidexterity",
+      "speaker": "David Jongwon Lee",
+      "affiliation": "",
+      "abstract": "It is a theorem of Kuhn that the category of T(n)-local spectra is 1-semiadditive. Taking this as the base case, I will explain the inductive argument by Carmeli-Schlank-Yanovski for proving that this category is ∞-semiadditive. It will be based on a new power operation that can be constructed in symmetric monoidal 1-semiadditive categories."
+    },
+    {
+      "date": "Mar 07",
+      "year": "2023",
+      "title": "Chromatic cyclotomic extensions",
+      "speaker": "Natalie Stewart",
+      "affiliation": "",
+      "abstract": "This talk concerns galois extensions in the K(n)-local category and lifts of Abelian such extensions to the T(n)-local category. We begin by introducing the notion of Galois extensions in higher algebra. We introduce higher cyclotomic extensions and use nil-conservativity to prove that height n p^r'th cyclotomic extensions are T(n)-locally Galois. Then, we introduce separable closures and Rognes' 'Brave New Galois Correspondence.' We will see that E_n is the separable closure of the K(n)-local sphere, with absolute galois group given by the big morava stabilizer group. By an explicit computation, we then show that all K(n)-local abelian galois extensions lift to the T(n)-local setting."
+    },
+    {
+      "date": "Mar 28",
+      "year": "2023",
+      "title": "MIT spring break",
+      "speaker": "None",
+      "affiliation": "",
+      "abstract": ""
+    },
+    {
+      "date": "Apr 04",
+      "year": "2023",
+      "title": "The chromatic Fourier transform",
+      "speaker": "Tristan Yang",
+      "affiliation": "",
+      "abstract": "We define the chromatic fourier transform and explain how it relates to semiadditive height and higher roots of unity. we then apply this to the T(n)-local setting."
+    },
+    {
+      "date": "Apr 11",
+      "year": "2023",
+      "title": "Chromatic homotopy is multiplicatively algebraic at large primes",
+      "speaker": "Shaul Barkan",
+      "affiliation": "",
+      "abstract": "Stable homotopy theory is intimately related to the geometry of formal groups through the Adams Novkiov spectral sequence. Franke took a step towards making this analogy precise by introducing a derived category of certain sheaves on the moduli stack of formal groups as an analog of the infinity category of spectra of chromaric height ≤h. He conjectured that at primes sufficiently larger than the height the homotopy truncation of the two categories coincide. Barthel-Schlank-Stapleton proved an asymptotic variant of Franke’s conjecture using categorical ultraproducts. Later, Pstragowski proved an effective yet non-monoidal version of the conjecture. I will discuss work, building on these results, which provides an effective solution to the symmetric monoidal formulation of Franke’s conjecture."
+    },
+    {
+      "date": "Apr 18",
+      "year": "2023",
+      "title": "The height 1 telescope conjecture via the localized Adams spectral sequence",
+      "speaker": "Ishan Levy",
+      "affiliation": "Harvard",
+      "abstract": "I will explain Haynes Miller's proof of the height 1 telescope conjecture for p>2. We'll see how differentials in the May spectral sequence computing the Adams Novikov E_2 term can give enough information about differentials in the Adams spectral sequence to compute the localized Adams spectral sequence for the telescope of the mod p Moore spectrum. If time permits, I'll explain a modification of the argument due to Burklund–Hahn–Senger to deal with the case p=2."
+    },
+    {
+      "date": "Apr 25",
+      "year": "2023",
+      "title": "The height 1 telescope conjecture via cyclotomic descent",
+      "speaker": "Tomer Schlank",
+      "affiliation": "HUJI",
+      "abstract": "I shall present proof for the height 1 telescope at odd primes using cyclotomic descent. That is: First we shall prove that the maximal cyclotomic extension is faithful in height 1. We then use the Snaith theorem to identify the maximal cyclotomic extension with KU. If time permits, I all explain the mild modifications needed to extend the proof to p=2. This proof is part of a joint project with S. Carmeli and L. Yanovski."
+    },
+    {
+      "date": "May 02",
+      "year": "2023",
+      "title": "bo resolutions",
+      "speaker": "Ishan Levy",
+      "affiliation": "Harvard",
+      "abstract": "I will explain work due to Mahowald on the ko-based Adams spectral sequence. In particular, I will prove a splitting of the tensor square of ko, and explain how this lets you say things about the E_2 term. A consequence of this is the original proof of the height 1 telescope conjecture at the prime 2."
+    },
+    {
+      "date": "May 09",
+      "year": "2023",
+      "title": "Higher heights and the triple loop space approach",
+      "speaker": "Ishan Levy",
+      "affiliation": "Harvard",
+      "abstract": "I will compute the E_2 term of the localized Adams Novikov and localized Adams spectral sequences for the ring y(n). I will then explain something about the picture of Mahowald–Ravenel–Schick about how they expect the localized Adams spectral sequence should look like, and their approach to understanding it."
+    }
+  ]
+}

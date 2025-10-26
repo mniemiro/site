@@ -1,0 +1,97 @@
+{
+  "semester": "Spring 2024",
+  "topic": "This semester Babytop will be about the K(n)-local sphere and the Two (p-adic) Towers. The goal of the seminar is to learn about https://math.bu.edu/people/jsweinst/chromatic.pdf and some of the tools that go into its proof.",
+  "meeting": "We meet at 4:00 on Tuesdays in 2-151 unless otherwise noted.",
+  "calendarLink": "",
+  "organizers": ["Ishan Levy", "Piotr Pstragowski", "Andy Senger"],
+  "talks": [
+    {
+      "date": "Feb 06",
+      "year": "2024",
+      "title": "Overview",
+      "speaker": "Jared Weinstein",
+      "affiliation": "BU",
+      "abstract": "In this talk I'll present the main theorem and discuss the objects involved in its proof, including Morava K-theory and E-theory, Faltings' isomorphism between the two towers, and the pro-etale topology."
+    },
+    {
+      "date": "Feb 13",
+      "year": "2024",
+      "title": "Adic spaces, Section 3.1",
+      "speaker": "Maxime Ramzi",
+      "affiliation": "Copenhagen",
+      "abstract": "This talk will be a very brief introduction to adic spaces. I will introduce valuations, Huber rings and Huber pairs, and explain how formal geometry and rigid analytic geometry fit into this picture. Finally, I will define adic spaces and describe a key example: the open unit disk. Time permitting, I will give more examples and draw pictures."
+    },
+    {
+      "date": "Feb 20",
+      "year": "2024",
+      "title": "Condensation, Section 3.2-4",
+      "speaker": "Rushil Mallarapu",
+      "affiliation": "Harvard",
+      "abstract": "Condensed mathematics is a formalism for constructing abelian categories of 'topological' objects, and shows up in the computation of [BSSW24] as a means of accessing continuous cohomology. In this talk, we will provide an overview of the information from condensed math necessary for the rest of the seminar, covering condensed sets/abelian groups, solidity and its connection to continuous cohomology, and p-complete and p-adic complexes of condensed abelian groups."
+    },
+    {
+      "date": "Feb 27",
+      "year": "2024",
+      "title": "Pro-etale site, Section 3.5-6",
+      "speaker": "Dylan Pentland",
+      "affiliation": "Harvard",
+      "abstract": "In this talk, I will introduce the étale and pro-étale sites of a rigid analytic space. I will then motivate and define perfectoid spaces and show that perfectoid objects in the pro-étale site of a rigid analytic space form a basis for the topology (when the base field contains Q_p). This result will then be applied to prove some statements about condensed pro-étale cohomology we will need later in the seminar."
+    },
+    {
+      "date": "Mar 05",
+      "year": "2024",
+      "title": "The two towers",
+      "speaker": "Andy Senger",
+      "affiliation": "Harvard",
+      "abstract": "The two towers isomorphism is the most serious input into the work of Barthel–Schlank–Stapleton–Weinstein. The goal of this talk is to explain the statement and content of this theorem. We will begin with the definition of the Lubin-Tate tower, then discuss the Drinfeld tower, and conclude by saying something about Scholze–Weinstein's proof of the isomorphism between these two towers at infinite level."
+    },
+    {
+      "date": "Mar 19",
+      "year": "2024",
+      "title": "p-adic Lie groups, Section 3.7",
+      "speaker": "Piotr Pstragowski",
+      "affiliation": "Harvard",
+      "abstract": "I will be talking about p-adic analytic groups and their cohomology."
+    },
+    {
+      "date": "Mar 26",
+      "year": "2024",
+      "title": "Galois cohomology of O_C, Section 4",
+      "speaker": "Keita Allen",
+      "affiliation": "MIT",
+      "abstract": "In this week’s installation, we will start to take aim at Theorem B in BSSW, which provides the key result in the determination of the rational homotopy groups of the K(n)-local sphere. Our approach to proving this theorem will require having a good understanding of the pro-étale cohomology of rigid analytic spaces. I will begin to discuss how we can understand this in the simplest case, where our space is the point Spa K; in this case, the pro-étale cohomology is actually the Galois cohomology of O_C, the ring of integers in the completion of the algebraic closure of K. In my half of this talk, I’ll begin by reviewing some elements of ramification theory, and give an outline of how this helps us compute the Galois cohomology of O_c."
+    },
+    {
+      "date": "Apr 02",
+      "year": "2024",
+      "title": "Galois cohomology of O_C, Section 4.2",
+      "speaker": "Tristan Yang",
+      "affiliation": "MIT",
+      "abstract": "We will finish the computation of the Galois cohomology of O_C from last week, by computing the continuous cohomology of Gal(K_∞/K) where K_∞ is a ramified Z_p extension."
+    },
+    {
+      "date": "Apr 09",
+      "year": "2024",
+      "title": "Pro-etale cohomology of rigid analytic spaces, Section 5",
+      "speaker": "David Lee",
+      "affiliation": "MIT",
+      "abstract": "Given a rigid analytic space, the pro-etale cohomology of the completed integral structure sheaf can be understood in an almost sense using perfectoid covers, since higher cohomology groups almost vanish for perfectoid affinoids. I will talk about the computation (not just in an almost sense) of these cohomology groups (after a decalage) by Bhatt, Morrow, and Scholze over a perfectoid base field when the space is the generic fiber of a smooth formal scheme."
+    },
+    {
+      "date": "Apr 16",
+      "year": "2024",
+      "title": "Pro-etale cohomology of rigid analytic spaces, Section 5.2",
+      "speaker": "Ishan Levy",
+      "affiliation": "Harvard",
+      "abstract": "I will explain how to put together torsion bounds to prove the desired comparison map is an isomorphism up to bounded torsion."
+    },
+    {
+      "date": "Apr 23",
+      "year": "2024",
+      "title": "The final proof, S 6",
+      "speaker": "Isabel Longbottom",
+      "affiliation": "",
+      "abstract": "This week we will finish the proof of Theorem B in BSSW, thus completing the calculation of the rational homotopy of the K(n)-local sphere. We first reduce to a computation of the proetale cohomology of Drinfeld symmetric space and of the (rigid analytic) open unit disc, and then explain how each of these can be approximated, up to p-power torsion."
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "semester": "Spring 2025",
+  "topic": "This semester, Babytop will focus on chromatic homotopy theory.",
+  "meeting": "4:15pm on Tuesdays in Harvard SC 309 (unless otherwise noted)",
+  "calendarLink": "https://calendar.google.com/calendar",
+  "organizers": ["Matthew Niemiro"],
+  "talks": [
+    {
+      "date": "Feb 18",
+      "year": "2025",
+      "title": "Descent, Adams spectral sequences, and further Spec(MU)lation",
+      "speaker": "Keita Allen",
+      "affiliation": "MIT",
+      "abstract": "The theory of (faithfully flat) descent provides a way of understanding a ring in terms of an algebra over it, which can be very useful when the base ring is complicated. An analogue of these ideas in the stable homotopy category, where we consider ring spectra and algebras over them, leads to the Adams spectral sequence; we obtain a systematic way of studying the sphere spectrum by \"resolving\" it in terms of another, easier to understand, ring spectrum. A surprising discovery of Quillen tells us that when we use the complex cobordism spectrum MU to resolve the sphere, we obtain a spectral sequence with input coming from the purely algebraic theory of formal groups. This provides another plan of attack for understanding the homotopy groups of spheres, and stable homotopy theory more broadly; understanding how formal groups are organized can in turn help us understand how homotopy theory is organized. This turns out to be very effective, and is the basis for what has become known as chromatic homotopy theory. In my talk, I will give an overview of how some of these ideas are developed, emphasizing the analogy with algebra, and highlight some important characters who we will be seeing later."
+    },
+    {
+      "date": "Feb 25",
+      "year": "2025",
+      "title": "Spectra and formal groups",
+      "speaker": "Oakley Edens",
+      "affiliation": "Harvard",
+      "abstract": "In the previous talk, we saw that the behaviour of the complex cobordism spectrum MU controls homotopy groups of spheres via the Adams-Novikov spectral sequence. In this talk, I will further discuss how MU can be used to relate topology and algebra via formal group laws. This will lead to defining the moduli stack of formal groups, which will be a central focus of the remaining talks. Finally, via the theory of Hopf algebroids, we will show how one can associate, to any spectrum, certain quasi-coherent sheaves on the moduli stack of formal groups."
+    },
+    {
+      "date": "Mar 4",
+      "year": "2025",
+      "title": "Stack to the Future",
+      "speaker": "Tyler Lane",
+      "affiliation": "Harvard",
+      "abstract": "As the title suggests, this talk is all about the moduli stack of formal groups. I'll begin by presenting the moduli stack of formal groups as a quotient stack. Then I'll discuss the height filtration and some of its basic properties. One of my main goals is to present some theorems about quasi-coherent sheaves on the stack of formal group which will serve as inspiration for some corresponding results in chromatic homotopy theory. Finally I will discuss the Landweber exact functor theorem."
+    },
+    {
+      "date": "Mar 11",
+      "year": "2025",
+      "title": "The unreasonable effectiveness of nilpotence in stable homotopy theory",
+      "speaker": "Natalie Stewart",
+      "affiliation": "Harvard",
+      "abstract": "It's a classical result due to Nishida that HF_p detects nilpotence of simple p-torsion elements in the homotopy groups of a ring spectrum--as a corollary, one finds that all elements of pi_*S are nilpotent. In this talk, we'll sketch Devanitz-Hopkins-Smith's more advanced proof of this fact: MU detects arbitrary nilpotence. We'll also discuss various corollaries in stable homotopy theory."
+    },
+    {
+      "date": "Mar 25",
+      "year": "2025",
+      "title": "E-theory and Morava stabilizer groups",
+      "speaker": "Daishi Kiyohara",
+      "affiliation": "Harvard",
+      "abstract": "TBD"
+    },
+    {
+      "date": "Apr 1",
+      "year": "2025",
+      "title": "The K(1)-local sphere",
+      "speaker": "Kush Singhal",
+      "affiliation": "Harvard",
+      "abstract": "We will compute the homotopy groups of the Bousfield localisation of the sphere at K(1) and (time permitting) E(1). On the way, we will encounter Adams operations on complex K theory. If time permits, we will also discuss how the J-homomorphism appears in this picture."
+    },
+    {
+      "date": "Apr 15",
+      "year": "2025",
+      "title": "Galois theory of ring spectra",
+      "speaker": "Thomas Brazelton",
+      "affiliation": "Harvard",
+      "abstract": "We'll provide a leisurely introduction to the theory of descent for maps of ring spectra, and Rognes' theory of Galois extensions of ring spectra. We will also present a profinite Galois correspondence in this setting due to Mathew, and time pending discuss applications to the K(n)-local setting."
+    },
+    {
+      "date": "Apr 29",
+      "year": "2025",
+      "title": "On nilpotence",
+      "speaker": "Andy Senger",
+      "affiliation": "Harvard",
+      "abstract": "The nilpotence theorem may be interpreted in the following way: for any connective R, there is a sublinear vanishing curve on the E_oo-page of its Adams--Novikov spectral sequence. This is very false on the level of the E_2-page! Indeed, by an algebraic version of chromatic homotopy theory, there is an infinite sequence of non-nilpotent operators theta_n which act on the E_2-page along lines of decreasing slope. They are much like the v_i's in that each one begins to exist after the previous one is killed. Nilpotence is then the statement that each theta_n becomes nilpotent at some E_N-page of the ANSS. I will explain all this, and how to use it to prove the nilpotence theorem using the Nishida nilpotence theorem. This proof of nilpotence is due to Robert Burklund."
+    },
+    {
+      "date": "May 20",
+      "year": "2025",
+      "title": "A special function from chromatic homotopy theory",
+      "speaker": "Sanath Devalapurkar",
+      "affiliation": "Harvard",
+      "abstract": "I'll explain a generalization of the q-logarithm (and time permitting, the q-hypergeometric function) which is motivated by calculations in chromatic homotopy theory. I'll also prove a seemingly miraculous formula about these functions, which comes naturally from a result of myself and Raksit about the topological Hochschild homology of ℤₚ."
+    }
+  ]
+}

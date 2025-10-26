@@ -1,0 +1,89 @@
+{
+  "semester": "Fall 2023",
+  "topic": "In Fall 2023, Babytop was about topological automorphic forms.",
+  "meeting": "",
+  "calendarLink": "",
+  "organizers": ["Ishan Levy", "Andy Senger"],
+  "talks": [
+    {
+      "date": "Sep 12",
+      "year": "2023",
+      "title": "Overview",
+      "speaker": "Andy Senger",
+      "affiliation": "Harvard",
+      "abstract": "The goal of this seminar is to understand TAF and related constructions. This talk will give an overview of the topic. Below is a rough schedule of the rest of the semester."
+    },
+    {
+      "date": "Sep 19",
+      "year": "2023",
+      "title": "Chromatic homotopy theory and p-divisible groups",
+      "speaker": "Keita Allen",
+      "affiliation": "",
+      "abstract": "In my talk, I’ll be trying to motivate some of the big ideas in stable and chromatic homotopy theory and introduce p-divisible groups, a class of objects with connections to the theory of algebraic groups and formal groups. The plan is to keep the talk relatively beginner-friendly, so all are welcome!"
+    },
+    {
+      "date": "Sep 26",
+      "year": "2023",
+      "title": "Constructing rings from moduli problems",
+      "speaker": "Leonard Tokic",
+      "affiliation": "",
+      "abstract": "In this talk we will discuss Lurie's sheaf of E_infty rings on a site of p-divisible groups (in a formulation due to Jack Davies), focusing on applications. To this end I hope to cover how to use it to construct p-complete (and integral) KU, KO, and Lubin-Tate E_n’s."
+    },
+    {
+      "date": "Oct 03",
+      "year": "2023",
+      "title": "Topological modular forms",
+      "speaker": "Tristan Yang",
+      "affiliation": "",
+      "abstract": "We will explain the formulation of TMF as a product of Lurie's Theorem from the previous talk, and discuss various properties. To spotlight the computability of things, we will compute TMF[1/6]."
+    },
+    {
+      "date": "Oct 17",
+      "year": "2023",
+      "title": "A modular description of the K(2)-local sphere",
+      "speaker": "Natalie Stewart",
+      "affiliation": "",
+      "abstract": "Following work of Mark Behrens, we define a spectrum Q(l) in terms of the structure of isogenies of elliptic curves via the Goerss-Hopkins sheaf. For (p,l) = (3,2), we construct the K(2)-local sphere as an extension of Q(l) and its K(2)-local Spanier-Whitehead dual, reinterpreting a resolution due to Goerss, Henn, Mahowald, and Rezk."
+    },
+    {
+      "date": "Oct 24",
+      "year": "2023",
+      "title": "Abelian varieties",
+      "speaker": "Rushil Mallarapu",
+      "affiliation": "",
+      "abstract": "The theory of abelian varieties is a natural source for many p-divisible groups, giving an algebro-geometric inroad to TAF. The goal of this talk is to briskly introduce the main concepts in this theory and then discuss the Serre-Tate theorem, which states that the deformation theory of abelian varieties are controlled by the deformation theory of their associated p-divisible group. We will first define abelian varieties and isogenies, discuss the construction of the dual of an abelian variety, introduce some aspects of the theory of p-divisible groups, and end with an overview of the proof of the Serre-Tate theorem."
+    },
+    {
+      "date": "Oct 31",
+      "year": "2023",
+      "title": "Constructing TAF",
+      "speaker": "Dhilan Lahoti",
+      "affiliation": "",
+      "abstract": "Give a sketch of the construction of TAF, discuss PEL structures."
+    },
+    {
+      "date": "Nov 20",
+      "year": "2023",
+      "title": "Topological automorphic forms on U(1,1)",
+      "speaker": "David Lee",
+      "affiliation": "",
+      "abstract": "Given a quadratic imaginary field F, I will describe the moduli stack of polarized O_F-linear abelian surfaces with certain PEL structure in terms of the moduli stack of elliptic curves, which will give us a description of TAF in terms of TMF in this case."
+    },
+    {
+      "date": "Dec 05",
+      "year": "2023",
+      "title": "Hecke operators & buildings",
+      "speaker": "Ishan Levy",
+      "affiliation": "",
+      "abstract": "I will explain how there is extra functoriality of the TAF construction, which in particular gives rise to the action of Hecke operators. I will then explain how to construct Q_GU, an analog of Q_l, and how it can be described as the limit of a semisimplicial E_infty ring constructed from the Bruhat-Tits building of GU. I may also describe what happens K(n)-locally and make things explicit at height 1."
+    },
+    {
+      "date": "Dec 05",
+      "year": "2023",
+      "title": "Curves and p-divisible groups",
+      "speaker": "Andy Senger",
+      "affiliation": "",
+      "abstract": "In this talk, I will describe some interesting families of p-divisible groups which arise from families of curves, and how to check that they give rise to E_infty-ring spectra. Some of these families are related to topological automorphic forms, but most are not. Along the way, we'll touch upon Grothendieck-Messing deformation theory, how to compute infinitesimal variations of Hodge structure, and the relationship between Dieudonne modules and de Rham cohomology."
+    }
+  ]
+}
