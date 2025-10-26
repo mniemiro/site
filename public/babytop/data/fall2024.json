@@ -1,0 +1,89 @@
+{
+  "semester": "Fall 2024",
+  "topic": "This semester Babytop will be about stable equivariant homotopy theory and the Kervaire invariant one problem. We will largely cover Hill-Hopkins-Ravenel's proof.",
+  "meeting": "We meet at 4:30pm on Tuesdays in Harvard Science Center 232 unless otherwise noted.",
+  "calendarLink": "https://calendar.google.com/calendar/u/0?cid=M2Q0ZDM4YzYzOTU1ZDNkZDc5NGVjNGJmM2U3OTBmM2Q4NDc3ZjcwZGYzYTYzMDcyMDhiNjVkNzE4YTE5NDc1OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+  "organizers": ["Natalie Stewart"],
+  "talks": [
+    {
+      "date": "Sep 17",
+      "year": "2024",
+      "title": "Overview",
+      "speaker": "Mike Hopkins",
+      "affiliation": "Harvard",
+      "abstract": "In this talk, we will introduce the Kervaire invariant problem and sketch the strategy for its resolution at dimensions away from dimension 126."
+    },
+    {
+      "date": "Sep 24",
+      "year": "2024",
+      "title": "An intro to equivariant homotopy theory",
+      "speaker": "Isabel Longbottom",
+      "affiliation": "Harvard",
+      "abstract": "We give a brief introduction to equivariant homotopy theory. In the non-equivariant setting, homotopy theory is concerned with topological spaces up to weak equivalence. Before we can do equivariant homotopy theory, we need an equivariant notion of weak equivalence. Through a selection of examples, we present and try to motivate the relevant definitions. We then discuss Elmendorf's Theorem and how it gives us a very nice, concrete model for the ∞-category of G-spaces as presheaves on the orbit category. We conclude by saying a few words about equivariance in families."
+    },
+    {
+      "date": "Oct 01",
+      "year": "2024",
+      "title": "Mackey functors and equivariant cohomology",
+      "speaker": "Eunice Sukarto",
+      "affiliation": "Harvard",
+      "abstract": "We introduce Z-graded equivariant cohomology theories on G-spaces with coefficients in a coefficient system. We will look at an example computation using cellular cochains. We define G-spectra to be the stabilization of G-spaces with respect to finite orthogonal G-representations. They represent RO(G)-graded cohomology theories, where Mackey functors now play the role of the coefficients."
+    },
+    {
+      "date": "Oct 08",
+      "year": "2024",
+      "title": "G-spectra and the spectral Mackey functor theorem",
+      "speaker": "Dhilan Lahoti",
+      "affiliation": "Harvard",
+      "abstract": "We introduce G-categories and spectral Mackey functors, and show that the G-category of G-spectra is equivalent to the G-category of mackey functors valued in spectra. This provides a convenient model for the G-category of G-spectra. Along the way, we will define G-stability and G-semiadditivity."
+    },
+    {
+      "date": "Oct 22",
+      "year": "2024",
+      "title": "The isotropy separation sequence",
+      "speaker": "Jonathan Buchanan",
+      "affiliation": "MIT",
+      "abstract": "We define the geometric fixed points of a G-spectrum from the spectral Mackey functor point of view. We discuss the basic properties of this construction, including the isotropy separation sequence. If time permits, we will discuss the tom Dieck splitting, which allows us to decompose the ordinary fixed points of suspension spectra in terms of geometric fixed points, and also possibly a characterization of G-spectra for G = C_p."
+    },
+    {
+      "date": "Nov 05",
+      "year": "2024",
+      "title": "Indexed operations, HHR norms, and a splash of equivariant higher algebra",
+      "speaker": "Natalie Stewart",
+      "affiliation": "Harvard",
+      "abstract": "We introduce indexed (co)products, indexed tensor products, G-symmetric monoidal categories, G-commutative algebras, and we will introduce Hill-Hopkins-Ravanel norms and their basic properties."
+    },
+    {
+      "date": "Nov 12",
+      "year": "2024",
+      "title": "Real bordism I",
+      "speaker": "Keita Allen",
+      "affiliation": "MIT",
+      "abstract": "We give an introduction to the Real bordism spectrum MU_R, from the sketch of an outline of how it applies to solve the Kervaire invariant one problem. This is a C_2-equivariant enrichment of the complex bordism spectrum MU, whose existence allows us to reinterpret classical results in complex bordism as consequences of equivariant generalizations."
+    },
+    {
+      "date": "Nov 19",
+      "year": "2024",
+      "title": "The slice filtration",
+      "speaker": "Matthew Niemiro",
+      "affiliation": "Harvard",
+      "abstract": "We will introduce the slice filtration as an equivariant generalization of the Postnikov filtration. We will think about the large-scale structure of this filtration (how can we construct and describe it \"slice by slice\" in the formalism of stable oo-categories?) and the object-level theory necessary for any useful endeavors (what comparisons can be made to the familiar Postnikov filtration? How do slice properties interact with equivariant algebra? What behaviors occur in homotopy?)"
+    },
+    {
+      "date": "Dec 03",
+      "year": "2024",
+      "title": "Real bordism II",
+      "speaker": "Howard Beck",
+      "affiliation": "MIT",
+      "abstract": ""
+    },
+    {
+      "date": "Dec 10",
+      "year": "2024",
+      "title": "The detection theorem",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
+    }
+  ]
+}

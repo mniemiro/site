@@ -1,0 +1,105 @@
+{
+  "semester": "Fall 2021",
+  "topic": "This semester Babytop will be about deforming homotopy theory, synthetic spectra and a modern understanding of the Adams spectral sequence.",
+  "meeting": "We meet at 4:00 on Tuesdays in 2-151 unless otherwise noted.",
+  "calendarLink": "",
+  "organizers": ["Robert Burklund", "Piotr Pstragowski"],
+  "talks": [
+    {
+      "date": "Sep 14",
+      "year": "2021",
+      "title": "Overview",
+      "speaker": "Robert Burklund",
+      "affiliation": "",
+      "abstract": "After a virtual year, I'm excited to announce babytop is back, and in person! This semester we'll be taking a look at synthetic spectra and structured spectral sequences more generally. Today we'll examine several motifs that will recur throughout the semester. The seminar will have roughly four phases. In the first, we will give a gentle introduction to the Adams spectral sequence and its categorification in the form of the category of synthetic spectra. In the second, we will examine the techniques that exist for working with synthetic spectra (with an emphasis on portability). In the third, we will examine the myriad of techniques that now exist for constructing deformations that shares many of the formal properties of synthetic spectra. In the final phase we will put all the pieces together and look at a couple recent papers. Topics will be chosen based on particpant interests."
+    },
+    {
+      "date": "Sep 21",
+      "year": "2021",
+      "title": "Introduction to the Adams spectral sequence",
+      "speaker": "Piotr Pstragowski",
+      "affiliation": "",
+      "abstract": "Computing homotopy classes of maps between even the most simple spectra, such as the stable homotopy groups of spheres, is very difficult. What is usually much easier to access is homology. A powerful insight, due to Adams, is that in the stable context this is already a good start—there's a spectral sequence which starts with homological data and which computes homotopy classes of maps. This talk will be a gentle introduction to this remarkable construction, known as the Adams spectral sequence."
+    },
+    {
+      "date": "Sep 28",
+      "year": "2021",
+      "title": "Formal properties of synthetic spectra",
+      "speaker": "Arpon Raksit",
+      "affiliation": "",
+      "abstract": "There is a mantra I find helpful for calming my mind: 'Synthetic spectra categorify the Adams spectral sequence.' Without actually constructing or proving anything, I will describe the basic setup of the theory of synthetic spectra, and explain the meaning of this mantra."
+    },
+    {
+      "date": "Oct 05",
+      "year": "2021",
+      "title": "How do you calculate with synthetic spectra?",
+      "speaker": "Ishan Levy",
+      "affiliation": "",
+      "abstract": "I will explain how to compute the F_2-synthetic homotopy groups of the sphere in low dimensions using the Adams spectral sequence starting from its E_2 page. In doing so I will explain relevant notions and tools such as Toda brackets and cell diagrams as they come up, and we will see how the synthetic perspective makes for simple arguments."
+    },
+    {
+      "date": "Oct 12",
+      "year": "2021",
+      "title": "Calculations (continued)",
+      "speaker": "David Jongwon Lee",
+      "affiliation": "",
+      "abstract": "Continuing from last week, I will compute more stems in the F_2-based Adams spectral sequence with the help of operations in the synthetic homotopy groups."
+    },
+    {
+      "date": "Oct 19",
+      "year": "2021",
+      "title": "Calculations (continued (continued))",
+      "speaker": "David Jongwon Lee",
+      "affiliation": "",
+      "abstract": ""
+    },
+    {
+      "date": "Oct 26",
+      "year": "2021",
+      "title": "Goerss–Hopkins theory and synthetic spectra",
+      "speaker": "Leon Liu",
+      "affiliation": "Harvard",
+      "abstract": "Synthetic spectra is a bridge between algebra and topology. In previous weeks we saw how to use synthetic spectra to calculate stable homotopy groups of spheres. This week we will take a step back and discuss where these computation techniques come from, namely the deformation theory of synthetic spectra. This goes by the name of Goerss–Hopkins theory. In this talk we will discuss the motivation of Goerss–Hopkins theory and study the deformation theory of synthetic spectra."
+    },
+    {
+      "date": "Nov 02",
+      "year": "2021",
+      "title": "Miller's Adams spectral sequence",
+      "speaker": "Natalie Stewart",
+      "affiliation": "Harvard",
+      "abstract": "We've previously seen the Adams spectral for computing homotopy classes of maps from the homology theory presented by a ring spectrum of Adams type. As noted by Miller, this spectral sequence depends only on the class of maps which induce epimorphisms in homology; this week, we will study this perspective in the setting of epimorphism classes with enough injectives in an idempotent-complete stable ∞-category. We will see such an epimorphism class is induced by an essentially unique adapted homology theory, and hence its Adams spectral sequence has E_2 page canonically identified with an ext group in an appropriate abelian category."
+    },
+    {
+      "date": "Nov 09",
+      "year": "2021",
+      "title": "Synthetic spectra as sheaves",
+      "speaker": "Dexter Chua",
+      "affiliation": "",
+      "abstract": "I will motivate the construction of synthetic spectra as the derived category of spectra."
+    },
+    {
+      "date": "Nov 16",
+      "year": "2021",
+      "title": "Postnikov deformations of homotopy theories",
+      "speaker": "William Balderrama",
+      "affiliation": "",
+      "abstract": "This talk will describe a method for building certain kinds of deformations of homotopy theories. In the compactly generated and stable case, these deformations are categories such as the category of filtered modules over the Whitehead tower of a ring spectrum. We will see how to generalize this kind of deformation to other contexts, including those which are not stable."
+    },
+    {
+      "date": "Nov 30",
+      "year": "2021",
+      "title": "Vanishing lines and periodicity",
+      "speaker": "Robert Burklund",
+      "affiliation": "",
+      "abstract": "In this talk I'll introduce vanishing lines in synthetic homotopy groups and the associated periodic phenomena. Time permitting I'll indicate how this connects with various chromatic and telescopic ideas and indicate a cluster of open problems in this area, some of which seem approachable and others which seem far out of reach."
+    },
+    {
+      "date": "Dec 07",
+      "year": "2021",
+      "title": "One parameter deformations of stable categories",
+      "speaker": "Andy Senger",
+      "affiliation": "",
+      "abstract": "Given an Adams-type homology theory E, the category of E-based synthetic spectra may be viewed as a one-parameter deformation of the category of spectra which encodes the E-based Adams spectral sequence. In this talk, I will discuss how one-parameter deformations of stable categories can be constructed in a simple way from the category of filtered objects. I will also discuss a recognition principle which gives conditions for a deformation to arise in this way. Finally, I will give several examples of deformations that fit into this framework and discuss the relationship to the theory of synthetic spectra."
+    }
+  ]
+}
