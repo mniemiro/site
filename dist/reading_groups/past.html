@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/reading/">
+  <title>Past Reading Seminars</title>
+  <link rel="icon" href="../favicon.png">
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 0; padding: 24px; line-height: 1.5; }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+    nav a { margin-right: 12px; text-decoration: none; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .card { border: 1px solid color-mix(in oklab, currentColor 18%, transparent); border-radius: 12px; padding: 16px; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    li { padding: 12px; border-top: 1px solid color-mix(in oklab, currentColor 12%, transparent); }
+    li:first-child { border-top: none; }
+    .meta { color: #6b7280; font-size: 14px; }
+    a { text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+  <script>
+    async function loadPast() {
+      const listEl = document.getElementById('sessions');
+      try {
+        const res = await fetch('./data/sessions-index.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Failed to fetch sessions-index.json');
+        const sessions = await res.json();
+        listEl.innerHTML = '';
+        sessions.forEach(s => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = `./session.html?file=${encodeURIComponent(s.file)}`;
+          a.textContent = s.title || s.slug;
+          const meta = document.createElement('div');
+          meta.className = 'meta';
+          meta.textContent = s.subject || '';
+          li.append(a, meta);
+          listEl.append(li);
+        });
+      } catch (e) {
+        listEl.innerHTML = '<li>Unable to load past sessions.</li>';
+        console.error(e);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadPast);
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Past Reading Seminars</h1>
+        <div class="meta">Browse previous sessions</div>
+      </div>
+      <nav>
+        <a href="./index.html">Current seminar</a>
+        <a href="/">Home</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <ul id="sessions"><li>Loading…</li></ul>
+    </section>
+  </div>
+</body>
+</html>
+
+

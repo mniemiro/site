@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/reading/">
+  <title>Reading Seminar</title>
+  <link rel="icon" href="../favicon.png">
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 0; padding: 24px; line-height: 1.5; }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+    nav a { margin-right: 12px; text-decoration: none; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    h2 { margin: 24px 0 8px; font-size: 22px; }
+    .meta { color: #6b7280; font-size: 14px; }
+    .card { border: 1px solid color-mix(in oklab, currentColor 18%, transparent); border-radius: 12px; padding: 16px; margin: 12px 0; }
+    .list { list-style: none; padding: 0; margin: 0; }
+    .item { padding: 12px; border-top: 1px solid color-mix(in oklab, currentColor 12%, transparent); }
+    .item:first-child { border-top: 0; }
+    .date { font-variant-numeric: tabular-nums; font-weight: 600; margin-right: 12px; }
+    .topic { font-weight: 600; }
+    .flex { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1 id="seminar-title">Reading Seminar</h1>
+        <div id="seminar-subject" class="meta"></div>
+      </div>
+      <nav>
+        <a href="./past.html">Past sessions</a>
+        <a href="/">Home</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <h2>Upcoming and recent discussions</h2>
+      <ul id="discussions" class="list" aria-live="polite"></ul>
+    </section>
+
+    <section class="card">
+      <h2>About this seminar</h2>
+      <p id="seminar-description" style="margin: 0;"></p>
+    </section>
+  </div>
+
+  <script>
+    async function loadCurrent() {
+      try {
+        const res = await fetch('./data/current.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Failed to fetch current.json');
+        const data = await res.json();
+
+        document.getElementById('seminar-title').textContent = data.title || 'Reading Seminar';
+        document.getElementById('seminar-subject').textContent = data.subject || '';
+        document.getElementById('seminar-description').textContent = data.description || '';
+
+        const list = document.getElementById('discussions');
+        list.innerHTML = '';
+        (data.discussions || []).forEach((d) => {
+          const li = document.createElement('li');
+          li.className = 'item';
+
+          const top = document.createElement('div');
+          top.className = 'flex';
+          const date = document.createElement('span');
+          date.className = 'date';
+          date.textContent = d.date || '';
+          const topic = document.createElement('span');
+          topic.className = 'topic';
+          topic.textContent = d.topic || '';
+          const title = document.createElement('span');
+          title.textContent = d.title ? `— ${d.title}` : '';
+          top.append(date, topic, title);
+
+          let details = null;
+          if (d.details) {
+            details = document.createElement('div');
+            details.textContent = d.details;
+          }
+
+          li.append(top);
+          if (details) li.append(details);
+          list.append(li);
+        });
+      } catch (err) {
+        const list = document.getElementById('discussions');
+        list.innerHTML = '<li class="item">Unable to load current seminar.</li>';
+        console.error(err);
+      }
+    }
+
+    loadCurrent();
+  </script>
+</body>
+</html>
+
+
