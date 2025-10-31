@@ -12,20 +12,27 @@
     :root { color-scheme: light dark; }
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 0; padding: 24px; line-height: 1.5; background-color: #ffffff; color: #000000; }
     h1, h2, h3, h4, h5, h6 { font-family: 'Bitcount Single Ink', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }
-    h1 { margin: 0; font-size: 60px; }
+    h1 { margin: 0; font-size: 70px; }
   </style>
   <script>
-    async function loadCurrent() {
+    function getQueryParam(name) {
+      const params = new URLSearchParams(location.search);
+      return params.get(name);
+    }
+
+    async function loadSeminar() {
+      const file = getQueryParam('file');
+      const jsonFile = file || 'current.json';
       try {
-        const res = await fetch('./data/current.json', { cache: 'no-store' });
-        if (!res.ok) throw new Error('Failed to fetch current.json');
+        const res = await fetch(`./data/${jsonFile}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Failed to fetch ${jsonFile}`);
         const data = await res.json();
         document.getElementById('seminar-title').textContent = data.title || 'Reading Seminar';
       } catch (err) {
         console.error(err);
       }
     }
-    loadCurrent();
+    loadSeminar();
   </script>
 </head>
 <body>
