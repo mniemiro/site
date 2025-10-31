@@ -1,6 +1,6 @@
 {
   "title": "Fall 2024 Reading Seminar",
-  "subject": "Homotopy Theory",
+  "term": "Fall 2024",
   "description": "Focused on model categories and Quillen homotopical algebra.",
   "discussions": [
     { "date": "2024-09-18", "topic": "Model structures", "title": "Cofibrations, fibrations, weak equivalences" },
@@ -8,5 +8,3 @@
     { "date": "2024-11-06", "topic": "Quillen equivalence", "title": "Examples: sSet and Top" }
   ]
 }
-
-

@@ -1,12 +1,10 @@
 {
-  "title": "Current Reading Seminar",
-  "subject": "Algebraic Topology and Homotopy Theory",
-  "description": "Weekly discussions focusing on classic and modern topics in algebraic topology. Each meeting covers a focused topic with a short blurb and references.",
+  "title": "un cours d'addition",
+  "term": "Fall 2025",
+  "description": "Hope, visions, frayed ends. What is the role of the single thread in tapestry? A reading group on the semiadditive way.",
   "discussions": [
     { "date": "2025-11-05", "topic": "Spectral sequences", "title": "Serre spectral sequence basics" },
     { "date": "2025-11-12", "topic": "Model categories", "title": "Quillen adjunctions and homotopy limits" },
     { "date": "2025-11-19", "topic": "Stable homotopy", "title": "Spectra and cohomology theories" }
   ]
 }
-
-

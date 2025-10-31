@@ -1,6 +1,6 @@
 {
   "title": "Spring 2025 Reading Seminar",
-  "subject": "Algebraic Topology",
+  "term": "Spring 2025",
   "description": "A semester-long exploration of spectral sequences, model categories, and the stable homotopy category.",
   "discussions": [
     { "date": "2025-02-05", "topic": "Chain complexes", "title": "Derived functors refresher" },
@@ -8,5 +8,3 @@
     { "date": "2025-02-19", "topic": "Serre SS", "title": "Applications to fiber bundles" }
   ]
 }
-
-
