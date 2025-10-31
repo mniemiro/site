@@ -12,20 +12,7 @@
     :root { color-scheme: light dark; }
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 0; padding: 24px; line-height: 1.5; background-color: #ffffff; color: #000000; }
     h1, h2, h3, h4, h5, h6 { font-family: 'Bitcount Single Ink', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }
-    .container { max-width: 900px; margin: 0 auto; }
-    header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
-    a { color: #000000; }
-    nav a { margin-right: 12px; text-decoration: none; }
-    h1 { margin: 0 0 8px; font-size: 60px; }
-    h2 { margin: 24px 0 8px; font-size: 22px; }
-    .meta { color: #000000; font-size: 14px; }
-    .card { border: 1px solid color-mix(in oklab, currentColor 18%, transparent); border-radius: 12px; padding: 16px; margin: 12px 0; }
-    .list { list-style: none; padding: 0; margin: 0; }
-    .item { padding: 12px; border-top: 1px solid color-mix(in oklab, currentColor 12%, transparent); }
-    .item:first-child { border-top: 0; }
-    .date { font-variant-numeric: tabular-nums; font-weight: 600; margin-right: 12px; }
-    .topic { font-weight: 600; }
-    .flex { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+    h1 { margin: 0; font-size: 60px; }
   </style>
   <script>
     function getQueryParam(name) {
@@ -35,77 +22,20 @@
 
     async function loadSession() {
       const file = getQueryParam('file');
-      const target = document.getElementById('session-root');
-      if (!file) {
-        target.innerHTML = '<div class="card">No session specified.</div>';
-        return;
-      }
+      if (!file) return;
       try {
         const res = await fetch(`./data/${file}`, { cache: 'no-store' });
         if (!res.ok) throw new Error('Failed to fetch session file');
         const data = await res.json();
-
         document.getElementById('seminar-title').textContent = data.title || 'Reading Seminar';
-        // subtitle removed intentionally
-
-        const list = document.getElementById('discussions');
-        list.innerHTML = '';
-        (data.discussions || []).forEach((d) => {
-          const li = document.createElement('li');
-          li.className = 'item';
-
-          const top = document.createElement('div');
-          top.className = 'flex';
-          const date = document.createElement('span');
-          date.className = 'date';
-          date.textContent = d.date || '';
-          const topic = document.createElement('span');
-          topic.className = 'topic';
-          topic.textContent = d.topic || '';
-          const title = document.createElement('span');
-          title.textContent = d.title ? `— ${d.title}` : '';
-          top.append(date, topic, title);
-
-          let details = null;
-          if (d.details) {
-            details = document.createElement('div');
-            details.textContent = d.details;
-          }
-
-          li.append(top);
-          if (details) li.append(details);
-          list.append(li);
-        });
       } catch (e) {
-        target.innerHTML = '<div class="card">Unable to load this session.</div>';
         console.error(e);
       }
     }
-
     document.addEventListener('DOMContentLoaded', loadSession);
   </script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1 id="seminar-title">Reading Seminar</h1>
-      </div>
-      <nav>
-        <a href="./past.html">Past sessions</a>
-        <a href="./index.html">Current seminar</a>
-        <a href="/">Home</a>
-      </nav>
-    </header>
-
-    <div id="session-root">
-      <section class="card">
-        <h2>Discussions</h2>
-        <ul id="discussions" class="list"><li class="item">Loading…</li></ul>
-      </section>
-    </div>
-  </div>
+  <h1 id="seminar-title">Reading Seminar</h1>
 </body>
 </html>
-
-
