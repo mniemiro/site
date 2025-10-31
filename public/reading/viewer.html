@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reading Seminar Session</title>
   <link rel="icon" href="../favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single+Ink&display=swap" rel="stylesheet">
   <style>
     :root { color-scheme: light dark; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 0; padding: 24px; line-height: 1.5; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 0; padding: 24px; line-height: 1.5; background-color: #ffffff; color: #000000; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Bitcount Single Ink', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }
     .container { max-width: 900px; margin: 0 auto; }
     header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+    a { color: #000000; }
     nav a { margin-right: 12px; text-decoration: none; }
-    h1 { margin: 0 0 8px; font-size: 28px; }
+    h1 { margin: 0 0 8px; font-size: 60px; }
     h2 { margin: 24px 0 8px; font-size: 22px; }
-    .meta { color: #6b7280; font-size: 14px; }
+    .meta { color: #000000; font-size: 14px; }
     .card { border: 1px solid color-mix(in oklab, currentColor 18%, transparent); border-radius: 12px; padding: 16px; margin: 12px 0; }
     .list { list-style: none; padding: 0; margin: 0; }
     .item { padding: 12px; border-top: 1px solid color-mix(in oklab, currentColor 12%, transparent); }
@@ -41,7 +46,7 @@
         const data = await res.json();
 
         document.getElementById('seminar-title').textContent = data.title || 'Reading Seminar';
-        document.getElementById('seminar-subject').textContent = data.subject || '';
+        // subtitle removed intentionally
 
         const list = document.getElementById('discussions');
         list.innerHTML = '';
@@ -85,7 +90,6 @@
     <header>
       <div>
         <h1 id="seminar-title">Reading Seminar</h1>
-        <div id="seminar-subject" class="meta"></div>
       </div>
       <nav>
         <a href="./past.html">Past sessions</a>
