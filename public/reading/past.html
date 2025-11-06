@@ -7,11 +7,27 @@
   <link rel="icon" href="../favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single+Ink&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Bitcount+Double:wght@100..900&family=Google+Sans+Code:wght@100..900&display=swap" rel="stylesheet">
   <style>
     :root { color-scheme: light dark; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 0; padding: 24px; line-height: 1.5; background-color: #ffffff; color: #000000; }
-    h1, h2, h3, h4, h5, h6 { font-family: 'Bitcount Single Ink', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }
+    body { 
+      font-family: 'Google Sans Code', monospace; 
+      margin: 0; 
+      padding: 0; 
+      line-height: 1.5; 
+      background-color: #ffffff; 
+      color: #000000; 
+    }
+    .container {
+      width: 50%;
+      margin-left: 25%;
+      margin-right: 25%;
+      padding: 24px;
+    }
+    h1, h2, h3, h4, h5, h6 { 
+      font-family: 'Bitcount Single', 'Bitcount Double', monospace; 
+      font-variation-settings: 'wght' var(--header-weight, 400);
+    }
     h1 { margin: 0; font-size: 62px; }
     a { color: #000000; }
     ul { list-style: none; padding: 0; margin: 24px 0 0 0; }
@@ -43,7 +59,9 @@
   </script>
 </head>
 <body>
-  <h1>Past Reading Seminars</h1>
-  <ul id="sessions"><li>Loading…</li></ul>
+  <div class="container">
+    <h1>Past Reading Seminars</h1>
+    <ul id="sessions"><li>Loading…</li></ul>
+  </div>
 </body>
 </html>

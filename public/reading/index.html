@@ -7,17 +7,78 @@
   <link rel="icon" href="../favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single+Ink&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Bitcount+Double:wght@100..900&family=Google+Sans+Code:wght@100..900&display=swap" rel="stylesheet">
   <style>
-    :root { color-scheme: light dark; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 0; padding: 24px; line-height: 1.5; background-color: #ffffff; color: #000000; }
-    h1, h2, h3, h4, h5, h6 { font-family: 'Bitcount Single Ink', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }
-    h1 { margin: 0; font-size: 62px; }
+    :root { color-scheme: light; }
+    body { 
+      font-family: 'Bitcount Single', 'Bitcount Double', monospace; 
+      margin: 0; 
+      padding: 0; 
+      line-height: 1.5; 
+      background-color: #ffffff; 
+      color: #000000; 
+    }
+    .container {
+      width: 50%;
+      margin-left: 25%;
+      margin-right: 25%;
+      padding: 24px;
+    }
+    .header-group {
+      margin-bottom: 48px;
+    }
+    .reading-group-label {
+      font-family: 'Bitcount Single', 'Bitcount Double', monospace;
+      color: #ff00ff;
+      font-size: 48px;
+      margin: 0;
+      padding: 0;
+    }
+    .seminar-title {
+      font-family: 'Bitcount Single', 'Bitcount Double', monospace;
+      color: #00ffff;
+      font-size: 36px;
+      margin: 0;
+      padding: 0;
+      margin-left: 24px;
+      margin-top: 12px;
+    }
+    .discussions {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .discussion-item {
+      margin-bottom: 32px;
+    }
+    .discussion-title {
+      font-family: 'Bitcount Single', 'Bitcount Double', monospace;
+      color: #ff00ff;
+      font-size: 28px;
+      margin: 0;
+      padding: 0;
+    }
+    .discussion-date {
+      font-family: 'Bitcount Single', 'Bitcount Double', monospace;
+      color: #ff00ff;
+      font-size: 20px;
+      margin: 0;
+      padding: 0;
+      margin-top: 8px;
+    }
   </style>
   <script>
     function getQueryParam(name) {
       const params = new URLSearchParams(location.search);
       return params.get(name);
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${month}-${day}-${year}`;
     }
 
     async function loadSeminar() {
@@ -27,7 +88,30 @@
         const res = await fetch(`./data/${jsonFile}`, { cache: 'no-store' });
         if (!res.ok) throw new Error(`Failed to fetch ${jsonFile}`);
         const data = await res.json();
+        
         document.getElementById('seminar-title').textContent = data.title || 'Reading Seminar';
+        
+        const discussionsList = document.getElementById('discussions');
+        discussionsList.innerHTML = '';
+        
+        if (data.discussions && data.discussions.length > 0) {
+          data.discussions.forEach((discussion) => {
+            const li = document.createElement('li');
+            li.className = 'discussion-item';
+            
+            const title = document.createElement('div');
+            title.className = 'discussion-title';
+            title.textContent = discussion.title || discussion.topic || 'Untitled Discussion';
+            
+            const date = document.createElement('div');
+            date.className = 'discussion-date';
+            date.textContent = discussion.date ? formatDate(discussion.date) : '';
+            
+            li.appendChild(title);
+            li.appendChild(date);
+            discussionsList.appendChild(li);
+          });
+        }
       } catch (err) {
         console.error(err);
       }
@@ -36,6 +120,12 @@
   </script>
 </head>
 <body>
-  <h1 id="seminar-title">Reading Seminar</h1>
+  <div class="container">
+    <div class="header-group">
+      <div class="reading-group-label">Reading Group:</div>
+      <div class="seminar-title" id="seminar-title">Reading Seminar</div>
+    </div>
+    <ul class="discussions" id="discussions"></ul>
+  </div>
 </body>
 </html>
