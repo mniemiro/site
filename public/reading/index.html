@@ -7,7 +7,7 @@
   <link rel="icon" href="../favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Bitcount+Double:wght@100..900&family=Google+Sans+Code:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Bitcount+Double:wght@100..900&family=Bitcount+Grid+Double:wght@100..900&family=Google+Sans+Code:wght@100..900&display=swap" rel="stylesheet">
   <style>
     :root { color-scheme: light; }
     body { 
@@ -30,9 +30,11 @@
       min-height: 120px;
     }
     .reading-group-label {
-      font-family: 'Bitcount Single', 'Bitcount Double', monospace;
+      font-family: 'Bitcount Grid Double', monospace;
       color: #ff7bac;
-      font-size: 96px;
+      font-size: 72px;
+      font-weight: 375;
+      font-variation-settings: 'wght' 375;
       margin: 0;
       padding: 0;
       position: absolute;
@@ -45,9 +47,9 @@
       font-size: 36px;
       margin: 0;
       padding: 0;
-      margin-top: 12px;
       position: absolute;
-      left: calc(25vw - 25vw - 24px);
+      left: calc(12.5vw - 25vw - 24px);
+      top: 72px;
       white-space: nowrap;
     }
     .discussions {
