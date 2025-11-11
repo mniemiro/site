@@ -165,7 +165,6 @@
             
             // After typing "un cour[typo] d", pause and backspace to correct
             if (index === 9) {
-              index++;
               setTimeout(() => {
                 // Start backspacing character by character (slower)
                 isBackspacing = true;
@@ -182,9 +181,10 @@
                       updateDisplay(text.substring(0, 8));
                       setTimeout(() => {
                         // Continue with space and rest of title
+                        // "un cours" is positions 0-7, so continue from position 8 (the space)
                         hasTypo = false;
                         isBackspacing = false;
-                        index++;
+                        index = 8;
                         setTimeout(type, speed);
                       }, backspaceSpeed);
                     }, backspaceSpeed);
