@@ -61,7 +61,7 @@
     }
     .typing-caret {
       display: inline-block;
-      width: 0.3em;
+      width: 0.4em;
       height: 0.6em;
       background-color: #000000;
       margin-left: 2px;
@@ -115,6 +115,11 @@
       element.innerHTML = '';
       let index = 0;
       
+      // Show caret at the beginning for 400ms before typing starts
+      const initialCaret = document.createElement('span');
+      initialCaret.className = 'typing-caret';
+      element.appendChild(initialCaret);
+      
       function type() {
         if (index < text.length) {
           // Update text content and add blinking caret
@@ -139,13 +144,20 @@
           element.appendChild(caret);
           
           setTimeout(() => {
-            // Type a period and remove caret
-            element.textContent = text + '.';
+            // Type a period and keep caret visible
+            const textNodeWithPeriod = document.createTextNode(text + '.');
+            const finalCaret = document.createElement('span');
+            finalCaret.className = 'typing-caret';
+            
+            element.innerHTML = '';
+            element.appendChild(textNodeWithPeriod);
+            element.appendChild(finalCaret);
           }, speed);
         }
       }
       
-      type();
+      // Wait 400ms before starting to type
+      setTimeout(type, 400);
     }
 
     async function loadSeminar() {
