@@ -115,7 +115,7 @@
       element.innerHTML = '';
       let index = 0;
       
-      // Show caret at the beginning for 3s before typing starts
+      // Show caret at the beginning for 1.5s before typing starts
       const initialCaret = document.createElement('span');
       initialCaret.className = 'typing-caret';
       element.appendChild(initialCaret);
@@ -153,8 +153,8 @@
         }
       }
       
-      // Wait 3s before starting to type
-      setTimeout(type, 3000);
+      // Wait 1.5s before starting to type
+      setTimeout(type, 1500);
     }
 
     async function loadSeminar() {
@@ -167,7 +167,7 @@
         
         const titleElement = document.getElementById('seminar-title');
         const titleText = data.title || 'Reading Seminar';
-        typeText(titleElement, titleText, 50);
+        typeText(titleElement, titleText, 60);
         
         const discussionsList = document.getElementById('discussions');
         discussionsList.innerHTML = '';
