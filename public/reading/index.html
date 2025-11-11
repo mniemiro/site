@@ -115,7 +115,7 @@
       element.innerHTML = '';
       let index = 0;
       
-      // Show caret at the beginning for 400ms before typing starts
+      // Show caret at the beginning for 600ms before typing starts
       const initialCaret = document.createElement('span');
       initialCaret.className = 'typing-caret';
       element.appendChild(initialCaret);
@@ -152,12 +152,20 @@
             element.innerHTML = '';
             element.appendChild(textNodeWithPeriod);
             element.appendChild(finalCaret);
+            
+            // Remove caret after 10 seconds
+            setTimeout(() => {
+              const caretToRemove = element.querySelector('.typing-caret');
+              if (caretToRemove) {
+                caretToRemove.remove();
+              }
+            }, 10000);
           }, speed);
         }
       }
       
-      // Wait 400ms before starting to type
-      setTimeout(type, 400);
+      // Wait 600ms before starting to type
+      setTimeout(type, 600);
     }
 
     async function loadSeminar() {
