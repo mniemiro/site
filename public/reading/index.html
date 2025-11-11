@@ -116,7 +116,7 @@
       let index = 0;
       let isBackspacing = false;
       let hasTypo = false;
-      const backspaceSpeed = speed * 1.5; // Backspacing is 50% slower
+      const backspaceSpeed = speed / 0.5; // Backspacing is 50% slower
       const typoChars = ['a', 'w', 'c', 'd', 'e'];
       const typoChar = typoChars[Math.floor(Math.random() * typoChars.length)];
       
