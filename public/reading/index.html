@@ -59,6 +59,19 @@
       text-align: left;
       white-space: nowrap;
     }
+    .typing-caret {
+      display: inline-block;
+      width: 0.1em;
+      height: 0.9em;
+      background-color: #000000;
+      margin-left: 2px;
+      vertical-align: baseline;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
     .discussions {
       list-style: none;
       padding: 0;
@@ -97,6 +110,43 @@
       return `${month}-${day}-${year}`;
     }
 
+    function typeText(element, text, speed = 50) {
+      element.innerHTML = '';
+      let index = 0;
+      
+      function type() {
+        if (index < text.length) {
+          // Update text content and add blinking caret
+          const textNode = document.createTextNode(text.substring(0, index + 1));
+          const caret = document.createElement('span');
+          caret.className = 'typing-caret';
+          
+          element.innerHTML = '';
+          element.appendChild(textNode);
+          element.appendChild(caret);
+          index++;
+          
+          setTimeout(type, speed);
+        } else {
+          // Title is complete, show caret one more time
+          const textNode = document.createTextNode(text);
+          const caret = document.createElement('span');
+          caret.className = 'typing-caret';
+          
+          element.innerHTML = '';
+          element.appendChild(textNode);
+          element.appendChild(caret);
+          
+          setTimeout(() => {
+            // Type a period and remove caret
+            element.textContent = text + '.';
+          }, speed);
+        }
+      }
+      
+      type();
+    }
+
     async function loadSeminar() {
       const file = getQueryParam('file');
       const jsonFile = file || 'current.json';
@@ -105,7 +155,9 @@
         if (!res.ok) throw new Error(`Failed to fetch ${jsonFile}`);
         const data = await res.json();
         
-        document.getElementById('seminar-title').textContent = data.title || 'Reading Seminar';
+        const titleElement = document.getElementById('seminar-title');
+        const titleText = data.title || 'Reading Seminar';
+        typeText(titleElement, titleText, 50);
         
         const discussionsList = document.getElementById('discussions');
         discussionsList.innerHTML = '';
