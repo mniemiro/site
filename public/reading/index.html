@@ -115,7 +115,7 @@
       element.innerHTML = '';
       let index = 0;
       
-      // Show caret at the beginning for 850ms before typing starts
+      // Show caret at the beginning for 3s before typing starts
       const initialCaret = document.createElement('span');
       initialCaret.className = 'typing-caret';
       element.appendChild(initialCaret);
@@ -153,8 +153,8 @@
         }
       }
       
-      // Wait 850ms before starting to type
-      setTimeout(type, 850);
+      // Wait 3s before starting to type
+      setTimeout(type, 3000);
     }
 
     async function loadSeminar() {
