@@ -70,23 +70,23 @@
       "abstract": "We discuss the K_0, K_1, and K_2 of rings. Then we define higher algebraic K-theory via the plus construction."
     },
     {
-      "date": "Nov 14",
+      "date": "Nov 4",
       "year": "2025",
       "title": "Algebraic K-theory II",
       "speaker": "Tyler Lane",
       "affiliation": "Harvard",
-      "abstract": ""
+      "abstract": "In this talk we will finally introduce the star of this seminar: the Dennis trace map.  The main focus of the talk will be the construction of the absolute Chern character from K-theory to negative cyclic homology.  From this we will obtain the Dennis trace map and other Chern characters valued in cyclic homology and periodic cyclic homology."
     },
     {
-      "date": "Nov 21",
+      "date": "Nov 11",
       "year": "2025",
-      "title": "",
+      "title": "Semi-topological K-theory",
       "speaker": "Dhilan Lahoti",
       "affiliation": "Harvard",
-      "abstract": ""
+      "abstract": "Semi-topological K-theory is an invariant of schemes (or stable categories) over the complex numbers which is in some ways better behaved than algebraic K-theory while retaining more refined information than topological K-theory. In this talk, we will introduce several definitions of semitopological K-theory and see why they agree. We will also use the trace methods discussed previously this semester to prove that semi-topological K-theory is a truncating invariant, following Konovalov."
     },
     {
-      "date": "Nov 4",
+      "date": "Nov 18",
       "year": "2025",
       "title": "Operator Theory Origins",
       "speaker": "Natalie Stewart",
