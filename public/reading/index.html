@@ -18,6 +18,11 @@
       background-color: #ffffff; 
       color: #000000; 
     }
+    .left-column {
+      width: 25%;
+      padding: 24px;
+      padding-top: 48px;
+    }
     .container {
       width: 50%;
       margin-left: 25%;
@@ -25,23 +30,17 @@
       padding: 24px;
     }
     .header-group {
-      margin-top: 24px;
       margin-bottom: 48px;
-      position: relative;
-      min-height: 120px;
     }
     .reading-group-label {
       font-family: 'Bytesized', sans-serif;
       font-weight: 400;
       color: #000000;
       font-size: 68.4px;
-      margin-top: 25px;
-      margin-right: 0;
-      margin-bottom: 0;
-      margin-left: 0;
+      margin: 0;
       padding: 0;
-      position: absolute;
-      left: calc(12.5vw - 25vw - 24px - 20px);
+      margin-top: 25px;
+      text-align: left;
       white-space: nowrap;
     }
     .seminar-title {
@@ -53,9 +52,8 @@
       font-variation-settings: 'ELSH' 50;
       margin: 0;
       padding: 0;
-      position: absolute;
-      left: 0;
-      top: 95px;
+      margin-top: 12px;
+      text-align: left;
       white-space: nowrap;
     }
     .discussions {
@@ -135,11 +133,13 @@
   </script>
 </head>
 <body>
-  <div class="container">
+  <div class="left-column">
     <div class="header-group">
       <div class="reading-group-label">Reading Group:</div>
       <div class="seminar-title" id="seminar-title">Reading Seminar</div>
     </div>
+  </div>
+  <div class="container">
     <ul class="discussions" id="discussions"></ul>
   </div>
 </body>
