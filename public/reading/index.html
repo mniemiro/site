@@ -114,24 +114,87 @@
     function typeText(element, text, speed = 50) {
       element.innerHTML = '';
       let index = 0;
+      let isBackspacing = false;
+      let hasTypo = false;
+      const backspaceSpeed = speed * 1.5; // Backspacing is 50% slower
+      const typoChars = ['a', 'w', 'c', 'd', 'e'];
+      const typoChar = typoChars[Math.floor(Math.random() * typoChars.length)];
       
       // Show caret at the beginning for 1.5s before typing starts
       const initialCaret = document.createElement('span');
       initialCaret.className = 'typing-caret';
       element.appendChild(initialCaret);
       
+      function updateDisplay(currentText) {
+        const textNode = document.createTextNode(currentText);
+        const caret = document.createElement('span');
+        caret.className = 'typing-caret';
+        
+        element.innerHTML = '';
+        element.appendChild(textNode);
+        element.appendChild(caret);
+      }
+      
       function type() {
         if (index < text.length) {
-          // Update text content and add blinking caret
-          const textNode = document.createTextNode(text.substring(0, index + 1));
-          const caret = document.createElement('span');
-          caret.className = 'typing-caret';
+          // Make a typo: at position 7, type random char instead of 's' in "un cours"
+          if (index === 7 && !isBackspacing && !hasTypo && text.substring(0, 7) === "un cour" && text[7] === 's') {
+            // Type random typo char instead of 's' → "un cour[typo]"
+            const typoText = text.substring(0, 7) + typoChar;
+            updateDisplay(typoText);
+            hasTypo = true;
+            index++;
+            setTimeout(type, speed);
+            return;
+          }
           
-          element.innerHTML = '';
-          element.appendChild(textNode);
-          element.appendChild(caret);
+          // Continue typing with typo: show "un cour[typo] " then "un cour[typo] d"
+          if (hasTypo && !isBackspacing && index < 10) {
+            let displayText;
+            if (index === 8) {
+              // Type space after typo
+              displayText = text.substring(0, 7) + typoChar + text[8];
+            } else if (index === 9) {
+              // Type 'd' after space
+              displayText = text.substring(0, 7) + typoChar + text[8] + text[9];
+            } else {
+              displayText = text.substring(0, index + 1);
+            }
+            
+            updateDisplay(displayText);
+            
+            // After typing "un cour[typo] d", pause and backspace to correct
+            if (index === 9) {
+              index++;
+              setTimeout(() => {
+                // Start backspacing: remove 'd', space, typo char (slower)
+                isBackspacing = true;
+                // Backspace to "un cour"
+                updateDisplay(text.substring(0, 7));
+                setTimeout(() => {
+                  // Type 's' to correct → "un cours"
+                  updateDisplay(text.substring(0, 8));
+                  setTimeout(() => {
+                    // Continue with space and rest of title
+                    hasTypo = false;
+                    isBackspacing = false;
+                    index++;
+                    setTimeout(type, speed);
+                  }, speed);
+                }, backspaceSpeed);
+              }, 800); // Pause before backspacing
+              return;
+            }
+            
+            index++;
+            setTimeout(type, speed);
+            return;
+          }
+          
+          // Normal typing
+          const currentText = text.substring(0, index + 1);
+          updateDisplay(currentText);
           index++;
-          
           setTimeout(type, speed);
         } else {
           // Title is complete, show caret and keep it visible
