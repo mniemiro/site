@@ -167,20 +167,28 @@
             if (index === 9) {
               index++;
               setTimeout(() => {
-                // Start backspacing: remove 'd', space, typo char (slower)
+                // Start backspacing character by character (slower)
                 isBackspacing = true;
-                // Backspace to "un cour"
-                updateDisplay(text.substring(0, 7));
+                // Step 1: Remove 'd' → "un cour[typo] "
+                updateDisplay(text.substring(0, 7) + typoChar + text[8]);
                 setTimeout(() => {
-                  // Type 's' to correct → "un cours"
-                  updateDisplay(text.substring(0, 8));
+                  // Step 2: Remove space → "un cour[typo]"
+                  updateDisplay(text.substring(0, 7) + typoChar);
                   setTimeout(() => {
-                    // Continue with space and rest of title
-                    hasTypo = false;
-                    isBackspacing = false;
-                    index++;
-                    setTimeout(type, speed);
-                  }, speed);
+                    // Step 3: Remove typo char → "un cour"
+                    updateDisplay(text.substring(0, 7));
+                    setTimeout(() => {
+                      // Step 4: Type 's' to correct → "un cours"
+                      updateDisplay(text.substring(0, 8));
+                      setTimeout(() => {
+                        // Continue with space and rest of title
+                        hasTypo = false;
+                        isBackspacing = false;
+                        index++;
+                        setTimeout(type, speed);
+                      }, speed);
+                    }, backspaceSpeed);
+                  }, backspaceSpeed);
                 }, backspaceSpeed);
               }, 800); // Pause before backspacing
               return;
