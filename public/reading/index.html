@@ -27,7 +27,6 @@
     .description-column {
       width: 25%;
       padding: 24px;
-      padding-top: 48px;
       margin-left: 25%;
       position: absolute;
       top: 0;
@@ -260,6 +259,24 @@
         if (descriptionElement && data.description) {
           descriptionElement.textContent = data.description;
         }
+        
+        // Position description column to align with header bottom
+        // Wait for layout to settle, then calculate position
+        function positionDescription() {
+          const headerGroup = document.querySelector('.header-group');
+          const leftColumn = document.querySelector('.left-column');
+          const descriptionColumn = document.querySelector('.description-column');
+          
+          if (headerGroup && leftColumn && descriptionColumn) {
+            const headerBottom = leftColumn.offsetTop + headerGroup.offsetTop + headerGroup.offsetHeight;
+            descriptionColumn.style.top = (headerBottom + 24) + 'px'; // Add 24px spacing
+          }
+        }
+        
+        // Position immediately and again after a short delay to account for layout
+        positionDescription();
+        setTimeout(positionDescription, 100);
+        setTimeout(positionDescription, 500);
         
         const discussionsList = document.getElementById('discussions');
         discussionsList.innerHTML = '';
