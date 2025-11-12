@@ -17,16 +17,32 @@
       line-height: 1.5; 
       background-color: #ffffff; 
       color: #000000; 
+      position: relative;
     }
     .left-column {
       width: 25%;
       padding: 24px;
       padding-top: 48px;
     }
+    .description-column {
+      width: 25%;
+      padding: 24px;
+      padding-top: 48px;
+      margin-left: 25%;
+      position: absolute;
+      top: 0;
+    }
+    .description {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #000000;
+      text-align: left;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
     .container {
       width: 50%;
-      margin-left: 25%;
-      margin-right: 25%;
+      margin-left: 50%;
+      margin-right: 0;
       margin-bottom: 0;
       padding: 24px;
       padding-bottom: 0;
@@ -38,7 +54,7 @@
       font-family: 'Bytesized', sans-serif;
       font-weight: 400;
       color: #000000;
-      font-size: 100px;
+      font-size: 125px;
       margin: 0;
       padding: 0;
       padding-top: 20pt;
@@ -50,7 +66,7 @@
       font-family: 'Bytesized', sans-serif;
       font-weight: 400;
       color: #000000;
-      font-size: 90px;
+      font-size: 112.5px;
       letter-spacing: -1pt;
       font-variation-settings: 'ELSH' 50;
       margin: 0;
@@ -240,6 +256,11 @@
         const titleText = data.title || 'Reading Seminar';
         typeText(titleElement, titleText, 60);
         
+        const descriptionElement = document.getElementById('description');
+        if (descriptionElement && data.description) {
+          descriptionElement.textContent = data.description;
+        }
+        
         const discussionsList = document.getElementById('discussions');
         discussionsList.innerHTML = '';
         
@@ -274,6 +295,9 @@
       <div class="reading-group-label">Reading Group:</div>
       <div class="seminar-title" id="seminar-title">Reading Seminar</div>
     </div>
+  </div>
+  <div class="description-column">
+    <div class="description" id="description"></div>
   </div>
   <div class="container">
     <ul class="discussions" id="discussions"></ul>

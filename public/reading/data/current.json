@@ -1,7 +1,7 @@
 {
   "title": "un cours d'addition",
   "term": "Fall 2025",
-  "description": "Hope, visions, frayed ends. What is the role of the single thread in tapestry? A reading group on the semiadditive way.",
+  "description": "This page organizes a reading group on the theory of semiadditivity. We meet for discussions on Fridays at 10:00am in Harvard SC 309. All are invited to practice the yoga of the semiadditive way.",
   "discussions": [
     { "date": "2025-11-05", "topic": "Spectral sequences", "title": "Serre spectral sequence basics" },
     { "date": "2025-11-12", "topic": "Model categories", "title": "Quillen adjunctions and homotopy limits" },
