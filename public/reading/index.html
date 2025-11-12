@@ -37,6 +37,8 @@
       text-align: left;
       word-wrap: break-word;
       overflow-wrap: break-word;
+      font-size: 1.3em;
+      line-height: 1.2;
     }
     .container {
       width: 50%;
@@ -45,6 +47,8 @@
       margin-bottom: 0;
       padding: 24px;
       padding-bottom: 0;
+      position: absolute;
+      top: 0;
     }
     .header-group {
       margin-bottom: 48px;
@@ -266,10 +270,17 @@
           const headerGroup = document.querySelector('.header-group');
           const leftColumn = document.querySelector('.left-column');
           const descriptionColumn = document.querySelector('.description-column');
+          const container = document.querySelector('.container');
           
           if (headerGroup && leftColumn && descriptionColumn) {
             const headerBottom = leftColumn.offsetTop + headerGroup.offsetTop + headerGroup.offsetHeight;
             descriptionColumn.style.top = (headerBottom + 24) + 'px'; // Add 24px spacing
+            
+            // Position container below description
+            if (container) {
+              const descriptionBottom = parseFloat(descriptionColumn.style.top) + descriptionColumn.offsetHeight;
+              container.style.top = (descriptionBottom + 24) + 'px'; // Add 24px spacing
+            }
           }
         }
         
@@ -277,6 +288,7 @@
         positionDescription();
         setTimeout(positionDescription, 100);
         setTimeout(positionDescription, 500);
+        setTimeout(positionDescription, 1000); // Additional delay to ensure description height is calculated
         
         const discussionsList = document.getElementById('discussions');
         discussionsList.innerHTML = '';
