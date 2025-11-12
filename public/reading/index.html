@@ -235,13 +235,14 @@
           element.appendChild(textNode);
           element.appendChild(caret);
           
-          // Remove caret after 10 seconds
+          // After 5 seconds, type a period and remove caret
           setTimeout(() => {
-            const caretToRemove = element.querySelector('.typing-caret');
-            if (caretToRemove) {
-              caretToRemove.remove();
-            }
-          }, 10000);
+            // Type a period
+            const textNodeWithPeriod = document.createTextNode(text + '.');
+            element.innerHTML = '';
+            element.appendChild(textNodeWithPeriod);
+            // Caret is removed (not appended)
+          }, 5000);
         }
       }
       
