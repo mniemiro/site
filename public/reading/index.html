@@ -34,7 +34,7 @@
     .description {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 500;
-      color: #ffffff;
+      color: #000000;
       text-align: left;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -269,12 +269,7 @@
         
         const descriptionElement = document.getElementById('description');
         if (descriptionElement && data.description) {
-          // Make "Semiadditivity" black
-          const descriptionText = data.description.replace(
-            /Semiadditivity/g,
-            '<span style="color: #000000;">Semiadditivity</span>'
-          );
-          descriptionElement.innerHTML = descriptionText;
+          descriptionElement.textContent = data.description;
         }
         
         // Position description column to align with header bottom
