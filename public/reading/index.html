@@ -145,6 +145,15 @@
     .highlight-word .char.marked {
       color: #000000;
       transition: font-weight 0ms, color 0ms;
+      animation: increaseWeight 900ms linear forwards;
+    }
+    @keyframes increaseWeight {
+      0% {
+        font-weight: 400;
+      }
+      100% {
+        font-weight: 600;
+      }
     }
   </style>
   <script>
@@ -209,7 +218,6 @@
       
       let currentIndex = 0;
       let direction = 1; // 1 for forward, -1 for backward
-      let animationFrameId = null;
       const baseDuration = 600;
       const additionalDuration = 300; // 300ms increase per move
       const totalDuration = baseDuration + additionalDuration; // 900ms
@@ -221,11 +229,6 @@
           char.style.fontWeight = ''; // Reset inline style
         });
         
-        // Cancel any ongoing animation
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId);
-        }
-        
         // Randomly decide if this move should go the "wrong way"
         const shouldReverse = Math.random() < 0.15; // 15% chance to go wrong way
         const actualDirection = shouldReverse ? -direction : direction;
@@ -236,24 +239,8 @@
         setTimeout(() => {
           currentChar.classList.add('marked');
           currentChar.style.color = '#000000'; // Instant color change
-          
-          // Continuously increase weight from 400 to 600 over totalDuration
-          const startTime = performance.now();
-          const startWeight = 400;
-          const endWeight = 600;
-          
-          function increaseWeight(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / totalDuration, 1);
-            const currentWeight = startWeight + (endWeight - startWeight) * progress;
-            currentChar.style.fontWeight = Math.round(currentWeight).toString();
-            
-            if (progress < 1 && currentChar.classList.contains('marked')) {
-              animationFrameId = requestAnimationFrame(increaseWeight);
-            }
-          }
-          
-          animationFrameId = requestAnimationFrame(increaseWeight);
+          // Remove any inline font-weight to let CSS animation work
+          currentChar.style.fontWeight = '';
           
           // Move to next character after marking duration
           setTimeout(() => {
