@@ -140,21 +140,11 @@
       display: inline-block;
       color: #ffffff;
       font-weight: 400;
-      transition: font-weight 400ms ease-out, color 400ms ease-out;
+      transition: font-weight 400ms ease-out;
     }
     .highlight-word .char.marked {
       color: #000000;
-      font-weight: 500;
-      transition: font-weight 0ms linear, color 0ms;
-      animation: increaseWeight 600ms linear forwards;
-    }
-    @keyframes increaseWeight {
-      from {
-        font-weight: 400;
-      }
-      to {
-        font-weight: 500;
-      }
+      transition: font-weight 0ms, color 0ms;
     }
   </style>
   <script>
@@ -218,22 +208,51 @@
       if (chars.length === 0) return;
       
       let currentIndex = 0;
+      let animationFrameId = null;
       
       function markCharacter() {
         // Remove marked class from all characters (triggers 400ms transition back to normal)
         chars.forEach(char => {
           char.classList.remove('marked');
+          char.style.fontWeight = ''; // Reset inline style
         });
+        
+        // Cancel any ongoing animation
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
         
         // Mark the current character
         const currentChar = chars[currentIndex];
         // Use setTimeout to ensure the previous transition completes
         setTimeout(() => {
           currentChar.classList.add('marked');
+          currentChar.style.color = '#000000'; // Instant color change
+          
+          // Continuously increase weight from 400 to 600 over 600ms
+          const startTime = performance.now();
+          const duration = 600; // 600ms
+          const startWeight = 400;
+          const endWeight = 600;
+          
+          function increaseWeight(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const currentWeight = startWeight + (endWeight - startWeight) * progress;
+            currentChar.style.fontWeight = Math.round(currentWeight).toString();
+            
+            if (progress < 1 && currentChar.classList.contains('marked')) {
+              animationFrameId = requestAnimationFrame(increaseWeight);
+            }
+          }
+          
+          animationFrameId = requestAnimationFrame(increaseWeight);
           
           // Move to next character after marking duration
           setTimeout(() => {
             currentChar.classList.remove('marked');
+            currentChar.style.color = ''; // Reset to white
+            currentChar.style.fontWeight = ''; // Will transition back to 400
             currentIndex = (currentIndex + 1) % chars.length;
             markCharacter();
           }, 600); // Mark each character for 600ms
