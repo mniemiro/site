@@ -134,6 +134,27 @@
     }
     .highlight-word {
       color: #ffffff;
+      display: inline-block;
+    }
+    .highlight-word .char {
+      display: inline-block;
+      color: #ffffff;
+      font-weight: 400;
+      transition: font-weight 400ms ease-out, color 400ms ease-out;
+    }
+    .highlight-word .char.marked {
+      color: #000000;
+      font-weight: 500;
+      transition: font-weight 0ms linear, color 0ms;
+      animation: increaseWeight 600ms linear forwards;
+    }
+    @keyframes increaseWeight {
+      from {
+        font-weight: 400;
+      }
+      to {
+        font-weight: 500;
+      }
     }
   </style>
   <script>
@@ -167,11 +188,22 @@
       
       parts.forEach((part) => {
         if (part.toLowerCase() === highlightWord.toLowerCase()) {
-          // This is a match - wrap it in a span
+          // This is a match - wrap it in a span and split into characters
           const span = document.createElement('span');
           span.className = 'highlight-word';
-          span.textContent = part; // Preserve original case
+          
+          // Split into individual characters
+          for (let i = 0; i < part.length; i++) {
+            const charSpan = document.createElement('span');
+            charSpan.className = 'char';
+            charSpan.textContent = part[i];
+            span.appendChild(charSpan);
+          }
+          
           result.appendChild(span);
+          
+          // Start the marking animation for this word
+          startCharacterMarking(span);
         } else if (part) {
           // Regular text
           result.appendChild(document.createTextNode(part));
@@ -179,6 +211,37 @@
       });
       
       return result;
+    }
+
+    function startCharacterMarking(wordElement) {
+      const chars = wordElement.querySelectorAll('.char');
+      if (chars.length === 0) return;
+      
+      let currentIndex = 0;
+      
+      function markCharacter() {
+        // Remove marked class from all characters (triggers 400ms transition back to normal)
+        chars.forEach(char => {
+          char.classList.remove('marked');
+        });
+        
+        // Mark the current character
+        const currentChar = chars[currentIndex];
+        // Use setTimeout to ensure the previous transition completes
+        setTimeout(() => {
+          currentChar.classList.add('marked');
+          
+          // Move to next character after marking duration
+          setTimeout(() => {
+            currentChar.classList.remove('marked');
+            currentIndex = (currentIndex + 1) % chars.length;
+            markCharacter();
+          }, 600); // Mark each character for 600ms
+        }, 50); // Small delay to ensure previous unmarking transition starts
+      }
+      
+      // Start the cycle
+      markCharacter();
     }
 
     function typeText(element, text, speed = 50) {
