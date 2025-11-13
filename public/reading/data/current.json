@@ -1,6 +1,7 @@
 {
   "title": "un cours d'addition",
   "term": "Fall 2025",
+  "highlightWord": "semiadditivity",
   "description": "This is a reading group. In Spring 2025, we are studying semiadditivity. Meetings are on Fridays at 2:00pm in Harvard SC 309. Open invite.",
   "discussions": [
     { "date": "2025-11-05", "topic": "Spectral sequences", "title": "Serre spectral sequence basics", "summary": "We explored the fundamental construction of the Serre spectral sequence and its role in computing cohomology of fiber bundles. The discussion covered the E2 page and how differentials encode geometric information. Several examples were worked through to illustrate the computational power of this tool." },
