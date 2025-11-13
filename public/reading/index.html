@@ -133,32 +133,28 @@
       max-width: 100%;
     }
     .highlight-word {
-      color: #ffffff;
-      position: relative;
-      display: inline-block;
-      overflow: hidden;
-    }
-    .highlight-word::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
       background: linear-gradient(
         90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.4) 50%,
-        transparent 100%
+        #ff006e 0%,
+        #8338ec 20%,
+        #3a86ff 40%,
+        #06ffa5 60%,
+        #ffbe0b 80%,
+        #ff006e 100%
       );
-      animation: shimmer 2.5s infinite;
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: iridescent 3s linear infinite;
     }
-    @keyframes shimmer {
+    @keyframes iridescent {
       0% {
-        left: -100%;
+        background-position: 0% 50%;
       }
       100% {
-        left: 100%;
+        background-position: 200% 50%;
       }
     }
   </style>
