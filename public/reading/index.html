@@ -208,7 +208,11 @@
       if (chars.length === 0) return;
       
       let currentIndex = 0;
+      let direction = 1; // 1 for forward, -1 for backward
       let animationFrameId = null;
+      const baseDuration = 600;
+      const additionalDuration = 300; // 300ms increase per move
+      const totalDuration = baseDuration + additionalDuration; // 900ms
       
       function markCharacter() {
         // Remove marked class from all characters (triggers 400ms transition back to normal)
@@ -222,6 +226,10 @@
           cancelAnimationFrame(animationFrameId);
         }
         
+        // Randomly decide if this move should go the "wrong way"
+        const shouldReverse = Math.random() < 0.15; // 15% chance to go wrong way
+        const actualDirection = shouldReverse ? -direction : direction;
+        
         // Mark the current character
         const currentChar = chars[currentIndex];
         // Use setTimeout to ensure the previous transition completes
@@ -229,15 +237,14 @@
           currentChar.classList.add('marked');
           currentChar.style.color = '#000000'; // Instant color change
           
-          // Continuously increase weight from 400 to 600 over 600ms
+          // Continuously increase weight from 400 to 600 over totalDuration
           const startTime = performance.now();
-          const duration = 600; // 600ms
           const startWeight = 400;
           const endWeight = 600;
           
           function increaseWeight(currentTime) {
             const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
+            const progress = Math.min(elapsed / totalDuration, 1);
             const currentWeight = startWeight + (endWeight - startWeight) * progress;
             currentChar.style.fontWeight = Math.round(currentWeight).toString();
             
@@ -253,9 +260,33 @@
             currentChar.classList.remove('marked');
             currentChar.style.color = ''; // Reset to white
             currentChar.style.fontWeight = ''; // Will transition back to 400
-            currentIndex = (currentIndex + 1) % chars.length;
+            
+            // Update index based on direction (bouncing)
+            if (shouldReverse) {
+              // Go the wrong way - reverse the direction
+              currentIndex += actualDirection;
+              // If we hit a boundary, reverse direction
+              if (currentIndex < 0) {
+                currentIndex = 0;
+                direction = 1;
+              } else if (currentIndex >= chars.length) {
+                currentIndex = chars.length - 1;
+                direction = -1;
+              }
+            } else {
+              // Normal movement - update index and bounce at boundaries
+              currentIndex += direction;
+              if (currentIndex < 0) {
+                currentIndex = 0;
+                direction = 1; // Bounce back forward
+              } else if (currentIndex >= chars.length) {
+                currentIndex = chars.length - 1;
+                direction = -1; // Bounce back backward
+              }
+            }
+            
             markCharacter();
-          }, 600); // Mark each character for 600ms
+          }, totalDuration); // Mark each character for 900ms
         }, 50); // Small delay to ensure previous unmarking transition starts
       }
       
