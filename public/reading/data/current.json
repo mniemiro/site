@@ -3,8 +3,8 @@
   "term": "Fall 2025",
   "description": "This is a reading group. In Spring 2025, we are studying semiadditivity. Meetings are on Fridays at 2:00pm in Harvard SC 309. Open invite.",
   "discussions": [
-    { "date": "2025-11-05", "topic": "Spectral sequences", "title": "Serre spectral sequence basics" },
-    { "date": "2025-11-12", "topic": "Model categories", "title": "Quillen adjunctions and homotopy limits" },
-    { "date": "2025-11-19", "topic": "Stable homotopy", "title": "Spectra and cohomology theories" }
+    { "date": "2025-11-05", "topic": "Spectral sequences", "title": "Serre spectral sequence basics", "summary": "We explored the fundamental construction of the Serre spectral sequence and its role in computing cohomology of fiber bundles. The discussion covered the E2 page and how differentials encode geometric information. Several examples were worked through to illustrate the computational power of this tool." },
+    { "date": "2025-11-12", "topic": "Model categories", "title": "Quillen adjunctions and homotopy limits", "summary": "This session focused on understanding how Quillen adjunctions preserve homotopical structure and enable the construction of homotopy limits and colimits. We examined the relationship between model categories and their derived functors. The conversation touched on applications to localization and completion." },
+    { "date": "2025-11-19", "topic": "Stable homotopy", "title": "Spectra and cohomology theories", "summary": "We introduced the stable homotopy category and the notion of spectra as objects representing generalized cohomology theories. The discussion emphasized the suspension isomorphism and how spectra provide a natural framework for stable phenomena. Connections to K-theory and bordism were briefly mentioned." }
   ]
 }

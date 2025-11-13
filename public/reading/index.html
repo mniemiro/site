@@ -122,6 +122,16 @@
       margin-top: 8px;
       white-space: nowrap;
     }
+    .discussion-summary {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #cccccc;
+      font-size: 16px;
+      margin: 0;
+      padding: 0;
+      margin-top: 12px;
+      line-height: 1.6;
+      max-width: 100%;
+    }
   </style>
   <script>
     function getQueryParam(name) {
@@ -316,6 +326,14 @@
             
             li.appendChild(title);
             li.appendChild(date);
+            
+            if (discussion.summary) {
+              const summary = document.createElement('div');
+              summary.className = 'discussion-summary';
+              summary.textContent = discussion.summary;
+              li.appendChild(summary);
+            }
+            
             discussionsList.appendChild(li);
           });
         }
