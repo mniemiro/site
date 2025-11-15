@@ -36,7 +36,7 @@ module.exports = {
         },
       },
       animation: {
-        hologram: 'hologram 3s ease-in-out infinite',
+        hologram: 'hologram 2.31s ease-in-out infinite',
       },
     },
   },
