@@ -39,7 +39,7 @@ export const Navigation = () => {
               location.pathname === "/notes" ? "font-normal" : ""
             }`}
           >
-            Notes
+            Writing
           </Link>
           <span className="mt-2">/</span>
           <Link
