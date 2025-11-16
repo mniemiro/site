@@ -1,4 +1,3 @@
-import ReactConfetti from 'react-confetti';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Confetti from 'react-confetti';
 
@@ -17,7 +16,9 @@ interface PaperListProps {
 export const PaperList = ({ papers }: PaperListProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [confettiKey, setConfettiKey] = useState(0);
   const paperRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const confettiTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0, x: 0, y: 0 });
 
   useEffect(() => {
@@ -34,13 +35,34 @@ export const PaperList = ({ papers }: PaperListProps) => {
     }
   }, [openIndex]);
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (confettiTimeoutRef.current) {
+        clearTimeout(confettiTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleClick = useCallback((index: number) => {
     // Only handle clicks for papers with descriptions
     if (!papers[index].description) return;
     
     if (openIndex !== index) {
+      // Clear any existing timeout
+      if (confettiTimeoutRef.current) {
+        clearTimeout(confettiTimeoutRef.current);
+      }
+      
+      // Force confetti to restart by updating the key
+      setConfettiKey(prev => prev + 1);
       setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 4000);
+      
+      // Set new timeout
+      confettiTimeoutRef.current = setTimeout(() => {
+        setShowConfetti(false);
+        confettiTimeoutRef.current = null;
+      }, 4000);
     }
     setOpenIndex(openIndex === index ? null : index);
   }, [openIndex, papers]);
@@ -50,6 +72,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
       <div className="absolute" style={{ pointerEvents: 'none' }}>
         {showConfetti && (
           <Confetti
+            key={confettiKey}
             width={dimensions.width}
             height={dimensions.height}
             recycle={false}
@@ -116,7 +139,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
               </div>
             </div>
             {openIndex === index && paper.description && (
-              <div className="pl-4 mt-2 text-[13px]">
+              <div className="pl-4 mt-2 text-[13px] max-w-[75%]">
                 {paper.description}
               </div>
             )}
