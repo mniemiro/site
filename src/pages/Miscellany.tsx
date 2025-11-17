@@ -63,6 +63,17 @@ const Miscellany = () => {
           </a>
           .
         </li>
+        <li>
+          <a 
+            href="https://davidshrigley.com" 
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            David Shrigley
+          </a>
+          .
+        </li>
       </ul>
       
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
