@@ -23,7 +23,7 @@
     'MODES',
     'Pr<sup>L</sup>',
     'CATEGORIFICATION',
-    'L<sub>K(t)</sub>E<sub>n</sub> + An<sup>π-fin</sup>-PARAMETRIZED CATEGORIES',
+    'An<sup>π-fin</sup>-PARAMETRIZED CATEGORIES + L<sub>K(t)</sub>E<sub>n</sub>',
     'p-ADIC FREE LOOP SPACES',
     'KAN EXTENSIONS COMPUTED FIBERWISE',
     'HIGHER CARDINALITY',
@@ -173,8 +173,13 @@
     
     // Keep element hidden but make it participate in layout for measurement
     scrollingTerms.classList.remove('hidden');
+    const computedBg = getComputedStyle(scrollingTerms).backgroundColor;
+    if (!scrollingTerms.dataset.originalBg) {
+      scrollingTerms.dataset.originalBg = computedBg;
+    }
     scrollingTerms.style.opacity = '0';
     scrollingTerms.style.pointerEvents = 'none';
+    scrollingTerms.style.backgroundColor = 'rgba(255, 160, 0, 0)';
 
     function seedScrollingText() {
       const bufferWidth = window.innerWidth * 1.5;
@@ -220,6 +225,7 @@
           // Make visible only when starting the jerky animation
           scrollingTerms.style.opacity = '1';
           scrollingTerms.style.pointerEvents = '';
+          scrollingTerms.style.backgroundColor = scrollingTerms.dataset.originalBg || computedBg;
         }
         scrollingTerms.style.left = positions[step] + 'px';
 
