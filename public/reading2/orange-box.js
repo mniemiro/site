@@ -178,11 +178,16 @@
     if (!scrollingTerms.dataset.originalBg) {
       scrollingTerms.dataset.originalBg = computedBg;
     }
-    // Temporarily lower z-index so it doesn't cover initial text
-    scrollingTerms.style.zIndex = '0';
     scrollingTerms.style.opacity = '0';
     scrollingTerms.style.pointerEvents = 'none';
     scrollingTerms.style.backgroundColor = 'rgba(255, 160, 0, 0)';
+
+    const orangeBox = document.querySelector('.orange-box');
+    const boxWidth = orangeBox.offsetWidth;
+    
+    // Anchor to right edge so content grows leftward as terms are added
+    scrollingTerms.style.left = 'auto';
+    scrollingTerms.style.right = '0';
 
     function seedScrollingText() {
       const bufferWidth = window.innerWidth * 1.5;
@@ -196,19 +201,22 @@
         scrollingTerms.innerHTML = content;
       }
     }
-
-    const orangeBox = document.querySelector('.orange-box');
-    const boxWidth = orangeBox.offsetWidth;
     
     seedScrollingText();
     updateTextSizes();
-    scrollingTerms.style.left = boxWidth + 'px';
+    
+    // Convert to left positioning for animation (right edge at boxWidth means left at boxWidth - textWidth)
+    const textWidth = scrollingTerms.offsetWidth;
+    const startLeft = boxWidth - textWidth;
+    scrollingTerms.style.right = 'auto';
+    scrollingTerms.style.left = startLeft + 'px';
     const jumpSize = boxWidth * 0.3;
     const jerkDelay = 300;
 
     function setupAndStartJerks() {
       const positions = [];
-      let currentPosition = boxWidth;
+      // Start from current position (where right edge was anchored)
+      let currentPosition = startLeft;
 
       positions.push(currentPosition);
       while (currentPosition - jumpSize > 0) {
@@ -225,14 +233,20 @@
           return;
         }
         if (step === 0) {
-          initialText?.classList.add('hidden');
           // Make visible only when starting the jerky animation
-          scrollingTerms.style.zIndex = '2'; // Restore original z-index
           scrollingTerms.style.opacity = '1';
           scrollingTerms.style.pointerEvents = '';
           scrollingTerms.style.backgroundColor = scrollingTerms.dataset.originalBg || computedBg;
         }
         scrollingTerms.style.left = positions[step] + 'px';
+        
+        // Hide initial text when scrolling text reaches center (would cover it)
+        const textWidth = scrollingTerms.offsetWidth;
+        const centerX = boxWidth / 2;
+        if (initialText && !initialText.classList.contains('hidden') && 
+            positions[step] + textWidth > centerX && positions[step] < centerX) {
+          initialText.classList.add('hidden');
+        }
 
         if (step === positions.length - 1) {
           startSmoothScrolling(positions[step]);
