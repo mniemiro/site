@@ -265,13 +265,13 @@
       const orangeBox = document.querySelector('.orange-box');
       const boxWidth = orangeBox.offsetWidth;
       
-      // Jerky animation: move in 25% increments
-      // Start at 100% (off-screen right), then 75%, 50%, 25%, 0% (fully visible)
+      // Jerky animation: move in 30% increments
+      // Start at 100% (off-screen right), then 70%, 40%, 10%, 0% (fully visible)
       const positions = [
         boxWidth,           // 100% - off screen right
-        boxWidth * 0.75,    // 75% - 25% from right
-        boxWidth * 0.5,     // 50% - 50% from right
-        boxWidth * 0.25,    // 25% - 75% from right
+        boxWidth * 0.7,     // 70% - 30% from right
+        boxWidth * 0.4,     // 40% - 60% from right
+        boxWidth * 0.1,     // 10% - 90% from right
         0                   // 0% - fully visible
       ];
       
