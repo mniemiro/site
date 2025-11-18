@@ -1,7 +1,7 @@
 /* Professional Theme - MIT Academic Style */
 
-/* Import Google Sans Code and Yrsa fonts */
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:wght@500&family=Yrsa:wght@400;500;600&display=swap');
+/* Import Google Sans Code font */
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:wght@500&display=swap');
 
 /* Professional mode color scheme */
 .mode-professional {
@@ -22,12 +22,12 @@
 
 /* Apply professional theme */
 .mode-professional {
-    font-family: "Yrsa", "Times New Roman", Times, serif !important;
+    font-family: 'Courier New', monospace !important;
 }
 
 .mode-professional body {
     background-color: var(--background-color);
-    font-family: "Yrsa", "Times New Roman", Times, serif !important;
+    font-family: 'Courier New', monospace !important;
 }
 
 .mode-professional .container {

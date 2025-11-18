@@ -10,7 +10,7 @@
     --container-margin: 20px 0;
     
     /* Typography */
-    --font-family-primary: "Times New Roman", Times, serif;
+    --font-family-primary: 'Courier New', monospace;
     --font-size-small: 13px;
     --font-size-normal: 14px;
     --font-size-large: 17px;
