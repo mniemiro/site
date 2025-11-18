@@ -102,6 +102,18 @@
   }
 
   function startSmoothScrolling(initialPosition = null) {
+    // Cancel any existing animation to prevent multiple animations running
+    if (scrollingAnimationId) {
+      cancelAnimationFrame(scrollingAnimationId);
+      scrollingAnimationId = null;
+    }
+
+    // Remove any existing visibility change listener to prevent duplicates
+    if (visibilityChangeHandler) {
+      document.removeEventListener('visibilitychange', visibilityChangeHandler);
+      visibilityChangeHandler = null;
+    }
+
     const scrollingTerms = document.querySelector('.scrolling-terms');
     const orangeBox = document.querySelector('.orange-box');
     const baseScrollSpeed = 100; // Base speed in pixels per second
@@ -109,10 +121,6 @@
     let position = initialPosition ?? (parseFloat(scrollingTerms.style.left) || boxWidth);
     let lastTime = performance.now();
     let isPaused = false;
-
-    if (visibilityChangeHandler) {
-      document.removeEventListener('visibilitychange', visibilityChangeHandler);
-    }
 
     visibilityChangeHandler = () => {
       if (document.hidden) {
@@ -131,6 +139,12 @@
 
     function animate(currentTime) {
       if (isPaused) return;
+      
+      // Log first frame to confirm animation is running
+      if (!window._animateStarted) {
+        window._animateStarted = true;
+        console.log('Animation started, animate function is running');
+      }
 
       let deltaTime = (currentTime - lastTime) / 1000;
       if (deltaTime > 0.1) {
@@ -159,13 +173,16 @@
       const scrollSpeed = baseScrollSpeed * speedMultiplier;
       
       // Debug logging (remove after testing)
-      if (Math.random() < 0.01) { // Log ~1% of frames to avoid spam
+      // Log every 60 frames (~1 second at 60fps) to see speed changes
+      if (!window._speedDebugFrameCount) window._speedDebugFrameCount = 0;
+      window._speedDebugFrameCount++;
+      if (window._speedDebugFrameCount % 60 === 0) {
         console.log('Speed debug:', {
-          currentHeight,
-          maxBoxHeight,
-          halfHeight,
-          speedMultiplier,
-          scrollSpeed
+          currentHeight: currentHeight.toFixed(1),
+          maxBoxHeight: maxBoxHeight.toFixed(1),
+          halfHeight: halfHeight.toFixed(1),
+          speedMultiplier: speedMultiplier.toFixed(2),
+          scrollSpeed: scrollSpeed.toFixed(1)
         });
       }
 
@@ -188,6 +205,7 @@
       scrollingAnimationId = requestAnimationFrame(animate);
     }
 
+    console.log('startSmoothScrolling called, starting animation');
     scrollingAnimationId = requestAnimationFrame(animate);
   }
 
