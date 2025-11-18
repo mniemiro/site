@@ -57,7 +57,6 @@
       transform: translateY(-50%);
       z-index: 2;
       background-color: rgb(255, 160, 0);
-      padding: 0.1em 0.3em;
     }
     .initial-text.hidden,
     .scrolling-terms.hidden {
@@ -99,7 +98,7 @@
       'L<sub>K(t)</sub>E<sub>n</sub>',
       'p-ADIC FREE LOOP SPACES',
       'KAN EXTENSIONS COMPUTED FIBERWISE',
-      'HIGHER CARDINALITIES',
+      'HIGHER CARDINALITY',
       'ADJUNCTIONS',
       'f<sub>!</sub> ⊣ f<sup>*</sup> ⊣ f<sub>*</sub>',
       'HOMOTOPY THEORY',
@@ -294,9 +293,34 @@
       const orangeBox = document.querySelector('.orange-box');
       const boxWidth = orangeBox.offsetWidth;
       
-      // Start smooth scrolling from just off the right edge
-      scrollingTerms.style.left = boxWidth + 'px';
-      startSmoothScrolling();
+      // Jerky animation: jump in 30% intervals across the screen
+      const positions = [
+        boxWidth,           // 100%
+        boxWidth * 0.7,     // 70%
+        boxWidth * 0.4,     // 40%
+        boxWidth * 0.1,     // 10%
+        boxWidth * -0.2     // -20%
+      ];
+      
+      let currentStep = 0;
+      
+      function doJerkyStep() {
+        if (currentStep < positions.length) {
+          scrollingTerms.style.left = positions[currentStep] + 'px';
+          currentStep++;
+          
+          if (currentStep < positions.length) {
+            setTimeout(doJerkyStep, 500);
+          } else {
+            // After final jump, wait 0.05s then start smooth scrolling
+            setTimeout(() => {
+              startSmoothScrolling();
+            }, 50);
+          }
+        }
+      }
+      
+      doJerkyStep();
     }
     
     function requestTick() {
