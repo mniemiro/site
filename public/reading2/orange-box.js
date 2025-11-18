@@ -105,7 +105,7 @@
   function startSmoothScrolling(initialPosition = null) {
     const scrollingTerms = document.querySelector('.scrolling-terms');
     const orangeBox = document.querySelector('.orange-box');
-    const scrollSpeed = 100;
+    const baseScrollSpeed = 100; // Base speed in pixels per second
     const boxWidth = orangeBox.offsetWidth;
     let position = initialPosition ?? (parseFloat(scrollingTerms.style.left) || boxWidth);
     let lastTime = performance.now();
@@ -143,6 +143,17 @@
       const fontSize = Math.max(currentHeight * 0.8, 10);
       scrollingTerms.style.fontSize = fontSize + 'px';
       scrollingTerms.style.lineHeight = fontSize + 'px';
+
+      // Calculate speed multiplier based on box height
+      // At max height: 1.25x speed, at half height and below: 1.0x speed
+      const halfHeight = boxHeightPx / 2;
+      let speedMultiplier = 1.0;
+      if (currentHeight > halfHeight) {
+        // Linear interpolation between half height (1.0x) and max height (1.25x)
+        const ratio = (currentHeight - halfHeight) / (boxHeightPx - halfHeight);
+        speedMultiplier = 1.0 + (0.25 * ratio);
+      }
+      const scrollSpeed = baseScrollSpeed * speedMultiplier;
 
       position -= scrollSpeed * deltaTime;
 
