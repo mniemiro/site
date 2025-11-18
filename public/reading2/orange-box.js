@@ -173,21 +173,9 @@
       return;
     }
 
-    // Ensure initial text is visible (remove hidden class if it somehow got added)
+    // Ensure initial text is visible (observer is already set up in initOrangeBox)
     if (initialText) {
       initialText.classList.remove('hidden');
-      // Monitor for any attempts to add hidden class
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-            if (initialText.classList.contains('hidden')) {
-              console.warn('initial-text got hidden class, removing it');
-              initialText.classList.remove('hidden');
-            }
-          }
-        });
-      });
-      observer.observe(initialText, { attributes: true, attributeFilter: ['class'] });
     }
 
     // Keep element hidden but make it participate in layout for measurement
@@ -276,20 +264,56 @@
 
   function initOrangeBox() {
     recalculateConstants();
+    
+    // Set up observer to prevent initial text from being hidden
+    function setupInitialTextObserver() {
+      const initialText = document.querySelector('.initial-text');
+      if (initialText) {
+        initialText.classList.remove('hidden'); // Remove it if already there
+        
+        // MutationObserver for attribute changes
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              if (initialText.classList.contains('hidden')) {
+                console.warn('initial-text got hidden class (via MutationObserver), removing it');
+                initialText.classList.remove('hidden');
+              }
+            }
+          });
+        });
+        observer.observe(initialText, { attributes: true, attributeFilter: ['class'] });
+        
+        // Periodic check as backup (in case class is added via innerHTML or element replacement)
+        const checkInterval = setInterval(() => {
+          if (initialText.classList.contains('hidden')) {
+            console.warn('initial-text has hidden class (via periodic check), removing it');
+            initialText.classList.remove('hidden');
+          }
+        }, 100);
+        
+        // Clear interval after 10 seconds (by then startScrollingTerms should have run)
+        setTimeout(() => clearInterval(checkInterval), 10000);
+      }
+    }
+    
+    // Set up observer as early as possible
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        setupInitialTextObserver();
+        updateBoxHeight();
+      });
+    } else {
+      setupInitialTextObserver();
+      updateBoxHeight();
+    }
+    
     window.addEventListener('scroll', requestTick, { passive: true });
     window.addEventListener('resize', () => {
       recalculateConstants();
       updateBoxHeight();
       updateTextSizes();
     });
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        updateBoxHeight();
-      });
-    } else {
-      updateBoxHeight();
-    }
 
     window.addEventListener('load', () => {
       window.scrollTo(0, 0);
