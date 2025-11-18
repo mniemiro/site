@@ -173,6 +173,23 @@
       return;
     }
 
+    // Ensure initial text is visible (remove hidden class if it somehow got added)
+    if (initialText) {
+      initialText.classList.remove('hidden');
+      // Monitor for any attempts to add hidden class
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            if (initialText.classList.contains('hidden')) {
+              console.warn('initial-text got hidden class, removing it');
+              initialText.classList.remove('hidden');
+            }
+          }
+        });
+      });
+      observer.observe(initialText, { attributes: true, attributeFilter: ['class'] });
+    }
+
     // Keep element hidden but make it participate in layout for measurement
     scrollingTerms.classList.remove('hidden');
     scrollingTerms.style.opacity = '0';
