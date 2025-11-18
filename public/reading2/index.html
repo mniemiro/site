@@ -303,41 +303,42 @@
       const jumpSize = boxWidth * 0.3;
       const jerkDelay = 300;
       
-      // Precompute jump positions that move the text in 30% increments
-      const textWidth = scrollingTerms.offsetWidth || 0;
-      const positions = [];
-      let currentPosition = boxWidth;
-      
-      // Make sure the first frame is just inside the box so the jerk is visible
-      const initialVisiblePosition = Math.min(boxWidth - Math.min(textWidth * 0.2, boxWidth * 0.1), boxWidth);
-      positions.push(initialVisiblePosition);
-      currentPosition = initialVisiblePosition - jumpSize;
-      
-      while (currentPosition + textWidth > 0) {
+      function setupAndStartJerks() {
+        const textWidth = scrollingTerms.offsetWidth || 0;
+        const positions = [];
+        let currentPosition = boxWidth;
+        
+        const initialVisiblePosition = Math.min(boxWidth - Math.min(textWidth * 0.2, boxWidth * 0.1), boxWidth);
+        positions.push(initialVisiblePosition);
+        currentPosition = initialVisiblePosition - jumpSize;
+        
+        while (currentPosition + textWidth > 0) {
+          positions.push(currentPosition);
+          currentPosition -= jumpSize;
+        }
+        
         positions.push(currentPosition);
-        currentPosition -= jumpSize;
-      }
-      
-      // Add one last position off-screen to the left before smooth scrolling starts
-      positions.push(currentPosition);
-      
-      function performJerkyIntro(step = 0) {
-        if (step >= positions.length) {
-          return;
+        
+        function performJerkyIntro(step = 0) {
+          if (step >= positions.length) {
+            return;
+          }
+          
+          scrollingTerms.style.left = positions[step] + 'px';
+          
+          if (step === positions.length - 1) {
+            setTimeout(() => startSmoothScrolling(positions[step]), 120);
+          } else {
+            setTimeout(() => performJerkyIntro(step + 1), jerkDelay);
+          }
         }
         
-        scrollingTerms.style.left = positions[step] + 'px';
-        
-        if (step === positions.length - 1) {
-          setTimeout(() => startSmoothScrolling(positions[step]), 120);
-        } else {
-          setTimeout(() => performJerkyIntro(step + 1), jerkDelay);
-        }
-      }
-      
-      // Give the DOM one frame to render before starting the jerks
-      requestAnimationFrame(() => {
         performJerkyIntro();
+      }
+      
+      requestAnimationFrame(() => {
+        // Wait an extra frame to ensure layout is up-to-date before measuring width
+        requestAnimationFrame(setupAndStartJerks);
       });
     }
     
