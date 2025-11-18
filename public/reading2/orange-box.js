@@ -252,7 +252,7 @@
     scrollingTerms.style.right = 'auto';
     scrollingTerms.style.left = startLeft + 'px';
     const jumpSize = boxWidth * 0.3;
-    const jerkDelay = 700;
+    const jerkDelay = 2000;
 
     function setupAndStartJerks() {
       const positions = [];
