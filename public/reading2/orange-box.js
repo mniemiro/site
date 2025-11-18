@@ -1,5 +1,4 @@
 (() => {
-  console.log('orange-box.js script loaded and executing');
   let ticking = false;
   let scrollDistance = 0;
   let boxHeightPx = 0;
@@ -145,13 +144,13 @@
       scrollingTerms.style.lineHeight = fontSize + 'px';
 
       // Calculate speed multiplier based on box height
-      // At max height: 1.25x speed, at half height and below: 1.0x speed
+      // At max height: 1.5x speed, at half height and below: 1.0x speed
       const halfHeight = boxHeightPx / 2;
       let speedMultiplier = 1.0;
       if (currentHeight > halfHeight) {
-        // Linear interpolation between half height (1.0x) and max height (1.25x)
+        // Linear interpolation between half height (1.0x) and max height (1.5x)
         const ratio = (currentHeight - halfHeight) / (boxHeightPx - halfHeight);
-        speedMultiplier = 1.0 + (0.25 * ratio);
+        speedMultiplier = 1.0 + (0.5 * ratio);
       }
       const scrollSpeed = baseScrollSpeed * speedMultiplier;
 
@@ -185,10 +184,6 @@
       return;
     }
 
-    // Ensure initial text is visible (observer is already set up in initOrangeBox)
-    if (initialText) {
-      initialText.classList.remove('hidden');
-    }
 
     // Keep element hidden but make it participate in layout for measurement
     scrollingTerms.classList.remove('hidden');
@@ -207,34 +202,15 @@
       const firstTerm = getNextTerm();
       let content = `<span class="first-term-marker">${firstTerm}</span>`;
       scrollingTerms.innerHTML = content;
-      
-      // Ensure initial text stays visible during seeding
-      if (initialText && initialText.classList.contains('hidden')) {
-        console.warn('initial-text got hidden during seeding, removing it');
-        initialText.classList.remove('hidden');
-      }
 
       while (scrollingTerms.offsetWidth < bufferWidth) {
         const nextTerm = getNextTerm();
         content += ' + ' + nextTerm;
         scrollingTerms.innerHTML = content;
-        
-        // Check again after each innerHTML update
-        if (initialText && initialText.classList.contains('hidden')) {
-          console.warn('initial-text got hidden during seeding loop, removing it');
-          initialText.classList.remove('hidden');
-        }
       }
     }
     
     seedScrollingText();
-    
-    // Final check before updating sizes
-    if (initialText && initialText.classList.contains('hidden')) {
-      console.warn('initial-text got hidden after seeding, removing it');
-      initialText.classList.remove('hidden');
-    }
-    
     updateTextSizes();
     
     // Convert to left positioning for animation (right edge at boxWidth means left at boxWidth - textWidth)
@@ -293,165 +269,22 @@
     }
   }
 
-  // Helper function to check if stylesheets are loaded
-  function stylesheetsLoaded() {
-    const stylesheets = Array.from(document.styleSheets);
-    return stylesheets.every(sheet => {
-      try {
-        return sheet.cssRules || sheet.rules; // Accessing cssRules forces load check
-      } catch (e) {
-        // Cross-origin stylesheets may throw, consider them loaded if they're in the DOM
-        return true;
-      }
-    });
-  }
-
-  // Wait for stylesheets to load before accessing layout
-  function waitForStylesheets(callback) {
-    if (document.readyState === 'complete' && stylesheetsLoaded()) {
-      callback();
-      return;
-    }
-
-    // Check if stylesheets are already loaded
-    if (stylesheetsLoaded()) {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', callback);
-      } else {
-        callback();
-      }
-      return;
-    }
-
-    // Wait for load event which fires after stylesheets are loaded
-    if (document.readyState === 'loading') {
-      window.addEventListener('load', callback, { once: true });
-    } else {
-      // If already loaded, check stylesheets with a small delay
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          if (stylesheetsLoaded()) {
-            callback();
-          } else {
-            window.addEventListener('load', callback, { once: true });
-          }
-        });
-      });
-    }
-  }
-
   function initOrangeBox() {
-    // Set up observer to prevent initial text from being hidden
-    function setupInitialTextObserver() {
-      let initialText = document.querySelector('.initial-text');
-      if (!initialText) {
-        console.error('initial-text element not found for observer setup');
-        return;
-      }
-      
-      initialText.classList.remove('hidden'); // Remove it if already there
-      console.log('Initial text observer set up, current classes:', initialText.className);
-      
-      // Intercept classList.add to catch when hidden is added
-      const originalAdd = initialText.classList.add.bind(initialText.classList);
-      initialText.classList.add = function(...args) {
-        if (args.includes('hidden')) {
-          console.error('BLOCKED: Attempt to add "hidden" class to initial-text!', new Error().stack);
-          return; // Block the addition
-        }
-        return originalAdd(...args);
-      };
-      
-      // Also intercept className setter
-      let classNameDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'className') || 
-                                Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'className');
-      if (initialText.hasOwnProperty('className')) {
-        const currentValue = initialText.className;
-        Object.defineProperty(initialText, 'className', {
-          get: function() {
-            return this.getAttribute('class') || '';
-          },
-          set: function(value) {
-            if (typeof value === 'string' && value.includes('hidden')) {
-              console.error('BLOCKED: Attempt to set className with "hidden" on initial-text!', new Error().stack);
-              value = value.replace(/\bhidden\b/g, '').trim();
-            }
-            this.setAttribute('class', value);
-          },
-          configurable: true
-        });
-      }
-      
-      // MutationObserver for attribute changes - also watch for child/subtree changes
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-            console.log('Class attribute changed on initial-text. New classes:', initialText.className);
-            if (initialText.classList.contains('hidden')) {
-              console.warn('initial-text got hidden class (via MutationObserver), removing it. Stack:', new Error().stack);
-              initialText.classList.remove('hidden');
-            }
-          }
-          // Also check if element was replaced
-          if (mutation.type === 'childList') {
-            const newInitialText = document.querySelector('.initial-text');
-            if (newInitialText !== initialText) {
-              console.warn('initial-text element was replaced!');
-              initialText = newInitialText;
-              if (initialText && initialText.classList.contains('hidden')) {
-                initialText.classList.remove('hidden');
-              }
-            }
-          }
-        });
-      });
-      observer.observe(document.body, { 
-        attributes: true, 
-        attributeFilter: ['class'],
-        childList: true,
-        subtree: true
-      });
-      
-      // Very aggressive periodic check
-      const checkInterval = setInterval(() => {
-        const currentText = document.querySelector('.initial-text');
-        if (currentText) {
-          if (currentText.classList.contains('hidden')) {
-            console.warn('initial-text has hidden class (via periodic check at', Date.now(), '), removing it');
-            currentText.classList.remove('hidden');
-          }
-        } else {
-          console.warn('initial-text element not found during periodic check!');
-        }
-      }, 50); // Check every 50ms
-      
-      // Keep checking for longer
-      setTimeout(() => {
-        clearInterval(checkInterval);
-        observer.disconnect();
-        console.log('Stopped monitoring initial-text');
-      }, 15000);
-    }
-    
-    // Set up observer early (doesn't require layout)
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', setupInitialTextObserver);
-    } else {
-      setupInitialTextObserver();
-    }
-    
-    // Wait for stylesheets before accessing layout properties
-    waitForStylesheets(() => {
-      recalculateConstants();
-      updateBoxHeight();
-    });
-    
+    recalculateConstants();
     window.addEventListener('scroll', requestTick, { passive: true });
     window.addEventListener('resize', () => {
       recalculateConstants();
       updateBoxHeight();
       updateTextSizes();
     });
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        updateBoxHeight();
+      });
+    } else {
+      updateBoxHeight();
+    }
 
     window.addEventListener('load', () => {
       window.scrollTo(0, 0);
@@ -464,8 +297,6 @@
     });
   }
 
-  console.log('Calling initOrangeBox()');
   initOrangeBox();
-  console.log('initOrangeBox() called');
 })();
 

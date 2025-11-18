@@ -51,20 +51,9 @@ body {
   background-color: rgb(255, 160, 0);
 }
 
-/* Only apply hidden to scrolling-terms, not initial-text */
+.initial-text.hidden,
 .scrolling-terms.hidden {
   display: none;
-}
-
-/* Explicitly ensure initial-text is never hidden, even with hidden class */
-.initial-text {
-  display: block !important;
-}
-
-.initial-text.hidden {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
 }
 
 .content {
