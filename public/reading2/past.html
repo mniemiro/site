@@ -10,59 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Bitcount+Double:wght@100..900&family=Google+Sans+Code:wght@100..900&display=swap" rel="stylesheet">
   <style>
-    :root { color-scheme: light dark; }
+    :root { color-scheme: dark; }
     body { 
-      font-family: 'Google Sans Code', monospace; 
       margin: 0; 
       padding: 0; 
-      line-height: 1.5; 
-      background-color: #ffffff; 
-      color: #000000; 
+      background-color: #000000; 
     }
-    .container {
-      width: 50%;
-      margin-left: 25%;
-      margin-right: 25%;
-      padding: 24px;
-    }
-    h1, h2, h3, h4, h5, h6 { 
-      font-family: 'Bitcount Single', 'Bitcount Double', monospace; 
-      font-variation-settings: 'wght' var(--header-weight, 400);
-    }
-    h1 { margin: 0; font-size: 62px; }
-    a { color: #000000; }
-    ul { list-style: none; padding: 0; margin: 24px 0 0 0; }
-    li { margin: 12px 0; }
-    li a { text-decoration: none; }
   </style>
-  <script>
-    async function loadPast() {
-      const listEl = document.getElementById('sessions');
-      try {
-        const res = await fetch('./data/sessions-index.json', { cache: 'no-store' });
-        if (!res.ok) throw new Error('Failed to fetch sessions-index.json');
-        const sessions = await res.json();
-        listEl.innerHTML = '';
-        sessions.forEach(s => {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = `./index.html?file=${encodeURIComponent(s.file)}`;
-          a.textContent = s.title || s.slug;
-          li.appendChild(a);
-          listEl.appendChild(li);
-        });
-      } catch (e) {
-        listEl.innerHTML = '<li>Unable to load past sessions.</li>';
-        console.error(e);
-      }
-    }
-    document.addEventListener('DOMContentLoaded', loadPast);
-  </script>
 </head>
 <body>
-  <div class="container">
-    <h1>Past Reading Seminars</h1>
-    <ul id="sessions"><li>Loading…</li></ul>
-  </div>
 </body>
 </html>
