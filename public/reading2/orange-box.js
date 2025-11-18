@@ -1,4 +1,7 @@
 (() => {
+  // TEST: Change page title to verify script is loading
+  document.title = 'Reading [SCRIPT LOADED]';
+  
   let ticking = false;
   let scrollDistance = 0;
   let boxHeightPx = 0;
