@@ -30,6 +30,36 @@
       height: var(--box-height);
       background-color: rgb(255, 160, 0);
       z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .initial-text {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #000000;
+      text-align: center;
+      font-weight: 400;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    .scrolling-terms {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #000000;
+      font-weight: 400;
+      white-space: nowrap;
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .initial-text.hidden,
+    .scrolling-terms.hidden {
+      display: none;
     }
     .content {
       position: relative;
@@ -49,6 +79,29 @@
     let boxHeightPx = 0;
     let minHeightPx = 0;
     
+    // Term bank - first term will always appear first
+    const termBank = [
+      'philosophy',
+      'mathematics',
+      'science',
+      'literature',
+      'art',
+      'history',
+      'politics',
+      'economics',
+      'psychology',
+      'sociology',
+      'anthropology',
+      'linguistics',
+      'theology',
+      'ethics',
+      'aesthetics'
+    ];
+    
+    let recentTerms = []; // Track last 5 terms to avoid repetition
+    let currentTermIndex = 0; // Track which term to use next
+    let scrollingAnimationId = null;
+    
     function recalculateConstants() {
       const orangeBox = document.querySelector('.orange-box');
       const scrollSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll-speed'));
@@ -63,6 +116,57 @@
       
       // Calculate scroll distance needed to reach minimum height
       scrollDistance = scrollSpeed * window.innerHeight;
+    }
+    
+    function getNextTerm() {
+      // First term always appears first
+      if (currentTermIndex === 0) {
+        currentTermIndex = 1;
+        recentTerms = [termBank[0]];
+        return termBank[0];
+      }
+      
+      // Get available terms (excluding recent 5)
+      const availableTerms = termBank.filter(term => !recentTerms.includes(term));
+      
+      // If all terms were used recently, reset recentTerms but keep last one
+      if (availableTerms.length === 0) {
+        recentTerms = recentTerms.slice(-1);
+      }
+      
+      // Pick a random term from available ones
+      const available = availableTerms.length > 0 ? availableTerms : termBank;
+      const randomIndex = Math.floor(Math.random() * available.length);
+      const selectedTerm = available[randomIndex];
+      
+      // Update recent terms (keep last 5)
+      recentTerms.push(selectedTerm);
+      if (recentTerms.length > 5) {
+        recentTerms.shift();
+      }
+      
+      return selectedTerm;
+    }
+    
+    function updateTextSizes() {
+      const orangeBox = document.querySelector('.orange-box');
+      const initialText = document.querySelector('.initial-text');
+      const scrollingTerms = document.querySelector('.scrolling-terms');
+      const currentHeight = parseFloat(getComputedStyle(orangeBox).height);
+      
+      // Size initial text to fit minimum height
+      if (initialText && !initialText.classList.contains('hidden')) {
+        // Calculate font size to fit in minHeight (with some padding)
+        const initialFontSize = Math.max(minHeightPx * 0.6, 10);
+        initialText.style.fontSize = initialFontSize + 'px';
+      }
+      
+      // Size scrolling terms to 90% of current box height
+      if (scrollingTerms && !scrollingTerms.classList.contains('hidden')) {
+        const scrollingFontSize = Math.max(currentHeight * 0.9, 10);
+        scrollingTerms.style.fontSize = scrollingFontSize + 'px';
+        scrollingTerms.style.lineHeight = scrollingFontSize + 'px';
+      }
     }
     
     function updateBoxHeight() {
@@ -80,7 +184,62 @@
       const newHeight = minHeightPx + (boxHeightPx - minHeightPx) * (1 - Math.pow(t, 1.2));
       orangeBox.style.height = newHeight + 'px';
       
+      // Update text sizes
+      updateTextSizes();
+      
       ticking = false;
+    }
+    
+    function startScrollingTerms() {
+      const scrollingTerms = document.querySelector('.scrolling-terms');
+      if (!scrollingTerms) return;
+      
+      scrollingTerms.classList.remove('hidden');
+      updateTextSizes();
+      
+      const orangeBox = document.querySelector('.orange-box');
+      const scrollSpeed = 80; // pixels per second
+      let position = window.innerWidth;
+      let lastTime = performance.now();
+      
+      function animate(currentTime) {
+        const deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+        lastTime = currentTime;
+        
+        const currentHeight = parseFloat(getComputedStyle(orangeBox).height);
+        const fontSize = Math.max(currentHeight * 0.9, 10);
+        scrollingTerms.style.fontSize = fontSize + 'px';
+        scrollingTerms.style.lineHeight = fontSize + 'px';
+        
+        // Update position based on time delta for smooth scrolling
+        position -= scrollSpeed * deltaTime;
+        
+        // Check if we need to add more terms
+        const textWidth = scrollingTerms.offsetWidth;
+        if (position + textWidth < window.innerWidth + 300) {
+          // Add next term
+          const nextTerm = getNextTerm();
+          const currentText = scrollingTerms.textContent.trim();
+          if (currentText) {
+            scrollingTerms.textContent = currentText + ' & ' + nextTerm;
+          } else {
+            scrollingTerms.textContent = nextTerm;
+          }
+        }
+        
+        // Reset position when text has scrolled completely off screen
+        if (position + textWidth < -200) {
+          // Start new sequence from right
+          const nextTerm = getNextTerm();
+          scrollingTerms.textContent = nextTerm;
+          position = window.innerWidth;
+        }
+        
+        scrollingTerms.style.left = position + 'px';
+        scrollingAnimationId = requestAnimationFrame(animate);
+      }
+      
+      scrollingAnimationId = requestAnimationFrame(animate);
     }
     
     function requestTick() {
@@ -98,6 +257,7 @@
       // Recalculate on resize since viewport height changes
       recalculateConstants();
       updateBoxHeight();
+      updateTextSizes();
     });
     
     // Initial update
@@ -108,11 +268,23 @@
       window.scrollTo(0, 0);
       recalculateConstants();
       updateBoxHeight();
+      
+      // Hide initial text and start scrolling after delay
+      setTimeout(() => {
+        const initialText = document.querySelector('.initial-text');
+        if (initialText) {
+          initialText.classList.add('hidden');
+        }
+        startScrollingTerms();
+      }, 2000); // 2 second delay
     });
   </script>
 </head>
 <body>
-  <div class="orange-box"></div>
+  <div class="orange-box">
+    <div class="initial-text">This is a reading seminar on</div>
+    <div class="scrolling-terms hidden"></div>
+  </div>
   <div class="content">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
