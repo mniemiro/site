@@ -51,7 +51,11 @@ body {
   background-color: rgb(255, 160, 0);
 }
 
-.initial-text.hidden,
+.initial-text.hidden {
+  /* Force initial-text to always be visible, even with hidden class */
+  display: block !important;
+}
+
 .scrolling-terms.hidden {
   display: none;
 }
