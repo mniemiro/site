@@ -144,13 +144,13 @@
       scrollingTerms.style.lineHeight = fontSize + 'px';
 
       // Calculate speed multiplier based on box height
-      // At max height: 1.5x speed, at half height and below: 1.0x speed
+      // At max height: 2.0x speed (100% increase), at half height and below: 1.0x speed
       const halfHeight = boxHeightPx / 2;
       let speedMultiplier = 1.0;
       if (currentHeight > halfHeight) {
-        // Linear interpolation between half height (1.0x) and max height (1.5x)
+        // Linear interpolation between half height (1.0x) and max height (2.0x)
         const ratio = (currentHeight - halfHeight) / (boxHeightPx - halfHeight);
-        speedMultiplier = 1.0 + (0.5 * ratio);
+        speedMultiplier = 1.0 + (1.0 * ratio);
       }
       const scrollSpeed = baseScrollSpeed * speedMultiplier;
 
@@ -293,7 +293,7 @@
 
       setTimeout(() => {
         startScrollingTerms();
-      }, 1000);
+      }, 1250);
     });
   }
 
