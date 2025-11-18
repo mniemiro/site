@@ -12,9 +12,9 @@
   <style>
     :root { 
       color-scheme: dark;
-      --box-height: 75vh;
+      --box-height: 85vh;
       --scroll-speed: 0.4; /* Box reaches minimum height after scrolling this many viewport heights */
-      --min-height: 5px; /* Minimum height the box reaches */
+      --min-height: 20px; /* Minimum height the box reaches */
     }
     body { 
       margin: 0; 
@@ -24,9 +24,8 @@
     }
     .orange-box {
       position: fixed;
-      top: 50%;
+      top: 7.5vh;
       left: 0;
-      transform: translateY(-50%);
       width: 100%;
       height: var(--box-height);
       background-color: rgb(255, 160, 0);
