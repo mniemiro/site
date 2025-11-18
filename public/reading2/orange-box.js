@@ -246,17 +246,22 @@
     seedScrollingText();
     updateTextSizes();
     
-    // Convert to left positioning for animation (right edge at boxWidth means left at boxWidth - textWidth)
-    const textWidth = scrollingTerms.offsetWidth;
-    const startLeft = boxWidth - textWidth;
-    scrollingTerms.style.right = 'auto';
-    scrollingTerms.style.left = startLeft + 'px';
+    // Keep right-anchored for now, we'll measure and position after layout
     const jumpSize = boxWidth * 0.3;
     const jerkDelay = 2000;
 
     function setupAndStartJerks() {
+      // Now measure after layout has occurred
+      const textWidth = scrollingTerms.offsetWidth;
+      // Start from right edge: if text is wider than box, start at boxWidth (off-screen to the right)
+      // Otherwise, start so right edge of text aligns with right edge of box
+      const startLeft = textWidth <= boxWidth ? boxWidth - textWidth : boxWidth;
+      
+      // Convert to left positioning for animation
+      scrollingTerms.style.right = 'auto';
+      scrollingTerms.style.left = startLeft + 'px';
+      
       const positions = [];
-      // Start from current position (where right edge was anchored)
       let currentPosition = startLeft;
 
       positions.push(currentPosition);
@@ -290,6 +295,7 @@
       performJerkyIntro();
     }
 
+    // Wait for layout before measuring and starting jerks
     requestAnimationFrame(() => {
       requestAnimationFrame(setupAndStartJerks);
     });
