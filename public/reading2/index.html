@@ -290,12 +290,22 @@
       }
       
       initialText?.classList.add('hidden');
-      
-      // Initialize with first term
-      const firstTerm = getNextTerm();
-      scrollingTerms.innerHTML = firstTerm;
-      
       scrollingTerms.classList.remove('hidden');
+      
+      function seedScrollingText() {
+        const bufferWidth = window.innerWidth * 1.5; // Load enough content to fill and overflow
+        const firstTerm = getNextTerm();
+        let content = `<span class="first-term-marker">${firstTerm}</span>`;
+        scrollingTerms.innerHTML = content;
+        
+        while (scrollingTerms.offsetWidth < bufferWidth) {
+          const nextTerm = getNextTerm();
+          content += ' + ' + nextTerm;
+          scrollingTerms.innerHTML = content;
+        }
+      }
+      
+      seedScrollingText();
       updateTextSizes();
       
       const orangeBox = document.querySelector('.orange-box');
@@ -304,20 +314,18 @@
       const jerkDelay = 300;
       
       function setupAndStartJerks() {
-        const textWidth = scrollingTerms.offsetWidth || 0;
         const positions = [];
         let currentPosition = boxWidth;
         
-        const initialVisiblePosition = Math.min(boxWidth - Math.min(textWidth * 0.2, boxWidth * 0.1), boxWidth);
-        positions.push(initialVisiblePosition);
-        currentPosition = initialVisiblePosition - jumpSize;
-        
-        while (currentPosition + textWidth > 0) {
-          positions.push(currentPosition);
+        positions.push(currentPosition);
+        while (currentPosition - jumpSize > 0) {
           currentPosition -= jumpSize;
+          positions.push(currentPosition);
         }
         
-        positions.push(currentPosition);
+        if (positions[positions.length - 1] !== 0) {
+          positions.push(0);
+        }
         
         function performJerkyIntro(step = 0) {
           if (step >= positions.length) {
@@ -327,7 +335,7 @@
           scrollingTerms.style.left = positions[step] + 'px';
           
           if (step === positions.length - 1) {
-            setTimeout(() => startSmoothScrolling(positions[step]), 120);
+            startSmoothScrolling(positions[step]);
           } else {
             setTimeout(() => performJerkyIntro(step + 1), jerkDelay);
           }
