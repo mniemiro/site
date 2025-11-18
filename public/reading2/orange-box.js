@@ -281,9 +281,54 @@
     }
   }
 
+  // Helper function to check if stylesheets are loaded
+  function stylesheetsLoaded() {
+    const stylesheets = Array.from(document.styleSheets);
+    return stylesheets.every(sheet => {
+      try {
+        return sheet.cssRules || sheet.rules; // Accessing cssRules forces load check
+      } catch (e) {
+        // Cross-origin stylesheets may throw, consider them loaded if they're in the DOM
+        return true;
+      }
+    });
+  }
+
+  // Wait for stylesheets to load before accessing layout
+  function waitForStylesheets(callback) {
+    if (document.readyState === 'complete' && stylesheetsLoaded()) {
+      callback();
+      return;
+    }
+
+    // Check if stylesheets are already loaded
+    if (stylesheetsLoaded()) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', callback);
+      } else {
+        callback();
+      }
+      return;
+    }
+
+    // Wait for load event which fires after stylesheets are loaded
+    if (document.readyState === 'loading') {
+      window.addEventListener('load', callback, { once: true });
+    } else {
+      // If already loaded, check stylesheets with a small delay
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (stylesheetsLoaded()) {
+            callback();
+          } else {
+            window.addEventListener('load', callback, { once: true });
+          }
+        });
+      });
+    }
+  }
+
   function initOrangeBox() {
-    recalculateConstants();
-    
     // Set up observer to prevent initial text from being hidden
     function setupInitialTextObserver() {
       let initialText = document.querySelector('.initial-text');
@@ -346,16 +391,18 @@
       }, 15000);
     }
     
-    // Set up observer as early as possible
+    // Set up observer early (doesn't require layout)
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        setupInitialTextObserver();
-        updateBoxHeight();
-      });
+      document.addEventListener('DOMContentLoaded', setupInitialTextObserver);
     } else {
       setupInitialTextObserver();
-      updateBoxHeight();
     }
+    
+    // Wait for stylesheets before accessing layout properties
+    waitForStylesheets(() => {
+      recalculateConstants();
+      updateBoxHeight();
+    });
     
     window.addEventListener('scroll', requestTick, { passive: true });
     window.addEventListener('resize', () => {
