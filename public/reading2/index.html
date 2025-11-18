@@ -13,7 +13,8 @@
     :root { 
       color-scheme: dark;
       --box-height: 75vh;
-      --scroll-speed: 0.5; /* Box gets fully covered after scrolling this many viewport heights */
+      --scroll-speed: 0.4; /* Box reaches minimum height after scrolling this many viewport heights */
+      --min-height: 5px; /* Minimum height the box reaches */
     }
     body { 
       margin: 0; 
@@ -30,42 +31,50 @@
       height: var(--box-height);
       background-color: rgb(255, 160, 0);
       z-index: 1;
-    }
-    .black-overlay {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 0;
-      background-color: #000000;
-      z-index: 2;
       transition: height 0.1s linear;
+    }
+    .content {
+      position: relative;
+      padding: 100vh 24px 24px 24px;
+      color: #ffffff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      z-index: 0;
     }
   </style>
   <script>
-    // Calculate how much scroll is needed to fully cover the box
+    // Calculate how much scroll is needed to reach minimum height
     const boxHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--box-height'));
     const scrollSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll-speed'));
-    const scrollDistance = scrollSpeed * window.innerHeight; // Total scroll needed to fully cover
+    const scrollDistance = scrollSpeed * window.innerHeight; // Total scroll needed to reach minimum height
     
-    function updateOverlay() {
+    function updateBoxHeight() {
       const scrollY = window.scrollY;
-      const overlay = document.querySelector('.black-overlay');
+      const orangeBox = document.querySelector('.orange-box');
+      const minHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--min-height'));
       
-      // Calculate overlay height based on scroll position
-      // When scrollY reaches scrollDistance, overlay should be boxHeight
-      const overlayHeight = Math.min((scrollY / scrollDistance) * boxHeight, boxHeight);
-      overlay.style.height = overlayHeight + 'px';
+      // Calculate box height based on scroll position with cubic decay
+      // t goes from 0 (at top) to 1 (after scrollDistance)
+      const t = Math.min(scrollY / scrollDistance, 1);
+      
+      // Cubic decay: height = minHeight + (boxHeight - minHeight) * (1 - t^3)
+      // When t = 0: height = boxHeight
+      // When t = 1: height = minHeight
+      const newHeight = minHeight + (boxHeight - minHeight) * (1 - Math.pow(t, 3));
+      orangeBox.style.height = newHeight + 'px';
     }
     
-    window.addEventListener('scroll', updateOverlay);
+    window.addEventListener('scroll', updateBoxHeight);
     window.addEventListener('resize', () => {
       // Recalculate on resize since viewport height changes
-      updateOverlay();
+      updateBoxHeight();
     });
     
     // Initial update
-    updateOverlay();
+    updateBoxHeight();
     
     // Ensure page starts at top on load
     window.addEventListener('load', () => {
@@ -75,6 +84,12 @@
 </head>
 <body>
   <div class="orange-box"></div>
-  <div class="black-overlay"></div>
+  <div class="content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
+    <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+    <p>Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+  </div>
 </body>
 </html>
