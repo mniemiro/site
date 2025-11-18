@@ -15,19 +15,17 @@
     'TRANSCHROMATIC CHARACTER RINGS',
     'PARAMETRIZED SEMIADDITIVITY',
     'TEMPERED LOCAL SYSTEMS',
-    'E<sub>n</sub>-MODULE LOCAL SYSTEMS',
+    'E<sub>n</sub>-MODULE LOCAL SYSTEMS + f<sub>!</sub> ⊣ f<sup>*</sup> ⊣ f<sub>*</sub>',
     'π-FINITE SPACES',
     'CATEGORICAL TRACES',
-    'An<sup>π-fin</sup>-PARAMETRIZED CATEGORIES',
     'SPAN FUNCTORIALITY',
     'HIGHER INTEGRATION',
     'CATEGORIFICATION',
-    'L<sub>K(t)</sub>E<sub>n</sub>',
+    'L<sub>K(t)</sub>E<sub>n</sub> + An<sup>π-fin</sup>-PARAMETRIZED CATEGORIES',
     'p-ADIC FREE LOOP SPACES',
     'KAN EXTENSIONS COMPUTED FIBERWISE',
     'HIGHER CARDINALITY',
     'ADJUNCTIONS',
-    'f<sub>!</sub> ⊣ f<sup>*</sup> ⊣ f<sub>*</sub>',
     'HOMOTOPY THEORY',
     'HIGHER ∞-CATEGORY THEORY'
   ];
@@ -171,6 +169,7 @@
 
     initialText?.classList.add('hidden');
     scrollingTerms.classList.remove('hidden');
+    scrollingTerms.style.visibility = 'hidden';
 
     function seedScrollingText() {
       const bufferWidth = window.innerWidth * 1.5;
@@ -185,11 +184,12 @@
       }
     }
 
-    seedScrollingText();
-    updateTextSizes();
-
     const orangeBox = document.querySelector('.orange-box');
     const boxWidth = orangeBox.offsetWidth;
+    
+    seedScrollingText();
+    updateTextSizes();
+    scrollingTerms.style.left = boxWidth + 'px';
     const jumpSize = boxWidth * 0.3;
     const jerkDelay = 300;
 
@@ -211,7 +211,9 @@
         if (step >= positions.length) {
           return;
         }
-
+        if (step === 0) {
+          scrollingTerms.style.visibility = '';
+        }
         scrollingTerms.style.left = positions[step] + 'px';
 
         if (step === positions.length - 1) {
