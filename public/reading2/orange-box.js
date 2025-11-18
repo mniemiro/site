@@ -1,4 +1,5 @@
 (() => {
+  console.log('orange-box.js script loaded and executing');
   let ticking = false;
   let scrollDistance = 0;
   let boxHeightPx = 0;
@@ -340,6 +341,36 @@
       initialText.classList.remove('hidden'); // Remove it if already there
       console.log('Initial text observer set up, current classes:', initialText.className);
       
+      // Intercept classList.add to catch when hidden is added
+      const originalAdd = initialText.classList.add.bind(initialText.classList);
+      initialText.classList.add = function(...args) {
+        if (args.includes('hidden')) {
+          console.error('BLOCKED: Attempt to add "hidden" class to initial-text!', new Error().stack);
+          return; // Block the addition
+        }
+        return originalAdd(...args);
+      };
+      
+      // Also intercept className setter
+      let classNameDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'className') || 
+                                Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'className');
+      if (initialText.hasOwnProperty('className')) {
+        const currentValue = initialText.className;
+        Object.defineProperty(initialText, 'className', {
+          get: function() {
+            return this.getAttribute('class') || '';
+          },
+          set: function(value) {
+            if (typeof value === 'string' && value.includes('hidden')) {
+              console.error('BLOCKED: Attempt to set className with "hidden" on initial-text!', new Error().stack);
+              value = value.replace(/\bhidden\b/g, '').trim();
+            }
+            this.setAttribute('class', value);
+          },
+          configurable: true
+        });
+      }
+      
       // MutationObserver for attribute changes - also watch for child/subtree changes
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
@@ -422,6 +453,8 @@
     });
   }
 
+  console.log('Calling initOrangeBox()');
   initOrangeBox();
+  console.log('initOrangeBox() called');
 })();
 
