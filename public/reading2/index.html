@@ -44,7 +44,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 2;
+      z-index: 1;
     }
     .scrolling-terms {
       font-family: 'Space Grotesk', sans-serif;
@@ -52,10 +52,11 @@
       font-weight: 400;
       white-space: nowrap;
       position: absolute;
-      left: 100%;
       top: 50%;
       transform: translateY(-50%);
-      z-index: 1;
+      z-index: 2;
+      background-color: rgb(255, 160, 0);
+      padding: 0.1em 0.3em;
     }
     .initial-text.hidden,
     .scrolling-terms.hidden {
@@ -194,11 +195,16 @@
       const scrollingTerms = document.querySelector('.scrolling-terms');
       if (!scrollingTerms) return;
       
+      // Initialize with first term
+      const firstTerm = getNextTerm();
+      scrollingTerms.textContent = firstTerm;
+      
       scrollingTerms.classList.remove('hidden');
       updateTextSizes();
       
       const orangeBox = document.querySelector('.orange-box');
       const scrollSpeed = 80; // pixels per second
+      // Start at the right edge of the orange box (which is 100% width of viewport)
       let position = window.innerWidth;
       let lastTime = performance.now();
       
@@ -214,9 +220,12 @@
         // Update position based on time delta for smooth scrolling
         position -= scrollSpeed * deltaTime;
         
+        // Get the width of the orange box (should be viewport width)
+        const boxWidth = orangeBox.offsetWidth;
+        
         // Check if we need to add more terms
         const textWidth = scrollingTerms.offsetWidth;
-        if (position + textWidth < window.innerWidth + 300) {
+        if (position + textWidth < boxWidth + 300) {
           // Add next term
           const nextTerm = getNextTerm();
           const currentText = scrollingTerms.textContent.trim();
@@ -232,7 +241,7 @@
           // Start new sequence from right
           const nextTerm = getNextTerm();
           scrollingTerms.textContent = nextTerm;
-          position = window.innerWidth;
+          position = boxWidth;
         }
         
         scrollingTerms.style.left = position + 'px';
