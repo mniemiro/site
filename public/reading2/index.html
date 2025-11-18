@@ -108,6 +108,7 @@
     let recentTerms = []; // Track last 5 terms to avoid repetition
     let currentTermIndex = 0; // Track which term to use next
     let scrollingAnimationId = null;
+    let visibilityChangeHandler = null;
     
     function recalculateConstants() {
       const orangeBox = document.querySelector('.orange-box');
@@ -212,8 +213,12 @@
       let lastTime = performance.now();
       let isPaused = false;
       
-      // Handle visibility changes to prevent animation reset
-      document.addEventListener('visibilitychange', () => {
+      // Remove previous visibility handler, if any, to avoid duplicates
+      if (visibilityChangeHandler) {
+        document.removeEventListener('visibilitychange', visibilityChangeHandler);
+      }
+      
+      visibilityChangeHandler = () => {
         if (document.hidden) {
           isPaused = true;
           if (scrollingAnimationId) {
@@ -226,7 +231,9 @@
           // Resume animation
           scrollingAnimationId = requestAnimationFrame(animate);
         }
-      });
+      };
+      
+      document.addEventListener('visibilitychange', visibilityChangeHandler);
       
       function animate(currentTime) {
         if (isPaused) return;
