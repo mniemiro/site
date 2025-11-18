@@ -157,9 +157,9 @@
         initialText.style.fontSize = initialFontSize + 'px';
       }
       
-      // Size scrolling terms to 90% of current box height
+      // Size scrolling terms to 85% of current box height (reduced from 90% to account for superscripts/subscripts)
       if (scrollingTerms && !scrollingTerms.classList.contains('hidden')) {
-        const scrollingFontSize = Math.max(currentHeight * 0.9, 10);
+        const scrollingFontSize = Math.max(currentHeight * 0.85, 10);
         scrollingTerms.style.fontSize = scrollingFontSize + 'px';
         scrollingTerms.style.lineHeight = scrollingFontSize + 'px';
       }
@@ -204,7 +204,7 @@
         lastTime = currentTime;
         
         const currentHeight = parseFloat(getComputedStyle(orangeBox).height);
-        const fontSize = Math.max(currentHeight * 0.9, 10);
+        const fontSize = Math.max(currentHeight * 0.85, 10); // 85% to account for superscripts/subscripts
         scrollingTerms.style.fontSize = fontSize + 'px';
         scrollingTerms.style.lineHeight = fontSize + 'px';
         
