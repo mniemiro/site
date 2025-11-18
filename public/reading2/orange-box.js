@@ -234,14 +234,6 @@
           scrollingTerms.style.pointerEvents = '';
         }
         scrollingTerms.style.left = positions[step] + 'px';
-        
-        // Hide initial text when scrolling text reaches center (would cover it)
-        const textWidth = scrollingTerms.offsetWidth;
-        const centerX = boxWidth / 2;
-        if (initialText && !initialText.classList.contains('hidden') && 
-            positions[step] + textWidth > centerX && positions[step] < centerX) {
-          initialText.classList.add('hidden');
-        }
 
         if (step === positions.length - 1) {
           startSmoothScrolling(positions[step]);
