@@ -174,13 +174,8 @@
 
     // Keep element hidden but make it participate in layout for measurement
     scrollingTerms.classList.remove('hidden');
-    const computedBg = getComputedStyle(scrollingTerms).backgroundColor;
-    if (!scrollingTerms.dataset.originalBg) {
-      scrollingTerms.dataset.originalBg = computedBg;
-    }
     scrollingTerms.style.opacity = '0';
     scrollingTerms.style.pointerEvents = 'none';
-    scrollingTerms.style.backgroundColor = 'rgba(255, 160, 0, 0)';
 
     const orangeBox = document.querySelector('.orange-box');
     const boxWidth = orangeBox.offsetWidth;
@@ -236,7 +231,6 @@
           // Make visible only when starting the jerky animation
           scrollingTerms.style.opacity = '1';
           scrollingTerms.style.pointerEvents = '';
-          scrollingTerms.style.backgroundColor = scrollingTerms.dataset.originalBg || computedBg;
         }
         scrollingTerms.style.left = positions[step] + 'px';
         

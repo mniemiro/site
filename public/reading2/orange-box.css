@@ -48,7 +48,6 @@ body {
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
-  background-color: rgb(255, 160, 0);
 }
 
 .initial-text.hidden,
