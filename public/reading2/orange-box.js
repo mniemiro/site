@@ -157,6 +157,17 @@
         speedMultiplier = 1.0 + (15.0 * ratio);
       }
       const scrollSpeed = baseScrollSpeed * speedMultiplier;
+      
+      // Debug logging (remove after testing)
+      if (Math.random() < 0.01) { // Log ~1% of frames to avoid spam
+        console.log('Speed debug:', {
+          currentHeight,
+          maxBoxHeight,
+          halfHeight,
+          speedMultiplier,
+          scrollSpeed
+        });
+      }
 
       position -= scrollSpeed * deltaTime;
 
