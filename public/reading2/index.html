@@ -276,15 +276,16 @@
     
     function startScrollingTerms() {
       const scrollingTerms = document.querySelector('.scrolling-terms');
-      console.log('startScrollingTerms called, scrollingTerms:', scrollingTerms);
+      const initialText = document.querySelector('.initial-text');
       if (!scrollingTerms) {
         console.error('scrolling-terms element not found!');
         return;
       }
       
+      initialText?.classList.add('hidden');
+      
       // Initialize with first term
       const firstTerm = getNextTerm();
-      console.log('First term:', firstTerm);
       scrollingTerms.innerHTML = firstTerm;
       
       scrollingTerms.classList.remove('hidden');
@@ -293,28 +294,44 @@
       const orangeBox = document.querySelector('.orange-box');
       const boxWidth = orangeBox.offsetWidth;
       const jumpSize = boxWidth * 0.3;
+      const jerkDelay = 300;
       
-      let position = boxWidth;
-      const jerkDelay = 250;
+      // Precompute jump positions that move the text in 30% increments
+      const textWidth = scrollingTerms.offsetWidth || 0;
+      const positions = [];
+      let currentPosition = boxWidth;
       
-      function jerkAcross() {
-        const textWidth = scrollingTerms.offsetWidth || 0;
-        scrollingTerms.style.left = position + 'px';
-        position -= jumpSize;
+      // Make sure the first frame is just inside the box so the jerk is visible
+      const initialVisiblePosition = Math.min(boxWidth - Math.min(textWidth * 0.2, boxWidth * 0.1), boxWidth);
+      positions.push(initialVisiblePosition);
+      currentPosition = initialVisiblePosition - jumpSize;
+      
+      while (currentPosition + textWidth > 0) {
+        positions.push(currentPosition);
+        currentPosition -= jumpSize;
+      }
+      
+      // Add one last position off-screen to the left before smooth scrolling starts
+      positions.push(currentPosition);
+      
+      function performJerkyIntro(step = 0) {
+        if (step >= positions.length) {
+          return;
+        }
         
-        // Continue jerking until the text fully clears the left edge
-        if (position + textWidth > 0) {
-          setTimeout(jerkAcross, jerkDelay);
+        scrollingTerms.style.left = positions[step] + 'px';
+        
+        if (step === positions.length - 1) {
+          setTimeout(() => startSmoothScrolling(positions[step]), 120);
         } else {
-          // Ensure it's completely past the left edge before starting smooth scroll
-          const finalPosition = position;
-          setTimeout(() => {
-            startSmoothScrolling(finalPosition);
-          }, 100);
+          setTimeout(() => performJerkyIntro(step + 1), jerkDelay);
         }
       }
       
-      jerkAcross();
+      // Give the DOM one frame to render before starting the jerks
+      requestAnimationFrame(() => {
+        performJerkyIntro();
+      });
     }
     
     function requestTick() {
