@@ -75,7 +75,8 @@ class SeminarRenderer {
 
         if (semesterTitle) {
             // Apply scramble effect to title
-            this.startScrambledTextAnimation(semesterTitle, data.semester);
+            // this.startScrambledTextAnimation(semesterTitle, data.semester);
+            semesterTitle.textContent = data.semester;
         }
 
         if (organizerInfo) {
