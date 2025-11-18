@@ -13,13 +13,13 @@
     :root { 
       color-scheme: dark;
       --box-height: 85vh;
-      --scroll-speed: 0.4; /* Box reaches minimum height after scrolling this many viewport heights */
+      --scroll-speed: 0.6; /* Box reaches minimum height after scrolling this many viewport heights */
       --min-height: 20px; /* Minimum height the box reaches */
     }
     body { 
       margin: 0; 
       padding: 0; 
-      background-color: #000000;
+      background-color: #000000; 
       height: 300vh; /* Enable scrolling */
     }
     .orange-box {
@@ -55,14 +55,14 @@
       const orangeBox = document.querySelector('.orange-box');
       const minHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--min-height'));
       
-      // Calculate box height based on scroll position with cubic decay
+      // Calculate box height based on scroll position with decay
       // t goes from 0 (at top) to 1 (after scrollDistance)
       const t = Math.min(scrollY / scrollDistance, 1);
       
-      // Cubic decay: height = minHeight + (boxHeight - minHeight) * (1 - t^3)
+      // Decay: height = minHeight + (boxHeight - minHeight) * (1 - t^1.5)
       // When t = 0: height = boxHeight
       // When t = 1: height = minHeight
-      const newHeight = minHeight + (boxHeight - minHeight) * (1 - Math.pow(t, 3));
+      const newHeight = minHeight + (boxHeight - minHeight) * (1 - Math.pow(t, 1.5));
       orangeBox.style.height = newHeight + 'px';
     }
     
