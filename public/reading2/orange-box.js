@@ -21,6 +21,9 @@
     'SPAN FUNCTORIALITY',
     'HIGHER INTEGRATION',
     'MODES',
+    'ITERATED SPAN CATEGORIES',
+    'DECORATED COSPANS',
+    'THE 2-CATEGORY OF GROUPS',
     'Pr<sup>L</sup>',
     'CATEGORIFICATION',
     'An<sup>π-fin</sup>-PARAMETRIZED CATEGORIES + L<sub>K(t)</sub>E<sub>n</sub>',
@@ -169,8 +172,6 @@
       return;
     }
 
-    initialText?.classList.add('hidden');
-    
     // Keep element hidden but make it participate in layout for measurement
     scrollingTerms.classList.remove('hidden');
     const computedBg = getComputedStyle(scrollingTerms).backgroundColor;
@@ -222,6 +223,7 @@
           return;
         }
         if (step === 0) {
+          initialText?.classList.add('hidden');
           // Make visible only when starting the jerky animation
           scrollingTerms.style.opacity = '1';
           scrollingTerms.style.pointerEvents = '';
