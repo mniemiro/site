@@ -2,6 +2,22 @@
   // TEST: Change page title to verify script is loading
   document.title = 'Reading [SCRIPT LOADED]';
   
+  // TEST: Add visible element to page to verify script execution
+  const testDiv = document.createElement('div');
+  testDiv.id = 'script-test-marker';
+  testDiv.style.cssText = 'position: fixed; top: 10px; right: 10px; background: red; color: white; padding: 10px; z-index: 9999; font-size: 12px;';
+  testDiv.textContent = 'SCRIPT EXECUTING v' + Date.now();
+  document.body.appendChild(testDiv);
+  
+  // Force console output
+  try {
+    console.log('=== ORANGE BOX SCRIPT STARTING ===');
+    console.log('Timestamp:', new Date().toISOString());
+    console.log('Script file loaded successfully');
+  } catch (e) {
+    // If console doesn't work, at least we have the visual marker
+  }
+  
   let ticking = false;
   let scrollDistance = 0;
   let boxHeightPx = 0;
@@ -165,13 +181,13 @@
       const maxBoxHeight = (boxHeightVh / 100) * window.innerHeight;
 
       // Calculate speed multiplier based on box height
-      // At max height: 16.0x speed (1500% increase), at half height and below: 1.0x speed
+      // At max height: 2.0x speed (100% increase), at half height and below: 1.0x speed
       const halfHeight = maxBoxHeight / 2;
       let speedMultiplier = 1.0;
       if (currentHeight > halfHeight && maxBoxHeight > 0) {
-        // Linear interpolation between half height (1.0x) and max height (16.0x)
+        // Linear interpolation between half height (1.0x) and max height (2.0x)
         const ratio = (currentHeight - halfHeight) / (maxBoxHeight - halfHeight);
-        speedMultiplier = 1.0 + (15.0 * ratio);
+        speedMultiplier = 1.0 + (1.0 * ratio);
       }
       const scrollSpeed = baseScrollSpeed * speedMultiplier;
       
