@@ -14,7 +14,7 @@
       color-scheme: dark;
       --box-height: 85vh;
       --scroll-speed: 0.5; /* Box reaches minimum height after scrolling this many viewport heights */
-      --min-height: 20px; /* Minimum height the box reaches */
+      --min-height: 30px; /* Minimum height the box reaches */
     }
     body { 
       margin: 0; 
@@ -164,9 +164,9 @@
         initialText.style.fontSize = initialFontSize + 'px';
       }
       
-      // Size scrolling terms to 85% of current box height (reduced from 90% to account for superscripts/subscripts)
+      // Size scrolling terms to 80% of current box height
       if (scrollingTerms && !scrollingTerms.classList.contains('hidden')) {
-        const scrollingFontSize = Math.max(currentHeight * 0.85, 10);
+        const scrollingFontSize = Math.max(currentHeight * 0.8, 10);
         scrollingTerms.style.fontSize = scrollingFontSize + 'px';
         scrollingTerms.style.lineHeight = scrollingFontSize + 'px';
       }
@@ -211,7 +211,7 @@
         lastTime = currentTime;
         
         const currentHeight = parseFloat(getComputedStyle(orangeBox).height);
-        const fontSize = Math.max(currentHeight * 0.85, 10); // 85% to account for superscripts/subscripts
+        const fontSize = Math.max(currentHeight * 0.8, 10); // 80% of box height
         scrollingTerms.style.fontSize = fontSize + 'px';
         scrollingTerms.style.lineHeight = fontSize + 'px';
         
