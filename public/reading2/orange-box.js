@@ -195,15 +195,34 @@
       const firstTerm = getNextTerm();
       let content = `<span class="first-term-marker">${firstTerm}</span>`;
       scrollingTerms.innerHTML = content;
+      
+      // Ensure initial text stays visible during seeding
+      if (initialText && initialText.classList.contains('hidden')) {
+        console.warn('initial-text got hidden during seeding, removing it');
+        initialText.classList.remove('hidden');
+      }
 
       while (scrollingTerms.offsetWidth < bufferWidth) {
         const nextTerm = getNextTerm();
         content += ' + ' + nextTerm;
         scrollingTerms.innerHTML = content;
+        
+        // Check again after each innerHTML update
+        if (initialText && initialText.classList.contains('hidden')) {
+          console.warn('initial-text got hidden during seeding loop, removing it');
+          initialText.classList.remove('hidden');
+        }
       }
     }
     
     seedScrollingText();
+    
+    // Final check before updating sizes
+    if (initialText && initialText.classList.contains('hidden')) {
+      console.warn('initial-text got hidden after seeding, removing it');
+      initialText.classList.remove('hidden');
+    }
+    
     updateTextSizes();
     
     // Convert to left positioning for animation (right edge at boxWidth means left at boxWidth - textWidth)
