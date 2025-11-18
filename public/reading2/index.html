@@ -82,13 +82,13 @@
     
     // Term bank - first term will always appear first
     const termBank = [
-      'philosophy',
-      'mathematics',
-      'science',
-      'literature',
-      'art',
-      'history',
-      'politics',
+      'semiadditivity',
+      'ambidexterity',
+      'transchromatic characters',
+      'parametrized category theory',
+      'tempered local systems',
+      'π-finite spaces',
+      '',
       'economics',
       'psychology',
       'sociology',
@@ -263,14 +263,13 @@
       const orangeBox = document.querySelector('.orange-box');
       const boxWidth = orangeBox.offsetWidth;
       
-      // Jerky animation: move in 20% increments
-      // Start at 100% (off-screen right), then 80%, 60%, 40%, 20%, 0% (fully visible)
+      // Jerky animation: move in 25% increments
+      // Start at 100% (off-screen right), then 75%, 50%, 25%, 0% (fully visible)
       const positions = [
         boxWidth,           // 100% - off screen right
-        boxWidth * 0.8,     // 80% - 20% from right
-        boxWidth * 0.6,     // 60% - 40% from right
-        boxWidth * 0.4,     // 40% - 60% from right
-        boxWidth * 0.2,     // 20% - 80% from right
+        boxWidth * 0.75,    // 75% - 25% from right
+        boxWidth * 0.5,     // 50% - 50% from right
+        boxWidth * 0.25,    // 25% - 75% from right
         0                   // 0% - fully visible
       ];
       
@@ -282,13 +281,13 @@
           currentStep++;
           
           if (currentStep < positions.length) {
-            // Continue to next step after 0.5s
-            setTimeout(doJerkyStep, 500);
+            // Continue to next step after 0.75s
+            setTimeout(doJerkyStep, 750);
           } else {
-            // All jerky steps complete, wait 0.5s then start smooth scrolling
+            // All jerky steps complete, wait 0.3s then start smooth scrolling
             setTimeout(() => {
               startSmoothScrolling();
-            }, 500);
+            }, 300);
           }
         }
       }
