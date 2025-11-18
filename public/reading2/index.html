@@ -293,15 +293,14 @@
       const orangeBox = document.querySelector('.orange-box');
       const boxWidth = orangeBox.offsetWidth;
       
-      // Jerky animation: move in 30% increments, with final "overjerk" past 0
-      // Start at 100% (off-screen right), then 70%, 40%, 10%, 0%, -5% (overjerk)
+      // Jerky animation: move in 30% increments, ending at -20%
+      // Start at 100% (off-screen right), then 70%, 40%, 10%, -20%
       const positions = [
         boxWidth,           // 100% - off screen right
         boxWidth * 0.7,     // 70% - 30% from right
         boxWidth * 0.4,     // 40% - 60% from right
         boxWidth * 0.1,     // 10% - 90% from right
-        0,                  // 0% - fully visible
-        boxWidth * -0.05    // -5% - overjerk past 0
+        boxWidth * -0.2     // -20% - off screen left
       ];
       
       let currentStep = 0;
@@ -315,14 +314,8 @@
             // Continue to next step after 0.5s
             setTimeout(doJerkyStep, 500);
           } else {
-            // All jerky steps complete - overjerked past 0, now settle at 0
-            setTimeout(() => {
-              scrollingTerms.style.left = '0px';
-              // Wait a bit more then start smooth scrolling
-              setTimeout(() => {
-                startSmoothScrolling();
-              }, 750);
-            }, 100); // Small delay to show the overjerk
+            // All jerky steps complete - ended at -20%, go straight to smooth scrolling
+            startSmoothScrolling();
           }
         }
       }
