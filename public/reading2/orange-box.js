@@ -162,13 +162,13 @@
       const maxBoxHeight = (boxHeightVh / 100) * window.innerHeight;
 
       // Calculate speed multiplier based on box height
-      // At max height: 2.0x speed (100% increase), at half height and below: 1.0x speed
+      // At max height: 3.0x speed (200% increase), at half height and below: 1.0x speed
       const halfHeight = maxBoxHeight / 2;
       let speedMultiplier = 1.0;
       if (currentHeight > halfHeight && maxBoxHeight > 0) {
-        // Linear interpolation between half height (1.0x) and max height (2.0x)
+        // Linear interpolation between half height (1.0x) and max height (3.0x)
         const ratio = (currentHeight - halfHeight) / (maxBoxHeight - halfHeight);
-        speedMultiplier = 1.0 + (1.0 * ratio);
+        speedMultiplier = 1.0 + (2.0 * ratio);
       }
       const scrollSpeed = baseScrollSpeed * speedMultiplier;
       
@@ -248,7 +248,7 @@
     
     // Keep right-anchored for now, we'll measure and position after layout
     const jumpSize = boxWidth * 0.3;
-    const jerkDelay = 2000;
+    const jerkDelay = 1000;
 
     function setupAndStartJerks() {
       // Now measure after layout has occurred
