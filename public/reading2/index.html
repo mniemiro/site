@@ -193,10 +193,15 @@
     
     function startScrollingTerms() {
       const scrollingTerms = document.querySelector('.scrolling-terms');
-      if (!scrollingTerms) return;
+      console.log('startScrollingTerms called, scrollingTerms:', scrollingTerms);
+      if (!scrollingTerms) {
+        console.error('scrolling-terms element not found!');
+        return;
+      }
       
       // Initialize with first term
       const firstTerm = getNextTerm();
+      console.log('First term:', firstTerm);
       scrollingTerms.textContent = firstTerm;
       
       scrollingTerms.classList.remove('hidden');
@@ -206,6 +211,7 @@
       const scrollSpeed = 80; // pixels per second
       // Start at the right edge of the orange box (which is 100% width of viewport)
       let position = window.innerWidth;
+      console.log('Starting position:', position, 'Box width:', orangeBox.offsetWidth);
       let lastTime = performance.now();
       
       function animate(currentTime) {
@@ -279,10 +285,13 @@
       updateBoxHeight();
       
       // Hide initial text and start scrolling after delay
+      console.log('Page loaded, setting timeout for scrolling animation');
       setTimeout(() => {
+        console.log('Timeout fired, starting scrolling animation');
         const initialText = document.querySelector('.initial-text');
         if (initialText) {
           initialText.classList.add('hidden');
+          console.log('Initial text hidden');
         }
         startScrollingTerms();
       }, 2000); // 2 second delay
