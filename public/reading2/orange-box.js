@@ -248,7 +248,7 @@
     
     // Keep right-anchored for now, we'll measure and position after layout
     const jumpSize = boxWidth * 0.3;
-    const jerkDelay = 1000;
+    const jerkDelay = 650;
 
     function setupAndStartJerks() {
       // Now measure after layout has occurred
