@@ -20,6 +20,8 @@
     'CATEGORICAL TRACES',
     'SPAN FUNCTORIALITY',
     'HIGHER INTEGRATION',
+    'MODES',
+    'Pr<sup>L</sup>',
     'CATEGORIFICATION',
     'L<sub>K(t)</sub>E<sub>n</sub> + An<sup>π-fin</sup>-PARAMETRIZED CATEGORIES',
     'p-ADIC FREE LOOP SPACES',
@@ -168,8 +170,11 @@
     }
 
     initialText?.classList.add('hidden');
+    
+    // Keep element hidden but make it participate in layout for measurement
     scrollingTerms.classList.remove('hidden');
-    scrollingTerms.style.visibility = 'hidden';
+    scrollingTerms.style.opacity = '0';
+    scrollingTerms.style.pointerEvents = 'none';
 
     function seedScrollingText() {
       const bufferWidth = window.innerWidth * 1.5;
@@ -212,7 +217,9 @@
           return;
         }
         if (step === 0) {
-          scrollingTerms.style.visibility = '';
+          // Make visible only when starting the jerky animation
+          scrollingTerms.style.opacity = '1';
+          scrollingTerms.style.pointerEvents = '';
         }
         scrollingTerms.style.left = positions[step] + 'px';
 
