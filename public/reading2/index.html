@@ -45,17 +45,30 @@
     }
   </style>
   <script>
-    // Calculate how much scroll is needed to reach minimum height
-    const boxHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--box-height'));
-    const scrollSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll-speed'));
-    const scrollDistance = scrollSpeed * window.innerHeight; // Total scroll needed to reach minimum height
-    
     let ticking = false;
+    let scrollDistance = 0;
+    let boxHeightPx = 0;
+    let minHeightPx = 0;
+    
+    function recalculateConstants() {
+      const orangeBox = document.querySelector('.orange-box');
+      const scrollSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll-speed'));
+      
+      // Get actual computed pixel values
+      // For boxHeight: read the computed style of the element (which resolves vh to px)
+      const boxHeightVh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--box-height'));
+      boxHeightPx = (boxHeightVh / 100) * window.innerHeight;
+      
+      // For minHeight: already in px, just parse it
+      minHeightPx = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--min-height'));
+      
+      // Calculate scroll distance needed to reach minimum height
+      scrollDistance = scrollSpeed * window.innerHeight;
+    }
     
     function updateBoxHeight() {
       const scrollY = window.scrollY;
       const orangeBox = document.querySelector('.orange-box');
-      const minHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--min-height'));
       
       // Calculate box height based on scroll position with decay
       // t goes from 0 (at top) to 1 (after scrollDistance)
@@ -65,7 +78,7 @@
       // Decay: height = minHeight + (boxHeight - minHeight) * (1 - t^1.2)
       // When t = 0: height = boxHeight
       // When t = 1: height = minHeight
-      const newHeight = minHeight + (boxHeight - minHeight) * (1 - Math.pow(t, 1.2));
+      const newHeight = minHeightPx + (boxHeightPx - minHeightPx) * (1 - Math.pow(t, 1.2));
       orangeBox.style.height = newHeight + 'px';
       
       ticking = false;
@@ -78,9 +91,13 @@
       }
     }
     
+    // Initialize constants
+    recalculateConstants();
+    
     window.addEventListener('scroll', requestTick, { passive: true });
     window.addEventListener('resize', () => {
       // Recalculate on resize since viewport height changes
+      recalculateConstants();
       updateBoxHeight();
     });
     
@@ -90,6 +107,8 @@
     // Ensure page starts at top on load
     window.addEventListener('load', () => {
       window.scrollTo(0, 0);
+      recalculateConstants();
+      updateBoxHeight();
     });
   </script>
 </head>
