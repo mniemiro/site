@@ -286,34 +286,64 @@
     
     // Set up observer to prevent initial text from being hidden
     function setupInitialTextObserver() {
-      const initialText = document.querySelector('.initial-text');
-      if (initialText) {
-        initialText.classList.remove('hidden'); // Remove it if already there
-        
-        // MutationObserver for attribute changes
-        const observer = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-              if (initialText.classList.contains('hidden')) {
-                console.warn('initial-text got hidden class (via MutationObserver), removing it');
+      let initialText = document.querySelector('.initial-text');
+      if (!initialText) {
+        console.error('initial-text element not found for observer setup');
+        return;
+      }
+      
+      initialText.classList.remove('hidden'); // Remove it if already there
+      console.log('Initial text observer set up, current classes:', initialText.className);
+      
+      // MutationObserver for attribute changes - also watch for child/subtree changes
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            console.log('Class attribute changed on initial-text. New classes:', initialText.className);
+            if (initialText.classList.contains('hidden')) {
+              console.warn('initial-text got hidden class (via MutationObserver), removing it. Stack:', new Error().stack);
+              initialText.classList.remove('hidden');
+            }
+          }
+          // Also check if element was replaced
+          if (mutation.type === 'childList') {
+            const newInitialText = document.querySelector('.initial-text');
+            if (newInitialText !== initialText) {
+              console.warn('initial-text element was replaced!');
+              initialText = newInitialText;
+              if (initialText && initialText.classList.contains('hidden')) {
                 initialText.classList.remove('hidden');
               }
             }
-          });
-        });
-        observer.observe(initialText, { attributes: true, attributeFilter: ['class'] });
-        
-        // Periodic check as backup (in case class is added via innerHTML or element replacement)
-        const checkInterval = setInterval(() => {
-          if (initialText.classList.contains('hidden')) {
-            console.warn('initial-text has hidden class (via periodic check), removing it');
-            initialText.classList.remove('hidden');
           }
-        }, 100);
-        
-        // Clear interval after 10 seconds (by then startScrollingTerms should have run)
-        setTimeout(() => clearInterval(checkInterval), 10000);
-      }
+        });
+      });
+      observer.observe(document.body, { 
+        attributes: true, 
+        attributeFilter: ['class'],
+        childList: true,
+        subtree: true
+      });
+      
+      // Very aggressive periodic check
+      const checkInterval = setInterval(() => {
+        const currentText = document.querySelector('.initial-text');
+        if (currentText) {
+          if (currentText.classList.contains('hidden')) {
+            console.warn('initial-text has hidden class (via periodic check at', Date.now(), '), removing it');
+            currentText.classList.remove('hidden');
+          }
+        } else {
+          console.warn('initial-text element not found during periodic check!');
+        }
+      }, 50); // Check every 50ms
+      
+      // Keep checking for longer
+      setTimeout(() => {
+        clearInterval(checkInterval);
+        observer.disconnect();
+        console.log('Stopped monitoring initial-text');
+      }, 15000);
     }
     
     // Set up observer as early as possible
