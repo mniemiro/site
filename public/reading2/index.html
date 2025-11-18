@@ -174,6 +174,11 @@
       const scrollY = window.scrollY;
       const orangeBox = document.querySelector('.orange-box');
       
+      if (!orangeBox) {
+        console.warn('orange-box element not found in updateBoxHeight');
+        return;
+      }
+      
       // Calculate box height based on scroll position with decay
       // t goes from 0 (at top) to 1 (after scrollDistance)
       const t = Math.min(scrollY / scrollDistance, 1);
@@ -275,8 +280,15 @@
       updateTextSizes();
     });
     
-    // Initial update
-    updateBoxHeight();
+    // Wait for DOM to be ready before initializing
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        updateBoxHeight();
+      });
+    } else {
+      // DOM is already ready
+      updateBoxHeight();
+    }
     
     // Ensure page starts at top on load
     window.addEventListener('load', () => {
