@@ -1,23 +1,4 @@
 (() => {
-  // TEST: Change page title to verify script is loading
-  document.title = 'Reading [SCRIPT LOADED]';
-  
-  // TEST: Add visible element to page to verify script execution
-  const testDiv = document.createElement('div');
-  testDiv.id = 'script-test-marker';
-  testDiv.style.cssText = 'position: fixed; top: 10px; right: 10px; background: red; color: white; padding: 10px; z-index: 9999; font-size: 12px;';
-  testDiv.textContent = 'SCRIPT EXECUTING v' + Date.now();
-  document.body.appendChild(testDiv);
-  
-  // Force console output
-  try {
-    console.log('=== ORANGE BOX SCRIPT STARTING ===');
-    console.log('Timestamp:', new Date().toISOString());
-    console.log('Script file loaded successfully');
-  } catch (e) {
-    // If console doesn't work, at least we have the visual marker
-  }
-  
   let ticking = false;
   let scrollDistance = 0;
   let boxHeightPx = 0;
