@@ -99,7 +99,9 @@
       'Kan extensions computed fiberwise',
       'chromatic cardinalities',
       'adjunctions',
-      'f<sub>!</sub> ⊣ f<sup>*</sup> ⊣ f<sub>*</sub>'
+      'f<sub>!</sub> ⊣ f<sup>*</sup> ⊣ f<sub>*</sub>',
+      'homotopy theory',
+      'higher ∞-category theory',
     ];
     
     let recentTerms = []; // Track last 5 terms to avoid repetition
@@ -204,11 +206,35 @@
       const orangeBox = document.querySelector('.orange-box');
       const scrollSpeed = 100; // pixels per second (increased by 25%)
       const boxWidth = orangeBox.offsetWidth;
-      let position = 0; // Start from 0% (fully visible, after jerky animation ends)
+      // Start from current position (where jerky animation ended)
+      let position = parseFloat(scrollingTerms.style.left) || 0;
       let lastTime = performance.now();
+      let isPaused = false;
+      
+      // Handle visibility changes to prevent animation reset
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          isPaused = true;
+          if (scrollingAnimationId) {
+            cancelAnimationFrame(scrollingAnimationId);
+          }
+        } else {
+          isPaused = false;
+          // Reset lastTime to prevent large jumps when resuming
+          lastTime = performance.now();
+          // Resume animation
+          scrollingAnimationId = requestAnimationFrame(animate);
+        }
+      });
       
       function animate(currentTime) {
-        const deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+        if (isPaused) return;
+        
+        let deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+        // Cap deltaTime to prevent large jumps when tab becomes visible again
+        if (deltaTime > 0.1) {
+          deltaTime = 0.1; // Cap at 100ms
+        }
         lastTime = currentTime;
         
         const currentHeight = parseFloat(getComputedStyle(orangeBox).height);
@@ -287,7 +313,9 @@
             // Continue to next step after 0.5s
             setTimeout(doJerkyStep, 500);
           } else {
-            // All jerky steps complete, wait 0.75s then start smooth scrolling
+            // All jerky steps complete - ensure we're at position 0
+            scrollingTerms.style.left = '0px';
+            // Wait 0.75s then start smooth scrolling
             setTimeout(() => {
               startSmoothScrolling();
             }, 750);
