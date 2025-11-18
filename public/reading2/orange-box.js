@@ -143,13 +143,17 @@
       scrollingTerms.style.fontSize = fontSize + 'px';
       scrollingTerms.style.lineHeight = fontSize + 'px';
 
+      // Recalculate max box height to ensure it's current
+      const boxHeightVh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--box-height'));
+      const maxBoxHeight = (boxHeightVh / 100) * window.innerHeight;
+
       // Calculate speed multiplier based on box height
       // At max height: 16.0x speed (1500% increase), at half height and below: 1.0x speed
-      const halfHeight = boxHeightPx / 2;
+      const halfHeight = maxBoxHeight / 2;
       let speedMultiplier = 1.0;
-      if (currentHeight > halfHeight) {
+      if (currentHeight > halfHeight && maxBoxHeight > 0) {
         // Linear interpolation between half height (1.0x) and max height (16.0x)
-        const ratio = (currentHeight - halfHeight) / (boxHeightPx - halfHeight);
+        const ratio = (currentHeight - halfHeight) / (maxBoxHeight - halfHeight);
         speedMultiplier = 1.0 + (15.0 * ratio);
       }
       const scrollSpeed = baseScrollSpeed * speedMultiplier;
