@@ -202,13 +202,13 @@
       ticking = false;
     }
     
-    function startSmoothScrolling() {
+    function startSmoothScrolling(initialPosition = null) {
       const scrollingTerms = document.querySelector('.scrolling-terms');
       const orangeBox = document.querySelector('.orange-box');
       const scrollSpeed = 100; // pixels per second (increased by 25%)
       const boxWidth = orangeBox.offsetWidth;
-      // Start from current position (where jerky animation ended)
-      let position = parseFloat(scrollingTerms.style.left) || 0;
+      // Start from provided position (where jerky animation ended) or current style
+      let position = initialPosition ?? (parseFloat(scrollingTerms.style.left) || boxWidth);
       let lastTime = performance.now();
       let isPaused = false;
       
@@ -292,35 +292,29 @@
       
       const orangeBox = document.querySelector('.orange-box');
       const boxWidth = orangeBox.offsetWidth;
+      const jumpSize = boxWidth * 0.3;
       
-      // Jerky animation: jump in 30% intervals across the screen
-      const positions = [
-        boxWidth,           // 100%
-        boxWidth * 0.7,     // 70%
-        boxWidth * 0.4,     // 40%
-        boxWidth * 0.1,     // 10%
-        boxWidth * -0.2     // -20%
-      ];
+      let position = boxWidth;
+      const jerkDelay = 250;
       
-      let currentStep = 0;
-      
-      function doJerkyStep() {
-        if (currentStep < positions.length) {
-          scrollingTerms.style.left = positions[currentStep] + 'px';
-          currentStep++;
-          
-          if (currentStep < positions.length) {
-            setTimeout(doJerkyStep, 500);
-          } else {
-            // After final jump, wait 0.05s then start smooth scrolling
-            setTimeout(() => {
-              startSmoothScrolling();
-            }, 50);
-          }
+      function jerkAcross() {
+        const textWidth = scrollingTerms.offsetWidth || 0;
+        scrollingTerms.style.left = position + 'px';
+        position -= jumpSize;
+        
+        // Continue jerking until the text fully clears the left edge
+        if (position + textWidth > 0) {
+          setTimeout(jerkAcross, jerkDelay);
+        } else {
+          // Ensure it's completely past the left edge before starting smooth scroll
+          const finalPosition = position;
+          setTimeout(() => {
+            startSmoothScrolling(finalPosition);
+          }, 100);
         }
       }
       
-      doJerkyStep();
+      jerkAcross();
     }
     
     function requestTick() {
@@ -362,7 +356,7 @@
       setTimeout(() => {
         console.log('Timeout fired, starting scrolling animation');
         startScrollingTerms();
-      }, 1500); // 1.5 second delay
+      }, 1000); // 1 second delay
     });
   </script>
 </head>
