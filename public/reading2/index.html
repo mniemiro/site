@@ -196,27 +196,12 @@
       ticking = false;
     }
     
-    function startScrollingTerms() {
+    function startSmoothScrolling() {
       const scrollingTerms = document.querySelector('.scrolling-terms');
-      console.log('startScrollingTerms called, scrollingTerms:', scrollingTerms);
-      if (!scrollingTerms) {
-        console.error('scrolling-terms element not found!');
-        return;
-      }
-      
-      // Initialize with first term
-      const firstTerm = getNextTerm();
-      console.log('First term:', firstTerm);
-      scrollingTerms.textContent = firstTerm;
-      
-      scrollingTerms.classList.remove('hidden');
-      updateTextSizes();
-      
       const orangeBox = document.querySelector('.orange-box');
-      const scrollSpeed = 80; // pixels per second
-      // Start at the right edge of the orange box (which is 100% width of viewport)
-      let position = window.innerWidth;
-      console.log('Starting position:', position, 'Box width:', orangeBox.offsetWidth);
+      const scrollSpeed = 100; // pixels per second (increased by 25%)
+      const boxWidth = orangeBox.offsetWidth;
+      let position = 0; // Start from fully on screen (after jerky animation)
       let lastTime = performance.now();
       
       function animate(currentTime) {
@@ -230,9 +215,6 @@
         
         // Update position based on time delta for smooth scrolling
         position -= scrollSpeed * deltaTime;
-        
-        // Get the width of the orange box (should be viewport width)
-        const boxWidth = orangeBox.offsetWidth;
         
         // Check if we need to add more terms
         const textWidth = scrollingTerms.offsetWidth;
@@ -260,6 +242,59 @@
       }
       
       scrollingAnimationId = requestAnimationFrame(animate);
+    }
+    
+    function startScrollingTerms() {
+      const scrollingTerms = document.querySelector('.scrolling-terms');
+      console.log('startScrollingTerms called, scrollingTerms:', scrollingTerms);
+      if (!scrollingTerms) {
+        console.error('scrolling-terms element not found!');
+        return;
+      }
+      
+      // Initialize with first term
+      const firstTerm = getNextTerm();
+      console.log('First term:', firstTerm);
+      scrollingTerms.textContent = firstTerm;
+      
+      scrollingTerms.classList.remove('hidden');
+      updateTextSizes();
+      
+      const orangeBox = document.querySelector('.orange-box');
+      const boxWidth = orangeBox.offsetWidth;
+      
+      // Jerky animation: move in 20% increments
+      // Start at 100% (off-screen right), then 80%, 60%, 40%, 20%, 0% (fully visible)
+      const positions = [
+        boxWidth,           // 100% - off screen right
+        boxWidth * 0.8,     // 80% - 20% from right
+        boxWidth * 0.6,     // 60% - 40% from right
+        boxWidth * 0.4,     // 40% - 60% from right
+        boxWidth * 0.2,     // 20% - 80% from right
+        0                   // 0% - fully visible
+      ];
+      
+      let currentStep = 0;
+      
+      function doJerkyStep() {
+        if (currentStep < positions.length) {
+          scrollingTerms.style.left = positions[currentStep] + 'px';
+          currentStep++;
+          
+          if (currentStep < positions.length) {
+            // Continue to next step after 0.5s
+            setTimeout(doJerkyStep, 500);
+          } else {
+            // All jerky steps complete, wait 0.5s then start smooth scrolling
+            setTimeout(() => {
+              startSmoothScrolling();
+            }, 500);
+          }
+        }
+      }
+      
+      // Start jerky animation
+      doJerkyStep();
     }
     
     function requestTick() {
@@ -296,17 +331,12 @@
       recalculateConstants();
       updateBoxHeight();
       
-      // Hide initial text and start scrolling after delay
+      // Start scrolling after delay (initial text will be covered by scrolling text)
       console.log('Page loaded, setting timeout for scrolling animation');
       setTimeout(() => {
         console.log('Timeout fired, starting scrolling animation');
-        const initialText = document.querySelector('.initial-text');
-        if (initialText) {
-          initialText.classList.add('hidden');
-          console.log('Initial text hidden');
-        }
         startScrollingTerms();
-      }, 2000); // 2 second delay
+      }, 1200); // 1.2 second delay
     });
   </script>
 </head>
