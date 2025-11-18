@@ -24,7 +24,7 @@
     'ITERATED SPAN CATEGORIES',
     'DECORATED COSPANS',
     'THE 2-CATEGORY OF GROUPS',
-    'Pr<sup>L</sup>',
+    'Pr<sup>ʟ</sup>',
     'CATEGORIFICATION',
     'An<sup>π-fin</sup>-PARAMETRIZED CATEGORIES + L<sub>K(t)</sub>E<sub>n</sub>',
     'p-ADIC FREE LOOP SPACES',
