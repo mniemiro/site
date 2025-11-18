@@ -10,14 +10,71 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Grotesk&family=Bytesized&family=Nabla&family=Google+Sans+Code&display=swap" rel="stylesheet">
   <style>
-    :root { color-scheme: dark; }
+    :root { 
+      color-scheme: dark;
+      --box-height: 75vh;
+      --scroll-speed: 0.5; /* Box gets fully covered after scrolling this many viewport heights */
+    }
     body { 
       margin: 0; 
       padding: 0; 
-      background-color: #000000; 
+      background-color: #000000;
+      height: 300vh; /* Enable scrolling */
+    }
+    .orange-box {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: var(--box-height);
+      background-color: rgb(255, 160, 0);
+      z-index: 1;
+    }
+    .black-overlay {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background-color: #000000;
+      z-index: 2;
+      transition: height 0.1s linear;
     }
   </style>
+  <script>
+    // Calculate how much scroll is needed to fully cover the box
+    const boxHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--box-height'));
+    const scrollSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll-speed'));
+    const scrollDistance = scrollSpeed * window.innerHeight; // Total scroll needed to fully cover
+    
+    function updateOverlay() {
+      const scrollY = window.scrollY;
+      const overlay = document.querySelector('.black-overlay');
+      
+      // Calculate overlay height based on scroll position
+      // When scrollY reaches scrollDistance, overlay should be boxHeight
+      const overlayHeight = Math.min((scrollY / scrollDistance) * boxHeight, boxHeight);
+      overlay.style.height = overlayHeight + 'px';
+    }
+    
+    window.addEventListener('scroll', updateOverlay);
+    window.addEventListener('resize', () => {
+      // Recalculate on resize since viewport height changes
+      updateOverlay();
+    });
+    
+    // Initial update
+    updateOverlay();
+    
+    // Ensure page starts at top on load
+    window.addEventListener('load', () => {
+      window.scrollTo(0, 0);
+    });
+  </script>
 </head>
 <body>
+  <div class="orange-box"></div>
+  <div class="black-overlay"></div>
 </body>
 </html>
