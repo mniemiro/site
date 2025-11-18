@@ -222,9 +222,9 @@
         if (position + textWidth < boxWidth + 300) {
           // Add next term
           const nextTerm = getNextTerm();
-          const currentText = scrollingTerms.textContent.trim();
-          if (currentText) {
-            scrollingTerms.innerHTML = scrollingTerms.innerHTML + ' & ' + nextTerm;
+          const currentHTML = scrollingTerms.innerHTML.trim();
+          if (currentHTML) {
+            scrollingTerms.innerHTML = currentHTML + ' & ' + nextTerm;
           } else {
             scrollingTerms.innerHTML = nextTerm;
           }
