@@ -50,6 +50,7 @@
       font-family: 'Space Grotesk', sans-serif;
       color: #000000;
       font-weight: 700;
+      font-feature-settings: 'ss02' on, 'ss03' on;
       white-space: nowrap;
       position: absolute;
       top: 50%;
@@ -82,27 +83,27 @@
     
     // Term bank - first term will always appear first
     const termBank = [
-      'semiadditivity',
-      'ambidexterity',
-      'higher character correspondences',
-      'transchromatic character rings',
-      'parametrized semiadditivity',
-      'tempered local systems',
-      'K(n)-local E<sub>n</sub>-module local systems',
-      'π-finite spaces',
-      'categorical traces',
-      'An<sup>π-fin</sup>-parametrized categories',
-      'span functoriality',
-      'higher transfers and restrictions',
-      'categorification',
+      'SEMIADDITIVITY',
+      'AMBIDEXTERITY',
+      'HIGHER CHARACTER CORRESPONDENCES',
+      'TRANSCHROMATIC CHARACTER RINGS',
+      'PARAMETRIZED SEMIADDITIVITY',
+      'TEMPERED LOCAL SYSTEMS',
+      'E<sub>n</sub>-MODULE LOCAL SYSTEMS',
+      'π-FINITE SPACES',
+      'CATEGORICAL TRACES',
+      'An<sup>π-fin</sup>-PARAMETRIZED CATEGORIES',
+      'SPAN FUNCTORIALITY',
+      'HIGHER INTEGRATION',
+      'CATEGORIFICATION',
       'L<sub>K(t)</sub>E<sub>n</sub>',
-      'p-adic free loop spaces',
-      'Kan extensions computed fiberwise',
-      'chromatic cardinalities',
-      'adjunctions',
+      'p-ADIC FREE LOOP SPACES',
+      'KAN EXTENSIONS COMPUTED FIBERWISE',
+      'HIGHER CARDINALITIES',
+      'ADJUNCTIONS',
       'f<sub>!</sub> ⊣ f<sup>*</sup> ⊣ f<sub>*</sub>',
-      'homotopy theory',
-      'higher ∞-category theory'
+      'HOMOTOPY THEORY',
+      'HIGHER ∞-CATEGORY THEORY'
     ];
     
     let recentTerms = []; // Track last 5 terms to avoid repetition
@@ -293,35 +294,9 @@
       const orangeBox = document.querySelector('.orange-box');
       const boxWidth = orangeBox.offsetWidth;
       
-      // Jerky animation: move in 30% increments, ending at -10%
-      // Start at 100% (off-screen right), then 70%, 40%, 10%, -10%
-      const positions = [
-        boxWidth,           // 100% - off screen right
-        boxWidth * 0.7,     // 70% - 30% from right
-        boxWidth * 0.4,     // 40% - 60% from right
-        boxWidth * 0.1,     // 10% - 90% from right
-        boxWidth * -0.1     // -10% - off screen left
-      ];
-      
-      let currentStep = 0;
-      
-      function doJerkyStep() {
-        if (currentStep < positions.length) {
-          scrollingTerms.style.left = positions[currentStep] + 'px';
-          currentStep++;
-          
-          if (currentStep < positions.length) {
-            // Continue to next step after 0.5s
-            setTimeout(doJerkyStep, 500);
-          } else {
-            // All jerky steps complete - ended at -10%, go straight to smooth scrolling
-            startSmoothScrolling();
-          }
-        }
-      }
-      
-      // Start jerky animation
-      doJerkyStep();
+      // Start smooth scrolling from just off the right edge
+      scrollingTerms.style.left = boxWidth + 'px';
+      startSmoothScrolling();
     }
     
     function requestTick() {
