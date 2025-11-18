@@ -13,7 +13,7 @@
     :root { 
       color-scheme: dark;
       --box-height: 85vh;
-      --scroll-speed: 0.6; /* Box reaches minimum height after scrolling this many viewport heights */
+      --scroll-speed: 1.2; /* Box reaches minimum height after scrolling this many viewport heights */
       --min-height: 20px; /* Minimum height the box reaches */
     }
     body { 
@@ -30,7 +30,7 @@
       height: var(--box-height);
       background-color: rgb(255, 160, 0);
       z-index: 1;
-      transition: height 0.1s linear;
+      transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .content {
       position: relative;
@@ -50,6 +50,8 @@
     const scrollSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll-speed'));
     const scrollDistance = scrollSpeed * window.innerHeight; // Total scroll needed to reach minimum height
     
+    let ticking = false;
+    
     function updateBoxHeight() {
       const scrollY = window.scrollY;
       const orangeBox = document.querySelector('.orange-box');
@@ -59,14 +61,24 @@
       // t goes from 0 (at top) to 1 (after scrollDistance)
       const t = Math.min(scrollY / scrollDistance, 1);
       
-      // Decay: height = minHeight + (boxHeight - minHeight) * (1 - t^1.5)
+      // Smoother decay: using a gentler exponent (1.2 instead of 1.5) for slower, smoother transition
+      // Decay: height = minHeight + (boxHeight - minHeight) * (1 - t^1.2)
       // When t = 0: height = boxHeight
       // When t = 1: height = minHeight
-      const newHeight = minHeight + (boxHeight - minHeight) * (1 - Math.pow(t, 1.5));
+      const newHeight = minHeight + (boxHeight - minHeight) * (1 - Math.pow(t, 1.2));
       orangeBox.style.height = newHeight + 'px';
+      
+      ticking = false;
     }
     
-    window.addEventListener('scroll', updateBoxHeight);
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateBoxHeight);
+        ticking = true;
+      }
+    }
+    
+    window.addEventListener('scroll', requestTick, { passive: true });
     window.addEventListener('resize', () => {
       // Recalculate on resize since viewport height changes
       updateBoxHeight();
