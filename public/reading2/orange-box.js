@@ -178,6 +178,8 @@
     if (!scrollingTerms.dataset.originalBg) {
       scrollingTerms.dataset.originalBg = computedBg;
     }
+    // Temporarily lower z-index so it doesn't cover initial text
+    scrollingTerms.style.zIndex = '0';
     scrollingTerms.style.opacity = '0';
     scrollingTerms.style.pointerEvents = 'none';
     scrollingTerms.style.backgroundColor = 'rgba(255, 160, 0, 0)';
@@ -225,6 +227,7 @@
         if (step === 0) {
           initialText?.classList.add('hidden');
           // Make visible only when starting the jerky animation
+          scrollingTerms.style.zIndex = '2'; // Restore original z-index
           scrollingTerms.style.opacity = '1';
           scrollingTerms.style.pointerEvents = '';
           scrollingTerms.style.backgroundColor = scrollingTerms.dataset.originalBg || computedBg;
