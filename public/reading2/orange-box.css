@@ -12,6 +12,16 @@ body {
   height: 300vh;
 }
 
+.top-black-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 7.5vh;
+  background-color: #000000;
+  z-index: 0;
+}
+
 .orange-box {
   position: fixed;
   top: 7.5vh;
