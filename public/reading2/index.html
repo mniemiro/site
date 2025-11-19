@@ -10,6 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Grotesk&family=Bytesized&family=Nabla&family=Google+Sans+Code&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="orange-box.css?v=2">
+  <script>
+    // Disable browser scroll restoration and reset scroll position on page load
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    
+    // Also reset on DOMContentLoaded and load events
+    document.addEventListener('DOMContentLoaded', () => window.scrollTo(0, 0));
+    window.addEventListener('load', () => window.scrollTo(0, 0));
+  </script>
   <script src="orange-box.js?v=2" defer></script>
 </head>
 <body>
