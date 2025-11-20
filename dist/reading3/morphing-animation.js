@@ -19,16 +19,21 @@ const seminarContent = document.getElementById('seminar-content');
 const webglCanvas = document.getElementById('webgl-canvas');
 
 // Liquify control elements
+const useVortexCheckbox = document.getElementById('use-vortex');
 const octavesSlider = document.getElementById('octaves');
 const displacementMultSlider = document.getElementById('displacement-mult');
 const flowBiasSlider = document.getElementById('flow-bias');
 const noiseScaleSlider = document.getElementById('noise-scale');
-const lensStrengthSlider = document.getElementById('lens-strength');
+const vortexStrengthSlider = document.getElementById('vortex-strength');
+const vortexRadius1Slider = document.getElementById('vortex-radius1');
+const vortexRadius2Slider = document.getElementById('vortex-radius2');
 const octavesValue = document.getElementById('octaves-value');
 const displacementMultValue = document.getElementById('displacement-mult-value');
 const flowBiasValue = document.getElementById('flow-bias-value');
 const noiseScaleValue = document.getElementById('noise-scale-value');
-const lensStrengthValue = document.getElementById('lens-strength-value');
+const vortexStrengthValue = document.getElementById('vortex-strength-value');
+const vortexRadius1Value = document.getElementById('vortex-radius1-value');
+const vortexRadius2Value = document.getElementById('vortex-radius2-value');
 const resetLiquifyBtn = document.getElementById('reset-liquify');
 const toggleControlsBtn = document.getElementById('toggle-controls');
 const controlsContent = document.getElementById('controls-content');
@@ -133,36 +138,47 @@ function throttledUpdateAnimation() {
 
 // Liquify control handlers
 function updateLiquifyControls() {
+  const useVortex = useVortexCheckbox.checked;
   const octaves = parseInt(octavesSlider.value);
   const displacementMult = parseFloat(displacementMultSlider.value);
   const flowBias = parseFloat(flowBiasSlider.value);
   const noiseScale = parseFloat(noiseScaleSlider.value);
-  const lensStrength = parseFloat(lensStrengthSlider.value);
+  const vortexStrength = parseFloat(vortexStrengthSlider.value);
+  const vortexRadius1 = parseFloat(vortexRadius1Slider.value);
+  const vortexRadius2 = parseFloat(vortexRadius2Slider.value);
   
   octavesValue.textContent = octaves;
   displacementMultValue.textContent = displacementMult.toFixed(1);
   flowBiasValue.textContent = flowBias.toFixed(2);
   noiseScaleValue.textContent = noiseScale.toFixed(2);
-  lensStrengthValue.textContent = lensStrength.toFixed(1);
+  vortexStrengthValue.textContent = vortexStrength.toFixed(1);
+  vortexRadius1Value.textContent = vortexRadius1;
+  vortexRadius2Value.textContent = vortexRadius2;
   
   if (webglMorph) {
     webglMorph.updateLiquifyParams({
+      useVortex,
       octaves,
       displacementMult,
       flowBias,
       noiseScale,
-      lensStrength
+      vortexStrength,
+      vortexRadius1,
+      vortexRadius2
     });
     updateAnimation();
   }
 }
 
 function resetLiquify() {
+  useVortexCheckbox.checked = true;
   octavesSlider.value = 3;
   displacementMultSlider.value = 2.5;
   flowBiasSlider.value = 0.1;
   noiseScaleSlider.value = 0.3;
-  lensStrengthSlider.value = 0.5;
+  vortexStrengthSlider.value = 0.5;
+  vortexRadius1Slider.value = 300;
+  vortexRadius2Slider.value = 300;
   updateLiquifyControls();
 }
 
@@ -184,11 +200,14 @@ window.addEventListener('resize', () => {
   updateAnimation();
 });
 
+useVortexCheckbox.addEventListener('change', updateLiquifyControls);
 octavesSlider.addEventListener('input', updateLiquifyControls);
 displacementMultSlider.addEventListener('input', updateLiquifyControls);
 flowBiasSlider.addEventListener('input', updateLiquifyControls);
 noiseScaleSlider.addEventListener('input', updateLiquifyControls);
-lensStrengthSlider.addEventListener('input', updateLiquifyControls);
+vortexStrengthSlider.addEventListener('input', updateLiquifyControls);
+vortexRadius1Slider.addEventListener('input', updateLiquifyControls);
+vortexRadius2Slider.addEventListener('input', updateLiquifyControls);
 resetLiquifyBtn.addEventListener('click', resetLiquify);
 toggleControlsBtn.addEventListener('click', toggleControls);
 
