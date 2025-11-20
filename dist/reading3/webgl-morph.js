@@ -424,7 +424,7 @@ class WebGLMorph {
     gl.uniform1f(this.locations.vortexStrength, this.liquifyParams.vortexStrength);
     
     // Position focal points: #1 near top-left, #2 near bottom, #3 upper-right
-    gl.uniform2f(this.locations.vortexPos1, this.canvas.width * 0.25, this.canvas.height * 0.25);
+    gl.uniform2f(this.locations.vortexPos1, this.canvas.width * 0.15, this.canvas.height * 0.15);
     gl.uniform2f(this.locations.vortexPos2, this.canvas.width * 0.5, this.canvas.height * 0.75);
     gl.uniform2f(this.locations.vortexPos3, this.canvas.width * 0.70, this.canvas.height * 0.35);
     
