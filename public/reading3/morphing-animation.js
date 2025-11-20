@@ -88,6 +88,21 @@ function updateAnimation() {
   const useTexture = webglMorph && webglMorph.useTextureRendering && webglMorph.contentTextureReady;
   // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
   
+  // Hide everything at zero scroll
+  if (progress === 0) {
+    seminarContent.style.opacity = '0';
+    seminarContent.style.pointerEvents = 'none';
+    if (useTexture) {
+      webglCanvas.style.opacity = '0';
+    }
+    return;
+  }
+  
+  // Make WebGL visible during animation
+  if (useTexture && progress > 0 && progress < 0.99) {
+    webglCanvas.style.opacity = '1';
+  }
+  
   // Update seminar content visibility
   if (progress >= 0.99) {
     // Animation complete: show real HTML, hide WebGL
@@ -150,6 +165,17 @@ function throttledUpdateAnimation() {
 }
 
 // Liquify controls removed
+
+// Reset scroll position on page load (prevent saved scroll position)
+window.addEventListener('beforeunload', () => {
+  window.scrollTo(0, 0);
+});
+
+// Force scroll to top on page load
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
 
 // Initialize WebGL
 webglMorph = new WebGLMorph('webgl-canvas');

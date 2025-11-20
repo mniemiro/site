@@ -4,11 +4,16 @@
   box-sizing: border-box;
 }
 
+html {
+  overscroll-behavior-y: none; /* Prevent upward overscroll bounce */
+}
+
 body {
   font-family: 'Space Grotesk', sans-serif;
   background-color: #ffffff;
   color: #000000;
   overflow-x: hidden;
+  overscroll-behavior-y: none; /* Prevent upward overscroll bounce */
 }
 
 /* Original content */
