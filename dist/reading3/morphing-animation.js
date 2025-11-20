@@ -99,10 +99,9 @@ function updateAnimation() {
     contentOpacity = fadeProgress * fadeProgress; // Quadratic ease-in
   }
   
-  // WebGL canvas should always be visible (contentOpacity only affects the texture, not the box)
-  if (useTexture) {
-    webglCanvas.style.opacity = '1';
-  }
+  // WebGL canvas should always be visible during animation
+  webglCanvas.style.display = 'block';
+  webglCanvas.style.opacity = '1';
   
   // Update seminar content visibility
   if (progress >= 0.99) {
@@ -127,7 +126,6 @@ function updateAnimation() {
       // Hide real HTML, show WebGL with texture
       seminarContent.style.opacity = '0';
       seminarContent.style.pointerEvents = 'none';
-      webglCanvas.style.display = 'block';
     } else {
       // Fallback: show HTML with clip-path (old behavior)
       const boxCenterX = currentX + (currentWidth / 2);
@@ -181,6 +179,11 @@ window.scrollTo(0, 0);
 // Initialize WebGL
 webglMorph = new WebGLMorph('webgl-canvas');
 updateDimensions();
+
+// Ensure WebGL canvas is visible from the start
+webglCanvas.style.display = 'block';
+webglCanvas.style.opacity = '1';
+
 updateAnimation();
 
 // Event listeners
