@@ -13,21 +13,109 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Filter mode toggle button -->
+  <button id="filter-toggle" class="filter-toggle">
+    <span id="filter-mode-text">Mode: Curl</span>
+  </button>
+
   <!-- Morphing box SVG -->
   <svg id="morphing-svg" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <!-- Turbulence filter for organic distortion -->
-      <filter id="morphFilter" x="-50%" y="-50%" width="200%" height="200%">
+      <!-- Option 1: Curl-like displacement (using phase-shifted channels) -->
+      <filter id="morphFilterCurl" x="-50%" y="-50%" width="200%" height="200%">
         <feTurbulence
           type="fractalNoise"
-          baseFrequency="0.02"
-          numOctaves="3"
+          baseFrequency="0.015"
+          numOctaves="2"
           seed="42"
           result="turbulence"
         />
+        <!-- Use R channel for both, but create 90° rotation effect -->
+        <feColorMatrix
+          in="turbulence"
+          type="matrix"
+          values="1 0 0 0 0
+                  0 0 1 0 0
+                  0 1 0 0 0
+                  0 0 0 1 0"
+          result="rotatedNoise"
+        />
         <feDisplacementMap
           in="SourceGraphic"
-          in2="turbulence"
+          in2="rotatedNoise"
+          scale="30"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+      </filter>
+
+      <!-- Option 3: Stream function via convolution -->
+      <filter id="morphFilterStream" x="-50%" y="-50%" width="200%" height="200%">
+        <!-- Generate low-frequency potential field -->
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.01"
+          numOctaves="1"
+          seed="42"
+          result="potential"
+        />
+        
+        <!-- Approximate ∂ψ/∂x using horizontal Sobel-like kernel -->
+        <feConvolveMatrix
+          in="potential"
+          order="3"
+          kernelMatrix="-1 0 1
+                        -2 0 2
+                        -1 0 1"
+          divisor="1"
+          result="gradX"
+        />
+        
+        <!-- Approximate ∂ψ/∂y using vertical Sobel-like kernel -->
+        <feConvolveMatrix
+          in="potential"
+          order="3"
+          kernelMatrix="-1 -2 -1
+                         0  0  0
+                         1  2  1"
+          divisor="1"
+          result="gradY"
+        />
+        
+        <!-- Rotate gradient by 90° to get velocity field: (u,v) = (-∂ψ/∂y, ∂ψ/∂x) -->
+        <!-- Store -gradY in R channel, gradX in G channel -->
+        <feColorMatrix
+          in="gradY"
+          type="matrix"
+          values="-1 0 0 0 0.5
+                   0 0 0 0 0
+                   0 0 0 0 0
+                   0 0 0 1 0"
+          result="negGradY"
+        />
+        
+        <feColorMatrix
+          in="gradX"
+          type="matrix"
+          values="0 0 0 0 0
+                  1 0 0 0 0.5
+                  0 0 0 0 0
+                  0 0 0 1 0"
+          result="gradXGreen"
+        />
+        
+        <!-- Combine into displacement map -->
+        <feComposite
+          in="negGradY"
+          in2="gradXGreen"
+          operator="arithmetic"
+          k1="0" k2="1" k3="1" k4="0"
+          result="velocityField"
+        />
+        
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="velocityField"
           scale="30"
           xChannelSelector="R"
           yChannelSelector="G"

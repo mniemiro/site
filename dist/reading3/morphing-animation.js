@@ -3,15 +3,22 @@ const SCREENS_TO_END = 1;
 const APPEAR_THRESHOLD = 0.5;
 const DISPLACEMENT_SCALE = 30;
 
+// Filter mode state
+let currentFilterMode = 'curl'; // 'curl' or 'stream'
+
 // Get elements
 const svg = document.getElementById('morphing-svg');
 const morphingShape = document.getElementById('morphingShape');
-const morphFilter = document.getElementById('morphFilter');
+const morphFilterCurl = document.getElementById('morphFilterCurl');
+const morphFilterStream = document.getElementById('morphFilterStream');
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
+const filterToggle = document.getElementById('filter-toggle');
+const filterModeText = document.getElementById('filter-mode-text');
 
-// Get displacement map element
-const feDisplacementMap = morphFilter.querySelector('feDisplacementMap');
+// Get displacement map elements from both filters
+const feDisplacementMapCurl = morphFilterCurl.querySelector('feDisplacementMap');
+const feDisplacementMapStream = morphFilterStream.querySelector('feDisplacementMap');
 
 // Track dimensions
 let viewportWidth = window.innerWidth;
@@ -61,12 +68,15 @@ function updateAnimation() {
   morphingShape.setAttribute('width', currentWidth);
   morphingShape.setAttribute('height', currentHeight);
   
-  // Update displacement filter
+  // Update displacement filter based on current mode
+  const currentFilter = currentFilterMode === 'curl' ? morphFilterCurl : morphFilterStream;
+  const feDisplacementMap = currentFilterMode === 'curl' ? feDisplacementMapCurl : feDisplacementMapStream;
+  
   feDisplacementMap.setAttribute('scale', currentDisplacementScale);
   
   // Update filter application
   if (currentDisplacementScale > 0) {
-    morphingShape.setAttribute('filter', 'url(#morphFilter)');
+    morphingShape.setAttribute('filter', `url(#morphFilter${currentFilterMode === 'curl' ? 'Curl' : 'Stream'})`);
   } else {
     morphingShape.removeAttribute('filter');
   }
@@ -104,6 +114,13 @@ function updateAnimation() {
   }
 }
 
+// Toggle filter mode
+function toggleFilterMode() {
+  currentFilterMode = currentFilterMode === 'curl' ? 'stream' : 'curl';
+  filterModeText.textContent = `Mode: ${currentFilterMode === 'curl' ? 'Curl' : 'Stream'}`;
+  updateAnimation();
+}
+
 // Initialize
 updateDimensions();
 updateAnimation();
@@ -114,4 +131,5 @@ window.addEventListener('resize', () => {
   updateDimensions();
   updateAnimation();
 });
+filterToggle.addEventListener('click', toggleFilterMode);
 
