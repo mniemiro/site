@@ -112,12 +112,17 @@ function updateAnimation() {
     seminarContent.style.clipPath = 'none';
     seminarContent.style.pointerEvents = 'auto';
     
+    // Change background to black
+    document.body.style.backgroundColor = '#000000';
+    
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
     if (useTexture) {
       webglCanvas.style.display = 'none';
     }
     // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
   } else {
+    // During animation: keep background white
+    document.body.style.backgroundColor = '#ffffff';
     // During animation: use WebGL texture rendering
     seminarContent.classList.remove('active');
     
