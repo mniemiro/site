@@ -98,8 +98,9 @@ function updateAnimation() {
   // Update displacement scale
   feDisplacementMap.setAttribute('scale', currentDisplacementScale);
   
-  // Update filter application
-  if (currentDisplacementScale > 0) {
+  // Update filter application - only apply filter when displacement is significant
+  // Disable filter when distortion is very low to avoid rendering artifacts
+  if (currentDisplacementScale > 1) {
     morphingShape.setAttribute('filter', `url(#morphFilter${currentFilterMode === 'curl' ? 'Curl' : 'Stream'})`);
   } else {
     morphingShape.removeAttribute('filter');
