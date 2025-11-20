@@ -119,8 +119,8 @@ body {
   line-height: 1.6;
 }
 
-/* Scroll spacer */
+/* Scroll spacer - needs to be at least 2x viewport to allow full animation */
 #scroll-spacer {
-  height: 100vh;
+  height: 200vh;
 }
 

@@ -15,16 +15,17 @@ This directory contains a scroll-driven morphing animation where a black square 
 
 ### Animation Sequence
 
-1. **Initial State**: Small black square (6vw) positioned at 75% from left/top (bottom-right quadrant)
-2. **0-50% Progress**: Black box morphs organically from small square to ~50% screen coverage
-3. **50-100% Progress**: Seminar content appears and scales (30% → 100%) while box continues to full screen
-4. **End State**: Full black background with seminar content at 100% scale, no distortion
+1. **Initial State**: Perfect black square (6vw) positioned at 75% from left/top (bottom-right quadrant), no distortion
+2. **0-50% Progress**: Black box grows and begins to distort organically, reaching peak distortion at 50%
+3. **50-100% Progress**: Seminar content appears and scales (30% → 100%) while box continues to full screen, distortion reduces
+4. **End State**: Full black background (perfect rectangle) with seminar content at 100% scale, no distortion
 
 ### Technical Implementation
 
 **SVG Displacement Filter**:
 - Uses `feTurbulence` with fractal noise for organic distortion
-- `feDisplacementMap` applies the displacement with scale reducing from 30 to 0
+- `feDisplacementMap` applies displacement with a parabolic curve: starts at 0, peaks at middle (50%), returns to 0
+- This ensures the box is a perfect square at start and perfect rectangle at end
 - ClipPath ensures content stays within morphing boundaries
 
 **JavaScript**:

@@ -49,8 +49,11 @@ function updateAnimation() {
   const currentX = initialX * (1 - progress);
   const currentY = initialY * (1 - progress);
   
-  // Update displacement scale (reduces to 0)
-  const currentDisplacementScale = DISPLACEMENT_SCALE * (1 - progress);
+  // Update displacement scale with a curve: starts at 0, peaks in middle, ends at 0
+  // Using a parabolic curve: -4 * (progress - 0.5)^2 + 1
+  // This gives 0 at progress=0, peaks at progress=0.5, and returns to 0 at progress=1
+  const displacementCurve = Math.max(0, 1 - 4 * Math.pow(progress - 0.5, 2));
+  const currentDisplacementScale = DISPLACEMENT_SCALE * displacementCurve;
   
   // Update morphing shape
   morphingShape.setAttribute('x', currentX);
