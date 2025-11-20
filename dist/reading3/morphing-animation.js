@@ -42,8 +42,8 @@ function getScrollProgress() {
 function updateAnimation() {
   const progress = getScrollProgress();
   
-  // Calculate initial size (4.2% of viewport width - 30% smaller than 6%)
-  const initialSize = viewportWidth * 0.042;
+  // Calculate initial size (4.0% of viewport width - 5% smaller than 4.2%)
+  const initialSize = viewportWidth * 0.04;
   
   // Initial position (72% from left, 73% from top)
   const initialX = viewportWidth * 0.72;
@@ -99,7 +99,7 @@ function updateAnimation() {
     
     // Text center (fixed)
     const textCenterX = viewportWidth * 0.5;
-    const textCenterY = viewportHeight * 0.4;
+    const textCenterY = viewportHeight * 0.65;
     
     // Position finger at midpoint between text center and box center
     const fingerX = (textCenterX + boxCenterX) / 2;
@@ -217,12 +217,14 @@ window.scrollTo(0, 0);
 function initializeInteractiveElements() {
   if (!whatsInTheBoxText || !pointingFinger) return;
   
-  // Position text at middle vertical line, slightly up from center
+  // Position text at middle vertical line, 65% down viewport
   const textX = viewportWidth * 0.5; // Middle of screen
-  const textY = viewportHeight * 0.4; // Slightly above middle
+  const textY = viewportHeight * 0.65; // 65% down from top
   whatsInTheBoxText.style.left = `${textX}px`;
   whatsInTheBoxText.style.top = `${textY}px`;
   whatsInTheBoxText.style.transform = 'translateX(-50%)'; // Center the text on its position
+  
+  // Note: initialSize is 4.0% of viewport width
 }
 
 // Initialize WebGL
