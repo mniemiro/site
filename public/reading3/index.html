@@ -18,14 +18,41 @@
     <span id="filter-mode-text">Mode: Curl</span>
   </button>
 
+  <!-- Parameter controls panel -->
+  <div id="controls-panel" class="controls-panel">
+    <div class="control-header">
+      <h3>Animation Parameters</h3>
+      <button id="toggle-controls" class="toggle-btn">−</button>
+    </div>
+    <div id="controls-content" class="controls-content">
+      <div class="control-group">
+        <label for="displacement-scale">Displacement Scale: <span id="displacement-value">150</span></label>
+        <input type="range" id="displacement-scale" min="10" max="300" value="150" step="10">
+      </div>
+      <div class="control-group">
+        <label for="base-frequency">Base Frequency: <span id="frequency-value">0.008</span></label>
+        <input type="range" id="base-frequency" min="0.001" max="0.05" value="0.008" step="0.001">
+      </div>
+      <div class="control-group">
+        <label for="num-octaves">Octaves: <span id="octaves-value">2</span></label>
+        <input type="range" id="num-octaves" min="1" max="5" value="2" step="1">
+      </div>
+      <div class="control-group">
+        <label for="distortion-peak">Distortion Peak: <span id="peak-value">0.5</span></label>
+        <input type="range" id="distortion-peak" min="0.2" max="0.8" value="0.5" step="0.05">
+      </div>
+      <button id="reset-params" class="reset-btn">Reset to Defaults</button>
+    </div>
+  </div>
+
   <!-- Morphing box SVG -->
   <svg id="morphing-svg" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <!-- Option 1: Curl-like displacement (using phase-shifted channels) -->
-      <filter id="morphFilterCurl" x="-50%" y="-50%" width="200%" height="200%">
+      <filter id="morphFilterCurl" x="-100%" y="-100%" width="300%" height="300%">
         <feTurbulence
           type="fractalNoise"
-          baseFrequency="0.015"
+          baseFrequency="0.008"
           numOctaves="2"
           seed="42"
           result="turbulence"
@@ -43,18 +70,18 @@
         <feDisplacementMap
           in="SourceGraphic"
           in2="rotatedNoise"
-          scale="30"
+          scale="150"
           xChannelSelector="R"
           yChannelSelector="G"
         />
       </filter>
 
       <!-- Option 3: Stream function via convolution -->
-      <filter id="morphFilterStream" x="-50%" y="-50%" width="200%" height="200%">
+      <filter id="morphFilterStream" x="-100%" y="-100%" width="300%" height="300%">
         <!-- Generate low-frequency potential field -->
         <feTurbulence
           type="fractalNoise"
-          baseFrequency="0.01"
+          baseFrequency="0.005"
           numOctaves="1"
           seed="42"
           result="potential"
@@ -116,7 +143,7 @@
         <feDisplacementMap
           in="SourceGraphic"
           in2="velocityField"
-          scale="30"
+          scale="150"
           xChannelSelector="R"
           yChannelSelector="G"
         />

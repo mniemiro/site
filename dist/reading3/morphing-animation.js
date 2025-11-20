@@ -1,7 +1,17 @@
 // Configuration
 const SCREENS_TO_END = 1;
 const APPEAR_THRESHOLD = 0.5;
-const DISPLACEMENT_SCALE = 30;
+
+// Default parameter values
+const DEFAULT_PARAMS = {
+  displacementScale: 150,
+  baseFrequency: 0.008,
+  numOctaves: 2,
+  distortionPeak: 0.5
+};
+
+// Current parameter values
+let params = { ...DEFAULT_PARAMS };
 
 // Filter mode state
 let currentFilterMode = 'curl'; // 'curl' or 'stream'
@@ -16,7 +26,22 @@ const seminarContent = document.getElementById('seminar-content');
 const filterToggle = document.getElementById('filter-toggle');
 const filterModeText = document.getElementById('filter-mode-text');
 
-// Get displacement map elements from both filters
+// Control panel elements
+const displacementScaleInput = document.getElementById('displacement-scale');
+const baseFrequencyInput = document.getElementById('base-frequency');
+const numOctavesInput = document.getElementById('num-octaves');
+const distortionPeakInput = document.getElementById('distortion-peak');
+const displacementValue = document.getElementById('displacement-value');
+const frequencyValue = document.getElementById('frequency-value');
+const octavesValue = document.getElementById('octaves-value');
+const peakValue = document.getElementById('peak-value');
+const resetParamsBtn = document.getElementById('reset-params');
+const toggleControlsBtn = document.getElementById('toggle-controls');
+const controlsContent = document.getElementById('controls-content');
+
+// Get filter elements from both filters
+const feTurbulenceCurl = morphFilterCurl.querySelector('feTurbulence');
+const feTurbulenceStream = morphFilterStream.querySelector('feTurbulence');
 const feDisplacementMapCurl = morphFilterCurl.querySelector('feDisplacementMap');
 const feDisplacementMapStream = morphFilterStream.querySelector('feDisplacementMap');
 
@@ -56,11 +81,11 @@ function updateAnimation() {
   const currentX = initialX * (1 - progress);
   const currentY = initialY * (1 - progress);
   
-  // Update displacement scale with a curve: starts at 0, peaks in middle, ends at 0
-  // Using a parabolic curve: -4 * (progress - 0.5)^2 + 1
-  // This gives 0 at progress=0, peaks at progress=0.5, and returns to 0 at progress=1
-  const displacementCurve = Math.max(0, 1 - 4 * Math.pow(progress - 0.5, 2));
-  const currentDisplacementScale = DISPLACEMENT_SCALE * displacementCurve;
+  // Update displacement scale with a curve: starts at 0, peaks at distortionPeak, ends at 0
+  // Using a parabolic curve centered at distortionPeak
+  const peak = params.distortionPeak;
+  const displacementCurve = Math.max(0, 1 - (1 / (peak * (1 - peak))) * Math.pow(progress - peak, 2));
+  const currentDisplacementScale = params.displacementScale * displacementCurve;
   
   // Update morphing shape
   morphingShape.setAttribute('x', currentX);
@@ -68,10 +93,15 @@ function updateAnimation() {
   morphingShape.setAttribute('width', currentWidth);
   morphingShape.setAttribute('height', currentHeight);
   
-  // Update displacement filter based on current mode
-  const currentFilter = currentFilterMode === 'curl' ? morphFilterCurl : morphFilterStream;
+  // Update filter parameters based on current mode
+  const feTurbulence = currentFilterMode === 'curl' ? feTurbulenceCurl : feTurbulenceStream;
   const feDisplacementMap = currentFilterMode === 'curl' ? feDisplacementMapCurl : feDisplacementMapStream;
   
+  // Update turbulence parameters
+  feTurbulence.setAttribute('baseFrequency', params.baseFrequency);
+  feTurbulence.setAttribute('numOctaves', params.numOctaves);
+  
+  // Update displacement scale
   feDisplacementMap.setAttribute('scale', currentDisplacementScale);
   
   // Update filter application
@@ -121,6 +151,37 @@ function toggleFilterMode() {
   updateAnimation();
 }
 
+// Update parameter values
+function updateParams() {
+  params.displacementScale = parseFloat(displacementScaleInput.value);
+  params.baseFrequency = parseFloat(baseFrequencyInput.value);
+  params.numOctaves = parseInt(numOctavesInput.value);
+  params.distortionPeak = parseFloat(distortionPeakInput.value);
+  
+  displacementValue.textContent = params.displacementScale;
+  frequencyValue.textContent = params.baseFrequency.toFixed(3);
+  octavesValue.textContent = params.numOctaves;
+  peakValue.textContent = params.distortionPeak.toFixed(2);
+  
+  updateAnimation();
+}
+
+// Reset parameters to defaults
+function resetParams() {
+  params = { ...DEFAULT_PARAMS };
+  displacementScaleInput.value = DEFAULT_PARAMS.displacementScale;
+  baseFrequencyInput.value = DEFAULT_PARAMS.baseFrequency;
+  numOctavesInput.value = DEFAULT_PARAMS.numOctaves;
+  distortionPeakInput.value = DEFAULT_PARAMS.distortionPeak;
+  updateParams();
+}
+
+// Toggle controls panel
+function toggleControls() {
+  controlsContent.classList.toggle('hidden');
+  toggleControlsBtn.textContent = controlsContent.classList.contains('hidden') ? '+' : '−';
+}
+
 // Initialize
 updateDimensions();
 updateAnimation();
@@ -132,4 +193,10 @@ window.addEventListener('resize', () => {
   updateAnimation();
 });
 filterToggle.addEventListener('click', toggleFilterMode);
+displacementScaleInput.addEventListener('input', updateParams);
+baseFrequencyInput.addEventListener('input', updateParams);
+numOctavesInput.addEventListener('input', updateParams);
+distortionPeakInput.addEventListener('input', updateParams);
+resetParamsBtn.addEventListener('click', resetParams);
+toggleControlsBtn.addEventListener('click', toggleControls);
 
