@@ -41,9 +41,10 @@ body {
   z-index: 2; /* Above canvas and original content */
   pointer-events: none;
   opacity: 0;
+  visibility: hidden; /* Prevent flash on page load */
   transform: scale(0.3);
   /* transform-origin and clip-path will be set dynamically by JS */
-  transition: opacity 0.1s ease, transform 0.1s ease;
+  transition: opacity 0.1s ease, transform 0.1s ease, visibility 0s linear 0.1s;
   background-color: black; /* Black background for the content area */
   color: white;
 }
