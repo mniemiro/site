@@ -30,16 +30,16 @@ class WebGLMorph {
       useVortex: true  // true = vortex (with rotation), false = lens (radial only)
     };
     
-    // Lens distortion parameters
+    // Lens distortion parameters (bulge effect)
     this.lensParams = {
       lens1X: 0.3,
       lens1Y: 0.3,
       lens1Radius: 0.25,
-      lens1K1: 0.5,
+      lens1K1: 2.0, // Higher values for bulge effect (0-5 range)
       lens2X: 0.7,
       lens2Y: 0.7,
       lens2Radius: 0.25,
-      lens2K1: 0.5
+      lens2K1: 2.0
     };
     
     this.setupShaders();
@@ -233,30 +233,44 @@ class WebGLMorph {
           displace += focalDisplace;
         }
         
-        // Lens distortion effect
+        // Bulge/Lens distortion effect
         vec2 normalizedCoord = pixelCoord / u_resolution;
         vec2 lensDisplace = vec2(0.0);
         
-        // Lens 1
+        // Lens 1 - True bulge effect
         vec2 toLens1 = normalizedCoord - u_lens1Center;
         float distLens1 = length(toLens1);
         if (distLens1 < u_lens1Radius && distLens1 > 0.001) {
-          float r = distLens1 / u_lens1Radius; // Normalize to 0-1 within lens
-          float rDistorted = r * (1.0 + u_lens1K1 * r * r); // Barrel/pincushion distortion
-          vec2 direction = normalize(toLens1);
-          vec2 distortedPos = u_lens1Center + direction * rDistorted * u_lens1Radius;
-          lensDisplace += (distortedPos - normalizedCoord) * u_resolution * u_displacement;
+          // Smooth influence falloff: 1 at center, 0 at edge
+          float influence = 1.0 - smoothstep(0.0, u_lens1Radius, distLens1);
+          
+          // Quadratic falloff for dramatic bulge effect
+          float bulgeFactor = pow(influence, 2.0);
+          
+          // K1 > 0: Pull toward center (magnifying glass)
+          // K1 < 0: Push away from center (inverse bulge)
+          float strength = u_lens1K1 * 0.5;
+          vec2 displacement = -normalize(toLens1) * bulgeFactor * strength * distLens1;
+          
+          lensDisplace += displacement * u_resolution * u_displacement;
         }
         
-        // Lens 2
+        // Lens 2 - True bulge effect
         vec2 toLens2 = normalizedCoord - u_lens2Center;
         float distLens2 = length(toLens2);
         if (distLens2 < u_lens2Radius && distLens2 > 0.001) {
-          float r = distLens2 / u_lens2Radius; // Normalize to 0-1 within lens
-          float rDistorted = r * (1.0 + u_lens2K1 * r * r); // Barrel/pincushion distortion
-          vec2 direction = normalize(toLens2);
-          vec2 distortedPos = u_lens2Center + direction * rDistorted * u_lens2Radius;
-          lensDisplace += (distortedPos - normalizedCoord) * u_resolution * u_displacement;
+          // Smooth influence falloff: 1 at center, 0 at edge
+          float influence = 1.0 - smoothstep(0.0, u_lens2Radius, distLens2);
+          
+          // Quadratic falloff for dramatic bulge effect
+          float bulgeFactor = pow(influence, 2.0);
+          
+          // K1 > 0: Pull toward center (magnifying glass)
+          // K1 < 0: Push away from center (inverse bulge)
+          float strength = u_lens2K1 * 0.5;
+          vec2 displacement = -normalize(toLens2) * bulgeFactor * strength * distLens2;
+          
+          lensDisplace += displacement * u_resolution * u_displacement;
         }
         
         // Combine all displacements

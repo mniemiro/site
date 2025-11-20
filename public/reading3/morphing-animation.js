@@ -196,11 +196,11 @@ function resetLens() {
   lens1XSlider.value = 0.3;
   lens1YSlider.value = 0.3;
   lens1RadiusSlider.value = 0.25;
-  lens1K1Slider.value = 0.5;
+  lens1K1Slider.value = 2.0;
   lens2XSlider.value = 0.7;
   lens2YSlider.value = 0.7;
   lens2RadiusSlider.value = 0.25;
-  lens2K1Slider.value = 0.5;
+  lens2K1Slider.value = 2.0;
   updateLensControls();
 }
 
