@@ -24,19 +24,6 @@ const morphFilterStream = document.getElementById('morphFilterStream');
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
 
-// Control panel elements
-const displacementScaleInput = document.getElementById('displacement-scale');
-const baseFrequencyInput = document.getElementById('base-frequency');
-const numOctavesInput = document.getElementById('num-octaves');
-const distortionPeakInput = document.getElementById('distortion-peak');
-const displacementValue = document.getElementById('displacement-value');
-const frequencyValue = document.getElementById('frequency-value');
-const octavesValue = document.getElementById('octaves-value');
-const peakValue = document.getElementById('peak-value');
-const resetParamsBtn = document.getElementById('reset-params');
-const toggleControlsBtn = document.getElementById('toggle-controls');
-const controlsContent = document.getElementById('controls-content');
-
 // Get filter elements from both filters
 const feTurbulenceCurl = morphFilterCurl.querySelector('feTurbulence');
 const feTurbulenceStream = morphFilterStream.querySelector('feTurbulence');
@@ -151,37 +138,6 @@ function updateAnimation() {
   }
 }
 
-// Update parameter values
-function updateParams() {
-  params.displacementScale = parseFloat(displacementScaleInput.value);
-  params.baseFrequency = parseFloat(baseFrequencyInput.value);
-  params.numOctaves = parseInt(numOctavesInput.value);
-  params.distortionPeak = parseFloat(distortionPeakInput.value);
-  
-  displacementValue.textContent = params.displacementScale;
-  frequencyValue.textContent = params.baseFrequency.toFixed(3);
-  octavesValue.textContent = params.numOctaves;
-  peakValue.textContent = params.distortionPeak.toFixed(2);
-  
-  updateAnimation();
-}
-
-// Reset parameters to defaults
-function resetParams() {
-  params = { ...DEFAULT_PARAMS };
-  displacementScaleInput.value = DEFAULT_PARAMS.displacementScale;
-  baseFrequencyInput.value = DEFAULT_PARAMS.baseFrequency;
-  numOctavesInput.value = DEFAULT_PARAMS.numOctaves;
-  distortionPeakInput.value = DEFAULT_PARAMS.distortionPeak;
-  updateParams();
-}
-
-// Toggle controls panel
-function toggleControls() {
-  controlsContent.classList.toggle('hidden');
-  toggleControlsBtn.textContent = controlsContent.classList.contains('hidden') ? '+' : '−';
-}
-
 // Initialize
 updateDimensions();
 updateAnimation();
@@ -192,10 +148,4 @@ window.addEventListener('resize', () => {
   updateDimensions();
   updateAnimation();
 });
-displacementScaleInput.addEventListener('input', updateParams);
-baseFrequencyInput.addEventListener('input', updateParams);
-numOctavesInput.addEventListener('input', updateParams);
-distortionPeakInput.addEventListener('input', updateParams);
-resetParamsBtn.addEventListener('click', resetParams);
-toggleControlsBtn.addEventListener('click', toggleControls);
 
