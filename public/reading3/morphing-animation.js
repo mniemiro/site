@@ -23,10 +23,12 @@ const octavesSlider = document.getElementById('octaves');
 const displacementMultSlider = document.getElementById('displacement-mult');
 const flowBiasSlider = document.getElementById('flow-bias');
 const noiseScaleSlider = document.getElementById('noise-scale');
+const lensStrengthSlider = document.getElementById('lens-strength');
 const octavesValue = document.getElementById('octaves-value');
 const displacementMultValue = document.getElementById('displacement-mult-value');
 const flowBiasValue = document.getElementById('flow-bias-value');
 const noiseScaleValue = document.getElementById('noise-scale-value');
+const lensStrengthValue = document.getElementById('lens-strength-value');
 const resetLiquifyBtn = document.getElementById('reset-liquify');
 const toggleControlsBtn = document.getElementById('toggle-controls');
 const controlsContent = document.getElementById('controls-content');
@@ -135,18 +137,21 @@ function updateLiquifyControls() {
   const displacementMult = parseFloat(displacementMultSlider.value);
   const flowBias = parseFloat(flowBiasSlider.value);
   const noiseScale = parseFloat(noiseScaleSlider.value);
+  const lensStrength = parseFloat(lensStrengthSlider.value);
   
   octavesValue.textContent = octaves;
   displacementMultValue.textContent = displacementMult.toFixed(1);
   flowBiasValue.textContent = flowBias.toFixed(2);
   noiseScaleValue.textContent = noiseScale.toFixed(2);
+  lensStrengthValue.textContent = lensStrength.toFixed(1);
   
   if (webglMorph) {
     webglMorph.updateLiquifyParams({
       octaves,
       displacementMult,
       flowBias,
-      noiseScale
+      noiseScale,
+      lensStrength
     });
     updateAnimation();
   }
@@ -157,6 +162,7 @@ function resetLiquify() {
   displacementMultSlider.value = 2.5;
   flowBiasSlider.value = 0.1;
   noiseScaleSlider.value = 0.3;
+  lensStrengthSlider.value = 0.5;
   updateLiquifyControls();
 }
 
@@ -182,6 +188,7 @@ octavesSlider.addEventListener('input', updateLiquifyControls);
 displacementMultSlider.addEventListener('input', updateLiquifyControls);
 flowBiasSlider.addEventListener('input', updateLiquifyControls);
 noiseScaleSlider.addEventListener('input', updateLiquifyControls);
+lensStrengthSlider.addEventListener('input', updateLiquifyControls);
 resetLiquifyBtn.addEventListener('click', resetLiquify);
 toggleControlsBtn.addEventListener('click', toggleControls);
 

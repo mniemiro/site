@@ -21,7 +21,9 @@ class WebGLMorph {
       octaves: 3,
       displacementMult: 2.5,
       flowBias: 0.1,
-      noiseScale: 0.3
+      noiseScale: 0.3,
+      lensStrength: 0.5,
+      lensCount: 2
     };
     
     this.setupShaders();
@@ -46,6 +48,13 @@ class WebGLMorph {
     }
     if (params.noiseScale !== undefined) {
       this.liquifyParams.noiseScale = params.noiseScale;
+    }
+    if (params.lensStrength !== undefined) {
+      this.liquifyParams.lensStrength = params.lensStrength;
+    }
+    if (params.lensCount !== undefined && params.lensCount !== this.liquifyParams.lensCount) {
+      this.liquifyParams.lensCount = params.lensCount;
+      needsRegen = true;
     }
     
     // Regenerate noise texture if octaves or flow bias changed
@@ -81,6 +90,9 @@ class WebGLMorph {
       uniform float u_displacement; // Displacement scale
       uniform float u_displacementMult; // Displacement multiplier
       uniform float u_noiseScale;   // Noise sampling scale
+      uniform float u_lensStrength; // Lens distortion strength
+      uniform vec2 u_lensPos1;      // First lens position
+      uniform vec2 u_lensPos2;      // Second lens position
       
       void main() {
         // Convert to pixel coordinates (flip Y to match DOM coordinates)
@@ -99,8 +111,38 @@ class WebGLMorph {
         // Combine scales for liquid-like turbulence
         vec2 combinedNoise = noise1.rg * 0.7 + noise2.rg * 0.3;
         
-        // Calculate displacement with adjustable multiplier
+        // Calculate base displacement with adjustable multiplier
         vec2 displace = (combinedNoise - 0.5) * u_displacementMult * u_displacement;
+        
+        // Add lens distortion effects (magnifying glass)
+        // Lens 1
+        vec2 toLens1 = pixelCoord - u_lensPos1;
+        float dist1 = length(toLens1);
+        float lensRadius = 300.0;
+        if (dist1 < lensRadius) {
+          float influence = 1.0 - (dist1 / lensRadius);
+          influence = pow(influence, 2.0); // Smooth falloff
+          // Radial distortion (pull toward/push away from lens)
+          vec2 lensDisplace = normalize(toLens1) * influence * u_lensStrength * u_displacement * 2.0;
+          // Add swirl
+          float angle = influence * 3.14159 * 0.5;
+          mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+          lensDisplace = rotation * lensDisplace;
+          displace += lensDisplace;
+        }
+        
+        // Lens 2
+        vec2 toLens2 = pixelCoord - u_lensPos2;
+        float dist2 = length(toLens2);
+        if (dist2 < lensRadius) {
+          float influence = 1.0 - (dist2 / lensRadius);
+          influence = pow(influence, 2.0);
+          vec2 lensDisplace = normalize(toLens2) * influence * u_lensStrength * u_displacement * 2.0;
+          float angle = -influence * 3.14159 * 0.5; // Opposite swirl
+          mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+          lensDisplace = rotation * lensDisplace;
+          displace += lensDisplace;
+        }
         
         // Apply displacement to pixel coordinate
         vec2 displaced = pixelCoord + displace;
@@ -141,6 +183,9 @@ class WebGLMorph {
       displacement: gl.getUniformLocation(this.program, 'u_displacement'),
       displacementMult: gl.getUniformLocation(this.program, 'u_displacementMult'),
       noiseScale: gl.getUniformLocation(this.program, 'u_noiseScale'),
+      lensStrength: gl.getUniformLocation(this.program, 'u_lensStrength'),
+      lensPos1: gl.getUniformLocation(this.program, 'u_lensPos1'),
+      lensPos2: gl.getUniformLocation(this.program, 'u_lensPos2'),
       noise: gl.getUniformLocation(this.program, 'u_noise')
     };
   }
@@ -312,6 +357,11 @@ class WebGLMorph {
     gl.uniform1f(this.locations.displacement, displacementScale);
     gl.uniform1f(this.locations.displacementMult, this.liquifyParams.displacementMult);
     gl.uniform1f(this.locations.noiseScale, this.liquifyParams.noiseScale);
+    gl.uniform1f(this.locations.lensStrength, this.liquifyParams.lensStrength);
+    
+    // Position lenses at interesting spots (e.g., 1/3 and 2/3 across screen)
+    gl.uniform2f(this.locations.lensPos1, this.canvas.width * 0.35, this.canvas.height * 0.4);
+    gl.uniform2f(this.locations.lensPos2, this.canvas.width * 0.65, this.canvas.height * 0.6);
     
     // Bind noise texture
     gl.activeTexture(gl.TEXTURE0);
