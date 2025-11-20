@@ -91,7 +91,9 @@ class WebGLMorph {
         backgroundColor: '#000000',
         logging: false,
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
+        scrollY: -window.scrollY,
+        scrollX: -window.scrollX
       });
       
       console.log('Content captured, creating WebGL texture...');
@@ -398,16 +400,21 @@ class WebGLMorph {
         if (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0) {
           // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
           if (u_useTexture) {
-            // Sample from content texture with distortion applied
-            vec2 texCoord = vec2(displaced.x / u_resolution.x, 1.0 - (displaced.y / u_resolution.y));
-            gl_FragColor = texture2D(u_contentTexture, texCoord);
+            // Sample texture at the displaced pixel's screen position
+            // Texture coordinates: (0,0) = top-left, (1,1) = bottom-right
+            vec2 texCoord = vec2(
+              displaced.x / u_resolution.x,
+              1.0 - (displaced.y / u_resolution.y)  // Flip Y: WebGL bottom-up, texture top-down
+            );
+            vec4 texColor = texture2D(u_contentTexture, texCoord);
+            gl_FragColor = texColor;
           } else {
-            // Fallback: transparent (let HTML content below show through)
-            gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+            // Fallback: render black box
+            gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
           }
           // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
         } else {
-          // Outside the box: render a semi-transparent overlay to hide content
+          // Outside the box: render background to hide original content
           gl_FragColor = vec4(0.94, 0.94, 0.94, 1.0); // Light gray (#f0f0f0) - matches body background
         }
       }
