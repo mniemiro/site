@@ -40,12 +40,12 @@ function getScrollProgress() {
 function updateAnimation() {
   const progress = getScrollProgress();
   
-  // Calculate initial size (6% of viewport width)
-  const initialSize = viewportWidth * 0.06;
+  // Calculate initial size (4.2% of viewport width - 30% smaller than 6%)
+  const initialSize = viewportWidth * 0.042;
   
-  // Initial position (75% from left/top - bottom-right quadrant)
-  const initialX = viewportWidth * 0.75;
-  const initialY = viewportHeight * 0.75;
+  // Initial position (72% from left, 73% from top)
+  const initialX = viewportWidth * 0.72;
+  const initialY = viewportHeight * 0.73;
   
   // Interpolate dimensions
   const currentWidth = initialSize + (viewportWidth - initialSize) * progress;
