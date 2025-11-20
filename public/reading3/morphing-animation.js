@@ -73,7 +73,7 @@ function updateAnimation() {
   
   // WebGL rendering
   if (webglMorph) {
-    webglMorph.render(currentX, currentY, currentWidth, currentHeight, currentDisplacementScale);
+    webglMorph.render(currentX, currentY, currentWidth, currentHeight, currentDisplacementScale, contentOpacity);
   }
   
   // Update original content opacity
@@ -88,19 +88,20 @@ function updateAnimation() {
   const useTexture = webglMorph && webglMorph.useTextureRendering && webglMorph.contentTextureReady;
   // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
   
-  // Hide everything at zero scroll
-  if (progress === 0) {
-    seminarContent.style.opacity = '0';
-    seminarContent.style.pointerEvents = 'none';
-    if (useTexture) {
-      webglCanvas.style.opacity = '0';
-    }
-    return;
+  // Calculate content opacity fade-in
+  // 0% opacity from 0 to 0.15
+  // Fade to 100% from 0.15 to 0.40 (ease-in)
+  let contentOpacity = 1.0;
+  if (progress < 0.15) {
+    contentOpacity = 0.0;
+  } else if (progress < 0.40) {
+    const fadeProgress = (progress - 0.15) / (0.40 - 0.15);
+    contentOpacity = fadeProgress * fadeProgress; // Quadratic ease-in
   }
   
-  // Make WebGL visible during animation
-  if (useTexture && progress > 0 && progress < 0.99) {
-    webglCanvas.style.opacity = '1';
+  // Apply content opacity to WebGL canvas
+  if (useTexture) {
+    webglCanvas.style.opacity = contentOpacity.toString();
   }
   
   // Update seminar content visibility
