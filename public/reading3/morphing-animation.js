@@ -99,9 +99,9 @@ function updateAnimation() {
     contentOpacity = fadeProgress * fadeProgress; // Quadratic ease-in
   }
   
-  // WebGL canvas should always be visible (contentOpacity only affects the texture, not the box)
+  // Apply content opacity to WebGL canvas
   if (useTexture) {
-    webglCanvas.style.opacity = '1';
+    webglCanvas.style.opacity = contentOpacity.toString();
   }
   
   // Update seminar content visibility
