@@ -36,7 +36,7 @@ body {
   z-index: 5; /* Above original content, below WebGL and seminar content */
   pointer-events: none;
   white-space: nowrap;
-  opacity: 1; /* Start visible */
+  opacity: 0; /* Start hidden, will be shown by JavaScript after positioning */
   /* Position will be set by JavaScript */
 }
 
@@ -46,7 +46,7 @@ body {
   height: auto;
   z-index: 5; /* Above original content, below WebGL and seminar content */
   pointer-events: none;
-  opacity: 1; /* Start visible */
+  opacity: 0; /* Start hidden, will be shown by JavaScript after positioning */
   /* Position will be set by JavaScript */
   /* Rotate to point toward bottom-right (default is pointing right) */
   transform-origin: center center;

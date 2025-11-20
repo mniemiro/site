@@ -219,6 +219,10 @@ function initializeTextPosition() {
   
   whatsInTheBoxText.style.left = `${textX}px`;
   whatsInTheBoxText.style.top = `${textY}px`;
+  
+  // Make visible after positioning (prevent flash on load)
+  whatsInTheBoxText.style.opacity = '1';
+  pointingFinger.style.opacity = '1';
 }
 
 // Reset scroll position on page load (prevent saved scroll position)
