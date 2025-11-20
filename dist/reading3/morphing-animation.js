@@ -92,24 +92,22 @@ function updateAnimation() {
   }
   
   // Update pointing finger to track the black box center
-  if (pointingFinger && whatsInTheBoxText) {
-    const boxCenterX = currentX + (currentWidth / 2);
-    const boxCenterY = currentY + (currentHeight / 2);
-    
-    // Position finger to the top-left of the box, maintaining fixed distance
-    const fingerOffsetX = -80; // Fixed distance to the left
-    const fingerOffsetY = -80; // Fixed distance above
-    const fingerX = boxCenterX + fingerOffsetX;
-    const fingerY = boxCenterY + fingerOffsetY;
-    
-    pointingFinger.style.left = `${fingerX}px`;
-    pointingFinger.style.top = `${fingerY}px`;
-    
-    // Fade out finger and text as animation progresses
-    const interactiveOpacity = Math.max(0, 1 - (progress / 0.5)); // Fade out by 50% progress
-    pointingFinger.style.opacity = interactiveOpacity.toString();
-    whatsInTheBoxText.style.opacity = interactiveOpacity.toString();
-  }
+  const boxCenterX = currentX + (currentWidth / 2);
+  const boxCenterY = currentY + (currentHeight / 2);
+  
+  // Position finger to the top-left of the box, maintaining fixed distance
+  const fingerOffsetX = -80; // Fixed distance to the left
+  const fingerOffsetY = -80; // Fixed distance above
+  const fingerX = boxCenterX + fingerOffsetX;
+  const fingerY = boxCenterY + fingerOffsetY;
+  
+  pointingFinger.style.left = `${fingerX}px`;
+  pointingFinger.style.top = `${fingerY}px`;
+  
+  // Fade out finger and text as animation progresses
+  const interactiveOpacity = Math.max(0, 1 - (progress / 0.5)); // Fade out by 50% progress
+  pointingFinger.style.opacity = interactiveOpacity.toString();
+  whatsInTheBoxText.style.opacity = interactiveOpacity.toString();
   
   // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
   // Hide real HTML content during animation if using texture rendering
@@ -204,11 +202,6 @@ function throttledUpdateAnimation() {
 
 // Initialize text position (stays fixed, finger moves)
 function initializeTextPosition() {
-  if (!whatsInTheBoxText || !pointingFinger) {
-    console.error('Text or finger element not found');
-    return;
-  }
-  
   const initialSize = viewportWidth * 0.042;
   const initialX = viewportWidth * 0.72;
   const initialY = viewportHeight * 0.73;
@@ -227,9 +220,9 @@ function initializeTextPosition() {
   whatsInTheBoxText.style.left = `${textX}px`;
   whatsInTheBoxText.style.top = `${textY}px`;
   
-  // Position finger initially too
-  pointingFinger.style.left = `${fingerX}px`;
-  pointingFinger.style.top = `${fingerY}px`;
+  // Make visible after positioning (prevent flash on load)
+  whatsInTheBoxText.style.opacity = '1';
+  pointingFinger.style.opacity = '1';
 }
 
 // Reset scroll position on page load (prevent saved scroll position)
@@ -243,27 +236,18 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeAll);
-} else {
-  initializeAll();
-}
+// Initialize WebGL
+webglMorph = new WebGLMorph('webgl-canvas');
+updateDimensions();
+initializeTextPosition(); // Set initial text position
+updateAnimation();
 
-function initializeAll() {
-  // Initialize WebGL
-  webglMorph = new WebGLMorph('webgl-canvas');
+// Event listeners
+window.addEventListener('scroll', throttledUpdateAnimation, { passive: true });
+window.addEventListener('resize', () => {
   updateDimensions();
-  initializeTextPosition(); // Set initial text position
+  if (webglMorph) webglMorph.resize();
+  initializeTextPosition(); // Update text position on resize
   updateAnimation();
-
-  // Event listeners
-  window.addEventListener('scroll', throttledUpdateAnimation, { passive: true });
-  window.addEventListener('resize', () => {
-    updateDimensions();
-    if (webglMorph) webglMorph.resize();
-    initializeTextPosition(); // Update text position on resize
-    updateAnimation();
-  });
-}
+});
 
