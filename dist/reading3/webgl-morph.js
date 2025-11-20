@@ -49,8 +49,8 @@ class WebGLMorph {
       uniform float u_displacement; // Displacement scale
       
       void main() {
-        // Convert to pixel coordinates
-        vec2 pixelCoord = v_texCoord * u_resolution;
+        // Convert to pixel coordinates (flip Y to match DOM coordinates)
+        vec2 pixelCoord = vec2(v_texCoord.x * u_resolution.x, (1.0 - v_texCoord.y) * u_resolution.y);
         
         // Get noise at this position (use low frequency for large humps)
         vec4 noise = texture2D(u_noise, v_texCoord * 0.5);
