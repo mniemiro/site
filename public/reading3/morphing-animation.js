@@ -100,7 +100,8 @@ function updateAnimation() {
   
   // Update filter application - only apply filter when displacement is significant
   // Disable filter when distortion is very low to avoid rendering artifacts
-  if (currentDisplacementScale > 1) {
+  // Use higher threshold to prevent issues with large rectangles
+  if (currentDisplacementScale > 10) {
     morphingShape.setAttribute('filter', `url(#morphFilter${currentFilterMode === 'curl' ? 'Curl' : 'Stream'})`);
   } else {
     morphingShape.removeAttribute('filter');
