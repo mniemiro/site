@@ -91,16 +91,19 @@ function updateAnimation() {
     originalContent.style.opacity = Math.max(0, 1 - (progress - APPEAR_THRESHOLD) * 2);
   }
   
-  // Update finger and text
+  // Update finger position (between text and box)
   if (pointingFinger && whatsInTheBoxText) {
+    // Box center (dynamic)
     const boxCenterX = currentX + (currentWidth / 2);
     const boxCenterY = currentY + (currentHeight / 2);
     
-    // Position finger to point at box (top-left of box)
-    const fingerOffsetX = -80;
-    const fingerOffsetY = -80;
-    const fingerX = boxCenterX + fingerOffsetX;
-    const fingerY = boxCenterY + fingerOffsetY;
+    // Text center (fixed)
+    const textCenterX = viewportWidth * 0.5;
+    const textCenterY = viewportHeight * 0.4;
+    
+    // Position finger at midpoint between text center and box center
+    const fingerX = (textCenterX + boxCenterX) / 2;
+    const fingerY = (textCenterY + boxCenterY) / 2;
     
     pointingFinger.style.left = `${fingerX}px`;
     pointingFinger.style.top = `${fingerY}px`;
@@ -210,27 +213,16 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-// Initialize text and finger positions
+// Initialize text position (fixed)
 function initializeInteractiveElements() {
   if (!whatsInTheBoxText || !pointingFinger) return;
   
-  const initialSize = viewportWidth * 0.042;
-  const initialX = viewportWidth * 0.72;
-  const initialY = viewportHeight * 0.73;
-  const boxCenterX = initialX + (initialSize / 2);
-  const boxCenterY = initialY + (initialSize / 2);
-  
-  // Position finger
-  const fingerX = boxCenterX - 80;
-  const fingerY = boxCenterY - 80;
-  pointingFinger.style.left = `${fingerX}px`;
-  pointingFinger.style.top = `${fingerY}px`;
-  
-  // Position text to left and above finger
-  const textX = fingerX - 200;
-  const textY = fingerY - 40;
+  // Position text at middle vertical line, slightly up from center
+  const textX = viewportWidth * 0.5; // Middle of screen
+  const textY = viewportHeight * 0.4; // Slightly above middle
   whatsInTheBoxText.style.left = `${textX}px`;
   whatsInTheBoxText.style.top = `${textY}px`;
+  whatsInTheBoxText.style.transform = 'translateX(-50%)'; // Center the text on its position
 }
 
 // Initialize WebGL
