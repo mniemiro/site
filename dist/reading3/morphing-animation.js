@@ -71,9 +71,15 @@ function updateAnimation() {
   
   const currentDisplacementScale = params.displacementScale * displacementCurve;
   
+  // Calculate content opacity (fade in from 0 to 0.15 progress)
+  let contentOpacity = 1.0;
+  if (progress < 0.15) {
+    contentOpacity = progress / 0.15; // Linear fade from 0 to 1
+  }
+  
   // WebGL rendering
   if (webglMorph) {
-    webglMorph.render(currentX, currentY, currentWidth, currentHeight, currentDisplacementScale);
+    webglMorph.render(currentX, currentY, currentWidth, currentHeight, currentDisplacementScale, contentOpacity);
   }
   
   // Update original content opacity
