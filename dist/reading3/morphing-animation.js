@@ -25,9 +25,6 @@ let viewportHeight = window.innerHeight;
 function updateDimensions() {
   viewportWidth = window.innerWidth;
   viewportHeight = window.innerHeight;
-  
-  // Update SVG viewBox
-  svg.setAttribute('viewBox', `0 0 ${viewportWidth} ${viewportHeight}`);
 }
 
 function getScrollProgress() {
