@@ -55,10 +55,57 @@
         <input type="range" id="vortex-radius2" min="100" max="600" value="300" step="50">
       </div>
       <div class="control-group">
-        <label for="vortex-radius3">Focal 3 Radius: <span id="vortex-radius3-value">300</span></label>
-        <input type="range" id="vortex-radius3" min="100" max="600" value="300" step="50">
+        <label for="vortex-radius3">Focal 3 Radius: <span id="vortex-radius3-value">0</span></label>
+        <input type="range" id="vortex-radius3" min="0" max="600" value="0" step="50">
       </div>
       <button id="reset-liquify" class="reset-btn">Reset to Defaults</button>
+    </div>
+  </div>
+
+  <!-- Lens Distortion Control Panel -->
+  <div id="lens-controls" class="lens-controls">
+    <div class="control-header">
+      <h3>Lens Distortion</h3>
+      <button class="toggle-btn" id="toggle-lens-controls">−</button>
+    </div>
+    <div id="lens-controls-content" class="controls-content">
+      <h4>Lens 1</h4>
+      <div class="control-group">
+        <label for="lens1-x">X Position: <span id="lens1-x-value">0.30</span></label>
+        <input type="range" id="lens1-x" min="0" max="1" value="0.3" step="0.01">
+      </div>
+      <div class="control-group">
+        <label for="lens1-y">Y Position: <span id="lens1-y-value">0.30</span></label>
+        <input type="range" id="lens1-y" min="0" max="1" value="0.3" step="0.01">
+      </div>
+      <div class="control-group">
+        <label for="lens1-radius">Radius: <span id="lens1-radius-value">0.25</span></label>
+        <input type="range" id="lens1-radius" min="0.05" max="0.8" value="0.25" step="0.01">
+      </div>
+      <div class="control-group">
+        <label for="lens1-k1">K1 (Distortion): <span id="lens1-k1-value">0.5</span></label>
+        <input type="range" id="lens1-k1" min="-2" max="2" value="0.5" step="0.1">
+      </div>
+      
+      <h4>Lens 2</h4>
+      <div class="control-group">
+        <label for="lens2-x">X Position: <span id="lens2-x-value">0.70</span></label>
+        <input type="range" id="lens2-x" min="0" max="1" value="0.7" step="0.01">
+      </div>
+      <div class="control-group">
+        <label for="lens2-y">Y Position: <span id="lens2-y-value">0.70</span></label>
+        <input type="range" id="lens2-y" min="0" max="1" value="0.7" step="0.01">
+      </div>
+      <div class="control-group">
+        <label for="lens2-radius">Radius: <span id="lens2-radius-value">0.25</span></label>
+        <input type="range" id="lens2-radius" min="0.05" max="0.8" value="0.25" step="0.01">
+      </div>
+      <div class="control-group">
+        <label for="lens2-k1">K1 (Distortion): <span id="lens2-k1-value">0.5</span></label>
+        <input type="range" id="lens2-k1" min="-2" max="2" value="0.5" step="0.1">
+      </div>
+      
+      <button id="reset-lens" class="reset-btn">Reset Lens Defaults</button>
     </div>
   </div>
 

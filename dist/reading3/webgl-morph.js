@@ -24,10 +24,22 @@ class WebGLMorph {
       noiseScale: 0.3,
       vortexStrength: 0.5,
       vortexCount: 3,
-      vortexRadius1: 300,
-      vortexRadius2: 300,
-      vortexRadius3: 300,
+      vortexRadius1: 0, // Disabled
+      vortexRadius2: 0, // Disabled
+      vortexRadius3: 0, // Disabled
       useVortex: true  // true = vortex (with rotation), false = lens (radial only)
+    };
+    
+    // Lens distortion parameters
+    this.lensParams = {
+      lens1X: 0.3,
+      lens1Y: 0.3,
+      lens1Radius: 0.25,
+      lens1K1: 0.5,
+      lens2X: 0.7,
+      lens2Y: 0.7,
+      lens2Radius: 0.25,
+      lens2K1: 0.5
     };
     
     this.setupShaders();
@@ -73,6 +85,16 @@ class WebGLMorph {
       this.liquifyParams.useVortex = params.useVortex;
     }
     
+    // Update lens parameters
+    if (params.lens1X !== undefined) this.lensParams.lens1X = params.lens1X;
+    if (params.lens1Y !== undefined) this.lensParams.lens1Y = params.lens1Y;
+    if (params.lens1Radius !== undefined) this.lensParams.lens1Radius = params.lens1Radius;
+    if (params.lens1K1 !== undefined) this.lensParams.lens1K1 = params.lens1K1;
+    if (params.lens2X !== undefined) this.lensParams.lens2X = params.lens2X;
+    if (params.lens2Y !== undefined) this.lensParams.lens2Y = params.lens2Y;
+    if (params.lens2Radius !== undefined) this.lensParams.lens2Radius = params.lens2Radius;
+    if (params.lens2K1 !== undefined) this.lensParams.lens2K1 = params.lens2K1;
+    
     // Regenerate noise texture if octaves or flow bias changed
     if (needsRegen) {
       this.setupNoiseTexture();
@@ -114,6 +136,14 @@ class WebGLMorph {
       uniform float u_vortexRadius2;  // Second vortex radius
       uniform float u_vortexRadius3;  // Third vortex radius
       uniform float u_useVortex;      // 1.0 = vortex mode, 0.0 = lens mode
+      
+      // Lens distortion uniforms
+      uniform vec2 u_lens1Center;     // Lens 1 center (normalized)
+      uniform float u_lens1Radius;    // Lens 1 radius (normalized)
+      uniform float u_lens1K1;        // Lens 1 distortion coefficient
+      uniform vec2 u_lens2Center;     // Lens 2 center (normalized)
+      uniform float u_lens2Radius;    // Lens 2 radius (normalized)
+      uniform float u_lens2K1;        // Lens 2 distortion coefficient
       
       void main() {
         // Convert to pixel coordinates (flip Y to match DOM coordinates)
@@ -203,8 +233,37 @@ class WebGLMorph {
           displace += focalDisplace;
         }
         
+        // Lens distortion effect
+        vec2 normalizedCoord = pixelCoord / u_resolution;
+        vec2 lensDisplace = vec2(0.0);
+        
+        // Lens 1
+        vec2 toLens1 = normalizedCoord - u_lens1Center;
+        float dist1 = length(toLens1);
+        if (dist1 < u_lens1Radius && dist1 > 0.001) {
+          float r = dist1 / u_lens1Radius; // Normalize to 0-1 within lens
+          float rDistorted = r * (1.0 + u_lens1K1 * r * r); // Barrel/pincushion distortion
+          vec2 direction = normalize(toLens1);
+          vec2 distortedPos = u_lens1Center + direction * rDistorted * u_lens1Radius;
+          lensDisplace += (distortedPos - normalizedCoord) * u_resolution * u_displacement;
+        }
+        
+        // Lens 2
+        vec2 toLens2 = normalizedCoord - u_lens2Center;
+        float dist2 = length(toLens2);
+        if (dist2 < u_lens2Radius && dist2 > 0.001) {
+          float r = dist2 / u_lens2Radius; // Normalize to 0-1 within lens
+          float rDistorted = r * (1.0 + u_lens2K1 * r * r); // Barrel/pincushion distortion
+          vec2 direction = normalize(toLens2);
+          vec2 distortedPos = u_lens2Center + direction * rDistorted * u_lens2Radius;
+          lensDisplace += (distortedPos - normalizedCoord) * u_resolution * u_displacement;
+        }
+        
+        // Combine all displacements
+        vec2 totalDisplacement = displace + lensDisplace;
+        
         // Apply displacement to pixel coordinate
-        vec2 displaced = pixelCoord + displace;
+        vec2 displaced = pixelCoord + totalDisplacement;
         
         // Check if displaced position is inside the rectangle
         vec2 relPos = (displaced - u_rectPos) / u_rectSize;
@@ -250,7 +309,13 @@ class WebGLMorph {
       vortexRadius2: gl.getUniformLocation(this.program, 'u_vortexRadius2'),
       vortexRadius3: gl.getUniformLocation(this.program, 'u_vortexRadius3'),
       useVortex: gl.getUniformLocation(this.program, 'u_useVortex'),
-      noise: gl.getUniformLocation(this.program, 'u_noise')
+      noise: gl.getUniformLocation(this.program, 'u_noise'),
+      lens1Center: gl.getUniformLocation(this.program, 'u_lens1Center'),
+      lens1Radius: gl.getUniformLocation(this.program, 'u_lens1Radius'),
+      lens1K1: gl.getUniformLocation(this.program, 'u_lens1K1'),
+      lens2Center: gl.getUniformLocation(this.program, 'u_lens2Center'),
+      lens2Radius: gl.getUniformLocation(this.program, 'u_lens2Radius'),
+      lens2K1: gl.getUniformLocation(this.program, 'u_lens2K1')
     };
   }
   
@@ -435,6 +500,14 @@ class WebGLMorph {
     
     // Set mode (vortex vs lens)
     gl.uniform1f(this.locations.useVortex, this.liquifyParams.useVortex ? 1.0 : 0.0);
+    
+    // Set lens distortion parameters
+    gl.uniform2f(this.locations.lens1Center, this.lensParams.lens1X, this.lensParams.lens1Y);
+    gl.uniform1f(this.locations.lens1Radius, this.lensParams.lens1Radius);
+    gl.uniform1f(this.locations.lens1K1, this.lensParams.lens1K1);
+    gl.uniform2f(this.locations.lens2Center, this.lensParams.lens2X, this.lensParams.lens2Y);
+    gl.uniform1f(this.locations.lens2Radius, this.lensParams.lens2Radius);
+    gl.uniform1f(this.locations.lens2K1, this.lensParams.lens2K1);
     
     // Bind noise texture
     gl.activeTexture(gl.TEXTURE0);

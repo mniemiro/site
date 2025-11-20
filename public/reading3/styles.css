@@ -11,11 +11,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Liquify controls panel */
-.liquify-controls {
+/* Control panels */
+.liquify-controls,
+.lens-controls {
   position: fixed;
-  top: 1rem;
-  left: 1rem;
   z-index: 1000;
   background-color: #1f2937;
   color: white;
@@ -25,6 +24,16 @@ body {
   min-width: 280px;
   max-width: 320px;
   font-family: 'Space Grotesk', sans-serif;
+}
+
+.liquify-controls {
+  top: 1rem;
+  left: 1rem;
+}
+
+.lens-controls {
+  top: 1rem;
+  left: 330px; /* Position to the right of main control panel */
 }
 
 .control-header {
@@ -38,6 +47,13 @@ body {
   font-size: 1rem;
   font-weight: 600;
   margin: 0;
+}
+
+.control-header h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem 0;
+  color: #9ca3af;
 }
 
 .toggle-btn {
