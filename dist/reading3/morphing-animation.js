@@ -12,8 +12,8 @@ const params = {
 
 // ===== TESTING: Curve parameters (REMOVE AFTER TESTING) =====
 const curveParams = {
-  controlX: 0.3,  // Control point X (normalized 0-1)
-  controlY: 0.3   // Control point Y (normalized 0-1)
+  controlX: 0.85,  // Control point X (normalized 0-1)
+  controlY: 0.18   // Control point Y (normalized 0-1)
 };
 // ===== END TESTING =====
 
@@ -118,7 +118,7 @@ function updateAnimation() {
     const boxCenterY = currentY + (currentHeight / 2);
     
     // Text center (fixed)
-    const textCenterX = viewportWidth * 0.5;
+    const textCenterX = viewportWidth * 0.42;
     const textCenterY = viewportHeight * 0.60;
     
     // Position finger at midpoint between text center and box center
@@ -237,8 +237,8 @@ window.scrollTo(0, 0);
 function initializeInteractiveElements() {
   if (!whatsInTheBoxText || !pointingFinger) return;
   
-  // Position text at middle vertical line, 60% down viewport
-  const textX = viewportWidth * 0.5; // Middle of screen
+  // Position text 8% left of middle, 60% down viewport
+  const textX = viewportWidth * 0.42; // 50% - 8% = 42%
   const textY = viewportHeight * 0.60; // 60% down from top
   whatsInTheBoxText.style.left = `${textX}px`;
   whatsInTheBoxText.style.top = `${textY}px`;
@@ -320,6 +320,12 @@ const controlYVal = document.getElementById('control-y-val');
 const resetButton = document.getElementById('reset-curve');
 
 if (controlXInput && controlYInput) {
+  // Set initial values
+  controlXInput.value = curveParams.controlX;
+  controlYInput.value = curveParams.controlY;
+  controlXVal.textContent = curveParams.controlX.toFixed(2);
+  controlYVal.textContent = curveParams.controlY.toFixed(2);
+  
   controlXInput.addEventListener('input', (e) => {
     curveParams.controlX = parseFloat(e.target.value);
     controlXVal.textContent = curveParams.controlX.toFixed(2);
