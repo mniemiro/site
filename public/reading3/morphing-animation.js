@@ -7,7 +7,7 @@ const DEFAULT_PARAMS = {
   displacementScale: 500,
   baseFrequency: 0.001,
   numOctaves: 1,
-  distortionPeak: 0.75
+  distortionPeak: 0.6
 };
 
 // Current parameter values
@@ -24,11 +24,17 @@ const morphFilterStream = document.getElementById('morphFilterStream');
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
 
-// Get filter elements from both filters
+// Cache filter elements from both filters (optimization #3)
 const feTurbulenceCurl = morphFilterCurl.querySelector('feTurbulence');
 const feTurbulenceStream = morphFilterStream.querySelector('feTurbulence');
 const feDisplacementMapCurl = morphFilterCurl.querySelector('feDisplacementMap');
 const feDisplacementMapStream = morphFilterStream.querySelector('feDisplacementMap');
+
+// Cache commonly accessed elements for performance
+const cachedElements = {
+  feTurbulence: feTurbulenceCurl,
+  feDisplacementMap: feDisplacementMapCurl
+};
 
 // Track dimensions
 let viewportWidth = window.innerWidth;
@@ -87,9 +93,9 @@ function updateAnimation() {
   morphingShape.setAttribute('width', currentWidth);
   morphingShape.setAttribute('height', currentHeight);
   
-  // Update filter parameters based on current mode
-  const feTurbulence = currentFilterMode === 'curl' ? feTurbulenceCurl : feTurbulenceStream;
-  const feDisplacementMap = currentFilterMode === 'curl' ? feDisplacementMapCurl : feDisplacementMapStream;
+  // Use cached filter elements (optimization #3)
+  const feTurbulence = cachedElements.feTurbulence;
+  const feDisplacementMap = cachedElements.feDisplacementMap;
   
   // Update turbulence parameters
   feTurbulence.setAttribute('baseFrequency', params.baseFrequency);
@@ -102,7 +108,7 @@ function updateAnimation() {
   // Disable filter when distortion is very low to avoid rendering artifacts
   // Use higher threshold to prevent issues with large rectangles
   if (currentDisplacementScale > 10) {
-    morphingShape.setAttribute('filter', `url(#morphFilter${currentFilterMode === 'curl' ? 'Curl' : 'Stream'})`);
+    morphingShape.setAttribute('filter', 'url(#morphFilterCurl)');
   } else {
     morphingShape.removeAttribute('filter');
   }
@@ -140,12 +146,24 @@ function updateAnimation() {
   }
 }
 
+// Throttle scroll updates with requestAnimationFrame (optimization #1)
+let rafPending = false;
+function throttledUpdateAnimation() {
+  if (!rafPending) {
+    rafPending = true;
+    requestAnimationFrame(() => {
+      updateAnimation();
+      rafPending = false;
+    });
+  }
+}
+
 // Initialize
 updateDimensions();
 updateAnimation();
 
 // Event listeners
-window.addEventListener('scroll', updateAnimation, { passive: true });
+window.addEventListener('scroll', throttledUpdateAnimation, { passive: true });
 window.addEventListener('resize', () => {
   updateDimensions();
   updateAnimation();
