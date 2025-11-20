@@ -233,54 +233,60 @@ class WebGLMorph {
           displace += focalDisplace;
         }
         
-        // Bulge/Lens distortion effect
-        vec2 normalizedCoord = pixelCoord / u_resolution;
-        vec2 lensDisplace = vec2(0.0);
+        // Apply base displacement to pixel coordinate
+        vec2 displaced = pixelCoord + displace;
         
-        // Lens 1 - True bulge effect
-        vec2 toLens1 = normalizedCoord - u_lens1Center;
-        float distLens1 = length(toLens1);
-        if (distLens1 < u_lens1Radius && distLens1 > 0.001) {
-          // Smooth influence falloff: 1 at center, 0 at edge
-          float influence = 1.0 - smoothstep(0.0, u_lens1Radius, distLens1);
-          
-          // Quadratic falloff for dramatic bulge effect
-          float bulgeFactor = pow(influence, 2.0);
-          
-          // K1 > 0: Pull toward center (magnifying glass)
-          // K1 < 0: Push away from center (inverse bulge)
-          float strength = u_lens1K1 * 0.5;
-          vec2 displacement = -normalize(toLens1) * bulgeFactor * strength * distLens1;
-          
-          lensDisplace += displacement * u_resolution * u_displacement;
-        }
-        
-        // Lens 2 - True bulge effect
-        vec2 toLens2 = normalizedCoord - u_lens2Center;
-        float distLens2 = length(toLens2);
-        if (distLens2 < u_lens2Radius && distLens2 > 0.001) {
-          // Smooth influence falloff: 1 at center, 0 at edge
-          float influence = 1.0 - smoothstep(0.0, u_lens2Radius, distLens2);
-          
-          // Quadratic falloff for dramatic bulge effect
-          float bulgeFactor = pow(influence, 2.0);
-          
-          // K1 > 0: Pull toward center (magnifying glass)
-          // K1 < 0: Push away from center (inverse bulge)
-          float strength = u_lens2K1 * 0.5;
-          vec2 displacement = -normalize(toLens2) * bulgeFactor * strength * distLens2;
-          
-          lensDisplace += displacement * u_resolution * u_displacement;
-        }
-        
-        // Combine all displacements
-        vec2 totalDisplacement = displace + lensDisplace;
-        
-        // Apply displacement to pixel coordinate
-        vec2 displaced = pixelCoord + totalDisplacement;
-        
-        // Check if displaced position is inside the rectangle
+        // Check if displaced position is inside the rectangle (before lens effect)
         vec2 relPos = (displaced - u_rectPos) / u_rectSize;
+        bool insideBox = (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0);
+        
+        // Only apply lens distortion to pixels that are part of the box
+        if (insideBox) {
+          vec2 normalizedCoord = pixelCoord / u_resolution;
+          vec2 lensDisplace = vec2(0.0);
+          
+          // Lens 1 - True bulge effect (only affects box pixels)
+          vec2 toLens1 = normalizedCoord - u_lens1Center;
+          float distLens1 = length(toLens1);
+          if (distLens1 < u_lens1Radius && distLens1 > 0.001) {
+            // Smooth influence falloff: 1 at center, 0 at edge
+            float influence = 1.0 - smoothstep(0.0, u_lens1Radius, distLens1);
+            
+            // Quadratic falloff for dramatic bulge effect
+            float bulgeFactor = pow(influence, 2.0);
+            
+            // K1 > 0: Push outward from center (bulge out)
+            // K1 < 0: Pull toward center (pinch in)
+            float strength = u_lens1K1 * 0.5;
+            vec2 displacement = normalize(toLens1) * bulgeFactor * strength * distLens1;
+            
+            lensDisplace += displacement * u_resolution * u_displacement;
+          }
+          
+          // Lens 2 - True bulge effect (only affects box pixels)
+          vec2 toLens2 = normalizedCoord - u_lens2Center;
+          float distLens2 = length(toLens2);
+          if (distLens2 < u_lens2Radius && distLens2 > 0.001) {
+            // Smooth influence falloff: 1 at center, 0 at edge
+            float influence = 1.0 - smoothstep(0.0, u_lens2Radius, distLens2);
+            
+            // Quadratic falloff for dramatic bulge effect
+            float bulgeFactor = pow(influence, 2.0);
+            
+            // K1 > 0: Push outward from center (bulge out)
+            // K1 < 0: Pull toward center (pinch in)
+            float strength = u_lens2K1 * 0.5;
+            vec2 displacement = normalize(toLens2) * bulgeFactor * strength * distLens2;
+            
+            lensDisplace += displacement * u_resolution * u_displacement;
+          }
+          
+          // Apply lens displacement
+          displaced += lensDisplace;
+        }
+        
+        // Final check if still inside box after all displacements
+        relPos = (displaced - u_rectPos) / u_rectSize;
         
         if (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0) {
           gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Black
