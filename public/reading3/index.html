@@ -16,11 +16,11 @@
   <!-- Morphing box SVG -->
   <svg id="morphing-svg" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <!-- Simple displacement filter -->
+      <!-- Simple displacement filter with large humps -->
       <filter id="morphFilterCurl" x="-50%" y="-50%" width="200%" height="200%">
         <feTurbulence
           type="fractalNoise"
-          baseFrequency="0.011"
+          baseFrequency="0.004"
           numOctaves="1"
           seed="42"
           result="turbulence"
@@ -28,7 +28,7 @@
         <feDisplacementMap
           in="SourceGraphic"
           in2="turbulence"
-          scale="250"
+          scale="300"
           xChannelSelector="R"
           yChannelSelector="G"
         />

@@ -4,8 +4,8 @@ const APPEAR_THRESHOLD = 0.5;
 
 // Default parameter values
 const DEFAULT_PARAMS = {
-  displacementScale: 250,
-  baseFrequency: 0.011,
+  displacementScale: 300,
+  baseFrequency: 0.004,
   numOctaves: 1,
   distortionPeak: 0.25
 };
