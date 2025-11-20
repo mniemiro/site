@@ -111,26 +111,17 @@ function updateAnimation() {
     originalContent.style.opacity = Math.max(0, 1 - (progress - APPEAR_THRESHOLD) * 2);
   }
   
-  // Update finger position (between text and point on curve)
+  // Update finger position (between text and box)
   if (pointingFinger && whatsInTheBoxText) {
-    // Calculate point on curve at current progress using same bezier formula
-    const t = progress;
-    const controlPointX = viewportWidth * curveParams.controlX;
-    const controlPointY = viewportHeight * curveParams.controlY;
-    
-    // Point on curve at progress t (same as currentX, currentY but calculated explicitly)
-    const curvePointX = Math.pow(1 - t, 2) * initialX + 2 * (1 - t) * t * controlPointX + Math.pow(t, 2) * 0;
-    const curvePointY = Math.pow(1 - t, 2) * initialY + 2 * (1 - t) * t * controlPointY + Math.pow(t, 2) * 0;
-    
-    // Add half the box size to get center of box
-    const boxCenterX = curvePointX + (currentWidth / 2);
-    const boxCenterY = curvePointY + (currentHeight / 2);
+    // Box center (dynamic)
+    const boxCenterX = currentX + (currentWidth / 2);
+    const boxCenterY = currentY + (currentHeight / 2);
     
     // Text center (fixed)
     const textCenterX = viewportWidth * 0.42;
     const textCenterY = viewportHeight * 0.60;
     
-    // Position finger at midpoint between text center and point on curve
+    // Position finger at midpoint between text center and box center
     const fingerX = (textCenterX + boxCenterX) / 2;
     const fingerY = (textCenterY + boxCenterY) / 2;
     
