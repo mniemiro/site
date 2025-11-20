@@ -23,9 +23,10 @@ class WebGLMorph {
       flowBias: 0.1,
       noiseScale: 0.3,
       vortexStrength: 0.5,
-      vortexCount: 2,
+      vortexCount: 3,
       vortexRadius1: 300,
       vortexRadius2: 300,
+      vortexRadius3: 300,
       useVortex: true  // true = vortex (with rotation), false = lens (radial only)
     };
     
@@ -64,6 +65,9 @@ class WebGLMorph {
     }
     if (params.vortexRadius2 !== undefined) {
       this.liquifyParams.vortexRadius2 = params.vortexRadius2;
+    }
+    if (params.vortexRadius3 !== undefined) {
+      this.liquifyParams.vortexRadius3 = params.vortexRadius3;
     }
     if (params.useVortex !== undefined) {
       this.liquifyParams.useVortex = params.useVortex;
@@ -105,8 +109,10 @@ class WebGLMorph {
       uniform float u_vortexStrength; // Vortex/lens distortion strength
       uniform vec2 u_vortexPos1;      // First vortex position
       uniform vec2 u_vortexPos2;      // Second vortex position
+      uniform vec2 u_vortexPos3;      // Third vortex position
       uniform float u_vortexRadius1;  // First vortex radius
       uniform float u_vortexRadius2;  // Second vortex radius
+      uniform float u_vortexRadius3;  // Third vortex radius
       uniform float u_useVortex;      // 1.0 = vortex mode, 0.0 = lens mode
       
       void main() {
@@ -175,6 +181,28 @@ class WebGLMorph {
           displace += focalDisplace;
         }
         
+        // Focal point 3
+        vec2 toFocal3 = pixelCoord - u_vortexPos3;
+        float dist3 = length(toFocal3);
+        if (dist3 < u_vortexRadius3 && dist3 > 0.1) {
+          float influence = 1.0 - (dist3 / u_vortexRadius3);
+          influence = pow(influence, 2.0);
+          
+          vec2 focalDisplace = normalize(toFocal3) * influence * u_vortexStrength * u_displacement * 2.0;
+          
+          if (u_useVortex > 0.5) {
+            // Vortex mode: add swirl rotation (same direction as focal 1)
+            float angle = influence * 3.14159 * 0.5;
+            mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+            focalDisplace = rotation * focalDisplace;
+          } else {
+            // Lens mode: push away (magnifying/bulge effect)
+            focalDisplace = -focalDisplace;
+          }
+          
+          displace += focalDisplace;
+        }
+        
         // Apply displacement to pixel coordinate
         vec2 displaced = pixelCoord + displace;
         
@@ -217,8 +245,10 @@ class WebGLMorph {
       vortexStrength: gl.getUniformLocation(this.program, 'u_vortexStrength'),
       vortexPos1: gl.getUniformLocation(this.program, 'u_vortexPos1'),
       vortexPos2: gl.getUniformLocation(this.program, 'u_vortexPos2'),
+      vortexPos3: gl.getUniformLocation(this.program, 'u_vortexPos3'),
       vortexRadius1: gl.getUniformLocation(this.program, 'u_vortexRadius1'),
       vortexRadius2: gl.getUniformLocation(this.program, 'u_vortexRadius2'),
+      vortexRadius3: gl.getUniformLocation(this.program, 'u_vortexRadius3'),
       useVortex: gl.getUniformLocation(this.program, 'u_useVortex'),
       noise: gl.getUniformLocation(this.program, 'u_noise')
     };
@@ -393,13 +423,15 @@ class WebGLMorph {
     gl.uniform1f(this.locations.noiseScale, this.liquifyParams.noiseScale);
     gl.uniform1f(this.locations.vortexStrength, this.liquifyParams.vortexStrength);
     
-    // Position focal points: #1 near top-left, #2 near bottom
+    // Position focal points: #1 near top-left, #2 near bottom, #3 upper-right
     gl.uniform2f(this.locations.vortexPos1, this.canvas.width * 0.25, this.canvas.height * 0.25);
     gl.uniform2f(this.locations.vortexPos2, this.canvas.width * 0.5, this.canvas.height * 0.75);
+    gl.uniform2f(this.locations.vortexPos3, this.canvas.width * 0.70, this.canvas.height * 0.35);
     
     // Set focal point radii
     gl.uniform1f(this.locations.vortexRadius1, this.liquifyParams.vortexRadius1);
     gl.uniform1f(this.locations.vortexRadius2, this.liquifyParams.vortexRadius2);
+    gl.uniform1f(this.locations.vortexRadius3, this.liquifyParams.vortexRadius3);
     
     // Set mode (vortex vs lens)
     gl.uniform1f(this.locations.useVortex, this.liquifyParams.useVortex ? 1.0 : 0.0);

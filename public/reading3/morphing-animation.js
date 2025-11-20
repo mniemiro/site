@@ -27,6 +27,7 @@ const noiseScaleSlider = document.getElementById('noise-scale');
 const vortexStrengthSlider = document.getElementById('vortex-strength');
 const vortexRadius1Slider = document.getElementById('vortex-radius1');
 const vortexRadius2Slider = document.getElementById('vortex-radius2');
+const vortexRadius3Slider = document.getElementById('vortex-radius3');
 const octavesValue = document.getElementById('octaves-value');
 const displacementMultValue = document.getElementById('displacement-mult-value');
 const flowBiasValue = document.getElementById('flow-bias-value');
@@ -34,6 +35,7 @@ const noiseScaleValue = document.getElementById('noise-scale-value');
 const vortexStrengthValue = document.getElementById('vortex-strength-value');
 const vortexRadius1Value = document.getElementById('vortex-radius1-value');
 const vortexRadius2Value = document.getElementById('vortex-radius2-value');
+const vortexRadius3Value = document.getElementById('vortex-radius3-value');
 const resetLiquifyBtn = document.getElementById('reset-liquify');
 const toggleControlsBtn = document.getElementById('toggle-controls');
 const controlsContent = document.getElementById('controls-content');
@@ -71,17 +73,18 @@ function updateAnimation() {
   const currentX = initialX * (1 - progress);
   const currentY = initialY * (1 - progress);
   
-  // Update displacement scale with a curve: starts at 0, peaks at distortionPeak, ends at 0
-  // Using piecewise parabolas to ensure 0 at start and end
+  // Update displacement scale with ease-in-out curve
   const peak = params.distortionPeak;
   let displacementCurve;
   
   if (progress <= peak) {
-    // Rising phase: parabola from (0,0) to (peak,1)
-    displacementCurve = Math.pow(progress / peak, 2);
+    // Rising phase: ease-in-out from (0,0) to (peak,1)
+    const t = progress / peak;
+    displacementCurve = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
   } else {
-    // Falling phase: parabola from (peak,1) to (1,0)
-    displacementCurve = Math.pow((1 - progress) / (1 - peak), 2);
+    // Falling phase: ease-in-out from (peak,1) to (1,0)
+    const t = (progress - peak) / (1 - peak);
+    displacementCurve = t < 0.5 ? 1 - 2 * t * t : Math.pow(-2 * t + 2, 2) / 2;
   }
   
   const currentDisplacementScale = params.displacementScale * displacementCurve;
@@ -146,6 +149,7 @@ function updateLiquifyControls() {
   const vortexStrength = parseFloat(vortexStrengthSlider.value);
   const vortexRadius1 = parseFloat(vortexRadius1Slider.value);
   const vortexRadius2 = parseFloat(vortexRadius2Slider.value);
+  const vortexRadius3 = parseFloat(vortexRadius3Slider.value);
   
   octavesValue.textContent = octaves;
   displacementMultValue.textContent = displacementMult.toFixed(1);
@@ -154,6 +158,7 @@ function updateLiquifyControls() {
   vortexStrengthValue.textContent = vortexStrength.toFixed(1);
   vortexRadius1Value.textContent = vortexRadius1;
   vortexRadius2Value.textContent = vortexRadius2;
+  vortexRadius3Value.textContent = vortexRadius3;
   
   if (webglMorph) {
     webglMorph.updateLiquifyParams({
@@ -164,7 +169,8 @@ function updateLiquifyControls() {
       noiseScale,
       vortexStrength,
       vortexRadius1,
-      vortexRadius2
+      vortexRadius2,
+      vortexRadius3
     });
     updateAnimation();
   }
@@ -179,6 +185,7 @@ function resetLiquify() {
   vortexStrengthSlider.value = 0.5;
   vortexRadius1Slider.value = 300;
   vortexRadius2Slider.value = 300;
+  vortexRadius3Slider.value = 300;
   updateLiquifyControls();
 }
 
@@ -208,6 +215,7 @@ noiseScaleSlider.addEventListener('input', updateLiquifyControls);
 vortexStrengthSlider.addEventListener('input', updateLiquifyControls);
 vortexRadius1Slider.addEventListener('input', updateLiquifyControls);
 vortexRadius2Slider.addEventListener('input', updateLiquifyControls);
+vortexRadius3Slider.addEventListener('input', updateLiquifyControls);
 resetLiquifyBtn.addEventListener('click', resetLiquify);
 toggleControlsBtn.addEventListener('click', toggleControls);
 
