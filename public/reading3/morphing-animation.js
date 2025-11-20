@@ -17,8 +17,6 @@ let webglMorph = null;
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
 const webglCanvas = document.getElementById('webgl-canvas');
-const whatsInTheBoxText = document.getElementById('whats-in-the-box-text');
-const pointingFinger = document.getElementById('pointing-finger');
 
 // Liquify control elements removed (no longer used)
 
@@ -90,24 +88,6 @@ function updateAnimation() {
   } else {
     originalContent.style.opacity = Math.max(0, 1 - (progress - APPEAR_THRESHOLD) * 2);
   }
-  
-  // Update pointing finger to track the black box center
-  const boxCenterX = currentX + (currentWidth / 2);
-  const boxCenterY = currentY + (currentHeight / 2);
-  
-  // Position finger to the top-left of the box, maintaining fixed distance
-  const fingerOffsetX = -80; // Fixed distance to the left
-  const fingerOffsetY = -80; // Fixed distance above
-  const fingerX = boxCenterX + fingerOffsetX;
-  const fingerY = boxCenterY + fingerOffsetY;
-  
-  pointingFinger.style.left = `${fingerX}px`;
-  pointingFinger.style.top = `${fingerY}px`;
-  
-  // Fade out finger and text as animation progresses
-  const interactiveOpacity = Math.max(0, 1 - (progress / 0.5)); // Fade out by 50% progress
-  pointingFinger.style.opacity = interactiveOpacity.toString();
-  whatsInTheBoxText.style.opacity = interactiveOpacity.toString();
   
   // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
   // Hide real HTML content during animation if using texture rendering
@@ -200,27 +180,6 @@ function throttledUpdateAnimation() {
 
 // Liquify controls removed
 
-// Initialize text position (stays fixed, finger moves)
-function initializeTextPosition() {
-  const initialSize = viewportWidth * 0.042;
-  const initialX = viewportWidth * 0.72;
-  const initialY = viewportHeight * 0.73;
-  
-  const boxCenterX = initialX + (initialSize / 2);
-  const boxCenterY = initialY + (initialSize / 2);
-  
-  // Position text so the finger (at box center - 80px) is near bottom-left of text
-  const fingerX = boxCenterX - 80;
-  const fingerY = boxCenterY - 80;
-  
-  // Text positioned to the left and above the finger
-  const textX = fingerX - 200; // Text to the left of finger
-  const textY = fingerY - 40;  // Text above finger
-  
-  whatsInTheBoxText.style.left = `${textX}px`;
-  whatsInTheBoxText.style.top = `${textY}px`;
-}
-
 // Reset scroll position on page load (prevent saved scroll position)
 window.addEventListener('beforeunload', () => {
   window.scrollTo(0, 0);
@@ -235,7 +194,6 @@ window.scrollTo(0, 0);
 // Initialize WebGL
 webglMorph = new WebGLMorph('webgl-canvas');
 updateDimensions();
-initializeTextPosition(); // Set initial text position
 updateAnimation();
 
 // Event listeners
@@ -243,7 +201,6 @@ window.addEventListener('scroll', throttledUpdateAnimation, { passive: true });
 window.addEventListener('resize', () => {
   updateDimensions();
   if (webglMorph) webglMorph.resize();
-  initializeTextPosition(); // Update text position on resize
   updateAnimation();
 });
 
