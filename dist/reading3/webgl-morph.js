@@ -137,16 +137,18 @@ class WebGLMorph {
           float influence = 1.0 - (dist1 / u_vortexRadius1);
           influence = pow(influence, 2.0); // Smooth falloff
           
-          // Radial distortion (pull toward/push away from center)
+          // Radial distortion
           vec2 focalDisplace = normalize(toFocal1) * influence * u_vortexStrength * u_displacement * 2.0;
           
           if (u_useVortex > 0.5) {
-            // Vortex mode: add swirl rotation
+            // Vortex mode: add swirl rotation (pulls inward with rotation)
             float angle = influence * 3.14159 * 0.5;
             mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
             focalDisplace = rotation * focalDisplace;
+          } else {
+            // Lens mode: push away (magnifying/bulge effect)
+            focalDisplace = -focalDisplace;
           }
-          // Lens mode: just radial (no rotation)
           
           displace += focalDisplace;
         }
@@ -165,8 +167,10 @@ class WebGLMorph {
             float angle = -influence * 3.14159 * 0.5;
             mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
             focalDisplace = rotation * focalDisplace;
+          } else {
+            // Lens mode: push away (magnifying/bulge effect)
+            focalDisplace = -focalDisplace;
           }
-          // Lens mode: just radial (no rotation)
           
           displace += focalDisplace;
         }
