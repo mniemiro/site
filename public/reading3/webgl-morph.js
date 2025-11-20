@@ -3,12 +3,18 @@
 class WebGLMorph {
   constructor(canvasId) {
     this.canvas = document.getElementById(canvasId);
-    this.gl = this.canvas.createContext('webgl') || this.canvas.createContext('experimental-webgl');
+    this.gl = this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl');
     
     if (!this.gl) {
       console.error('WebGL not supported');
       return;
     }
+    
+    console.log('WebGL initialized successfully');
+    
+    // Enable blending for transparency
+    this.gl.enable(this.gl.BLEND);
+    this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
     
     this.setupShaders();
     this.setupGeometry();
@@ -38,29 +44,28 @@ class WebGLMorph {
       varying vec2 v_texCoord;
       uniform sampler2D u_noise;
       uniform vec2 u_resolution;
-      uniform vec2 u_rectPos;      // Rectangle position (normalized)
-      uniform vec2 u_rectSize;     // Rectangle size (normalized)
+      uniform vec2 u_rectPos;      // Rectangle position (pixels)
+      uniform vec2 u_rectSize;     // Rectangle size (pixels)
       uniform float u_displacement; // Displacement scale
       
       void main() {
-        vec2 coord = v_texCoord;
+        // Convert to pixel coordinates
+        vec2 pixelCoord = v_texCoord * u_resolution;
         
-        // Check if we're inside the rectangle
-        vec2 relPos = (coord - u_rectPos) / u_rectSize;
+        // Get noise at this position (use low frequency for large humps)
+        vec4 noise = texture2D(u_noise, v_texCoord * 0.5);
+        
+        // Calculate displacement
+        vec2 displace = (noise.rg - 0.5) * 2.0 * u_displacement;
+        
+        // Apply displacement to pixel coordinate
+        vec2 displaced = pixelCoord + displace;
+        
+        // Check if displaced position is inside the rectangle
+        vec2 relPos = (displaced - u_rectPos) / u_rectSize;
         
         if (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0) {
-          // Apply displacement
-          vec4 noise = texture2D(u_noise, coord);
-          vec2 displacement = (noise.rg - 0.5) * u_displacement / u_resolution;
-          
-          // Sample again with displacement
-          relPos = (coord + displacement - u_rectPos) / u_rectSize;
-          
-          if (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0) {
-            gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Black
-          } else {
-            gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0); // Transparent
-          }
+          gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Black
         } else {
           gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0); // Transparent
         }
@@ -174,6 +179,12 @@ class WebGLMorph {
   render(x, y, width, height, displacementScale) {
     const gl = this.gl;
     
+    if (!gl || !this.program) {
+      console.error('WebGL not initialized');
+      return;
+    }
+    
+    gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(this.program);
     
@@ -187,10 +198,10 @@ class WebGLMorph {
     gl.enableVertexAttribArray(this.locations.texCoord);
     gl.vertexAttribPointer(this.locations.texCoord, 2, gl.FLOAT, false, 0, 0);
     
-    // Set uniforms
+    // Set uniforms (pass in pixel coordinates)
     gl.uniform2f(this.locations.resolution, this.canvas.width, this.canvas.height);
-    gl.uniform2f(this.locations.rectPos, x / this.canvas.width, y / this.canvas.height);
-    gl.uniform2f(this.locations.rectSize, width / this.canvas.width, height / this.canvas.height);
+    gl.uniform2f(this.locations.rectPos, x, y);
+    gl.uniform2f(this.locations.rectSize, width, height);
     gl.uniform1f(this.locations.displacement, displacementScale);
     
     // Bind noise texture
