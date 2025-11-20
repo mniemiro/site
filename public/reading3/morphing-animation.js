@@ -87,6 +87,15 @@ function updateAnimation() {
   const boxCenterX = currentX + (currentWidth / 2);
   const boxCenterY = currentY + (currentHeight / 2);
   
+  // Create clip-path to match the expanding box
+  // Using inset() for a simple rectangular clip (lens distortions happen in WebGL layer below)
+  const clipPath = `inset(${currentY}px ${viewportWidth - currentX - currentWidth}px ${viewportHeight - currentY - currentHeight}px ${currentX}px)`;
+  
+  // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+  // Hide real HTML content during animation if using texture rendering
+  const useTexture = webglMorph && webglMorph.useTextureRendering && webglMorph.contentTextureReady;
+  // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
+  
   // Update seminar content
   if (progress >= APPEAR_THRESHOLD) {
     const contentProgress = (progress - APPEAR_THRESHOLD) / (1 - APPEAR_THRESHOLD);
@@ -99,20 +108,43 @@ function updateAnimation() {
     
     // Set transform-origin to the center of the black box
     seminarContent.style.transformOrigin = `${boxCenterX}px ${boxCenterY}px`;
+    seminarContent.style.clipPath = clipPath;
     seminarContent.style.opacity = opacity;
     seminarContent.style.transform = `scale(${scale})`;
     
     // Enable pointer events when fully visible
     if (progress >= 0.99) {
       seminarContent.classList.add('active');
+      seminarContent.style.clipPath = 'none'; // Remove clip at end
+      // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+      // Show real HTML at end, hide WebGL
+      if (useTexture) {
+        webglCanvas.style.display = 'none';
+      }
+      // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
     } else {
       seminarContent.classList.remove('active');
+      // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+      // During animation: hide real HTML if using texture, show WebGL
+      if (useTexture) {
+        seminarContent.style.opacity = '0';
+        seminarContent.style.pointerEvents = 'none';
+        webglCanvas.style.display = 'block';
+      }
+      // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
     }
   } else {
     seminarContent.style.transformOrigin = `${boxCenterX}px ${boxCenterY}px`;
+    seminarContent.style.clipPath = clipPath;
     seminarContent.style.opacity = '0';
     seminarContent.style.transform = 'scale(0.3)';
     seminarContent.classList.remove('active');
+    // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+    // Keep WebGL visible during early animation
+    if (useTexture) {
+      webglCanvas.style.display = 'block';
+    }
+    // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
   }
 }
 

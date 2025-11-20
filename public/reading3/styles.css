@@ -33,12 +33,14 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  z-index: -1; /* Behind WebGL canvas so lens distortions affect it */
+  z-index: 2; /* Above canvas and original content */
   pointer-events: none;
   opacity: 0;
   transform: scale(0.3);
-  /* transform-origin will be set dynamically by JS */
+  /* transform-origin and clip-path will be set dynamically by JS */
   transition: opacity 0.1s ease, transform 0.1s ease;
+  background-color: black; /* Black background for the content area */
+  color: white;
 }
 
 #seminar-content.active {

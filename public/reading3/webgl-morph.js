@@ -16,6 +16,13 @@ class WebGLMorph {
     this.gl.enable(this.gl.BLEND);
     this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
     
+    // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+    // This section captures HTML content as a WebGL texture for distortion effects
+    this.contentTexture = null;
+    this.contentTextureReady = false;
+    this.useTextureRendering = true; // Set to false to disable this feature
+    // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
+    
     // Liquify parameters
     this.liquifyParams = {
       octaves: 3,
@@ -50,7 +57,73 @@ class WebGLMorph {
     this.setupGeometry();
     this.setupNoiseTexture();
     this.resize();
+    
+    // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+    if (this.useTextureRendering) {
+      this.captureContentTexture();
+    }
+    // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
   }
+  
+  // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+  async captureContentTexture() {
+    console.log('Capturing HTML content as texture...');
+    const seminarContent = document.getElementById('seminar-content');
+    
+    if (!seminarContent) {
+      console.error('Seminar content element not found');
+      return;
+    }
+    
+    // Temporarily make content visible for capture
+    const originalOpacity = seminarContent.style.opacity;
+    const originalTransform = seminarContent.style.transform;
+    const originalClipPath = seminarContent.style.clipPath;
+    
+    seminarContent.style.opacity = '1';
+    seminarContent.style.transform = 'scale(1)';
+    seminarContent.style.clipPath = 'none';
+    
+    try {
+      // Capture at 2x resolution for better quality
+      const canvas = await html2canvas(seminarContent, {
+        scale: 2,
+        backgroundColor: '#000000',
+        logging: false,
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+      
+      console.log('Content captured, creating WebGL texture...');
+      
+      // Create WebGL texture from canvas
+      const gl = this.gl;
+      this.contentTexture = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, this.contentTexture);
+      
+      // Upload canvas to texture
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
+      
+      // Set texture parameters
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      
+      this.contentTextureReady = true;
+      console.log('Content texture ready!');
+      
+      // Restore original styles
+      seminarContent.style.opacity = originalOpacity;
+      seminarContent.style.transform = originalTransform;
+      seminarContent.style.clipPath = originalClipPath;
+      
+    } catch (error) {
+      console.error('Failed to capture content texture:', error);
+      this.useTextureRendering = false;
+    }
+  }
+  // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
   
   updateLiquifyParams(params) {
     let needsRegen = false;
@@ -155,6 +228,11 @@ class WebGLMorph {
       uniform vec2 u_lens3Center;     // Lens 3 center (normalized)
       uniform float u_lens3Radius;    // Lens 3 radius (normalized)
       uniform float u_lens3K1;        // Lens 3 distortion coefficient
+      
+      // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+      uniform sampler2D u_contentTexture; // HTML content as texture
+      uniform bool u_useTexture;          // Whether to render texture or solid color
+      // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
       
       void main() {
         // Convert to pixel coordinates (flip Y to match DOM coordinates)
@@ -318,9 +396,19 @@ class WebGLMorph {
         relPos = (displaced - u_rectPos) / u_rectSize;
         
         if (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0) {
-          gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Black
+          // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+          if (u_useTexture) {
+            // Sample from content texture with distortion applied
+            vec2 texCoord = vec2(displaced.x / u_resolution.x, 1.0 - (displaced.y / u_resolution.y));
+            gl_FragColor = texture2D(u_contentTexture, texCoord);
+          } else {
+            // Fallback: transparent (let HTML content below show through)
+            gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+          }
+          // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
         } else {
-          gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0); // Transparent
+          // Outside the box: render a semi-transparent overlay to hide content
+          gl_FragColor = vec4(0.94, 0.94, 0.94, 1.0); // Light gray (#f0f0f0) - matches body background
         }
       }
     `;
@@ -367,7 +455,11 @@ class WebGLMorph {
       lens2K1: gl.getUniformLocation(this.program, 'u_lens2K1'),
       lens3Center: gl.getUniformLocation(this.program, 'u_lens3Center'),
       lens3Radius: gl.getUniformLocation(this.program, 'u_lens3Radius'),
-      lens3K1: gl.getUniformLocation(this.program, 'u_lens3K1')
+      lens3K1: gl.getUniformLocation(this.program, 'u_lens3K1'),
+      // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+      contentTexture: gl.getUniformLocation(this.program, 'u_contentTexture'),
+      useTexture: gl.getUniformLocation(this.program, 'u_useTexture')
+      // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
     };
   }
   
@@ -568,6 +660,18 @@ class WebGLMorph {
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, this.noiseTexture);
     gl.uniform1i(this.locations.noise, 0);
+    
+    // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
+    // Bind content texture if available
+    if (this.useTextureRendering && this.contentTextureReady) {
+      gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, this.contentTexture);
+      gl.uniform1i(this.locations.contentTexture, 1);
+      gl.uniform1i(this.locations.useTexture, 1);
+    } else {
+      gl.uniform1i(this.locations.useTexture, 0);
+    }
+    // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
     
     // Draw
     gl.drawArrays(gl.TRIANGLES, 0, 6);
