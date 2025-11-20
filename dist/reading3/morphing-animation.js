@@ -92,7 +92,7 @@ function updateAnimation() {
   }
   
   // Update pointing finger to track the black box center
-  if (pointingFinger && whatsInTheBoxText) {
+  if (pointingFinger) {
     const boxCenterX = currentX + (currentWidth / 2);
     const boxCenterY = currentY + (currentHeight / 2);
     
@@ -104,11 +104,6 @@ function updateAnimation() {
     
     pointingFinger.style.left = `${fingerX}px`;
     pointingFinger.style.top = `${fingerY}px`;
-    
-    // Fade out finger and text as animation progresses
-    const interactiveOpacity = Math.max(0, 1 - (progress / 0.5)); // Fade out by 50% progress
-    pointingFinger.style.opacity = interactiveOpacity.toString();
-    whatsInTheBoxText.style.opacity = interactiveOpacity.toString();
   }
   
   // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
@@ -204,10 +199,7 @@ function throttledUpdateAnimation() {
 
 // Initialize text position (stays fixed, finger moves)
 function initializeTextPosition() {
-  if (!whatsInTheBoxText || !pointingFinger) {
-    console.error('Text or finger element not found');
-    return;
-  }
+  if (!whatsInTheBoxText) return;
   
   const initialSize = viewportWidth * 0.042;
   const initialX = viewportWidth * 0.72;
@@ -216,20 +208,16 @@ function initializeTextPosition() {
   const boxCenterX = initialX + (initialSize / 2);
   const boxCenterY = initialY + (initialSize / 2);
   
-  // Position text so the finger (at box center - 80px) is near bottom-left of text
+  // Position text so the finger (at box center - 80px) is near bottom-right of text
   const fingerX = boxCenterX - 80;
   const fingerY = boxCenterY - 80;
   
   // Text positioned to the left and above the finger
-  const textX = fingerX - 200; // Text to the left of finger
-  const textY = fingerY - 40;  // Text above finger
+  const textX = fingerX - 250; // Text to the left of finger
+  const textY = fingerY - 30;  // Text above finger
   
   whatsInTheBoxText.style.left = `${textX}px`;
   whatsInTheBoxText.style.top = `${textY}px`;
-  
-  // Position finger initially too
-  pointingFinger.style.left = `${fingerX}px`;
-  pointingFinger.style.top = `${fingerY}px`;
 }
 
 // Reset scroll position on page load (prevent saved scroll position)
