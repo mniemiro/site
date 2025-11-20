@@ -44,11 +44,11 @@ class WebGLMorph {
       lens1Radius: 0.6,
       lens1K1: -1.5,
       lens2X: 0.6,
-      lens2Y: 1.0,
+      lens2Y: 1.05,
       lens2Radius: 0.35,
       lens2K1: -3.0,
-      lens3X: 1.0,
-      lens3Y: 0.35,
+      lens3X: 1.10,
+      lens3Y: 0.33,
       lens3Radius: 0.3,
       lens3K1: -5.0
     };
