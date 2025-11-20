@@ -29,6 +29,10 @@ const lens2XSlider = document.getElementById('lens2-x');
 const lens2YSlider = document.getElementById('lens2-y');
 const lens2RadiusSlider = document.getElementById('lens2-radius');
 const lens2K1Slider = document.getElementById('lens2-k1');
+const lens3XSlider = document.getElementById('lens3-x');
+const lens3YSlider = document.getElementById('lens3-y');
+const lens3RadiusSlider = document.getElementById('lens3-radius');
+const lens3K1Slider = document.getElementById('lens3-k1');
 const resetLensBtn = document.getElementById('reset-lens');
 const toggleLensControlsBtn = document.getElementById('toggle-lens-controls');
 const lensControlsContent = document.getElementById('lens-controls-content');
@@ -41,6 +45,10 @@ const lens2XValue = document.getElementById('lens2-x-value');
 const lens2YValue = document.getElementById('lens2-y-value');
 const lens2RadiusValue = document.getElementById('lens2-radius-value');
 const lens2K1Value = document.getElementById('lens2-k1-value');
+const lens3XValue = document.getElementById('lens3-x-value');
+const lens3YValue = document.getElementById('lens3-y-value');
+const lens3RadiusValue = document.getElementById('lens3-radius-value');
+const lens3K1Value = document.getElementById('lens3-k1-value');
 
 // Track dimensions
 let viewportWidth = window.innerWidth;
@@ -167,6 +175,10 @@ function updateLensControls() {
   const lens2Y = parseFloat(lens2YSlider.value);
   const lens2Radius = parseFloat(lens2RadiusSlider.value);
   const lens2K1 = parseFloat(lens2K1Slider.value);
+  const lens3X = parseFloat(lens3XSlider.value);
+  const lens3Y = parseFloat(lens3YSlider.value);
+  const lens3Radius = parseFloat(lens3RadiusSlider.value);
+  const lens3K1 = parseFloat(lens3K1Slider.value);
   
   lens1XValue.textContent = lens1X.toFixed(2);
   lens1YValue.textContent = lens1Y.toFixed(2);
@@ -176,6 +188,10 @@ function updateLensControls() {
   lens2YValue.textContent = lens2Y.toFixed(2);
   lens2RadiusValue.textContent = lens2Radius.toFixed(2);
   lens2K1Value.textContent = lens2K1.toFixed(1);
+  lens3XValue.textContent = lens3X.toFixed(2);
+  lens3YValue.textContent = lens3Y.toFixed(2);
+  lens3RadiusValue.textContent = lens3Radius.toFixed(2);
+  lens3K1Value.textContent = lens3K1.toFixed(1);
   
   if (webglMorph) {
     webglMorph.updateLiquifyParams({
@@ -186,21 +202,29 @@ function updateLensControls() {
       lens2X,
       lens2Y,
       lens2Radius,
-      lens2K1
+      lens2K1,
+      lens3X,
+      lens3Y,
+      lens3Radius,
+      lens3K1
     });
     updateAnimation();
   }
 }
 
 function resetLens() {
-  lens1XSlider.value = 0.3;
-  lens1YSlider.value = 0.3;
-  lens1RadiusSlider.value = 0.25;
-  lens1K1Slider.value = 2.0;
-  lens2XSlider.value = 0.7;
-  lens2YSlider.value = 0.7;
-  lens2RadiusSlider.value = 0.25;
-  lens2K1Slider.value = 2.0;
+  lens1XSlider.value = 0.2;
+  lens1YSlider.value = 0.0;
+  lens1RadiusSlider.value = 0.6;
+  lens1K1Slider.value = -1.5;
+  lens2XSlider.value = 0.6;
+  lens2YSlider.value = 1.0;
+  lens2RadiusSlider.value = 0.35;
+  lens2K1Slider.value = -3.0;
+  lens3XSlider.value = 1.0;
+  lens3YSlider.value = 0.35;
+  lens3RadiusSlider.value = 0.3;
+  lens3K1Slider.value = -5.0;
   updateLensControls();
 }
 
@@ -217,6 +241,10 @@ lens2XSlider.addEventListener('input', updateLensControls);
 lens2YSlider.addEventListener('input', updateLensControls);
 lens2RadiusSlider.addEventListener('input', updateLensControls);
 lens2K1Slider.addEventListener('input', updateLensControls);
+lens3XSlider.addEventListener('input', updateLensControls);
+lens3YSlider.addEventListener('input', updateLensControls);
+lens3RadiusSlider.addEventListener('input', updateLensControls);
+lens3K1Slider.addEventListener('input', updateLensControls);
 resetLensBtn.addEventListener('click', resetLens);
 toggleLensControlsBtn.addEventListener('click', toggleLensControls);
 

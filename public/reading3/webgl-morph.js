@@ -32,14 +32,18 @@ class WebGLMorph {
     
     // Lens distortion parameters (bulge effect)
     this.lensParams = {
-      lens1X: 0.3,
-      lens1Y: 0.3,
-      lens1Radius: 0.25,
-      lens1K1: 2.0, // Higher values for bulge effect (0-5 range)
-      lens2X: 0.7,
-      lens2Y: 0.7,
-      lens2Radius: 0.25,
-      lens2K1: 2.0
+      lens1X: 0.2,
+      lens1Y: 0.0,
+      lens1Radius: 0.6,
+      lens1K1: -1.5,
+      lens2X: 0.6,
+      lens2Y: 1.0,
+      lens2Radius: 0.35,
+      lens2K1: -3.0,
+      lens3X: 1.0,
+      lens3Y: 0.35,
+      lens3Radius: 0.3,
+      lens3K1: -5.0
     };
     
     this.setupShaders();
@@ -94,6 +98,10 @@ class WebGLMorph {
     if (params.lens2Y !== undefined) this.lensParams.lens2Y = params.lens2Y;
     if (params.lens2Radius !== undefined) this.lensParams.lens2Radius = params.lens2Radius;
     if (params.lens2K1 !== undefined) this.lensParams.lens2K1 = params.lens2K1;
+    if (params.lens3X !== undefined) this.lensParams.lens3X = params.lens3X;
+    if (params.lens3Y !== undefined) this.lensParams.lens3Y = params.lens3Y;
+    if (params.lens3Radius !== undefined) this.lensParams.lens3Radius = params.lens3Radius;
+    if (params.lens3K1 !== undefined) this.lensParams.lens3K1 = params.lens3K1;
     
     // Regenerate noise texture if octaves or flow bias changed
     if (needsRegen) {
@@ -144,6 +152,9 @@ class WebGLMorph {
       uniform vec2 u_lens2Center;     // Lens 2 center (normalized)
       uniform float u_lens2Radius;    // Lens 2 radius (normalized)
       uniform float u_lens2K1;        // Lens 2 distortion coefficient
+      uniform vec2 u_lens3Center;     // Lens 3 center (normalized)
+      uniform float u_lens3Radius;    // Lens 3 radius (normalized)
+      uniform float u_lens3K1;        // Lens 3 distortion coefficient
       
       void main() {
         // Convert to pixel coordinates (flip Y to match DOM coordinates)
@@ -281,6 +292,24 @@ class WebGLMorph {
             lensDisplace += displacement * u_resolution * u_displacement;
           }
           
+          // Lens 3 - True bulge effect (only affects box pixels)
+          vec2 toLens3 = normalizedCoord - u_lens3Center;
+          float distLens3 = length(toLens3);
+          if (distLens3 < u_lens3Radius && distLens3 > 0.001) {
+            // Smooth influence falloff: 1 at center, 0 at edge
+            float influence = 1.0 - smoothstep(0.0, u_lens3Radius, distLens3);
+            
+            // Quadratic falloff for dramatic bulge effect
+            float bulgeFactor = pow(influence, 2.0);
+            
+            // K1 > 0: Push outward from center (bulge out)
+            // K1 < 0: Pull toward center (pinch in)
+            float strength = u_lens3K1 * 0.5;
+            vec2 displacement = normalize(toLens3) * bulgeFactor * strength * distLens3;
+            
+            lensDisplace += displacement * u_resolution * u_displacement;
+          }
+          
           // Apply lens displacement
           displaced += lensDisplace;
         }
@@ -335,7 +364,10 @@ class WebGLMorph {
       lens1K1: gl.getUniformLocation(this.program, 'u_lens1K1'),
       lens2Center: gl.getUniformLocation(this.program, 'u_lens2Center'),
       lens2Radius: gl.getUniformLocation(this.program, 'u_lens2Radius'),
-      lens2K1: gl.getUniformLocation(this.program, 'u_lens2K1')
+      lens2K1: gl.getUniformLocation(this.program, 'u_lens2K1'),
+      lens3Center: gl.getUniformLocation(this.program, 'u_lens3Center'),
+      lens3Radius: gl.getUniformLocation(this.program, 'u_lens3Radius'),
+      lens3K1: gl.getUniformLocation(this.program, 'u_lens3K1')
     };
   }
   
@@ -528,6 +560,9 @@ class WebGLMorph {
     gl.uniform2f(this.locations.lens2Center, this.lensParams.lens2X, this.lensParams.lens2Y);
     gl.uniform1f(this.locations.lens2Radius, this.lensParams.lens2Radius);
     gl.uniform1f(this.locations.lens2K1, this.lensParams.lens2K1);
+    gl.uniform2f(this.locations.lens3Center, this.lensParams.lens3X, this.lensParams.lens3Y);
+    gl.uniform1f(this.locations.lens3Radius, this.lensParams.lens3Radius);
+    gl.uniform1f(this.locations.lens3K1, this.lensParams.lens3K1);
     
     // Bind noise texture
     gl.activeTexture(gl.TEXTURE0);
