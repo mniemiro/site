@@ -88,19 +88,15 @@ function updateAnimation() {
   const useTexture = webglMorph && webglMorph.useTextureRendering && webglMorph.contentTextureReady;
   // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
   
-  // Hide everything at zero scroll
+  // Hide seminar content at zero scroll, but keep canvas visible
   if (progress === 0) {
     seminarContent.style.opacity = '0';
     seminarContent.style.pointerEvents = 'none';
-    if (useTexture) {
-      webglCanvas.style.opacity = '0';
-    }
-    return;
   }
   
-  // Make WebGL visible during animation
-  if (useTexture && progress > 0 && progress < 0.99) {
-    webglCanvas.style.opacity = '1';
+  // Ensure WebGL canvas is always visible during animation
+  if (progress < 0.99) {
+    webglCanvas.style.display = 'block';
   }
   
   // Update seminar content visibility
