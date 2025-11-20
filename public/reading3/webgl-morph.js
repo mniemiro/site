@@ -401,10 +401,10 @@ class WebGLMorph {
           // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
           if (u_useTexture) {
             // Sample texture at the displaced pixel's screen position
-            // Texture coordinates: (0,0) = top-left, (1,1) = bottom-right
+            // Both displaced and texture use same coordinate system (top-left origin)
             vec2 texCoord = vec2(
               displaced.x / u_resolution.x,
-              1.0 - (displaced.y / u_resolution.y)  // Flip Y: WebGL bottom-up, texture top-down
+              displaced.y / u_resolution.y  // No flip needed - both are top-down
             );
             vec4 texColor = texture2D(u_contentTexture, texCoord);
             gl_FragColor = texColor;
