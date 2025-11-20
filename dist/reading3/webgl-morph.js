@@ -234,7 +234,6 @@ class WebGLMorph {
       // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
       uniform sampler2D u_contentTexture; // HTML content as texture
       uniform bool u_useTexture;          // Whether to render texture or solid color
-      uniform float u_contentOpacity;     // Opacity for content texture
       // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
       
       void main() {
@@ -408,10 +407,7 @@ class WebGLMorph {
               displaced.y / u_resolution.y  // No flip needed - both are top-down
             );
             vec4 texColor = texture2D(u_contentTexture, texCoord);
-            
-            // Blend between black and content based on opacity
-            vec3 finalColor = mix(vec3(0.0, 0.0, 0.0), texColor.rgb, u_contentOpacity);
-            gl_FragColor = vec4(finalColor, texColor.a);
+            gl_FragColor = texColor;
           } else {
             // Fallback: render black box
             gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
@@ -469,8 +465,7 @@ class WebGLMorph {
       lens3K1: gl.getUniformLocation(this.program, 'u_lens3K1'),
       // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
       contentTexture: gl.getUniformLocation(this.program, 'u_contentTexture'),
-      useTexture: gl.getUniformLocation(this.program, 'u_useTexture'),
-      contentOpacity: gl.getUniformLocation(this.program, 'u_contentOpacity')
+      useTexture: gl.getUniformLocation(this.program, 'u_useTexture')
       // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
     };
   }
@@ -613,7 +608,7 @@ class WebGLMorph {
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
   }
   
-  render(x, y, width, height, displacementScale, contentOpacity = 1.0) {
+  render(x, y, width, height, displacementScale) {
     const gl = this.gl;
     
     if (!gl || !this.program) {
@@ -680,10 +675,8 @@ class WebGLMorph {
       gl.bindTexture(gl.TEXTURE_2D, this.contentTexture);
       gl.uniform1i(this.locations.contentTexture, 1);
       gl.uniform1i(this.locations.useTexture, 1);
-      gl.uniform1f(this.locations.contentOpacity, contentOpacity);
     } else {
       gl.uniform1i(this.locations.useTexture, 0);
-      gl.uniform1f(this.locations.contentOpacity, 1.0);
     }
     // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
     
