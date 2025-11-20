@@ -37,7 +37,7 @@ class WebGLMorph {
       }
     `;
     
-    // Fragment shader - displacement effect
+    // Fragment shader - liquid displacement effect
     const fragmentShaderSource = `
       precision mediump float;
       
@@ -52,11 +52,21 @@ class WebGLMorph {
         // Convert to pixel coordinates (flip Y to match DOM coordinates)
         vec2 pixelCoord = vec2(v_texCoord.x * u_resolution.x, (1.0 - v_texCoord.y) * u_resolution.y);
         
-        // Get noise at this position (use low frequency for large humps)
-        vec4 noise = texture2D(u_noise, v_texCoord * 0.5);
+        // Multi-scale noise sampling for liquid turbulence
+        vec2 sampleCoord = v_texCoord * 0.3;
         
-        // Calculate displacement
-        vec2 displace = (noise.rg - 0.5) * 2.0 * u_displacement;
+        // Large-scale flow
+        vec4 noise1 = texture2D(u_noise, sampleCoord);
+        
+        // Add medium-scale detail (use distorted coordinates for more organic look)
+        vec2 distortedCoord = sampleCoord + (noise1.rg - 0.5) * 0.1;
+        vec4 noise2 = texture2D(u_noise, distortedCoord * 2.0);
+        
+        // Combine scales for liquid-like turbulence
+        vec2 combinedNoise = noise1.rg * 0.7 + noise2.rg * 0.3;
+        
+        // Calculate displacement with non-linear falloff (more dramatic)
+        vec2 displace = (combinedNoise - 0.5) * 2.5 * u_displacement;
         
         // Apply displacement to pixel coordinate
         vec2 displaced = pixelCoord + displace;
@@ -139,25 +149,86 @@ class WebGLMorph {
     gl.bufferData(gl.ARRAY_BUFFER, texCoords, gl.STATIC_DRAW);
   }
   
+  // Simple hash function for pseudo-random values
+  hash(x, y) {
+    const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+    return n - Math.floor(n);
+  }
+  
+  // Smooth interpolation
+  smoothstep(t) {
+    return t * t * (3.0 - 2.0 * t);
+  }
+  
+  // 2D Perlin-like noise
+  noise2D(x, y) {
+    const xi = Math.floor(x);
+    const yi = Math.floor(y);
+    const xf = x - xi;
+    const yf = y - yi;
+    
+    // Get corner values
+    const a = this.hash(xi, yi);
+    const b = this.hash(xi + 1, yi);
+    const c = this.hash(xi, yi + 1);
+    const d = this.hash(xi + 1, yi + 1);
+    
+    // Smooth interpolation
+    const u = this.smoothstep(xf);
+    const v = this.smoothstep(yf);
+    
+    // Bilinear interpolation
+    return a * (1 - u) * (1 - v) +
+           b * u * (1 - v) +
+           c * (1 - u) * v +
+           d * u * v;
+  }
+  
+  // Fractal Brownian Motion - layered noise for organic look
+  fbm(x, y, octaves) {
+    let value = 0;
+    let amplitude = 1;
+    let frequency = 1;
+    let maxValue = 0;
+    
+    for (let i = 0; i < octaves; i++) {
+      value += this.noise2D(x * frequency, y * frequency) * amplitude;
+      maxValue += amplitude;
+      amplitude *= 0.5;
+      frequency *= 2;
+    }
+    
+    return value / maxValue;
+  }
+  
   setupNoiseTexture() {
     const gl = this.gl;
     const size = 512;
     
-    // Generate Perlin-like noise (simplified)
+    // Generate organic flowing noise
     const data = new Uint8Array(size * size * 4);
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
         const i = (y * size + x) * 4;
-        // Simple noise generation (could be improved with actual Perlin)
         const fx = x / size;
         const fy = y / size;
-        const noise1 = Math.sin(fx * Math.PI * 2 * 0.001 * size) * Math.cos(fy * Math.PI * 2 * 0.001 * size);
-        const noise2 = Math.sin(fx * Math.PI * 2 * 0.001 * size + Math.PI/4) * Math.cos(fy * Math.PI * 2 * 0.001 * size + Math.PI/4);
         
-        data[i] = ((noise1 + 1) / 2) * 255;     // R channel
-        data[i + 1] = ((noise2 + 1) / 2) * 255; // G channel
-        data[i + 2] = 128;                       // B channel
-        data[i + 3] = 255;                       // Alpha
+        // Multi-octave noise for liquid-like turbulence
+        // Large scale flow
+        const flow1 = this.fbm(fx * 2, fy * 2, 3);
+        const flow2 = this.fbm(fx * 2 + 5.2, fy * 2 + 1.3, 3);
+        
+        // Add directional flow (slight downward bias for "dripping")
+        const flowBias = fy * 0.1;
+        
+        // Combine with curl-like rotation
+        const noise1 = flow1 + flowBias;
+        const noise2 = flow2 - flowBias * 0.5;
+        
+        data[i] = (noise1 * 255);           // R channel (X displacement)
+        data[i + 1] = (noise2 * 255);       // G channel (Y displacement)
+        data[i + 2] = 128;                   // B channel (unused)
+        data[i + 3] = 255;                   // Alpha
       }
     }
     
