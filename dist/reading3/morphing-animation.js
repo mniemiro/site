@@ -71,10 +71,10 @@ function updateAnimation() {
   
   const currentDisplacementScale = params.displacementScale * displacementCurve;
   
-  // Calculate content opacity (fade in from 0 to 0.15 progress)
+  // Calculate content opacity (fade in from 0 to 0.25 progress - increased by 10%)
   let contentOpacity = 1.0;
-  if (progress < 0.15) {
-    contentOpacity = progress / 0.15; // Linear fade from 0 to 1
+  if (progress < 0.25) {
+    contentOpacity = progress / 0.25; // Linear fade from 0 to 1
   }
   
   // WebGL rendering
@@ -121,8 +121,7 @@ function updateAnimation() {
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
     if (useTexture) {
-      // Fade out WebGL as real HTML fades in
-      webglCanvas.style.opacity = (1 - fadeProgress).toString();
+      // Hide WebGL completely at the end (don't fade canvas opacity - it affects the black box!)
       if (progress >= 0.99) {
         webglCanvas.style.display = 'none';
       }
