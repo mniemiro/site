@@ -82,9 +82,18 @@ function updateAnimation() {
   const currentY = initialY * (1 - progress);
   
   // Update displacement scale with a curve: starts at 0, peaks at distortionPeak, ends at 0
-  // Using a parabolic curve centered at distortionPeak
+  // Using piecewise parabolas to ensure 0 at start and end
   const peak = params.distortionPeak;
-  const displacementCurve = Math.max(0, 1 - (1 / (peak * (1 - peak))) * Math.pow(progress - peak, 2));
+  let displacementCurve;
+  
+  if (progress <= peak) {
+    // Rising phase: parabola from (0,0) to (peak,1)
+    displacementCurve = Math.pow(progress / peak, 2);
+  } else {
+    // Falling phase: parabola from (peak,1) to (1,0)
+    displacementCurve = Math.pow((1 - progress) / (1 - peak), 2);
+  }
+  
   const currentDisplacementScale = params.displacementScale * displacementCurve;
   
   // Update morphing shape
