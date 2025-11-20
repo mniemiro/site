@@ -10,6 +10,13 @@ const params = {
   distortionPeak: 0.4
 };
 
+// ===== TESTING: Curve parameters (REMOVE AFTER TESTING) =====
+const curveParams = {
+  controlX: 0.3,  // Control point X (normalized 0-1)
+  controlY: 0.3   // Control point Y (normalized 0-1)
+};
+// ===== END TESTING =====
+
 // WebGL renderer
 let webglMorph = null;
 
@@ -53,9 +60,22 @@ function updateAnimation() {
   const currentWidth = initialSize + (viewportWidth - initialSize) * progress;
   const currentHeight = initialSize + (viewportHeight - initialSize) * progress;
   
-  // Interpolate position
-  const currentX = initialX * (1 - progress);
-  const currentY = initialY * (1 - progress);
+  // ===== TESTING: Quadratic bezier curve for position (REMOVE AFTER TESTING) =====
+  // Bezier curve: P(t) = (1-t)²P₀ + 2(1-t)tP₁ + t²P₂
+  // P₀ = start (initialX, initialY)
+  // P₁ = control point
+  // P₂ = end (0, 0)
+  const t = progress;
+  const controlPointX = viewportWidth * curveParams.controlX;
+  const controlPointY = viewportHeight * curveParams.controlY;
+  
+  const currentX = Math.pow(1 - t, 2) * initialX + 2 * (1 - t) * t * controlPointX + Math.pow(t, 2) * 0;
+  const currentY = Math.pow(1 - t, 2) * initialY + 2 * (1 - t) * t * controlPointY + Math.pow(t, 2) * 0;
+  // ===== END TESTING =====
+  
+  // Original linear interpolation (commented out for testing):
+  // const currentX = initialX * (1 - progress);
+  // const currentY = initialY * (1 - progress);
   
   // Update displacement scale with ease-in-out curve
   const peak = params.distortionPeak;
@@ -99,7 +119,7 @@ function updateAnimation() {
     
     // Text center (fixed)
     const textCenterX = viewportWidth * 0.5;
-    const textCenterY = viewportHeight * 0.65;
+    const textCenterY = viewportHeight * 0.60;
     
     // Position finger at midpoint between text center and box center
     const fingerX = (textCenterX + boxCenterX) / 2;
@@ -217,9 +237,9 @@ window.scrollTo(0, 0);
 function initializeInteractiveElements() {
   if (!whatsInTheBoxText || !pointingFinger) return;
   
-  // Position text at middle vertical line, 65% down viewport
+  // Position text at middle vertical line, 60% down viewport
   const textX = viewportWidth * 0.5; // Middle of screen
-  const textY = viewportHeight * 0.65; // 65% down from top
+  const textY = viewportHeight * 0.60; // 60% down from top
   whatsInTheBoxText.style.left = `${textX}px`;
   whatsInTheBoxText.style.top = `${textY}px`;
   whatsInTheBoxText.style.transform = 'translateX(-50%)'; // Center the text on its position
@@ -240,5 +260,95 @@ window.addEventListener('resize', () => {
   if (webglMorph) webglMorph.resize();
   initializeInteractiveElements();
   updateAnimation();
+  drawPathVisualization(); // TESTING: Redraw path on resize
 });
+
+// ===== TESTING: Path visualization and control panel (REMOVE AFTER TESTING) =====
+const pathCanvas = document.getElementById('path-canvas');
+const pathCtx = pathCanvas ? pathCanvas.getContext('2d') : null;
+
+function drawPathVisualization() {
+  if (!pathCtx || !pathCanvas) return;
+  
+  // Resize canvas to match window
+  pathCanvas.width = window.innerWidth;
+  pathCanvas.height = window.innerHeight;
+  
+  // Clear canvas
+  pathCtx.clearRect(0, 0, pathCanvas.width, pathCanvas.height);
+  
+  const initialSize = viewportWidth * 0.04;
+  const initialX = viewportWidth * 0.72;
+  const initialY = viewportHeight * 0.73;
+  const startX = initialX + initialSize / 2;
+  const startY = initialY + initialSize / 2;
+  
+  const controlPointX = viewportWidth * curveParams.controlX;
+  const controlPointY = viewportHeight * curveParams.controlY;
+  
+  // Draw the bezier curve path
+  pathCtx.strokeStyle = 'red';
+  pathCtx.lineWidth = 3;
+  pathCtx.beginPath();
+  pathCtx.moveTo(startX, startY);
+  pathCtx.quadraticCurveTo(controlPointX, controlPointY, 0, 0);
+  pathCtx.stroke();
+  
+  // Draw control point
+  pathCtx.fillStyle = 'blue';
+  pathCtx.beginPath();
+  pathCtx.arc(controlPointX, controlPointY, 8, 0, Math.PI * 2);
+  pathCtx.fill();
+  
+  // Draw start and end points
+  pathCtx.fillStyle = 'green';
+  pathCtx.beginPath();
+  pathCtx.arc(startX, startY, 8, 0, Math.PI * 2);
+  pathCtx.fill();
+  
+  pathCtx.fillStyle = 'orange';
+  pathCtx.beginPath();
+  pathCtx.arc(0, 0, 8, 0, Math.PI * 2);
+  pathCtx.fill();
+}
+
+// Control panel event listeners
+const controlXInput = document.getElementById('control-x');
+const controlYInput = document.getElementById('control-y');
+const controlXVal = document.getElementById('control-x-val');
+const controlYVal = document.getElementById('control-y-val');
+const resetButton = document.getElementById('reset-curve');
+
+if (controlXInput && controlYInput) {
+  controlXInput.addEventListener('input', (e) => {
+    curveParams.controlX = parseFloat(e.target.value);
+    controlXVal.textContent = curveParams.controlX.toFixed(2);
+    drawPathVisualization();
+    updateAnimation();
+  });
+  
+  controlYInput.addEventListener('input', (e) => {
+    curveParams.controlY = parseFloat(e.target.value);
+    controlYVal.textContent = curveParams.controlY.toFixed(2);
+    drawPathVisualization();
+    updateAnimation();
+  });
+}
+
+if (resetButton) {
+  resetButton.addEventListener('click', () => {
+    curveParams.controlX = 0.36;  // Midpoint for linear path
+    curveParams.controlY = 0.365;
+    controlXInput.value = curveParams.controlX;
+    controlYInput.value = curveParams.controlY;
+    controlXVal.textContent = curveParams.controlX.toFixed(2);
+    controlYVal.textContent = curveParams.controlY.toFixed(2);
+    drawPathVisualization();
+    updateAnimation();
+  });
+}
+
+// Initial path draw
+drawPathVisualization();
+// ===== END TESTING =====
 
