@@ -13,8 +13,9 @@ const DEFAULT_PARAMS = {
 // Current parameter values
 let params = { ...DEFAULT_PARAMS };
 
-// Filter mode state
-let currentFilterMode = 'curl'; // 'curl' or 'stream'
+// Rendering mode state
+let renderMode = 'svg'; // 'svg' or 'webgl'
+let webglMorph = null;
 
 // Get elements
 const svg = document.getElementById('morphing-svg');
@@ -23,6 +24,9 @@ const morphFilterCurl = document.getElementById('morphFilterCurl');
 const morphFilterStream = document.getElementById('morphFilterStream');
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
+const modeToggle = document.getElementById('mode-toggle');
+const modeText = document.getElementById('mode-text');
+const webglCanvas = document.getElementById('webgl-canvas');
 
 // Cache filter elements from both filters (optimization #3)
 const feTurbulenceCurl = morphFilterCurl.querySelector('feTurbulence');
@@ -87,30 +91,33 @@ function updateAnimation() {
   
   const currentDisplacementScale = params.displacementScale * displacementCurve;
   
-  // Update morphing shape
-  morphingShape.setAttribute('x', currentX);
-  morphingShape.setAttribute('y', currentY);
-  morphingShape.setAttribute('width', currentWidth);
-  morphingShape.setAttribute('height', currentHeight);
-  
-  // Use cached filter elements (optimization #3)
-  const feTurbulence = cachedElements.feTurbulence;
-  const feDisplacementMap = cachedElements.feDisplacementMap;
-  
-  // Update turbulence parameters
-  feTurbulence.setAttribute('baseFrequency', params.baseFrequency);
-  feTurbulence.setAttribute('numOctaves', params.numOctaves);
-  
-  // Update displacement scale
-  feDisplacementMap.setAttribute('scale', currentDisplacementScale);
-  
-  // Update filter application - only apply filter when displacement is significant
-  // Disable filter when distortion is very low to avoid rendering artifacts
-  // Use higher threshold to prevent issues with large rectangles
-  if (currentDisplacementScale > 10) {
-    morphingShape.setAttribute('filter', 'url(#morphFilterCurl)');
-  } else {
-    morphingShape.removeAttribute('filter');
+  if (renderMode === 'svg') {
+    // SVG rendering
+    morphingShape.setAttribute('x', currentX);
+    morphingShape.setAttribute('y', currentY);
+    morphingShape.setAttribute('width', currentWidth);
+    morphingShape.setAttribute('height', currentHeight);
+    
+    // Use cached filter elements (optimization #3)
+    const feTurbulence = cachedElements.feTurbulence;
+    const feDisplacementMap = cachedElements.feDisplacementMap;
+    
+    // Update turbulence parameters
+    feTurbulence.setAttribute('baseFrequency', params.baseFrequency);
+    feTurbulence.setAttribute('numOctaves', params.numOctaves);
+    
+    // Update displacement scale
+    feDisplacementMap.setAttribute('scale', currentDisplacementScale);
+    
+    // Update filter application
+    if (currentDisplacementScale > 10) {
+      morphingShape.setAttribute('filter', 'url(#morphFilterCurl)');
+    } else {
+      morphingShape.removeAttribute('filter');
+    }
+  } else if (renderMode === 'webgl' && webglMorph) {
+    // WebGL rendering
+    webglMorph.render(currentX, currentY, currentWidth, currentHeight, currentDisplacementScale);
   }
   
   // Update original content opacity
@@ -146,6 +153,27 @@ function updateAnimation() {
   }
 }
 
+// Toggle rendering mode
+function toggleRenderMode() {
+  renderMode = renderMode === 'svg' ? 'webgl' : 'svg';
+  modeText.textContent = `Mode: ${renderMode.toUpperCase()}`;
+  
+  if (renderMode === 'webgl') {
+    // Switch to WebGL
+    svg.style.display = 'none';
+    webglCanvas.style.display = 'block';
+    if (!webglMorph) {
+      webglMorph = new WebGLMorph('webgl-canvas');
+    }
+  } else {
+    // Switch to SVG
+    svg.style.display = 'block';
+    webglCanvas.style.display = 'none';
+  }
+  
+  updateAnimation();
+}
+
 // Throttle scroll updates with requestAnimationFrame (optimization #1)
 let rafPending = false;
 function throttledUpdateAnimation() {
@@ -166,6 +194,8 @@ updateAnimation();
 window.addEventListener('scroll', throttledUpdateAnimation, { passive: true });
 window.addEventListener('resize', () => {
   updateDimensions();
+  if (webglMorph) webglMorph.resize();
   updateAnimation();
 });
+modeToggle.addEventListener('click', toggleRenderMode);
 
