@@ -4,10 +4,10 @@ const APPEAR_THRESHOLD = 0.5;
 
 // Default parameter values
 const DEFAULT_PARAMS = {
-  displacementScale: 150,
-  baseFrequency: 0.008,
-  numOctaves: 2,
-  distortionPeak: 0.5
+  displacementScale: 250,
+  baseFrequency: 0.011,
+  numOctaves: 1,
+  distortionPeak: 0.25
 };
 
 // Current parameter values
@@ -23,8 +23,6 @@ const morphFilterCurl = document.getElementById('morphFilterCurl');
 const morphFilterStream = document.getElementById('morphFilterStream');
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
-const filterToggle = document.getElementById('filter-toggle');
-const filterModeText = document.getElementById('filter-mode-text');
 
 // Control panel elements
 const displacementScaleInput = document.getElementById('displacement-scale');
@@ -153,13 +151,6 @@ function updateAnimation() {
   }
 }
 
-// Toggle filter mode
-function toggleFilterMode() {
-  currentFilterMode = currentFilterMode === 'curl' ? 'stream' : 'curl';
-  filterModeText.textContent = `Mode: ${currentFilterMode === 'curl' ? 'Curl' : 'Stream'}`;
-  updateAnimation();
-}
-
 // Update parameter values
 function updateParams() {
   params.displacementScale = parseFloat(displacementScaleInput.value);
@@ -201,7 +192,6 @@ window.addEventListener('resize', () => {
   updateDimensions();
   updateAnimation();
 });
-filterToggle.addEventListener('click', toggleFilterMode);
 displacementScaleInput.addEventListener('input', updateParams);
 baseFrequencyInput.addEventListener('input', updateParams);
 numOctavesInput.addEventListener('input', updateParams);

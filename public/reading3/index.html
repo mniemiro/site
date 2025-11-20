@@ -13,11 +13,6 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Filter mode toggle button -->
-  <button id="filter-toggle" class="filter-toggle">
-    <span id="filter-mode-text">Mode: Curl</span>
-  </button>
-
   <!-- Parameter controls panel -->
   <div id="controls-panel" class="controls-panel">
     <div class="control-header">
@@ -26,20 +21,20 @@
     </div>
     <div id="controls-content" class="controls-content">
       <div class="control-group">
-        <label for="displacement-scale">Displacement Scale: <span id="displacement-value">150</span></label>
-        <input type="range" id="displacement-scale" min="10" max="300" value="150" step="10">
+        <label for="displacement-scale">Displacement Scale: <span id="displacement-value">250</span></label>
+        <input type="range" id="displacement-scale" min="10" max="300" value="250" step="10">
       </div>
       <div class="control-group">
-        <label for="base-frequency">Base Frequency: <span id="frequency-value">0.008</span></label>
-        <input type="range" id="base-frequency" min="0.001" max="0.05" value="0.008" step="0.001">
+        <label for="base-frequency">Base Frequency: <span id="frequency-value">0.011</span></label>
+        <input type="range" id="base-frequency" min="0.001" max="0.05" value="0.011" step="0.001">
       </div>
       <div class="control-group">
-        <label for="num-octaves">Octaves: <span id="octaves-value">2</span></label>
-        <input type="range" id="num-octaves" min="1" max="5" value="2" step="1">
+        <label for="num-octaves">Octaves: <span id="octaves-value">1</span></label>
+        <input type="range" id="num-octaves" min="1" max="5" value="1" step="1">
       </div>
       <div class="control-group">
-        <label for="distortion-peak">Distortion Peak: <span id="peak-value">0.5</span></label>
-        <input type="range" id="distortion-peak" min="0.2" max="0.8" value="0.5" step="0.05">
+        <label for="distortion-peak">Distortion Peak: <span id="peak-value">0.25</span></label>
+        <input type="range" id="distortion-peak" min="0.2" max="0.8" value="0.25" step="0.05">
       </div>
       <button id="reset-params" class="reset-btn">Reset to Defaults</button>
     </div>
