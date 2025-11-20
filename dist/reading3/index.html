@@ -16,29 +16,19 @@
   <!-- Morphing box SVG -->
   <svg id="morphing-svg" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <!-- Option 1: Curl-like displacement (using phase-shifted channels) -->
-      <filter id="morphFilterCurl" x="-50%" y="-50%" width="200%" height="200%" primitiveUnits="objectBoundingBox">
+      <!-- Simple displacement filter -->
+      <filter id="morphFilterCurl" x="-50%" y="-50%" width="200%" height="200%">
         <feTurbulence
           type="fractalNoise"
-          baseFrequency="0.008"
-          numOctaves="2"
+          baseFrequency="0.011"
+          numOctaves="1"
           seed="42"
           result="turbulence"
         />
-        <!-- Use R channel for both, but create 90° rotation effect -->
-        <feColorMatrix
-          in="turbulence"
-          type="matrix"
-          values="1 0 0 0 0
-                  0 0 1 0 0
-                  0 1 0 0 0
-                  0 0 0 1 0"
-          result="rotatedNoise"
-        />
         <feDisplacementMap
           in="SourceGraphic"
-          in2="rotatedNoise"
-          scale="150"
+          in2="turbulence"
+          scale="250"
           xChannelSelector="R"
           yChannelSelector="G"
         />
