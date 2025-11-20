@@ -96,6 +96,7 @@ function updateAnimation() {
   
   // Hide seminar content at zero scroll, but keep canvas visible
   if (progress === 0) {
+    seminarContent.style.visibility = 'hidden';
     seminarContent.style.opacity = '0';
     seminarContent.style.pointerEvents = 'none';
   }
@@ -111,6 +112,7 @@ function updateAnimation() {
     const fadeProgress = (progress - 0.95) / 0.05; // 0 to 1 over 95% to 100%
     
     seminarContent.classList.add('active');
+    seminarContent.style.visibility = 'visible'; // Make visible during crossfade
     seminarContent.style.opacity = fadeProgress.toString();
     seminarContent.style.transform = 'none';
     seminarContent.style.clipPath = 'none';
