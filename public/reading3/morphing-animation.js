@@ -17,6 +17,8 @@ let webglMorph = null;
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
 const webglCanvas = document.getElementById('webgl-canvas');
+const whatsInTheBoxText = document.getElementById('whats-in-the-box-text');
+const pointingFinger = document.getElementById('pointing-finger');
 
 // Liquify control elements removed (no longer used)
 
@@ -87,6 +89,25 @@ function updateAnimation() {
     originalContent.style.opacity = '1';
   } else {
     originalContent.style.opacity = Math.max(0, 1 - (progress - APPEAR_THRESHOLD) * 2);
+  }
+  
+  // Update finger and text
+  if (pointingFinger && whatsInTheBoxText) {
+    const boxCenterX = currentX + (currentWidth / 2);
+    const boxCenterY = currentY + (currentHeight / 2);
+    
+    // Position finger to point at box (top-left of box)
+    const fingerOffsetX = -80;
+    const fingerOffsetY = -80;
+    const fingerX = boxCenterX + fingerOffsetX;
+    const fingerY = boxCenterY + fingerOffsetY;
+    
+    pointingFinger.style.left = `${fingerX}px`;
+    pointingFinger.style.top = `${fingerY}px`;
+    
+    // Keep visible throughout animation
+    pointingFinger.style.opacity = '1';
+    whatsInTheBoxText.style.opacity = '1';
   }
   
   // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
@@ -189,9 +210,33 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
+// Initialize text and finger positions
+function initializeInteractiveElements() {
+  if (!whatsInTheBoxText || !pointingFinger) return;
+  
+  const initialSize = viewportWidth * 0.042;
+  const initialX = viewportWidth * 0.72;
+  const initialY = viewportHeight * 0.73;
+  const boxCenterX = initialX + (initialSize / 2);
+  const boxCenterY = initialY + (initialSize / 2);
+  
+  // Position finger
+  const fingerX = boxCenterX - 80;
+  const fingerY = boxCenterY - 80;
+  pointingFinger.style.left = `${fingerX}px`;
+  pointingFinger.style.top = `${fingerY}px`;
+  
+  // Position text to left and above finger
+  const textX = fingerX - 200;
+  const textY = fingerY - 40;
+  whatsInTheBoxText.style.left = `${textX}px`;
+  whatsInTheBoxText.style.top = `${textY}px`;
+}
+
 // Initialize WebGL
 webglMorph = new WebGLMorph('webgl-canvas');
 updateDimensions();
+initializeInteractiveElements();
 updateAnimation();
 
 // Event listeners
@@ -199,6 +244,7 @@ window.addEventListener('scroll', throttledUpdateAnimation, { passive: true });
 window.addEventListener('resize', () => {
   updateDimensions();
   if (webglMorph) webglMorph.resize();
+  initializeInteractiveElements();
   updateAnimation();
 });
 
