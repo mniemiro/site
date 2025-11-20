@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  overflow-x: hidden;
+}
+
+/* Morphing SVG */
+#morphing-svg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Original content */
+#original-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  transition: opacity 0.3s ease;
+}
+
+/* Seminar content */
+#seminar-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 1;
+  clip-path: url(#morphingClip);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.3);
+  transform-origin: center center;
+  transition: opacity 0.1s ease, transform 0.1s ease;
+}
+
+#seminar-content.active {
+  pointer-events: auto;
+}
+
+.seminar-container {
+  max-width: 900px;
+  width: 100%;
+  color: white;
+}
+
+.seminar-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.seminar-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.seminar-header .subtitle {
+  font-size: 1.25rem;
+  color: #d1d5db;
+}
+
+.seminar-banner {
+  background-color: #1f2937;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.seminar-banner p {
+  font-size: 1.125rem;
+  text-align: center;
+}
+
+.talks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.talk-item {
+  border-left: 4px solid white;
+  padding-left: 1rem;
+}
+
+.talk-date {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-bottom: 0.25rem;
+}
+
+.talk-item h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.talk-item p {
+  color: #d1d5db;
+  line-height: 1.6;
+}
+
+/* Scroll spacer */
+#scroll-spacer {
+  height: 100vh;
+}
+

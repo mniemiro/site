@@ -1,0 +1,11 @@
+{
+  "title": "Spring 2025 Reading Seminar",
+  "term": "Spring 2025",
+  "highlightWord": "spectral sequences",
+  "description": "A semester-long exploration of spectral sequences, model categories, and the stable homotopy category.",
+  "discussions": [
+    { "date": "2025-02-05", "topic": "Chain complexes", "title": "Derived functors refresher", "summary": "We reviewed the essential concepts of chain complexes and their role in homological algebra. The discussion covered how derived functors extend functors to the derived category and preserve homotopical information. Examples from Ext and Tor were used to illustrate the general theory." },
+    { "date": "2025-02-12", "topic": "Spectral sequences", "title": "Grothendieck SS from filtrations", "summary": "This session introduced spectral sequences as a tool for computing derived functors through filtered objects. We explored how filtrations naturally give rise to spectral sequences and how to extract information from their pages. The Grothendieck spectral sequence was derived and applied to several examples." },
+    { "date": "2025-02-19", "topic": "Serre SS", "title": "Applications to fiber bundles", "summary": "We applied the Serre spectral sequence to compute cohomology of fiber bundles and other fibrations. The discussion emphasized practical techniques for identifying differentials and understanding convergence. Several classical examples from topology were worked through to demonstrate the method." }
+  ]
+}

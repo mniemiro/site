@@ -1,6 +1,6 @@
 {
   "semester": "Fall 2025: Trace Methods I",
-  "topic": "This semester, Babytop will focus on trace methods in the classical setting, as well as their applications to algebraic geometry, topology, and representation theory. Some of our main references include Loday's book on cyclic homology, Weibel's book on K-theory, and Ferdinand Wagner's notes for Hebestreit's course on K-theory.",
+  "topic": "This semester, Babytop will focus on trace methods in the classical setting, as well as their applications to algebraic geometry, topology, and representation theory.",
   "meeting": "4:15pm on Tuesdays in Harvard SC 309 (unless otherwise noted)",
   "calendarLink": "https://calendar.google.com/calendar",
   "organizers": ["Matthew Niemiro", "Logan Hyslop"],
@@ -67,29 +67,37 @@
       "title": "Algebraic K-theory I",
       "speaker": "Tyler Lane",
       "affiliation": "Harvard",
-      "abstract": ""
-    },
-    {
-      "date": "Nov 14",
-      "year": "2025",
-      "title": "Algebraic K-theory II",
-      "speaker": "Tyler Lane",
-      "affiliation": "Harvard",
-      "abstract": ""
-    },
-    {
-      "date": "Nov 21",
-      "year": "2025",
-      "title": "",
-      "speaker": "Dhilan Lahoti",
-      "affiliation": "Harvard",
-      "abstract": ""
+      "abstract": "We discuss the K_0, K_1, and K_2 of rings. Then we define higher algebraic K-theory via the plus construction."
     },
     {
       "date": "Nov 4",
       "year": "2025",
-      "title": "Operator Theory Origins",
+      "title": "Algebraic K-theory II",
+      "speaker": "Tyler Lane",
+      "affiliation": "Harvard",
+      "abstract": "In this talk we will finally introduce the star of this seminar: the Dennis trace map.  The main focus of the talk will be the construction of the absolute Chern character from K-theory to negative cyclic homology.  From this we will obtain the Dennis trace map and other Chern characters valued in cyclic homology and periodic cyclic homology."
+    },
+    {
+      "date": "Nov 11",
+      "year": "2025",
+      "title": "Semi-topological K-theory",
+      "speaker": "Dhilan Lahoti",
+      "affiliation": "Harvard",
+      "abstract": "Semi-topological K-theory is an invariant of schemes (or stable categories) over the complex numbers which is in some ways better behaved than algebraic K-theory while retaining more refined information than topological K-theory. In this talk, we will introduce several definitions of semitopological K-theory and see why they agree. We will also use the trace methods discussed previously this semester to prove that semi-topological K-theory is a truncating invariant, following Konovalov."
+    },
+    {
+      "date": "Nov 18",
+      "year": "2025",
+      "title": "Connections to the Novikov Conjecture",
       "speaker": "Natalie Stewart",
+      "affiliation": "Harvard",
+      "abstract": "We will discuss the Novikov conjecture, its statement in terms of the assembly map for L-theory, and sketch some of the known cases and analogs in terms of trace methods."
+    },
+    {
+      "date": "Dec 2",
+      "year": "2025",
+      "title": "Categorical traces",
+      "speaker": "Kush Singhal",
       "affiliation": "Harvard",
       "abstract": ""
     }

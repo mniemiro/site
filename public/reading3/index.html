@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/reading3/">
+  <title>Reading</title>
+  <link rel="icon" href="../favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Grotesk&family=Bytesized&family=Nabla&family=Google+Sans+Code&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Bitcount+Double:wght@100..900&family=Google+Sans+Code:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Morphing box SVG -->
+  <svg id="morphing-svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Turbulence filter for organic distortion -->
+      <filter id="morphFilter" x="-50%" y="-50%" width="200%" height="200%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.02"
+          numOctaves="3"
+          seed="42"
+          result="turbulence"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="turbulence"
+          scale="30"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+      </filter>
+
+      <!-- Clip path for content -->
+      <clipPath id="morphingClip">
+        <use href="#morphingShape" />
+      </clipPath>
+    </defs>
+
+    <!-- The black morphing rectangle -->
+    <rect
+      id="morphingShape"
+      fill="black"
+    />
+  </svg>
+
+  <!-- Original content -->
+  <div id="original-content">
+    <p>Initial content placeholder. Scroll down to see the morphing animation.</p>
+  </div>
+
+  <!-- Seminar content that appears within the morphing box -->
+  <div id="seminar-content">
+    <div class="seminar-container">
+      <!-- Header -->
+      <div class="seminar-header">
+        <h1>Reading Seminar</h1>
+        <p class="subtitle">Topics in Algebraic Topology</p>
+      </div>
+
+      <!-- Banner -->
+      <div class="seminar-banner">
+        <p>A collaborative exploration of advanced topics in topology and geometry</p>
+      </div>
+
+      <!-- Sample talk list -->
+      <div class="talks-list">
+        <div class="talk-item">
+          <div class="talk-date">Week 1 - October 15, 2024</div>
+          <h3>Introduction to Spectral Sequences</h3>
+          <p>We introduce the notion of spectral sequences and discuss their applications
+            in computing homology and cohomology groups.</p>
+        </div>
+
+        <div class="talk-item">
+          <div class="talk-date">Week 2 - October 22, 2024</div>
+          <h3>The Serre Spectral Sequence</h3>
+          <p>An exploration of the Serre spectral sequence and its role in computing
+            the homology of fiber bundles.</p>
+        </div>
+
+        <div class="talk-item">
+          <div class="talk-date">Week 3 - October 29, 2024</div>
+          <h3>Applications to Homotopy Theory</h3>
+          <p>We discuss applications of spectral sequences to problems in homotopy theory,
+            including computations of homotopy groups of spheres.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spacer for scrolling -->
+  <div id="scroll-spacer"></div>
+
+  <script src="morphing-animation.js"></script>
+</body>
+</html>

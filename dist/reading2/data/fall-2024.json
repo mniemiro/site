@@ -1,0 +1,11 @@
+{
+  "title": "Fall 2024 Reading Seminar",
+  "term": "Fall 2024",
+  "highlightWord": "model categories",
+  "description": "Focused on model categories and Quillen homotopical algebra.",
+  "discussions": [
+    { "date": "2024-09-18", "topic": "Model structures", "title": "Cofibrations, fibrations, weak equivalences", "summary": "We began by establishing the fundamental classes of morphisms in a model category and their interactions. The discussion explored how these classes determine the homotopy theory of the category. Several examples from topological spaces and simplicial sets were examined to build intuition." },
+    { "date": "2024-10-02", "topic": "Homotopy limits", "title": "Ends, coends, and derived functors", "summary": "This session connected the abstract theory of ends and coends with the concrete construction of homotopy limits. We discussed how derived functors naturally arise in this context and provide a homotopy-invariant framework. The conversation included computational techniques for specific examples." },
+    { "date": "2024-11-06", "topic": "Quillen equivalence", "title": "Examples: sSet and Top", "summary": "We examined the classical Quillen equivalence between simplicial sets and topological spaces as a paradigmatic example. The discussion highlighted how this equivalence preserves homotopical information while providing different computational tools. Connections to geometric realization and singular complexes were explored in detail." }
+  ]
+}

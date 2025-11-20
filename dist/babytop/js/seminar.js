@@ -75,7 +75,8 @@ class SeminarRenderer {
 
         if (semesterTitle) {
             // Apply scramble effect to title
-            this.startScrambledTextAnimation(semesterTitle, data.semester);
+            // this.startScrambledTextAnimation(semesterTitle, data.semester);
+            semesterTitle.textContent = data.semester;
         }
 
         if (organizerInfo) {
@@ -223,7 +224,7 @@ class SeminarRenderer {
     }
 
     startScrambledTextAnimation(element, originalText) {
-        const scrambleDuration = 400; // Total duration of scrambling effect
+        const scrambleDuration = 460; // Total duration of scrambling effect
         const scrambleInterval = 50; // How often to update scrambled text
         
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
