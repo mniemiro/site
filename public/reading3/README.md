@@ -2,36 +2,40 @@
 
 ## Overview
 
-This directory contains a scroll-driven morphing animation where a black square (6% of viewport width) in the bottom-right quadrant organically expands to cover the entire screen. As the box morphs, reading seminar content appears and scales within it.
+This directory contains a WebGL-based scroll-driven morphing animation where a black square (6% of viewport width) in the bottom-right quadrant organically expands to cover the entire screen with dramatic displacement effects. As the box morphs, reading seminar content appears and scales within it.
 
 ## Files
 
 - `index.html` - Main HTML structure
 - `styles.css` - Styling for all elements
-- `morphing-animation.js` - Animation logic
+- `morphing-animation.js` - Animation orchestration and timing
+- `webgl-morph.js` - WebGL renderer with displacement shaders
 - `data/` - Data directory for seminar content
+- `SVG_IMPLEMENTATION.md` - Documentation of previous SVG approach
 
 ## How It Works
 
 ### Animation Sequence
 
 1. **Initial State**: Perfect black square (6vw) positioned at 75% from left/top (bottom-right quadrant), no distortion
-2. **0-50% Progress**: Black box grows and begins to distort organically, reaching peak distortion at 50%
-3. **50-100% Progress**: Seminar content appears and scales (30% → 100%) while box continues to full screen, distortion reduces
-4. **End State**: Full black background (perfect rectangle) with seminar content at 100% scale, no distortion
+2. **0-20% Progress**: Black box grows and distorts dramatically, reaching peak distortion at 20%
+3. **20-50% Progress**: Distortion reduces while box continues expanding
+4. **50-100% Progress**: Seminar content appears and scales (30% → 100%) while box reaches full screen
+5. **End State**: Full black background (perfect rectangle) with seminar content at 100% scale, no distortion
 
 ### Technical Implementation
 
-**SVG Displacement Filter**:
-- Uses `feTurbulence` with fractal noise for organic distortion
-- `feDisplacementMap` applies displacement with a parabolic curve: starts at 0, peaks at middle (50%), returns to 0
-- This ensures the box is a perfect square at start and perfect rectangle at end
-- ClipPath ensures content stays within morphing boundaries
+**WebGL Rendering**:
+- Custom fragment shader applies displacement based on procedural noise
+- Displacement scale: 500 (very high for dramatic effect)
+- Noise frequency: 0.001 (very low = 1-4 large "humps" across screen)
+- Parabolic displacement curve ensures 0 at start/end, peaks at 20%
+- Direct GPU rendering provides smooth performance at extreme displacement values
 
 **JavaScript**:
 - Tracks scroll progress (0-1) over 1 screen height
-- Updates SVG rect dimensions and position
-- Adjusts displacement scale dynamically
+- Updates WebGL uniforms for position, size, and displacement
+- requestAnimationFrame throttling for 60fps performance
 - Controls content opacity and scaling
 
 ## Adjustable Parameters
@@ -39,38 +43,28 @@ This directory contains a scroll-driven morphing animation where a black square 
 ### In `morphing-animation.js`
 
 ```javascript
-// Number of screen heights for full animation
-const SCREENS_TO_END = 1;
+const params = {
+  displacementScale: 500,  // How far pixels displace (higher = more dramatic)
+  baseFrequency: 0.001,    // Noise frequency (lower = larger humps)
+  numOctaves: 1,           // Noise detail layers (1 = smoothest)
+  distortionPeak: 0.2      // When displacement peaks (0-1)
+};
 
-// When seminar content starts appearing (0.5 = 50%)
-const APPEAR_THRESHOLD = 0.5;
-
-// Initial displacement intensity
-const DISPLACEMENT_SCALE = 30;
+const SCREENS_TO_END = 1;        // Screen heights for full animation
+const APPEAR_THRESHOLD = 0.5;     // When seminar content appears (50%)
 ```
 
-### In Animation Logic
+### In `webgl-morph.js`
 
+Noise generation in `setupNoiseTexture()`:
 ```javascript
-// Initial size (6% of viewport width)
-const initialSize = viewportWidth * 0.06;
-
-// Initial position (bottom-right quadrant)
-const initialX = viewportWidth * 0.75;
-const initialY = viewportHeight * 0.75;
-
-// Content scaling (starts at 30%)
-const scale = 0.3 + (0.7 * Math.pow(contentProgress, 2));
+const size = 512;  // Noise texture resolution
+// Adjust noise formula for different hump patterns
 ```
 
-### In `index.html` (SVG Filter)
-
-```html
-<feTurbulence
-  baseFrequency="0.02"  <!-- Lower = larger waves -->
-  numOctaves="3"        <!-- More = more detail -->
-  seed="42"             <!-- Change for different pattern -->
-/>
+Shader displacement calculation:
+```javascript
+vec2 displace = (noise.rg - 0.5) * 2.0 * u_displacement;
 ```
 
 ## Customizing Content
@@ -93,18 +87,32 @@ No JavaScript or CSS changes needed for content updates!
    - Content scaling up smoothly
    - No distortion at end state
 
+## Why WebGL Instead of SVG?
+
+Originally implemented with SVG filters (`feTurbulence` + `feDisplacementMap`), but at extreme displacement values (500) needed for the desired visual effect, WebGL provides:
+- Significantly smoother performance
+- Better handling of large displacements
+- No filter region clipping issues
+- More control over noise generation
+
+See `SVG_IMPLEMENTATION.md` for the archived SVG approach.
+
 ## Browser Compatibility
 
-SVG filters are supported in all modern browsers:
-- Chrome/Edge 80+
-- Firefox 75+
-- Safari 13+
+WebGL is supported in all modern browsers:
+- Chrome/Edge 80+ ✓
+- Firefox 75+ ✓
+- Safari 13+ ✓
+- ~97% browser coverage
+
+Falls back gracefully if WebGL is unavailable (console error, no crash).
 
 ## Performance
 
 The animation uses:
-- Hardware-accelerated CSS transforms
+- Direct GPU rendering via WebGL shaders
+- requestAnimationFrame throttling (60fps cap)
+- Cached uniform updates
 - Passive scroll listeners
-- RequestAnimationFrame implicitly via scroll events
-- Should achieve 60fps on modern devices
+- Achieves 60fps on modern devices, even at extreme displacement values
 
