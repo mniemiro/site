@@ -33,10 +33,9 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   color: #000000;
-  z-index: 5; /* Above original content, below WebGL and seminar content */
+  z-index: 0; /* Behind everything else - won't cover content or capture */
   pointer-events: none;
   white-space: nowrap;
-  opacity: 1; /* Start visible */
   /* Position will be set by JavaScript */
 }
 
@@ -44,9 +43,8 @@ body {
   position: fixed;
   width: 80px;
   height: auto;
-  z-index: 5; /* Above original content, below WebGL and seminar content */
+  z-index: 0; /* Behind everything else - won't cover content or capture */
   pointer-events: none;
-  opacity: 1; /* Start visible */
   /* Position will be set by JavaScript */
   /* Rotate to point toward bottom-right (default is pointing right) */
   transform-origin: center center;
@@ -74,7 +72,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  z-index: 20; /* Above everything - final visible content */
+  z-index: 2; /* Above canvas and original content */
   pointer-events: none;
   opacity: 0;
   visibility: hidden; /* Prevent flash on page load */
