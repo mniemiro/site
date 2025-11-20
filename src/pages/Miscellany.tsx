@@ -74,6 +74,30 @@ const Miscellany = () => {
           </a>
           .
         </li>
+        <li>
+          Pavel Dobryakov's WebGL{' '}
+          <a
+            href="https://paveldogreat.github.io/WebGL-Fluid-Simulation/"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            fluid simulator
+          </a>
+          .
+        </li>
+        <li>
+          A{' '}
+          <a
+            href="https://www.smashingmagazine.com/2021/09/deep-dive-wonderful-world-svg-displacement-filtering/"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            deep dive
+          </a>{' '}
+          into SVG displacement filtering.
+        </li>
       </ul>
       
       <h3 className="mt-8 text-lg font-medium text-right mb-4">

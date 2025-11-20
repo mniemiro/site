@@ -12,7 +12,6 @@ body {
 }
 
 /* Control panels */
-.liquify-controls,
 .lens-controls {
   position: fixed;
   z-index: 1000;
@@ -24,16 +23,8 @@ body {
   min-width: 280px;
   max-width: 320px;
   font-family: 'Space Grotesk', sans-serif;
-}
-
-.liquify-controls {
   top: 1rem;
   left: 1rem;
-}
-
-.lens-controls {
-  top: 1rem;
-  left: 330px; /* Position to the right of main control panel */
 }
 
 .control-header {

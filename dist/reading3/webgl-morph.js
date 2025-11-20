@@ -239,9 +239,9 @@ class WebGLMorph {
         
         // Lens 1
         vec2 toLens1 = normalizedCoord - u_lens1Center;
-        float dist1 = length(toLens1);
-        if (dist1 < u_lens1Radius && dist1 > 0.001) {
-          float r = dist1 / u_lens1Radius; // Normalize to 0-1 within lens
+        float distLens1 = length(toLens1);
+        if (distLens1 < u_lens1Radius && distLens1 > 0.001) {
+          float r = distLens1 / u_lens1Radius; // Normalize to 0-1 within lens
           float rDistorted = r * (1.0 + u_lens1K1 * r * r); // Barrel/pincushion distortion
           vec2 direction = normalize(toLens1);
           vec2 distortedPos = u_lens1Center + direction * rDistorted * u_lens1Radius;
@@ -250,9 +250,9 @@ class WebGLMorph {
         
         // Lens 2
         vec2 toLens2 = normalizedCoord - u_lens2Center;
-        float dist2 = length(toLens2);
-        if (dist2 < u_lens2Radius && dist2 > 0.001) {
-          float r = dist2 / u_lens2Radius; // Normalize to 0-1 within lens
+        float distLens2 = length(toLens2);
+        if (distLens2 < u_lens2Radius && distLens2 > 0.001) {
+          float r = distLens2 / u_lens2Radius; // Normalize to 0-1 within lens
           float rDistorted = r * (1.0 + u_lens2K1 * r * r); // Barrel/pincushion distortion
           vec2 direction = normalize(toLens2);
           vec2 distortedPos = u_lens2Center + direction * rDistorted * u_lens2Radius;
