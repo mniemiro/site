@@ -16,10 +16,42 @@ class WebGLMorph {
     this.gl.enable(this.gl.BLEND);
     this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
     
+    // Liquify parameters
+    this.liquifyParams = {
+      octaves: 3,
+      displacementMult: 2.5,
+      flowBias: 0.1,
+      noiseScale: 0.3
+    };
+    
     this.setupShaders();
     this.setupGeometry();
     this.setupNoiseTexture();
     this.resize();
+  }
+  
+  updateLiquifyParams(params) {
+    let needsRegen = false;
+    
+    if (params.octaves !== undefined && params.octaves !== this.liquifyParams.octaves) {
+      this.liquifyParams.octaves = params.octaves;
+      needsRegen = true;
+    }
+    if (params.flowBias !== undefined && params.flowBias !== this.liquifyParams.flowBias) {
+      this.liquifyParams.flowBias = params.flowBias;
+      needsRegen = true;
+    }
+    if (params.displacementMult !== undefined) {
+      this.liquifyParams.displacementMult = params.displacementMult;
+    }
+    if (params.noiseScale !== undefined) {
+      this.liquifyParams.noiseScale = params.noiseScale;
+    }
+    
+    // Regenerate noise texture if octaves or flow bias changed
+    if (needsRegen) {
+      this.setupNoiseTexture();
+    }
   }
   
   setupShaders() {
@@ -47,13 +79,15 @@ class WebGLMorph {
       uniform vec2 u_rectPos;      // Rectangle position (pixels)
       uniform vec2 u_rectSize;     // Rectangle size (pixels)
       uniform float u_displacement; // Displacement scale
+      uniform float u_displacementMult; // Displacement multiplier
+      uniform float u_noiseScale;   // Noise sampling scale
       
       void main() {
         // Convert to pixel coordinates (flip Y to match DOM coordinates)
         vec2 pixelCoord = vec2(v_texCoord.x * u_resolution.x, (1.0 - v_texCoord.y) * u_resolution.y);
         
         // Multi-scale noise sampling for liquid turbulence
-        vec2 sampleCoord = v_texCoord * 0.3;
+        vec2 sampleCoord = v_texCoord * u_noiseScale;
         
         // Large-scale flow
         vec4 noise1 = texture2D(u_noise, sampleCoord);
@@ -65,8 +99,8 @@ class WebGLMorph {
         // Combine scales for liquid-like turbulence
         vec2 combinedNoise = noise1.rg * 0.7 + noise2.rg * 0.3;
         
-        // Calculate displacement with non-linear falloff (more dramatic)
-        vec2 displace = (combinedNoise - 0.5) * 2.5 * u_displacement;
+        // Calculate displacement with adjustable multiplier
+        vec2 displace = (combinedNoise - 0.5) * u_displacementMult * u_displacement;
         
         // Apply displacement to pixel coordinate
         vec2 displaced = pixelCoord + displace;
@@ -105,6 +139,8 @@ class WebGLMorph {
       rectPos: gl.getUniformLocation(this.program, 'u_rectPos'),
       rectSize: gl.getUniformLocation(this.program, 'u_rectSize'),
       displacement: gl.getUniformLocation(this.program, 'u_displacement'),
+      displacementMult: gl.getUniformLocation(this.program, 'u_displacementMult'),
+      noiseScale: gl.getUniformLocation(this.program, 'u_noiseScale'),
       noise: gl.getUniformLocation(this.program, 'u_noise')
     };
   }
@@ -215,11 +251,11 @@ class WebGLMorph {
         
         // Multi-octave noise for liquid-like turbulence
         // Large scale flow
-        const flow1 = this.fbm(fx * 2, fy * 2, 3);
-        const flow2 = this.fbm(fx * 2 + 5.2, fy * 2 + 1.3, 3);
+        const flow1 = this.fbm(fx * 2, fy * 2, this.liquifyParams.octaves);
+        const flow2 = this.fbm(fx * 2 + 5.2, fy * 2 + 1.3, this.liquifyParams.octaves);
         
         // Add directional flow (slight downward bias for "dripping")
-        const flowBias = fy * 0.1;
+        const flowBias = fy * this.liquifyParams.flowBias;
         
         // Combine with curl-like rotation
         const noise1 = flow1 + flowBias;
@@ -274,6 +310,8 @@ class WebGLMorph {
     gl.uniform2f(this.locations.rectPos, x, y);
     gl.uniform2f(this.locations.rectSize, width, height);
     gl.uniform1f(this.locations.displacement, displacementScale);
+    gl.uniform1f(this.locations.displacementMult, this.liquifyParams.displacementMult);
+    gl.uniform1f(this.locations.noiseScale, this.liquifyParams.noiseScale);
     
     // Bind noise texture
     gl.activeTexture(gl.TEXTURE0);

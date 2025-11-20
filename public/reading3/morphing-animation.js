@@ -18,6 +18,19 @@ const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
 const webglCanvas = document.getElementById('webgl-canvas');
 
+// Liquify control elements
+const octavesSlider = document.getElementById('octaves');
+const displacementMultSlider = document.getElementById('displacement-mult');
+const flowBiasSlider = document.getElementById('flow-bias');
+const noiseScaleSlider = document.getElementById('noise-scale');
+const octavesValue = document.getElementById('octaves-value');
+const displacementMultValue = document.getElementById('displacement-mult-value');
+const flowBiasValue = document.getElementById('flow-bias-value');
+const noiseScaleValue = document.getElementById('noise-scale-value');
+const resetLiquifyBtn = document.getElementById('reset-liquify');
+const toggleControlsBtn = document.getElementById('toggle-controls');
+const controlsContent = document.getElementById('controls-content');
+
 // Track dimensions
 let viewportWidth = window.innerWidth;
 let viewportHeight = window.innerHeight;
@@ -116,6 +129,42 @@ function throttledUpdateAnimation() {
   }
 }
 
+// Liquify control handlers
+function updateLiquifyControls() {
+  const octaves = parseInt(octavesSlider.value);
+  const displacementMult = parseFloat(displacementMultSlider.value);
+  const flowBias = parseFloat(flowBiasSlider.value);
+  const noiseScale = parseFloat(noiseScaleSlider.value);
+  
+  octavesValue.textContent = octaves;
+  displacementMultValue.textContent = displacementMult.toFixed(1);
+  flowBiasValue.textContent = flowBias.toFixed(2);
+  noiseScaleValue.textContent = noiseScale.toFixed(2);
+  
+  if (webglMorph) {
+    webglMorph.updateLiquifyParams({
+      octaves,
+      displacementMult,
+      flowBias,
+      noiseScale
+    });
+    updateAnimation();
+  }
+}
+
+function resetLiquify() {
+  octavesSlider.value = 3;
+  displacementMultSlider.value = 2.5;
+  flowBiasSlider.value = 0.1;
+  noiseScaleSlider.value = 0.3;
+  updateLiquifyControls();
+}
+
+function toggleControls() {
+  controlsContent.classList.toggle('hidden');
+  toggleControlsBtn.textContent = controlsContent.classList.contains('hidden') ? '+' : '−';
+}
+
 // Initialize WebGL
 webglMorph = new WebGLMorph('webgl-canvas');
 updateDimensions();
@@ -128,4 +177,11 @@ window.addEventListener('resize', () => {
   if (webglMorph) webglMorph.resize();
   updateAnimation();
 });
+
+octavesSlider.addEventListener('input', updateLiquifyControls);
+displacementMultSlider.addEventListener('input', updateLiquifyControls);
+flowBiasSlider.addEventListener('input', updateLiquifyControls);
+noiseScaleSlider.addEventListener('input', updateLiquifyControls);
+resetLiquifyBtn.addEventListener('click', resetLiquify);
+toggleControlsBtn.addEventListener('click', toggleControls);
 
