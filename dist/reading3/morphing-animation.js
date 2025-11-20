@@ -105,21 +105,27 @@ function updateAnimation() {
     webglCanvas.style.display = 'block';
   }
   
-  // Update seminar content visibility
-  if (progress >= 0.99) {
-    // Animation complete: show real HTML, hide WebGL
+  // Update seminar content visibility with crossfade
+  if (progress >= 0.95) {
+    // Start crossfading from texture to real HTML at 95%
+    const fadeProgress = (progress - 0.95) / 0.05; // 0 to 1 over 95% to 100%
+    
     seminarContent.classList.add('active');
-    seminarContent.style.opacity = '1';
+    seminarContent.style.opacity = fadeProgress.toString();
     seminarContent.style.transform = 'none';
     seminarContent.style.clipPath = 'none';
-    seminarContent.style.pointerEvents = 'auto';
+    seminarContent.style.pointerEvents = progress >= 0.99 ? 'auto' : 'none';
     
     // Change background to black
     document.body.style.backgroundColor = '#000000';
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
     if (useTexture) {
-      webglCanvas.style.display = 'none';
+      // Fade out WebGL as real HTML fades in
+      webglCanvas.style.opacity = (1 - fadeProgress).toString();
+      if (progress >= 0.99) {
+        webglCanvas.style.display = 'none';
+      }
     }
     // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
   } else {
