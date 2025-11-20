@@ -7,7 +7,7 @@ const params = {
   displacementScale: 500,
   baseFrequency: 0.001,
   numOctaves: 1,
-  distortionPeak: 0.2
+  distortionPeak: 0.4
 };
 
 // WebGL renderer
