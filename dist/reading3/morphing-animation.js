@@ -89,10 +89,16 @@ function updateAnimation() {
   const bottomRightY = bottomLeftY;
   
   // Calculate box position and size from corners
+  // Note: The box is actually a quadrilateral with 4 independent corners,
+  // but WebGL still renders it as a rectangle using the bounding box
   const currentX = topLeftX;
   const currentY = topLeftY;
   const currentWidth = topRightX - topLeftX;
   const currentHeight = bottomLeftY - topLeftY;
+  
+  // Calculate actual center of the quadrilateral (average of all 4 corners)
+  const boxCenterX = (topLeftX + topRightX + bottomRightX + bottomLeftX) / 4;
+  const boxCenterY = (topLeftY + topRightY + bottomRightY + bottomLeftY) / 4;
   
   // Update displacement scale with ease-in-out curve
   const peak = params.distortionPeak;
@@ -246,15 +252,20 @@ function animateFinger() {
     const bottomLeftEndX = 0;
     const bottomLeftEndY = viewportHeight;
     
+    const bottomLeftX = Math.pow(1 - t, 2) * bottomLeftStartX + 2 * (1 - t) * t * bottomLeftControlX + Math.pow(t, 2) * bottomLeftEndX;
     const bottomLeftY = Math.pow(1 - t, 2) * bottomLeftStartY + 2 * (1 - t) * t * bottomLeftControlY + Math.pow(t, 2) * bottomLeftEndY;
     
     const topRightX = topLeftX + (initialSize + (viewportWidth - initialSize) * progress);
+    const topRightY = topLeftY;
+    const bottomRightX = topRightX;
+    const bottomRightY = bottomLeftY;
+    
     const currentWidth = topRightX - topLeftX;
     const currentHeight = bottomLeftY - topLeftY;
     
-    // Box center (dynamic)
-    const boxCenterX = topLeftX + (currentWidth / 2);
-    const boxCenterY = topLeftY + (currentHeight / 2);
+    // Calculate actual center of the quadrilateral (average of all 4 corners)
+    const boxCenterX = (topLeftX + topRightX + bottomRightX + bottomLeftX) / 4;
+    const boxCenterY = (topLeftY + topRightY + bottomRightY + bottomLeftY) / 4;
     
     // Store for smooth transitions
     lastBoxCenter.x = boxCenterX;
