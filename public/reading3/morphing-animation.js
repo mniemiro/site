@@ -41,6 +41,9 @@ let viewportWidth = window.innerWidth;
 let viewportHeight = window.innerHeight;
 let rafPending = false;
 
+// Cache box center for finger animation (updated on scroll, read at 60fps)
+let cachedBoxCenter = { x: 0, y: 0 };
+
 // DOM elements
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
@@ -118,6 +121,10 @@ function calculateBoxCorners(progress) {
 function updateAnimation() {
   const progress = getScrollProgress();
   const box = calculateBoxCorners(progress);
+  
+  // Cache box center for finger animation (avoids recalculating at 60fps)
+  cachedBoxCenter.x = box.centerX;
+  cachedBoxCenter.y = box.centerY;
   
   // Calculate displacement with ease-in-out curve (peak at distortionPeak)
   const peak = CONFIG.distortionPeak;
@@ -215,8 +222,9 @@ function throttledUpdateAnimation() {
 
 function animateFinger() {
   if (pointingFinger && whatsInTheBoxText) {
-    const progress = getScrollProgress();
-    const box = calculateBoxCorners(progress);
+    // Use cached box center (calculated on scroll, not every frame)
+    const boxCenterX = cachedBoxCenter.x;
+    const boxCenterY = cachedBoxCenter.y;
     
     // Text center (fixed)
     const textCenterX = viewportWidth * CONFIG.textX;
@@ -224,15 +232,15 @@ function animateFinger() {
     
     // Calculate oscillation along the path between text and box
     const oscillation = 0.5 + CONFIG.fingerOscillationRange * Math.sin(Date.now() / CONFIG.fingerOscillationSpeed);
-    const fingerX = textCenterX + (box.centerX - textCenterX) * oscillation;
-    const fingerY = textCenterY + (box.centerY - textCenterY) * oscillation;
+    const fingerX = textCenterX + (boxCenterX - textCenterX) * oscillation;
+    const fingerY = textCenterY + (boxCenterY - textCenterY) * oscillation;
     
     pointingFinger.style.left = `${fingerX}px`;
     pointingFinger.style.top = `${fingerY}px`;
     
     // Calculate angle from finger to box center
-    const dx = box.centerX - fingerX;
-    const dy = box.centerY - fingerY;
+    const dx = boxCenterX - fingerX;
+    const dy = boxCenterY - fingerY;
     const angle = Math.atan2(dy, dx) * (180 / Math.PI);
     
     pointingFinger.style.transform = `rotate(${angle}deg)`;
