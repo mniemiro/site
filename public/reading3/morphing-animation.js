@@ -44,8 +44,8 @@ let rafPending = false;
 // Cache box center for finger animation (updated on scroll, read at 60fps)
 let cachedBoxCenter = { x: 0, y: 0 };
 
-// Track if we've scrolled to top after animation completion
-let hasScrolledToTop = false;
+// Lock animation state once complete (prevents reset when scrolling to top)
+let animationComplete = false;
 
 // DOM elements
 const originalContent = document.getElementById('original-content');
@@ -62,6 +62,10 @@ function updateDimensions() {
 }
 
 function getScrollProgress() {
+  // If animation is locked as complete, always return 1.0
+  if (animationComplete) {
+    return 1.0;
+  }
   const scrolled = window.scrollY;
   const maxScroll = viewportHeight * CONFIG.screensToEnd;
   return Math.min(scrolled / maxScroll, 1);
@@ -195,18 +199,19 @@ function updateAnimation() {
     
     // When animation completes, make content scrollable and scroll to top
     if (progress >= CONFIG.crossfadeComplete) {
+      // Lock animation state as complete (prevents reset when scrolling to top)
+      if (!animationComplete) {
+        animationComplete = true;
+        // Scroll to top after locking state
+        window.scrollTo(0, 0);
+      }
+      
       seminarContent.style.position = 'relative';
       seminarContent.style.top = 'auto';
       seminarContent.style.left = 'auto';
       seminarContent.style.width = 'auto';
       seminarContent.style.height = 'auto';
       seminarContent.style.justifyContent = 'flex-start';
-      
-      // Scroll to top once when animation completes
-      if (!hasScrolledToTop) {
-        window.scrollTo(0, 0);
-        hasScrolledToTop = true;
-      }
     }
     
     document.body.style.backgroundColor = '#000000';
@@ -228,8 +233,8 @@ function updateAnimation() {
     seminarContent.style.height = '100%';
     seminarContent.style.justifyContent = 'center';
     
-    // Reset scroll-to-top flag when scrolling back
-    hasScrolledToTop = false;
+    // Unlock animation state when scrolling back (before completion)
+    animationComplete = false;
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
     if (useTexture) {
