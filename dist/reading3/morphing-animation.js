@@ -128,35 +128,8 @@ function updateAnimation() {
     originalContent.style.opacity = Math.max(0, 1 - (progress - APPEAR_THRESHOLD) * 2);
   }
   
-  // Update finger position and rotation
-  if (pointingFinger && whatsInTheBoxText) {
-    // Box center (dynamic)
-    const boxCenterX = currentX + (currentWidth / 2);
-    const boxCenterY = currentY + (currentHeight / 2);
-    
-    // Text center (fixed)
-    const textCenterX = viewportWidth * 0.42;
-    const textCenterY = viewportHeight * 0.64;
-    
-    // Calculate oscillation along the path between text and box
-    // Oscillate ±10% along the line (from 40% to 60% of the distance)
-    const oscillation = 0.5 + 0.1 * Math.sin(Date.now() / 400); // Oscillates between 0.4 and 0.6
-    const fingerX = textCenterX + (boxCenterX - textCenterX) * oscillation;
-    const fingerY = textCenterY + (boxCenterY - textCenterY) * oscillation;
-    
-    pointingFinger.style.left = `${fingerX}px`;
-    pointingFinger.style.top = `${fingerY}px`;
-    
-    // Calculate angle from finger to box center (right side of SVG points at box)
-    const dx = boxCenterX - fingerX;
-    const dy = boxCenterY - fingerY;
-    const angle = Math.atan2(dy, dx) * (180 / Math.PI); // Convert to degrees
-    
-    // Apply rotation (right side of SVG points toward box)
-    pointingFinger.style.transform = `rotate(${angle}deg)`;
-    
-    // Keep visible throughout animation
-    pointingFinger.style.opacity = '1';
+  // Keep text visible throughout animation
+  if (whatsInTheBoxText) {
     whatsInTheBoxText.style.opacity = '1';
   }
   
@@ -247,6 +220,75 @@ function throttledUpdateAnimation() {
   }
 }
 
+// Continuous animation loop for finger (independent of scroll)
+let lastBoxCenter = { x: 0, y: 0 };
+function animateFinger() {
+  if (pointingFinger && whatsInTheBoxText) {
+    // Get current scroll progress and box dimensions
+    const progress = getScrollProgress();
+    
+    // Calculate box position using same logic as updateAnimation
+    const initialSize = viewportWidth * 0.04;
+    const initialX = viewportWidth * 0.72;
+    const initialY = viewportHeight * 0.73;
+    
+    const t = progress;
+    const controlPointX = viewportWidth * 0.85;
+    const controlPointY = viewportHeight * 0.18;
+    
+    const topLeftX = Math.pow(1 - t, 2) * initialX + 2 * (1 - t) * t * controlPointX + Math.pow(t, 2) * 0;
+    const topLeftY = Math.pow(1 - t, 2) * initialY + 2 * (1 - t) * t * controlPointY + Math.pow(t, 2) * 0;
+    
+    const bottomLeftControlX = viewportWidth * 0.2;
+    const bottomLeftControlY = viewportHeight * 0.2;
+    const bottomLeftStartX = initialX;
+    const bottomLeftStartY = initialY + initialSize;
+    const bottomLeftEndX = 0;
+    const bottomLeftEndY = viewportHeight;
+    
+    const bottomLeftY = Math.pow(1 - t, 2) * bottomLeftStartY + 2 * (1 - t) * t * bottomLeftControlY + Math.pow(t, 2) * bottomLeftEndY;
+    
+    const topRightX = topLeftX + (initialSize + (viewportWidth - initialSize) * progress);
+    const currentWidth = topRightX - topLeftX;
+    const currentHeight = bottomLeftY - topLeftY;
+    
+    // Box center (dynamic)
+    const boxCenterX = topLeftX + (currentWidth / 2);
+    const boxCenterY = topLeftY + (currentHeight / 2);
+    
+    // Store for smooth transitions
+    lastBoxCenter.x = boxCenterX;
+    lastBoxCenter.y = boxCenterY;
+    
+    // Text center (fixed)
+    const textCenterX = viewportWidth * 0.42;
+    const textCenterY = viewportHeight * 0.64;
+    
+    // Calculate oscillation along the path between text and box
+    // Oscillate ±10% along the line (from 40% to 60% of the distance)
+    const oscillation = 0.5 + 0.1 * Math.sin(Date.now() / 400); // Oscillates between 0.4 and 0.6
+    const fingerX = textCenterX + (boxCenterX - textCenterX) * oscillation;
+    const fingerY = textCenterY + (boxCenterY - textCenterY) * oscillation;
+    
+    pointingFinger.style.left = `${fingerX}px`;
+    pointingFinger.style.top = `${fingerY}px`;
+    
+    // Calculate angle from finger to box center (right side of SVG points at box)
+    const dx = boxCenterX - fingerX;
+    const dy = boxCenterY - fingerY;
+    const angle = Math.atan2(dy, dx) * (180 / Math.PI); // Convert to degrees
+    
+    // Apply rotation (right side of SVG points toward box)
+    pointingFinger.style.transform = `rotate(${angle}deg)`;
+    
+    // Keep visible throughout animation
+    pointingFinger.style.opacity = '1';
+  }
+  
+  // Continue the animation loop
+  requestAnimationFrame(animateFinger);
+}
+
 // Liquify controls removed
 
 // Reset scroll position on page load (prevent saved scroll position)
@@ -288,4 +330,7 @@ window.addEventListener('resize', () => {
   initializeInteractiveElements();
   updateAnimation();
 });
+
+// Start continuous finger animation loop
+animateFinger();
 
