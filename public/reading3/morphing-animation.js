@@ -190,6 +190,16 @@ function updateAnimation() {
     seminarContent.style.clipPath = 'none';
     seminarContent.style.pointerEvents = progress >= CONFIG.crossfadeComplete ? 'auto' : 'none';
     
+    // When animation completes, make content scrollable
+    if (progress >= CONFIG.crossfadeComplete) {
+      seminarContent.style.position = 'relative';
+      seminarContent.style.top = 'auto';
+      seminarContent.style.left = 'auto';
+      seminarContent.style.width = 'auto';
+      seminarContent.style.height = 'auto';
+      seminarContent.style.justifyContent = 'flex-start';
+    }
+    
     document.body.style.backgroundColor = '#000000';
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
@@ -200,6 +210,14 @@ function updateAnimation() {
   } else {
     document.body.style.backgroundColor = '#ffffff';
     seminarContent.classList.remove('active');
+    
+    // Reset positioning for animation
+    seminarContent.style.position = 'fixed';
+    seminarContent.style.top = '0';
+    seminarContent.style.left = '0';
+    seminarContent.style.width = '100%';
+    seminarContent.style.height = '100%';
+    seminarContent.style.justifyContent = 'center';
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
     if (useTexture) {
