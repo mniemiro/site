@@ -16,7 +16,7 @@ const CONFIG = {
   
   // Interactive elements
   textX: 0.41,               // 41% from left
-  textY: 0.60,               // 60% from top
+  textY: 0.55,               // 55% from top
   
   // WebGL distortion
   displacementScale: 500,
@@ -31,7 +31,7 @@ const CONFIG = {
   
   // Finger animation
   fingerOscillationSpeed: 350,  // Milliseconds per oscillation
-  fingerOscillationRange: 0.09   // ±9% along the path
+  fingerOscillationRange: 0.08   // ±8% along the path
 };
 
 // ==================== STATE ====================
