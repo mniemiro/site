@@ -1,4 +1,7 @@
 // Configuration
+console.log('========================================');
+console.log('MORPHING ANIMATION SCRIPT LOADING v2.0');
+console.log('========================================');
 const SCREENS_TO_END = 1;
 const APPEAR_THRESHOLD = 0.5;
 
