@@ -6,6 +6,13 @@
 
 html {
   overscroll-behavior-y: none; /* Prevent upward overscroll bounce */
+  overflow-y: scroll; /* Enable scrolling */
+  scrollbar-width: none; /* Firefox - hide scrollbar */
+  -ms-overflow-style: none; /* IE and Edge - hide scrollbar */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera - hide scrollbar */
 }
 
 body {
@@ -141,6 +148,6 @@ body {
 
 /* Scroll spacer - needs to be at least 2x viewport to allow full animation */
 #scroll-spacer {
-  height: 200vh;
+  height: 300vh; /* Increased to ensure enough scroll range */
 }
 
