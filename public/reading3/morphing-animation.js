@@ -12,8 +12,10 @@ const params = {
 
 // ===== TESTING: Curve parameters (REMOVE AFTER TESTING) =====
 const curveParams = {
-  controlX: 0.85,  // Control point X (normalized 0-1)
-  controlY: 0.18   // Control point Y (normalized 0-1)
+  controlX: 0.85,  // Control point X for center path (normalized 0-1)
+  controlY: 0.18,  // Control point Y for center path (normalized 0-1)
+  bottomLeftControlX: 0.35,  // Control point X for bottom-left corner path
+  bottomLeftControlY: 0.50   // Control point Y for bottom-left corner path (curves upward)
 };
 // ===== END TESTING =====
 
@@ -56,21 +58,42 @@ function updateAnimation() {
   const initialX = viewportWidth * 0.72;
   const initialY = viewportHeight * 0.73;
   
-  // Interpolate dimensions
-  const currentWidth = initialSize + (viewportWidth - initialSize) * progress;
-  const currentHeight = initialSize + (viewportHeight - initialSize) * progress;
+  // Dimensions are now calculated from corner positions (see above in TESTING section)
+  // Original uniform scaling (commented out for testing):
+  // const currentWidth = initialSize + (viewportWidth - initialSize) * progress;
+  // const currentHeight = initialSize + (viewportHeight - initialSize) * progress;
   
-  // ===== TESTING: Quadratic bezier curve for position (REMOVE AFTER TESTING) =====
-  // Bezier curve: P(t) = (1-t)²P₀ + 2(1-t)tP₁ + t²P₂
-  // P₀ = start (initialX, initialY)
-  // P₁ = control point
-  // P₂ = end (0, 0)
+  // ===== TESTING: Independent corner paths (REMOVE AFTER TESTING) =====
   const t = progress;
-  const controlPointX = viewportWidth * curveParams.controlX;
-  const controlPointY = viewportHeight * curveParams.controlY;
   
-  const currentX = Math.pow(1 - t, 2) * initialX + 2 * (1 - t) * t * controlPointX + Math.pow(t, 2) * 0;
-  const currentY = Math.pow(1 - t, 2) * initialY + 2 * (1 - t) * t * controlPointY + Math.pow(t, 2) * 0;
+  // Top-left corner follows center path (for now, keeping it simple)
+  const topLeftControlX = viewportWidth * curveParams.controlX;
+  const topLeftControlY = viewportHeight * curveParams.controlY;
+  const topLeftX = Math.pow(1 - t, 2) * initialX + 2 * (1 - t) * t * topLeftControlX + Math.pow(t, 2) * 0;
+  const topLeftY = Math.pow(1 - t, 2) * initialY + 2 * (1 - t) * t * topLeftControlY + Math.pow(t, 2) * 0;
+  
+  // Bottom-left corner follows its own curved path that goes OVER the text
+  const bottomLeftStartX = initialX;
+  const bottomLeftStartY = initialY + initialSize;
+  const bottomLeftEndX = 0;
+  const bottomLeftEndY = viewportHeight;
+  const bottomLeftControlX = viewportWidth * curveParams.bottomLeftControlX;
+  const bottomLeftControlY = viewportHeight * curveParams.bottomLeftControlY;
+  
+  const bottomLeftX = Math.pow(1 - t, 2) * bottomLeftStartX + 2 * (1 - t) * t * bottomLeftControlX + Math.pow(t, 2) * bottomLeftEndX;
+  const bottomLeftY = Math.pow(1 - t, 2) * bottomLeftStartY + 2 * (1 - t) * t * bottomLeftControlY + Math.pow(t, 2) * bottomLeftEndY;
+  
+  // Top-right and bottom-right corners grow uniformly to fill screen
+  const topRightX = topLeftX + (initialSize + (viewportWidth - initialSize) * progress);
+  const topRightY = topLeftY;
+  const bottomRightX = topRightX;
+  const bottomRightY = bottomLeftY;
+  
+  // Calculate box position and size from corners
+  const currentX = topLeftX;
+  const currentY = topLeftY;
+  const currentWidth = topRightX - topLeftX;
+  const currentHeight = bottomLeftY - topLeftY;
   // ===== END TESTING =====
   
   // Original linear interpolation (commented out for testing):
@@ -286,7 +309,7 @@ function drawPathVisualization() {
   const controlPointX = viewportWidth * curveParams.controlX;
   const controlPointY = viewportHeight * curveParams.controlY;
   
-  // Draw the bezier curve path
+  // Draw the top-left corner path (center path)
   pathCtx.strokeStyle = 'red';
   pathCtx.lineWidth = 3;
   pathCtx.beginPath();
@@ -294,10 +317,28 @@ function drawPathVisualization() {
   pathCtx.quadraticCurveTo(controlPointX, controlPointY, 0, 0);
   pathCtx.stroke();
   
-  // Draw control point
+  // Draw the bottom-left corner path
+  const bottomLeftStartX = initialX;
+  const bottomLeftStartY = initialY + initialSize;
+  const bottomLeftControlX = viewportWidth * curveParams.bottomLeftControlX;
+  const bottomLeftControlY = viewportHeight * curveParams.bottomLeftControlY;
+  
+  pathCtx.strokeStyle = 'purple';
+  pathCtx.lineWidth = 3;
+  pathCtx.beginPath();
+  pathCtx.moveTo(bottomLeftStartX, bottomLeftStartY);
+  pathCtx.quadraticCurveTo(bottomLeftControlX, bottomLeftControlY, 0, pathCanvas.height);
+  pathCtx.stroke();
+  
+  // Draw control points
   pathCtx.fillStyle = 'blue';
   pathCtx.beginPath();
   pathCtx.arc(controlPointX, controlPointY, 8, 0, Math.PI * 2);
+  pathCtx.fill();
+  
+  pathCtx.fillStyle = 'cyan';
+  pathCtx.beginPath();
+  pathCtx.arc(bottomLeftControlX, bottomLeftControlY, 8, 0, Math.PI * 2);
   pathCtx.fill();
   
   // Draw start and end points
@@ -306,9 +347,19 @@ function drawPathVisualization() {
   pathCtx.arc(startX, startY, 8, 0, Math.PI * 2);
   pathCtx.fill();
   
+  pathCtx.fillStyle = 'lime';
+  pathCtx.beginPath();
+  pathCtx.arc(bottomLeftStartX, bottomLeftStartY, 8, 0, Math.PI * 2);
+  pathCtx.fill();
+  
   pathCtx.fillStyle = 'orange';
   pathCtx.beginPath();
   pathCtx.arc(0, 0, 8, 0, Math.PI * 2);
+  pathCtx.fill();
+  
+  pathCtx.fillStyle = 'yellow';
+  pathCtx.beginPath();
+  pathCtx.arc(0, pathCanvas.height, 8, 0, Math.PI * 2);
   pathCtx.fill();
 }
 
@@ -317,10 +368,14 @@ const controlXInput = document.getElementById('control-x');
 const controlYInput = document.getElementById('control-y');
 const controlXVal = document.getElementById('control-x-val');
 const controlYVal = document.getElementById('control-y-val');
+const controlBLXInput = document.getElementById('control-bl-x');
+const controlBLYInput = document.getElementById('control-bl-y');
+const controlBLXVal = document.getElementById('control-bl-x-val');
+const controlBLYVal = document.getElementById('control-bl-y-val');
 const resetButton = document.getElementById('reset-curve');
 
 if (controlXInput && controlYInput) {
-  // Set initial values
+  // Set initial values for top-left
   controlXInput.value = curveParams.controlX;
   controlYInput.value = curveParams.controlY;
   controlXVal.textContent = curveParams.controlX.toFixed(2);
@@ -336,6 +391,28 @@ if (controlXInput && controlYInput) {
   controlYInput.addEventListener('input', (e) => {
     curveParams.controlY = parseFloat(e.target.value);
     controlYVal.textContent = curveParams.controlY.toFixed(2);
+    drawPathVisualization();
+    updateAnimation();
+  });
+}
+
+if (controlBLXInput && controlBLYInput) {
+  // Set initial values for bottom-left
+  controlBLXInput.value = curveParams.bottomLeftControlX;
+  controlBLYInput.value = curveParams.bottomLeftControlY;
+  controlBLXVal.textContent = curveParams.bottomLeftControlX.toFixed(2);
+  controlBLYVal.textContent = curveParams.bottomLeftControlY.toFixed(2);
+  
+  controlBLXInput.addEventListener('input', (e) => {
+    curveParams.bottomLeftControlX = parseFloat(e.target.value);
+    controlBLXVal.textContent = curveParams.bottomLeftControlX.toFixed(2);
+    drawPathVisualization();
+    updateAnimation();
+  });
+  
+  controlBLYInput.addEventListener('input', (e) => {
+    curveParams.bottomLeftControlY = parseFloat(e.target.value);
+    controlBLYVal.textContent = curveParams.bottomLeftControlY.toFixed(2);
     drawPathVisualization();
     updateAnimation();
   });
