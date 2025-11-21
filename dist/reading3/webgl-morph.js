@@ -45,7 +45,7 @@ class WebGLMorph {
       lens1K1: -1.5,
       lens2X: 0.42, // Centered with "WHAT's..." text (42% width)
       lens2Y: 0.71, // Moved 5% down (was 0.66)
-      lens2Radius: 0.35,
+      lens2Radius: 0.2625, // Reduced by 25% (was 0.35)
       lens2K1: -3.0,
       lens3X: 1.10,
       lens3Y: 0.33,
