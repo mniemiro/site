@@ -44,9 +44,6 @@ let rafPending = false;
 // Cache box center for finger animation (updated on scroll, read at 60fps)
 let cachedBoxCenter = { x: 0, y: 0 };
 
-// Lock animation state once complete (prevents reset when scrolling to top)
-let animationComplete = false;
-
 // DOM elements
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
@@ -62,10 +59,6 @@ function updateDimensions() {
 }
 
 function getScrollProgress() {
-  // If animation is locked as complete, always return 1.0
-  if (animationComplete) {
-    return 1.0;
-  }
   const scrolled = window.scrollY;
   const maxScroll = viewportHeight * CONFIG.screensToEnd;
   return Math.min(scrolled / maxScroll, 1);
@@ -197,21 +190,21 @@ function updateAnimation() {
     seminarContent.style.clipPath = 'none';
     seminarContent.style.pointerEvents = progress >= CONFIG.crossfadeComplete ? 'auto' : 'none';
     
-    // When animation completes, make content scrollable and scroll to top
+    // When animation completes, make content scrollable and offset it upward
     if (progress >= CONFIG.crossfadeComplete) {
-      // Lock animation state as complete (prevents reset when scrolling to top)
-      if (!animationComplete) {
-        animationComplete = true;
-        // Scroll to top after locking state
-        window.scrollTo(0, 0);
-      }
-      
       seminarContent.style.position = 'relative';
       seminarContent.style.top = 'auto';
       seminarContent.style.left = 'auto';
       seminarContent.style.width = 'auto';
       seminarContent.style.height = 'auto';
       seminarContent.style.justifyContent = 'flex-start';
+      // Offset content upward by the scroll distance needed to complete animation
+      // so it appears at the top even though scroll position is at completion
+      const scrollOffset = -viewportHeight * CONFIG.screensToEnd;
+      seminarContent.style.transform = `translateY(${scrollOffset}px)`;
+    } else {
+      // Reset transform during animation
+      seminarContent.style.transform = 'none';
     }
     
     document.body.style.backgroundColor = '#000000';
@@ -232,9 +225,7 @@ function updateAnimation() {
     seminarContent.style.width = '100%';
     seminarContent.style.height = '100%';
     seminarContent.style.justifyContent = 'center';
-    
-    // Unlock animation state when scrolling back (before completion)
-    animationComplete = false;
+    seminarContent.style.transform = 'none';
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
     if (useTexture) {
