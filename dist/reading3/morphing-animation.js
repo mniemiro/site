@@ -198,9 +198,10 @@ function updateAnimation() {
       seminarContent.style.width = 'auto';
       seminarContent.style.height = 'auto';
       seminarContent.style.justifyContent = 'flex-start';
-      // Offset content upward by the scroll distance needed to complete animation
-      // so it appears at the top even though scroll position is at completion
-      const scrollOffset = -viewportHeight * CONFIG.screensToEnd;
+      // Offset content downward by the scroll distance needed to complete animation
+      // Content is at top of document, but scroll is at completion (1.1vh down),
+      // so we need to push content down to bring it into viewport
+      const scrollOffset = viewportHeight * CONFIG.screensToEnd;
       seminarContent.style.transform = `translateY(${scrollOffset}px)`;
     } else {
       // Reset transform during animation
