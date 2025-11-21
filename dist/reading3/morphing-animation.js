@@ -16,7 +16,7 @@ const CONFIG = {
   
   // Interactive elements
   textX: 0.41,               // 41% from left (moved 1% left from 0.42)
-  textY: 0.64,               // 64% from top
+  textY: 0.62,               // 62% from top
   
   // WebGL distortion
   displacementScale: 500,

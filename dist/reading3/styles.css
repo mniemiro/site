@@ -30,7 +30,7 @@ body {
 #whats-in-the-box-text {
   position: fixed;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.833rem; /* 1.5rem + 4pt ≈ 24px + 5.33px = 29.33px = 1.833rem */
+  font-size: 2.333rem; /* 1.5rem + 4pt + 6pt ≈ 24px + 5.33px + 8px = 37.33px = 2.333rem */
   font-weight: 700;
   color: #000000;
   z-index: 3; /* Above original content and canvas */
