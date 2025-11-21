@@ -30,12 +30,12 @@ body {
 #whats-in-the-box-text {
   position: fixed;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.833rem; /* 1.5rem + 4pt ≈ 24px + 5.33px = 29.33px = 1.833rem */
   font-weight: 700;
   color: #000000;
   z-index: 3; /* Above original content and canvas */
   pointer-events: none;
-  white-space: nowrap;
+  line-height: 1.1;
 }
 
 #pointing-finger {
