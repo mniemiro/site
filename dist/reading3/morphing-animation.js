@@ -2,11 +2,11 @@
 
 const CONFIG = {
   // Scroll animation
-  screensToEnd: 1,
+  screensToEnd: 1.1,
   appearThreshold: 0.5,
   
   // Box initial state
-  initialBoxSize: 0.04,      // 4% of viewport width
+  initialBoxSize: 0.035,      // 3.5% of viewport width
   initialBoxX: 0.72,         // 72% from left
   initialBoxY: 0.73,         // 73% from top
   
@@ -16,7 +16,7 @@ const CONFIG = {
   
   // Interactive elements
   textX: 0.41,               // 41% from left
-  textY: 0.60,               // 60% from top
+  textY: 0.55,               // 55% from top
   
   // WebGL distortion
   displacementScale: 500,
@@ -27,11 +27,11 @@ const CONFIG = {
   
   // Crossfade transition
   crossfadeStart: 0.99,      // Start crossfading to real HTML at 99%
-  crossfadeComplete: 0.99,   // Complete transition at 99%
+  crossfadeComplete: 1.0,    // Complete transition at 100%
   
   // Finger animation
   fingerOscillationSpeed: 350,  // Milliseconds per oscillation
-  fingerOscillationRange: 0.09   // ±9% along the path
+  fingerOscillationRange: 0.08   // ±8% along the path
 };
 
 // ==================== STATE ====================
@@ -179,10 +179,13 @@ function updateAnimation() {
   
   // Update seminar content visibility with crossfade
   if (progress >= CONFIG.crossfadeStart) {
-    const fadeProgress = (progress - CONFIG.crossfadeStart) / (CONFIG.crossfadeComplete - CONFIG.crossfadeStart);
+    const fadeRange = CONFIG.crossfadeComplete - CONFIG.crossfadeStart;
+    const fadeProgress = fadeRange > 0 
+      ? (progress - CONFIG.crossfadeStart) / fadeRange 
+      : 1.0; // If start == complete, show immediately
     
     seminarContent.classList.add('active');
-    seminarContent.style.opacity = fadeProgress.toString();
+    seminarContent.style.opacity = Math.min(1.0, Math.max(0.0, fadeProgress)).toString();
     seminarContent.style.transform = 'none';
     seminarContent.style.clipPath = 'none';
     seminarContent.style.pointerEvents = progress >= CONFIG.crossfadeComplete ? 'auto' : 'none';
