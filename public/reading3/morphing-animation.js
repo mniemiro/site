@@ -142,7 +142,7 @@ function updateAnimation() {
     
     // Text center (fixed)
     const textCenterX = viewportWidth * 0.42;
-    const textCenterY = viewportHeight * 0.60;
+    const textCenterY = viewportHeight * 0.64;
     
     // Position finger at midpoint between text center and box center
     const fingerX = (textCenterX + boxCenterX) / 2;
@@ -260,9 +260,9 @@ window.scrollTo(0, 0);
 function initializeInteractiveElements() {
   if (!whatsInTheBoxText || !pointingFinger) return;
   
-  // Position text 8% left of middle, 60% down viewport
+  // Position text 8% left of middle, 64% down viewport
   const textX = viewportWidth * 0.42; // 50% - 8% = 42%
-  const textY = viewportHeight * 0.60; // 60% down from top
+  const textY = viewportHeight * 0.64; // 64% down from top (was 60%, moved 4% down)
   whatsInTheBoxText.style.left = `${textX}px`;
   whatsInTheBoxText.style.top = `${textY}px`;
   whatsInTheBoxText.style.transform = 'translateX(-50%)'; // Center the text on its position
