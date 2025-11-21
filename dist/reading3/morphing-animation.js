@@ -15,23 +15,23 @@ const CONFIG = {
   bottomLeftCurve: { x: 0.2, y: 0.2 },
   
   // Interactive elements
-  textX: 0.41,               // 41% from left (moved 1% left from 0.42)
-  textY: 0.62,               // 62% from top
+  textX: 0.41,               // 41% from left
+  textY: 0.60,               // 60% from top
   
   // WebGL distortion
   displacementScale: 500,
   distortionPeak: 0.4,       // Peak distortion at 40% progress
   
   // Content fade-in
-  contentFadeEnd: 0.25,      // Fade from 0% to 100% opacity by 25% progress
+  contentFadeEnd: 0.60,      // Fade from 0% to 100% opacity by 60% progress
   
   // Crossfade transition
-  crossfadeStart: 0.95,      // Start crossfading to real HTML at 95%
+  crossfadeStart: 0.99,      // Start crossfading to real HTML at 99%
   crossfadeComplete: 0.99,   // Complete transition at 99%
   
   // Finger animation
-  fingerOscillationSpeed: 400,  // Milliseconds per oscillation
-  fingerOscillationRange: 0.1   // ±10% along the path
+  fingerOscillationSpeed: 350,  // Milliseconds per oscillation
+  fingerOscillationRange: 0.09   // ±9% along the path
 };
 
 // ==================== STATE ====================

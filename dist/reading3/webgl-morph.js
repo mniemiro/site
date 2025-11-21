@@ -50,7 +50,7 @@ class WebGLMorph {
       lens3X: 1.10,
       lens3Y: 0.33,
       lens3Radius: 0.3,
-      lens3K1: -5.0
+      lens3K1: -3.75  // Reduced by 25% from -5.0
     };
     
     this.setupShaders();
