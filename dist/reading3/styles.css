@@ -70,7 +70,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  z-index: 2; /* Above canvas and original content */
+  z-index: 4; /* Above canvas, original content, "WHAT's..." text, and finger */
   pointer-events: none;
   opacity: 0;
   transform: scale(0.3);

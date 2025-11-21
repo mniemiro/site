@@ -190,21 +190,39 @@ function updateAnimation() {
     seminarContent.style.clipPath = 'none';
     seminarContent.style.pointerEvents = progress >= CONFIG.crossfadeComplete ? 'auto' : 'none';
     
-    // When animation completes, make content scrollable and offset it upward
+    // ====================================================================
+    // SCROLL OFFSET ADJUSTMENT ON ANIMATION COMPLETION
+    // ====================================================================
+    // When the scroll animation completes, the scroll position is at
+    // (viewportHeight * CONFIG.screensToEnd) pixels from the top.
+    // However, we want the user to see the content as if they're at the
+    // top of the page (scroll position 0).
+    //
+    // SOLUTION: Offset the content's visual position downward by the scroll
+    // distance, so that even though the scroll position is at completion,
+    // the content appears at the top of the viewport as if scroll was at 0.
+    //
+    // This allows:
+    // - Content to appear at the "actual" start of the page
+    // - Reverse animation to work naturally (scrolling back up)
+    // - No need to actually change scroll position (which would reset animation)
+    // ====================================================================
     if (progress >= CONFIG.crossfadeComplete) {
+      // Convert content from fixed positioning to relative (scrollable)
       seminarContent.style.position = 'relative';
       seminarContent.style.top = 'auto';
       seminarContent.style.left = 'auto';
       seminarContent.style.width = 'auto';
       seminarContent.style.height = 'auto';
       seminarContent.style.justifyContent = 'flex-start';
-      // Offset content downward by the scroll distance needed to complete animation
-      // Content is at top of document, but scroll is at completion (1.1vh down),
-      // so we need to push content down to bring it into viewport
+      
+      // Calculate and apply scroll offset adjustment
+      // Offset = scroll distance needed to complete animation
+      // Positive value pushes content DOWN to compensate for scroll being DOWN
       const scrollOffset = viewportHeight * CONFIG.screensToEnd;
       seminarContent.style.transform = `translateY(${scrollOffset}px)`;
     } else {
-      // Reset transform during animation
+      // Reset transform during animation (no offset needed)
       seminarContent.style.transform = 'none';
     }
     
