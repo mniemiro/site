@@ -15,8 +15,8 @@ const CONFIG = {
   bottomLeftCurve: { x: 0.2, y: 0.2 },
   
   // Interactive elements
-  textX: 0.42,               // 42% from left (50% - 8%)
-  textY: 0.64,               // 64% from top
+  textX: 0.41,               // 41% from left (moved 1% left from 0.42)
+  textY: 0.62,               // 62% from top
   
   // WebGL distortion
   displacementScale: 500,
