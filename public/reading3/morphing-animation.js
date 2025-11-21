@@ -230,9 +230,13 @@ function throttledUpdateAnimation() {
 let lastBoxCenter = { x: 0, y: 0 };
 let fingerFrameCount = 0;
 function animateFinger() {
+  if (fingerFrameCount === 0) {
+    console.log('animateFinger called! pointingFinger:', pointingFinger, 'whatsInTheBoxText:', whatsInTheBoxText);
+  }
+  
   if (pointingFinger && whatsInTheBoxText) {
     fingerFrameCount++;
-    if (fingerFrameCount % 60 === 0) {
+    if (fingerFrameCount === 1 || fingerFrameCount % 60 === 0) {
       console.log('animateFinger running, frame:', fingerFrameCount);
     }
     // Get current scroll progress and box dimensions
@@ -358,5 +362,8 @@ window.addEventListener('resize', () => {
 });
 
 // Start continuous finger animation loop
+console.log('Starting finger animation loop...');
+console.log('pointingFinger element:', pointingFinger);
+console.log('whatsInTheBoxText element:', whatsInTheBoxText);
 animateFinger();
 
