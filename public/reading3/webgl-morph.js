@@ -332,6 +332,9 @@ class WebGLMorph {
         vec2 relPos = (displaced - u_rectPos) / u_rectSize;
         bool insideBox = (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0);
         
+        // Track if any lens affected this pixel
+        bool lensAffected = false;
+        
         // Only apply lens distortion to pixels that are part of the box
         if (insideBox) {
           vec2 normalizedCoord = pixelCoord / u_resolution;
@@ -341,6 +344,7 @@ class WebGLMorph {
           vec2 toLens1 = normalizedCoord - u_lens1Center;
           float distLens1 = length(toLens1);
           if (distLens1 < u_lens1Radius && distLens1 > 0.001) {
+            lensAffected = true;
             // Smooth influence falloff: 1 at center, 0 at edge
             float influence = 1.0 - smoothstep(0.0, u_lens1Radius, distLens1);
             
@@ -359,6 +363,7 @@ class WebGLMorph {
           vec2 toLens2 = normalizedCoord - u_lens2Center;
           float distLens2 = length(toLens2);
           if (distLens2 < u_lens2Radius && distLens2 > 0.001) {
+            lensAffected = true;
             // Smooth influence falloff: 1 at center, 0 at edge
             float influence = 1.0 - smoothstep(0.0, u_lens2Radius, distLens2);
             
@@ -377,6 +382,7 @@ class WebGLMorph {
           vec2 toLens3 = normalizedCoord - u_lens3Center;
           float distLens3 = length(toLens3);
           if (distLens3 < u_lens3Radius && distLens3 > 0.001) {
+            lensAffected = true;
             // Smooth influence falloff: 1 at center, 0 at edge
             float influence = 1.0 - smoothstep(0.0, u_lens3Radius, distLens3);
             
@@ -396,9 +402,11 @@ class WebGLMorph {
         }
         
         // Final check if still inside box after all displacements
+        // Skip boundary check for lens-affected pixels to avoid holes
         relPos = (displaced - u_rectPos) / u_rectSize;
+        bool finallyInside = (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0);
         
-        if (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0) {
+        if (finallyInside || (insideBox && lensAffected)) {
           // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
           if (u_useTexture) {
             // Sample texture at the displaced pixel's screen position
