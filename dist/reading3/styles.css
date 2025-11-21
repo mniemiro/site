@@ -37,6 +37,7 @@ body {
   pointer-events: none;
   line-height: 1;
   text-align: right;
+  letter-spacing: -0.02em; /* 2% reduction in letter spacing */
 }
 
 #pointing-finger {
