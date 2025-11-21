@@ -128,7 +128,7 @@ function updateAnimation() {
     originalContent.style.opacity = Math.max(0, 1 - (progress - APPEAR_THRESHOLD) * 2);
   }
   
-  // Update finger position (between text and box)
+  // Update finger position and rotation
   if (pointingFinger && whatsInTheBoxText) {
     // Box center (dynamic)
     const boxCenterX = currentX + (currentWidth / 2);
@@ -138,12 +138,22 @@ function updateAnimation() {
     const textCenterX = viewportWidth * 0.42;
     const textCenterY = viewportHeight * 0.64;
     
-    // Position finger at midpoint between text center and box center
-    const fingerX = (textCenterX + boxCenterX) / 2;
-    const fingerY = (textCenterY + boxCenterY) / 2;
+    // Calculate oscillation along the path between text and box
+    // Oscillate ±10% along the line (from 40% to 60% of the distance)
+    const oscillation = 0.5 + 0.1 * Math.sin(Date.now() / 400); // Oscillates between 0.4 and 0.6
+    const fingerX = textCenterX + (boxCenterX - textCenterX) * oscillation;
+    const fingerY = textCenterY + (boxCenterY - textCenterY) * oscillation;
     
     pointingFinger.style.left = `${fingerX}px`;
     pointingFinger.style.top = `${fingerY}px`;
+    
+    // Calculate angle from finger to box center (right side of SVG points at box)
+    const dx = boxCenterX - fingerX;
+    const dy = boxCenterY - fingerY;
+    const angle = Math.atan2(dy, dx) * (180 / Math.PI); // Convert to degrees
+    
+    // Apply rotation (right side of SVG points toward box)
+    pointingFinger.style.transform = `rotate(${angle}deg)`;
     
     // Keep visible throughout animation
     pointingFinger.style.opacity = '1';

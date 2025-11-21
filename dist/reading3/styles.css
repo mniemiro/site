@@ -45,16 +45,8 @@ body {
   z-index: 3; /* Above original content and canvas */
   pointer-events: none;
   transform-origin: center center;
-  animation: finger-pulse 2s ease-in-out infinite;
-}
-
-@keyframes finger-pulse {
-  0%, 100% {
-    transform: rotate(45deg) translateX(0) translateY(0);
-  }
-  50% {
-    transform: rotate(45deg) translateX(8px) translateY(8px);
-  }
+  /* Rotation and position will be set dynamically by JavaScript */
+  transition: transform 0.1s ease-out;
 }
 
 /* Seminar content */
