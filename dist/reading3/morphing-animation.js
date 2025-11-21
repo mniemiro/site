@@ -433,5 +433,25 @@ if (resetButton) {
 
 // Initial path draw
 drawPathVisualization();
+
+// ===== TESTING: Lens fix mode buttons (REMOVE AFTER TESTING) =====
+const lensFix0Btn = document.getElementById('lens-fix-0');
+const lensFix1Btn = document.getElementById('lens-fix-1');
+const lensFix2Btn = document.getElementById('lens-fix-2');
+const lensFix3Btn = document.getElementById('lens-fix-3');
+
+function setLensFix(mode) {
+  if (webglMorph) {
+    webglMorph.lensFix = mode;
+    updateAnimation();
+  }
+}
+
+if (lensFix0Btn) lensFix0Btn.addEventListener('click', () => setLensFix(0));
+if (lensFix1Btn) lensFix1Btn.addEventListener('click', () => setLensFix(1));
+if (lensFix2Btn) lensFix2Btn.addEventListener('click', () => setLensFix(2));
+if (lensFix3Btn) lensFix3Btn.addEventListener('click', () => setLensFix(3));
+// ===== END TESTING =====
+
 // ===== END TESTING =====
 

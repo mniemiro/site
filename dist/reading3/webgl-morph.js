@@ -237,6 +237,10 @@ class WebGLMorph {
       uniform float u_contentOpacity;     // Opacity of content (0 = black, 1 = full content)
       // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
       
+      // ===== TESTING: Lens fix mode (REMOVE AFTER TESTING) =====
+      uniform int u_lensFix;              // 0=default, 1=skip boundary, 2=expanded boundary, 3=reduced strength
+      // ===== END TESTING =====
+      
       void main() {
         // Convert to pixel coordinates (flip Y to match DOM coordinates)
         vec2 pixelCoord = vec2(v_texCoord.x * u_resolution.x, (1.0 - v_texCoord.y) * u_resolution.y);
@@ -356,18 +360,29 @@ class WebGLMorph {
           }
           
           // Lens 2 - True bulge effect (only affects box pixels)
+          // ===== TESTING: Track lens2 influence for fix modes (REMOVE AFTER TESTING) =====
+          float lens2Influence = 0.0;
+          // ===== END TESTING =====
+          
           vec2 toLens2 = normalizedCoord - u_lens2Center;
           float distLens2 = length(toLens2);
           if (distLens2 < u_lens2Radius && distLens2 > 0.001) {
             // Smooth influence falloff: 1 at center, 0 at edge
             float influence = 1.0 - smoothstep(0.0, u_lens2Radius, distLens2);
             
+            // ===== TESTING: Store lens2 influence (REMOVE AFTER TESTING) =====
+            lens2Influence = influence;
+            // ===== END TESTING =====
+            
             // Quadratic falloff for dramatic bulge effect
             float bulgeFactor = pow(influence, 2.0);
             
             // K1 > 0: Push outward from center (bulge out)
             // K1 < 0: Pull toward center (pinch in)
-            float strength = u_lens2K1 * 0.5;
+            // ===== TESTING: Apply strength multiplier for mode 3 (REMOVE AFTER TESTING) =====
+            float strengthMult = (u_lensFix == 3) ? 0.5 : 1.0; // Reduce strength by 50% in mode 3
+            float strength = u_lens2K1 * 0.5 * strengthMult;
+            // ===== END TESTING =====
             vec2 displacement = normalize(toLens2) * bulgeFactor * strength * distLens2;
             
             lensDisplace += displacement * u_resolution * u_displacement;
@@ -395,10 +410,28 @@ class WebGLMorph {
           displaced += lensDisplace;
         }
         
+        // ===== TESTING: Apply lens fix modes (REMOVE AFTER TESTING) =====
         // Final check if still inside box after all displacements
         relPos = (displaced - u_rectPos) / u_rectSize;
         
-        if (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0) {
+        // Modify boundary check based on lens fix mode
+        bool passedBoundaryCheck = false;
+        
+        if (u_lensFix == 1 && lens2Influence > 0.3) {
+          // Mode 1: Skip boundary check for pixels significantly affected by lens2
+          passedBoundaryCheck = true;
+        } else if (u_lensFix == 2) {
+          // Mode 2: Expanded boundary (add padding)
+          float padding = 0.15; // 15% padding
+          passedBoundaryCheck = (relPos.x >= -padding && relPos.x <= 1.0 + padding && 
+                                 relPos.y >= -padding && relPos.y <= 1.0 + padding);
+        } else {
+          // Mode 0 or 3: Normal boundary check (mode 3 already handled with strength reduction)
+          passedBoundaryCheck = (relPos.x >= 0.0 && relPos.x <= 1.0 && relPos.y >= 0.0 && relPos.y <= 1.0);
+        }
+        // ===== END TESTING =====
+        
+        if (passedBoundaryCheck) {
           // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
           if (u_useTexture) {
             // Sample texture at the displaced pixel's screen position
@@ -469,8 +502,11 @@ class WebGLMorph {
       // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
       contentTexture: gl.getUniformLocation(this.program, 'u_contentTexture'),
       useTexture: gl.getUniformLocation(this.program, 'u_useTexture'),
-      contentOpacity: gl.getUniformLocation(this.program, 'u_contentOpacity')
+      contentOpacity: gl.getUniformLocation(this.program, 'u_contentOpacity'),
       // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
+      // ===== TESTING: Lens fix mode (REMOVE AFTER TESTING) =====
+      lensFix: gl.getUniformLocation(this.program, 'u_lensFix')
+      // ===== END TESTING =====
     };
   }
   
@@ -685,6 +721,10 @@ class WebGLMorph {
       gl.uniform1f(this.locations.contentOpacity, 1.0);
     }
     // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
+    
+    // ===== TESTING: Set lens fix mode (REMOVE AFTER TESTING) =====
+    gl.uniform1i(this.locations.lensFix, this.lensFix);
+    // ===== END TESTING =====
     
     // Draw
     gl.drawArrays(gl.TRIANGLES, 0, 6);
