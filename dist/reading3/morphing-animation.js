@@ -44,6 +44,9 @@ let rafPending = false;
 // Cache box center for finger animation (updated on scroll, read at 60fps)
 let cachedBoxCenter = { x: 0, y: 0 };
 
+// Track if we've scrolled to top after animation completion
+let hasScrolledToTop = false;
+
 // DOM elements
 const originalContent = document.getElementById('original-content');
 const seminarContent = document.getElementById('seminar-content');
@@ -190,7 +193,7 @@ function updateAnimation() {
     seminarContent.style.clipPath = 'none';
     seminarContent.style.pointerEvents = progress >= CONFIG.crossfadeComplete ? 'auto' : 'none';
     
-    // When animation completes, make content scrollable
+    // When animation completes, make content scrollable and scroll to top
     if (progress >= CONFIG.crossfadeComplete) {
       seminarContent.style.position = 'relative';
       seminarContent.style.top = 'auto';
@@ -198,6 +201,12 @@ function updateAnimation() {
       seminarContent.style.width = 'auto';
       seminarContent.style.height = 'auto';
       seminarContent.style.justifyContent = 'flex-start';
+      
+      // Scroll to top once when animation completes
+      if (!hasScrolledToTop) {
+        window.scrollTo(0, 0);
+        hasScrolledToTop = true;
+      }
     }
     
     document.body.style.backgroundColor = '#000000';
@@ -218,6 +227,9 @@ function updateAnimation() {
     seminarContent.style.width = '100%';
     seminarContent.style.height = '100%';
     seminarContent.style.justifyContent = 'center';
+    
+    // Reset scroll-to-top flag when scrolling back
+    hasScrolledToTop = false;
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
     if (useTexture) {
