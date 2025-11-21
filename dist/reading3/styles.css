@@ -46,7 +46,7 @@ body {
   pointer-events: none;
   transform-origin: center center;
   /* Rotation and position will be set dynamically by JavaScript */
-  transition: transform 0.1s ease-out;
+  /* No transition - let JavaScript handle all animation */
 }
 
 /* Seminar content */

@@ -228,8 +228,13 @@ function throttledUpdateAnimation() {
 
 // Continuous animation loop for finger (independent of scroll)
 let lastBoxCenter = { x: 0, y: 0 };
+let fingerFrameCount = 0;
 function animateFinger() {
   if (pointingFinger && whatsInTheBoxText) {
+    fingerFrameCount++;
+    if (fingerFrameCount % 60 === 0) {
+      console.log('animateFinger running, frame:', fingerFrameCount);
+    }
     // Get current scroll progress and box dimensions
     const progress = getScrollProgress();
     
@@ -281,6 +286,12 @@ function animateFinger() {
     const fingerX = textCenterX + (boxCenterX - textCenterX) * oscillation;
     const fingerY = textCenterY + (boxCenterY - textCenterY) * oscillation;
     
+    if (fingerFrameCount % 60 === 0) {
+      console.log('Finger pos:', fingerX.toFixed(1), fingerY.toFixed(1), 'oscillation:', oscillation.toFixed(3));
+      console.log('Text center:', textCenterX.toFixed(1), textCenterY.toFixed(1));
+      console.log('Box center:', boxCenterX.toFixed(1), boxCenterY.toFixed(1));
+    }
+    
     pointingFinger.style.left = `${fingerX}px`;
     pointingFinger.style.top = `${fingerY}px`;
     
@@ -288,6 +299,10 @@ function animateFinger() {
     const dx = boxCenterX - fingerX;
     const dy = boxCenterY - fingerY;
     const angle = Math.atan2(dy, dx) * (180 / Math.PI); // Convert to degrees
+    
+    if (fingerFrameCount % 60 === 0) {
+      console.log('Angle:', angle.toFixed(1), 'degrees');
+    }
     
     // Apply rotation (right side of SVG points toward box)
     pointingFinger.style.transform = `rotate(${angle}deg)`;
