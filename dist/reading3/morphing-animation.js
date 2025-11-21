@@ -10,14 +10,13 @@ const params = {
   distortionPeak: 0.4
 };
 
-// ===== TESTING: Curve parameters (REMOVE AFTER TESTING) =====
+// Curve parameters for box path
 const curveParams = {
-  controlX: 0.85,  // Control point X for center path (normalized 0-1)
-  controlY: 0.18,  // Control point Y for center path (normalized 0-1)
-  bottomLeftControlX: 0.35,  // Control point X for bottom-left corner path
-  bottomLeftControlY: 0.50   // Control point Y for bottom-left corner path (curves upward)
+  controlX: 0.85,  // Control point X for top-left corner path
+  controlY: 0.18,  // Control point Y for top-left corner path
+  bottomLeftControlX: 0.2,  // Control point X for bottom-left corner path
+  bottomLeftControlY: 0.2   // Control point Y for bottom-left corner path
 };
-// ===== END TESTING =====
 
 // WebGL renderer
 let webglMorph = null;
@@ -63,16 +62,16 @@ function updateAnimation() {
   // const currentWidth = initialSize + (viewportWidth - initialSize) * progress;
   // const currentHeight = initialSize + (viewportHeight - initialSize) * progress;
   
-  // ===== TESTING: Independent corner paths (REMOVE AFTER TESTING) =====
+  // Independent corner paths using quadratic bezier curves
   const t = progress;
   
-  // Top-left corner follows center path (for now, keeping it simple)
+  // Top-left corner follows its curved path
   const topLeftControlX = viewportWidth * curveParams.controlX;
   const topLeftControlY = viewportHeight * curveParams.controlY;
   const topLeftX = Math.pow(1 - t, 2) * initialX + 2 * (1 - t) * t * topLeftControlX + Math.pow(t, 2) * 0;
   const topLeftY = Math.pow(1 - t, 2) * initialY + 2 * (1 - t) * t * topLeftControlY + Math.pow(t, 2) * 0;
   
-  // Bottom-left corner follows its own curved path that goes OVER the text
+  // Bottom-left corner follows its own curved path
   const bottomLeftStartX = initialX;
   const bottomLeftStartY = initialY + initialSize;
   const bottomLeftEndX = 0;
@@ -94,11 +93,6 @@ function updateAnimation() {
   const currentY = topLeftY;
   const currentWidth = topRightX - topLeftX;
   const currentHeight = bottomLeftY - topLeftY;
-  // ===== END TESTING =====
-  
-  // Original linear interpolation (commented out for testing):
-  // const currentX = initialX * (1 - progress);
-  // const currentY = initialY * (1 - progress);
   
   // Update displacement scale with ease-in-out curve
   const peak = params.distortionPeak;
@@ -283,155 +277,5 @@ window.addEventListener('resize', () => {
   if (webglMorph) webglMorph.resize();
   initializeInteractiveElements();
   updateAnimation();
-  drawPathVisualization(); // TESTING: Redraw path on resize
 });
-
-// ===== TESTING: Path visualization and control panel (REMOVE AFTER TESTING) =====
-const pathCanvas = document.getElementById('path-canvas');
-const pathCtx = pathCanvas ? pathCanvas.getContext('2d') : null;
-
-function drawPathVisualization() {
-  if (!pathCtx || !pathCanvas) return;
-  
-  // Resize canvas to match window
-  pathCanvas.width = window.innerWidth;
-  pathCanvas.height = window.innerHeight;
-  
-  // Clear canvas
-  pathCtx.clearRect(0, 0, pathCanvas.width, pathCanvas.height);
-  
-  const initialSize = viewportWidth * 0.04;
-  const initialX = viewportWidth * 0.72;
-  const initialY = viewportHeight * 0.73;
-  const startX = initialX + initialSize / 2;
-  const startY = initialY + initialSize / 2;
-  
-  const controlPointX = viewportWidth * curveParams.controlX;
-  const controlPointY = viewportHeight * curveParams.controlY;
-  
-  // Draw the top-left corner path (center path)
-  pathCtx.strokeStyle = 'red';
-  pathCtx.lineWidth = 3;
-  pathCtx.beginPath();
-  pathCtx.moveTo(startX, startY);
-  pathCtx.quadraticCurveTo(controlPointX, controlPointY, 0, 0);
-  pathCtx.stroke();
-  
-  // Draw the bottom-left corner path
-  const bottomLeftStartX = initialX;
-  const bottomLeftStartY = initialY + initialSize;
-  const bottomLeftControlX = viewportWidth * curveParams.bottomLeftControlX;
-  const bottomLeftControlY = viewportHeight * curveParams.bottomLeftControlY;
-  
-  pathCtx.strokeStyle = 'purple';
-  pathCtx.lineWidth = 3;
-  pathCtx.beginPath();
-  pathCtx.moveTo(bottomLeftStartX, bottomLeftStartY);
-  pathCtx.quadraticCurveTo(bottomLeftControlX, bottomLeftControlY, 0, pathCanvas.height);
-  pathCtx.stroke();
-  
-  // Draw control points
-  pathCtx.fillStyle = 'blue';
-  pathCtx.beginPath();
-  pathCtx.arc(controlPointX, controlPointY, 8, 0, Math.PI * 2);
-  pathCtx.fill();
-  
-  pathCtx.fillStyle = 'cyan';
-  pathCtx.beginPath();
-  pathCtx.arc(bottomLeftControlX, bottomLeftControlY, 8, 0, Math.PI * 2);
-  pathCtx.fill();
-  
-  // Draw start and end points
-  pathCtx.fillStyle = 'green';
-  pathCtx.beginPath();
-  pathCtx.arc(startX, startY, 8, 0, Math.PI * 2);
-  pathCtx.fill();
-  
-  pathCtx.fillStyle = 'lime';
-  pathCtx.beginPath();
-  pathCtx.arc(bottomLeftStartX, bottomLeftStartY, 8, 0, Math.PI * 2);
-  pathCtx.fill();
-  
-  pathCtx.fillStyle = 'orange';
-  pathCtx.beginPath();
-  pathCtx.arc(0, 0, 8, 0, Math.PI * 2);
-  pathCtx.fill();
-  
-  pathCtx.fillStyle = 'yellow';
-  pathCtx.beginPath();
-  pathCtx.arc(0, pathCanvas.height, 8, 0, Math.PI * 2);
-  pathCtx.fill();
-}
-
-// Control panel event listeners
-const controlXInput = document.getElementById('control-x');
-const controlYInput = document.getElementById('control-y');
-const controlXVal = document.getElementById('control-x-val');
-const controlYVal = document.getElementById('control-y-val');
-const controlBLXInput = document.getElementById('control-bl-x');
-const controlBLYInput = document.getElementById('control-bl-y');
-const controlBLXVal = document.getElementById('control-bl-x-val');
-const controlBLYVal = document.getElementById('control-bl-y-val');
-const resetButton = document.getElementById('reset-curve');
-
-if (controlXInput && controlYInput) {
-  // Set initial values for top-left
-  controlXInput.value = curveParams.controlX;
-  controlYInput.value = curveParams.controlY;
-  controlXVal.textContent = curveParams.controlX.toFixed(2);
-  controlYVal.textContent = curveParams.controlY.toFixed(2);
-  
-  controlXInput.addEventListener('input', (e) => {
-    curveParams.controlX = parseFloat(e.target.value);
-    controlXVal.textContent = curveParams.controlX.toFixed(2);
-    drawPathVisualization();
-    updateAnimation();
-  });
-  
-  controlYInput.addEventListener('input', (e) => {
-    curveParams.controlY = parseFloat(e.target.value);
-    controlYVal.textContent = curveParams.controlY.toFixed(2);
-    drawPathVisualization();
-    updateAnimation();
-  });
-}
-
-if (controlBLXInput && controlBLYInput) {
-  // Set initial values for bottom-left
-  controlBLXInput.value = curveParams.bottomLeftControlX;
-  controlBLYInput.value = curveParams.bottomLeftControlY;
-  controlBLXVal.textContent = curveParams.bottomLeftControlX.toFixed(2);
-  controlBLYVal.textContent = curveParams.bottomLeftControlY.toFixed(2);
-  
-  controlBLXInput.addEventListener('input', (e) => {
-    curveParams.bottomLeftControlX = parseFloat(e.target.value);
-    controlBLXVal.textContent = curveParams.bottomLeftControlX.toFixed(2);
-    drawPathVisualization();
-    updateAnimation();
-  });
-  
-  controlBLYInput.addEventListener('input', (e) => {
-    curveParams.bottomLeftControlY = parseFloat(e.target.value);
-    controlBLYVal.textContent = curveParams.bottomLeftControlY.toFixed(2);
-    drawPathVisualization();
-    updateAnimation();
-  });
-}
-
-if (resetButton) {
-  resetButton.addEventListener('click', () => {
-    curveParams.controlX = 0.36;  // Midpoint for linear path
-    curveParams.controlY = 0.365;
-    controlXInput.value = curveParams.controlX;
-    controlYInput.value = curveParams.controlY;
-    controlXVal.textContent = curveParams.controlX.toFixed(2);
-    controlYVal.textContent = curveParams.controlY.toFixed(2);
-    drawPathVisualization();
-    updateAnimation();
-  });
-}
-
-// Initial path draw
-drawPathVisualization();
-// ===== END TESTING =====
 
