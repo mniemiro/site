@@ -204,7 +204,6 @@ function updateAnimation() {
     // Because the intro section owns all scroll movement, we never adjust the
     // seminar content's transform here—when the user scrolls past the intro,
     // the document simply reveals the same content we captured for WebGL.
-    document.body.style.backgroundColor = '#000000';
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
     if (useTexture && progress >= CONFIG.crossfadeComplete) {
@@ -212,7 +211,6 @@ function updateAnimation() {
     }
     // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
   } else {
-    document.body.style.backgroundColor = '#ffffff';
     seminarContent.classList.remove('active');
 
     seminarContent.style.opacity = '0';
@@ -225,6 +223,15 @@ function updateAnimation() {
       webglCanvas.style.display = 'block';
     }
     // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
+  }
+  
+  // Background color: stay white during animation, instantly change to black when complete
+  if (progress >= CONFIG.crossfadeComplete) {
+    document.body.style.backgroundColor = '#000000';
+    document.documentElement.style.backgroundColor = '#000000';
+  } else {
+    document.body.style.backgroundColor = '#ffffff';
+    document.documentElement.style.backgroundColor = '#ffffff';
   }
 }
 
@@ -293,6 +300,10 @@ if ('scrollRestoration' in history) {
 
 // Ensure the first frame (and html2canvas capture) always see the top of the page.
 window.scrollTo(0, 0);
+
+// Explicitly set initial background to hard white
+document.documentElement.style.backgroundColor = '#ffffff';
+document.body.style.backgroundColor = '#ffffff';
 
 // Initialize
 webglMorph = new WebGLMorph('webgl-canvas');

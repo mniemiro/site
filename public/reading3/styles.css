@@ -9,6 +9,7 @@
 }
 
 html {
+  background-color: #ffffff; /* Ensure hard white background */
   overscroll-behavior-y: none; /* Prevent upward overscroll bounce */
   overflow-y: scroll; /* Enable scrolling */
   scrollbar-width: none; /* Firefox - hide scrollbar */
