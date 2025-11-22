@@ -13,20 +13,25 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- WebGL Canvas for morphing animation (masks the content area) -->
-  <canvas id="webgl-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></canvas>
+  <section id="intro-stage">
+    <div id="intro-sticky-layer">
+      <!-- WebGL Canvas for morphing animation (masks the content area) -->
+      <canvas id="webgl-canvas"></canvas>
 
-  <!-- Original content -->
-  <div id="original-content">
-    <!-- Empty - text and finger will be the only initial content -->
-  </div>
+      <!-- Original content -->
+      <div id="original-content">
+        <!-- Empty - text and finger will be the only initial content -->
+      </div>
 
-  <!-- Interactive elements -->
-  <div id="whats-in-the-box-text">WHAT's in<br>THE BLACK BOX?</div>
-  <img id="pointing-finger" src="finger.svg" alt="Pointing finger">
+      <!-- Interactive elements -->
+      <div id="whats-in-the-box-text">WHAT's in<br>THE BLACK BOX?</div>
+      <img id="pointing-finger" src="finger.svg" alt="Pointing finger">
+    </div>
+  </section>
 
-  <!-- Seminar content that appears within the morphing box -->
-  <div id="seminar-content">
+  <!-- Seminar content that appears after the morphing animation -->
+  <main id="page-content">
+    <div id="seminar-content">
     <div class="seminar-container">
       <!-- Header -->
       <div class="seminar-header">
@@ -125,11 +130,9 @@
             modular forms and string theory.</p>
         </div>
       </div>
+      </div>
     </div>
-  </div>
-
-  <!-- Spacer for scrolling (3x viewport height to ensure full scroll range) -->
-  <div id="scroll-spacer"></div>
+  </main>
 
   <!-- HTML to Canvas library for texture capture -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>

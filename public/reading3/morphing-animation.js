@@ -34,6 +34,8 @@ const CONFIG = {
   fingerOscillationRange: 0.08   // ±8% along the path
 };
 
+document.documentElement.style.setProperty('--screens-to-end', String(CONFIG.screensToEnd));
+
 // ==================== STATE ====================
 
 let webglMorph = null;
@@ -186,46 +188,8 @@ function updateAnimation() {
     
     seminarContent.classList.add('active');
     seminarContent.style.opacity = Math.min(1.0, Math.max(0.0, fadeProgress)).toString();
-    seminarContent.style.transform = 'none';
-    seminarContent.style.clipPath = 'none';
     seminarContent.style.pointerEvents = progress >= CONFIG.crossfadeComplete ? 'auto' : 'none';
-    
-    // ====================================================================
-    // SCROLL OFFSET ADJUSTMENT ON ANIMATION COMPLETION
-    // ====================================================================
-    // When the scroll animation completes, the scroll position is at
-    // (viewportHeight * CONFIG.screensToEnd) pixels from the top.
-    // However, we want the user to see the content as if they're at the
-    // top of the page (scroll position 0).
-    //
-    // SOLUTION: Offset the content's visual position downward by the scroll
-    // distance, so that even though the scroll position is at completion,
-    // the content appears at the top of the viewport as if scroll was at 0.
-    //
-    // This allows:
-    // - Content to appear at the "actual" start of the page
-    // - Reverse animation to work naturally (scrolling back up)
-    // - No need to actually change scroll position (which would reset animation)
-    // ====================================================================
-    if (progress >= CONFIG.crossfadeComplete) {
-      // Convert content from fixed positioning to relative (scrollable)
-      seminarContent.style.position = 'relative';
-      seminarContent.style.top = 'auto';
-      seminarContent.style.left = 'auto';
-      seminarContent.style.width = 'auto';
-      seminarContent.style.height = 'auto';
-      seminarContent.style.justifyContent = 'flex-start';
-      
-      // Calculate and apply scroll offset adjustment
-      // Offset = scroll distance needed to complete animation
-      // Positive value pushes content DOWN to compensate for scroll being DOWN
-      const scrollOffset = viewportHeight * CONFIG.screensToEnd;
-      seminarContent.style.transform = `translateY(${scrollOffset}px)`;
-    } else {
-      // Reset transform during animation (no offset needed)
-      seminarContent.style.transform = 'none';
-    }
-    
+
     document.body.style.backgroundColor = '#000000';
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
@@ -236,16 +200,10 @@ function updateAnimation() {
   } else {
     document.body.style.backgroundColor = '#ffffff';
     seminarContent.classList.remove('active');
-    
-    // Reset positioning for animation
-    seminarContent.style.position = 'fixed';
-    seminarContent.style.top = '0';
-    seminarContent.style.left = '0';
-    seminarContent.style.width = '100%';
-    seminarContent.style.height = '100%';
-    seminarContent.style.justifyContent = 'center';
-    seminarContent.style.transform = 'none';
-    
+
+    seminarContent.style.opacity = '0';
+    seminarContent.style.pointerEvents = 'none';
+
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
     if (useTexture) {
       seminarContent.style.opacity = '0';
