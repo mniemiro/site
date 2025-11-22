@@ -1,5 +1,10 @@
 // ==================== CONFIGURATION ====================
 
+// The scroll driver works like a "scrollytelling" intro: we pin all hero elements
+// for CONFIG.screensToEnd viewports and let scrollY act purely as animation progress.
+// Once scroll exits that section, the real DOM is already positioned at 0, so no
+// "descrolling" offsets or jumps are necessary—the browser just continues into the
+// normal page flow.
 const CONFIG = {
   // Scroll animation
   screensToEnd: 1.1,
@@ -34,6 +39,7 @@ const CONFIG = {
   fingerOscillationRange: 0.08   // ±8% along the path
 };
 
+// Expose the scroll span to CSS so the sticky intro section matches JS math.
 document.documentElement.style.setProperty('--screens-to-end', String(CONFIG.screensToEnd));
 
 // ==================== STATE ====================
@@ -61,8 +67,13 @@ function updateDimensions() {
 }
 
 function getScrollProgress() {
+  if (CONFIG.screensToEnd <= 0) {
+    console.warn('[morphing-animation] screensToEnd must be > 0; defaulting to 1.');
+  }
+
+  const effectiveScreens = CONFIG.screensToEnd > 0 ? CONFIG.screensToEnd : 1;
   const scrolled = window.scrollY;
-  const maxScroll = viewportHeight * CONFIG.screensToEnd;
+  const maxScroll = viewportHeight * effectiveScreens;
   return Math.min(scrolled / maxScroll, 1);
 }
 
@@ -190,6 +201,9 @@ function updateAnimation() {
     seminarContent.style.opacity = Math.min(1.0, Math.max(0.0, fadeProgress)).toString();
     seminarContent.style.pointerEvents = progress >= CONFIG.crossfadeComplete ? 'auto' : 'none';
 
+    // Because the intro section owns all scroll movement, we never adjust the
+    // seminar content's transform here—when the user scrolls past the intro,
+    // the document simply reveals the same content we captured for WebGL.
     document.body.style.backgroundColor = '#000000';
     
     // ===== HTML TEXTURE CAPTURE FEATURE (START) =====
@@ -276,6 +290,8 @@ window.addEventListener('beforeunload', () => {
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
+
+// Ensure the first frame (and html2canvas capture) always see the top of the page.
 window.scrollTo(0, 0);
 
 // Initialize

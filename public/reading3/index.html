@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Intro stage: consumes CONFIG.screensToEnd scroll heights and keeps the hero animation pinned -->
   <section id="intro-stage">
     <div id="intro-sticky-layer">
       <!-- WebGL Canvas for morphing animation (masks the content area) -->
@@ -29,7 +30,7 @@
     </div>
   </section>
 
-  <!-- Seminar content that appears after the morphing animation -->
+  <!-- Real page content lives after the intro stage so it always begins unscrolled -->
   <main id="page-content">
     <div id="seminar-content">
     <div class="seminar-container">

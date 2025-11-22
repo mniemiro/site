@@ -75,7 +75,10 @@ class WebGLMorph {
       return;
     }
     
-    // Temporarily make content visible for capture
+    // Temporarily make content visible for capture.
+    // The main script forces scroll position to 0 before we run, so this snapshot
+    // always represents the "true" start of the seminar page that will appear once
+    // the scroll-driven intro hands off control.
     const originalOpacity = seminarContent.style.opacity;
     const originalTransform = seminarContent.style.transform;
     const originalClipPath = seminarContent.style.clipPath;
