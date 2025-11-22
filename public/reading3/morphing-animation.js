@@ -31,7 +31,7 @@ const CONFIG = {
   contentFadeEnd: 0.60,      // Fade from 0% to 100% opacity by 60% progress
   
   // Crossfade transition
-  crossfadeStart: 0.99,      // Start crossfading to real HTML at 99%
+  crossfadeStart: 0.97,      // Start crossfading to real HTML at 97%
   crossfadeComplete: 1.0,    // Complete transition at 100%
   
   // Finger animation
