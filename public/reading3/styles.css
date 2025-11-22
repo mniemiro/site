@@ -42,7 +42,7 @@ body {
 }
 
 #webgl-canvas {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -53,7 +53,7 @@ body {
 
 /* Original content */
 #original-content {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -65,7 +65,7 @@ body {
 
 /* Interactive elements */
 #whats-in-the-box-text {
-  position: absolute;
+  position: fixed;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 2.166rem; /* 26pt ≈ 34.66px = 2.166rem */
   font-weight: 700;
@@ -79,7 +79,7 @@ body {
 }
 
 #pointing-finger {
-  position: absolute;
+  position: fixed;
   width: 80px;
   height: auto;
   z-index: 3;
