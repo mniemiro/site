@@ -48,9 +48,14 @@ let webglMorph = null;
 let viewportWidth = window.innerWidth;
 let viewportHeight = window.innerHeight;
 let rafPending = false;
+const AUTO_SCROLL_DURATION_MS = 1200;
+let isAutoScrolling = false;
+let autoScrollStartTime = null;
+let autoScrollRAF = null;
 
 // Cache box center for finger animation (updated on scroll, read at 60fps)
 let cachedBoxCenter = { x: 0, y: 0 };
+let latestBoxBounds = null;
 
 // DOM elements
 const originalContent = document.getElementById('original-content');
@@ -58,6 +63,7 @@ const seminarContent = document.getElementById('seminar-content');
 const webglCanvas = document.getElementById('webgl-canvas');
 const whatsInTheBoxText = document.getElementById('whats-in-the-box-text');
 const pointingFinger = document.getElementById('pointing-finger');
+const introStage = document.getElementById('intro-stage');
 
 // ==================== UTILITY FUNCTIONS ====================
 
@@ -129,11 +135,87 @@ function calculateBoxCorners(progress) {
   return { x, y, width, height, centerX, centerY };
 }
 
+function getAutoScrollTarget() {
+  const effectiveScreens = CONFIG.screensToEnd > 0 ? CONFIG.screensToEnd : 1;
+  return viewportHeight * effectiveScreens;
+}
+
+function blockScrollInteraction(event) {
+  if (isAutoScrolling) {
+    event.preventDefault();
+  }
+}
+
+const scrollKeys = new Set([' ', 'Spacebar', 'Space', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End']);
+
+function blockKeyScroll(event) {
+  if (isAutoScrolling && scrollKeys.has(event.key)) {
+    event.preventDefault();
+  }
+}
+
+function handleIntroStageClick(event) {
+  if (!introStage || isAutoScrolling) return;
+  if (window.scrollY !== 0) return;
+  if (!latestBoxBounds) return;
+
+  const withinBox =
+    event.clientX >= latestBoxBounds.x &&
+    event.clientX <= latestBoxBounds.x + latestBoxBounds.width &&
+    event.clientY >= latestBoxBounds.y &&
+    event.clientY <= latestBoxBounds.y + latestBoxBounds.height;
+
+  if (withinBox) {
+    startAutoScroll();
+  }
+}
+
+function startAutoScroll() {
+  if (isAutoScrolling) return;
+
+  isAutoScrolling = true;
+  autoScrollStartTime = null;
+  autoScrollRAF = requestAnimationFrame(stepAutoScroll);
+}
+
+function stepAutoScroll(timestamp) {
+  if (!autoScrollStartTime) {
+    autoScrollStartTime = timestamp;
+  }
+
+  const elapsed = timestamp - autoScrollStartTime;
+  const progress = Math.min(elapsed / AUTO_SCROLL_DURATION_MS, 1);
+  const targetScroll = getAutoScrollTarget();
+  const nextScroll = targetScroll * progress;
+
+  window.scrollTo(0, nextScroll);
+
+  if (progress < 1) {
+    autoScrollRAF = requestAnimationFrame(stepAutoScroll);
+  } else {
+    finishAutoScroll();
+  }
+}
+
+function finishAutoScroll() {
+  if (autoScrollRAF !== null) {
+    cancelAnimationFrame(autoScrollRAF);
+    autoScrollRAF = null;
+  }
+
+  const targetScroll = getAutoScrollTarget();
+  window.scrollTo(0, targetScroll);
+
+  isAutoScrolling = false;
+  autoScrollStartTime = null;
+}
+
 // ==================== ANIMATION ====================
 
 function updateAnimation() {
   const progress = getScrollProgress();
   const box = calculateBoxCorners(progress);
+  latestBoxBounds = box;
   
   // Cache box center for finger animation (avoids recalculating at 60fps)
   cachedBoxCenter.x = box.centerX;
@@ -289,6 +371,16 @@ function initializeInteractiveElements() {
   whatsInTheBoxText.style.transform = 'translateX(-50%)';
 }
 
+function initializeAutoScrollFeature() {
+  if (introStage) {
+    introStage.addEventListener('click', handleIntroStageClick);
+  }
+
+  window.addEventListener('wheel', blockScrollInteraction, { passive: false });
+  window.addEventListener('touchmove', blockScrollInteraction, { passive: false });
+  window.addEventListener('keydown', blockKeyScroll, { passive: false });
+}
+
 // Reset scroll position on page load
 window.addEventListener('beforeunload', () => {
   window.scrollTo(0, 0);
@@ -309,6 +401,7 @@ document.body.style.backgroundColor = '#ffffff';
 webglMorph = new WebGLMorph('webgl-canvas');
 updateDimensions();
 initializeInteractiveElements();
+initializeAutoScrollFeature();
 updateAnimation();
 
 // Event listeners
