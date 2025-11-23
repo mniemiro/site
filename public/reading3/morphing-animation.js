@@ -25,13 +25,13 @@ const CONFIG = {
   
   // WebGL distortion
   displacementScale: 500,
-  distortionPeak: 0.4,       // Peak distortion at 40% progress
+  distortionPeak: 0.5,       // Peak distortion at 50% progress
   
   // Content fade-in
   contentFadeEnd: 0.60,      // Fade from 0% to 100% opacity by 60% progress
   
   // Crossfade transition
-  crossfadeStart: 0.99,      // Start crossfading to real HTML at 97%
+  crossfadeStart: 0.99,      // Start crossfading to real HTML at 99%
   crossfadeComplete: 1.0,    // Complete transition at 100%
   
   // Finger animation
