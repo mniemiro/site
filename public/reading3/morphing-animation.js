@@ -7,8 +7,8 @@
 // normal page flow.
 const CONFIG = {
   // Scroll animation
-  screensToEnd: 1.1,
-  appearThreshold: 0.5,
+  screensToEnd: 1.3,
+  appearThreshold: 0.3,
   
   // Box initial state
   initialBoxSize: 0.035,      // 3.5% of viewport width
@@ -36,7 +36,10 @@ const CONFIG = {
   
   // Finger animation
   fingerOscillationSpeed: 350,  // Milliseconds per oscillation
-  fingerOscillationRange: 0.08   // ±8% along the path
+  fingerOscillationRange: 0.08,   // ±8% along the path
+  
+  // Auto-scroll animation
+  autoScrollDuration: 1200  // Duration in milliseconds (1.2 seconds)
 };
 
 // Expose the scroll span to CSS so the sticky intro section matches JS math.
@@ -51,6 +54,12 @@ let rafPending = false;
 
 // Cache box center for finger animation (updated on scroll, read at 60fps)
 let cachedBoxCenter = { x: 0, y: 0 };
+
+// Auto-scroll state
+let isAutoScrolling = false;
+let autoScrollStartTime = 0;
+let autoScrollStartPosition = 0;
+let autoScrollTargetPosition = 0;
 
 // DOM elements
 const originalContent = document.getElementById('original-content');
@@ -190,6 +199,16 @@ function updateAnimation() {
     webglCanvas.style.display = 'block';
   }
   
+  // Enable/disable pointer events on canvas based on scroll progress
+  // Only allow clicks when at the start (progress === 0) and not auto-scrolling
+  if (webglCanvas) {
+    if (progress === 0 && !isAutoScrolling) {
+      webglCanvas.style.pointerEvents = 'auto';
+    } else {
+      webglCanvas.style.pointerEvents = 'none';
+    }
+  }
+  
   // Update seminar content visibility with crossfade
   if (progress >= CONFIG.crossfadeStart) {
     const fadeRange = CONFIG.crossfadeComplete - CONFIG.crossfadeStart;
@@ -242,6 +261,111 @@ function throttledUpdateAnimation() {
       updateAnimation();
       rafPending = false;
     });
+  }
+}
+
+// ==================== AUTO-SCROLL ANIMATION ====================
+
+function isPointInBox(x, y, box) {
+  // Check if point is inside the quadrilateral box
+  // Using bounding box check (simpler and sufficient for click detection)
+  return x >= box.x && x <= box.x + box.width &&
+         y >= box.y && y <= box.y + box.height;
+}
+
+function handleCanvasClick(event) {
+  // Only handle clicks when scroll progress is zero and not already auto-scrolling
+  const progress = getScrollProgress();
+  if (progress !== 0 || isAutoScrolling) {
+    return;
+  }
+  
+  // Get click coordinates
+  const clickX = event.clientX;
+  const clickY = event.clientY;
+  
+  // Calculate box position at progress 0
+  const box = calculateBoxCorners(0);
+  
+  // Check if click is within the black box
+  if (isPointInBox(clickX, clickY, box)) {
+    startAutoScroll();
+  }
+}
+
+function startAutoScroll() {
+  if (isAutoScrolling) return;
+  
+  isAutoScrolling = true;
+  autoScrollStartTime = performance.now();
+  autoScrollStartPosition = window.scrollY;
+  
+  // Calculate target scroll position
+  const effectiveScreens = CONFIG.screensToEnd > 0 ? CONFIG.screensToEnd : 1;
+  autoScrollTargetPosition = viewportHeight * effectiveScreens;
+  
+  // Disable pointer events on canvas during auto-scroll to prevent additional clicks
+  if (webglCanvas) {
+    webglCanvas.style.pointerEvents = 'none';
+  }
+  
+  // Start animation loop
+  animateAutoScroll();
+}
+
+function animateAutoScroll() {
+  if (!isAutoScrolling) return;
+  
+  const now = performance.now();
+  const elapsed = now - autoScrollStartTime;
+  const duration = CONFIG.autoScrollDuration;
+  
+  if (elapsed >= duration) {
+    // Animation complete
+    window.scrollTo(0, autoScrollTargetPosition);
+    isAutoScrolling = false;
+    
+    // Pointer events will be handled by updateAnimation based on scroll progress
+    updateAnimation();
+    return;
+  }
+  
+  // Linear interpolation
+  const t = elapsed / duration;
+  const currentScroll = autoScrollStartPosition + 
+    (autoScrollTargetPosition - autoScrollStartPosition) * t;
+  
+  // Set scroll position (this will trigger scroll event, but we'll handle it)
+  window.scrollTo(0, currentScroll);
+  
+  // Continue animation
+  requestAnimationFrame(animateAutoScroll);
+}
+
+function handleScrollDuringAutoScroll() {
+  // Prevent user scrolling during auto-scroll
+  if (!isAutoScrolling) return;
+  
+  // Calculate where scroll should be based on elapsed time
+  const now = performance.now();
+  const elapsed = now - autoScrollStartTime;
+  const duration = CONFIG.autoScrollDuration;
+  
+  if (elapsed >= duration) {
+    // Animation should be complete
+    isAutoScrolling = false;
+    return;
+  }
+  
+  const t = elapsed / duration;
+  const targetScroll = autoScrollStartPosition + 
+    (autoScrollTargetPosition - autoScrollStartPosition) * t;
+  
+  // Only restore if user tried to scroll away from target
+  const currentScroll = window.scrollY;
+  const tolerance = 1; // 1px tolerance to avoid unnecessary restorations
+  if (Math.abs(currentScroll - targetScroll) > tolerance) {
+    window.scrollTo(0, targetScroll);
   }
 }
 
@@ -312,13 +436,25 @@ initializeInteractiveElements();
 updateAnimation();
 
 // Event listeners
-window.addEventListener('scroll', throttledUpdateAnimation, { passive: true });
+window.addEventListener('scroll', () => {
+  // Handle user scroll during auto-scroll
+  if (isAutoScrolling) {
+    handleScrollDuringAutoScroll();
+  }
+  throttledUpdateAnimation();
+}, { passive: true });
+
 window.addEventListener('resize', () => {
   updateDimensions();
   if (webglMorph) webglMorph.resize();
   initializeInteractiveElements();
   updateAnimation();
 });
+
+// Add click handler to canvas for auto-scroll trigger
+if (webglCanvas) {
+  webglCanvas.addEventListener('click', handleCanvasClick);
+}
 
 // Start continuous finger animation loop
 animateFinger();
