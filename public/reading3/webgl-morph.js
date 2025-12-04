@@ -83,6 +83,13 @@ class WebGLMorph {
     const originalTransform = seminarContent.style.transform;
     const originalClipPath = seminarContent.style.clipPath;
     
+    // Hide scrolling text during capture
+    const scrollingTerms = seminarContent.querySelector('.scrolling-terms');
+    const scrollingTermsOriginalDisplay = scrollingTerms ? scrollingTerms.style.display : null;
+    if (scrollingTerms) {
+      scrollingTerms.style.display = 'none';
+    }
+    
     seminarContent.style.opacity = '1';
     seminarContent.style.transform = 'scale(1)';
     seminarContent.style.clipPath = 'none';
@@ -123,9 +130,19 @@ class WebGLMorph {
       seminarContent.style.transform = originalTransform;
       seminarContent.style.clipPath = originalClipPath;
       
+      // Restore scrolling text display
+      if (scrollingTerms) {
+        scrollingTerms.style.display = scrollingTermsOriginalDisplay || '';
+      }
+      
     } catch (error) {
       console.error('Failed to capture content texture:', error);
       this.useTextureRendering = false;
+      
+      // Restore scrolling text display even on error
+      if (scrollingTerms) {
+        scrollingTerms.style.display = scrollingTermsOriginalDisplay || '';
+      }
     }
   }
   // ===== HTML TEXTURE CAPTURE FEATURE (END) =====
