@@ -116,11 +116,24 @@ body {
   color: white;
 }
 
+.black-box {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  height: 0.5rem;
+  background-color: #000000;
+  z-index: 10;
+}
+
 .orange-box {
-  width: 100%;
+  position: absolute;
+  top: 0.5rem;
+  left: calc(50% - 50vw);
+  width: 100vw;
   height: 60px;
   background-color: rgb(255, 160, 0);
-  margin-bottom: 2rem;
+  z-index: 1;
 }
 
 .seminar-header {
