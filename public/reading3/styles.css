@@ -121,14 +121,14 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 1.5rem;
+  height: 3rem;
   background-color: #000000;
   z-index: 10;
 }
 
 .orange-box {
   position: fixed;
-  top: 1.5rem;
+  top: 3rem;
   left: 0;
   width: 100vw;
   height: 60px;
