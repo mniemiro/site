@@ -121,17 +121,17 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 7rem;
+  height: 5rem;
   background-color: #000000;
   z-index: 10;
 }
 
 .orange-box {
   position: fixed;
-  top: 7rem;
+  top: 5rem;
   left: 0;
   width: 100vw;
-  height: 60px;
+  height: 45px;
   background-color: rgb(255, 160, 0);
   z-index: 1;
   display: flex;
