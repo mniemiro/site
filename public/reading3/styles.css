@@ -117,23 +117,46 @@ body {
 }
 
 .black-box {
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: calc(50% - 50vw);
+  left: 0;
   width: 100vw;
-  height: 0.5rem;
+  height: 1.5rem;
   background-color: #000000;
   z-index: 10;
 }
 
 .orange-box {
-  position: absolute;
-  top: 0.5rem;
-  left: calc(50% - 50vw);
+  position: fixed;
+  top: 1.5rem;
+  left: 0;
   width: 100vw;
   height: 60px;
   background-color: rgb(255, 160, 0);
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.scrolling-terms {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #000000;
+  font-weight: 700;
+  font-feature-settings: 'ss02' on, 'ss03' on;
+  white-space: nowrap;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background-color: rgb(255, 160, 0);
+  font-size: 2rem;
+  line-height: 2rem;
+}
+
+.scrolling-terms.hidden {
+  display: none;
 }
 
 .seminar-header {
