@@ -100,6 +100,16 @@
     box-shadow: 0 4px 12px rgba(163, 31, 52, 0.15);
 }
 
+.mode-professional .talk-break {
+    background-color: rgba(163, 31, 52, 0.1);
+    cursor: default;
+}
+
+.mode-professional .talk-break:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(163, 31, 52, 0.15);
+}
+
 .mode-professional .talk-date {
     color: var(--primary-color);
     font-family: var(--font-family-header);

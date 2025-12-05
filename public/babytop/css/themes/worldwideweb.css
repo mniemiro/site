@@ -228,6 +228,17 @@
     line-height: 1.6;
 }
 
+.mode-worldwideweb .talk-break {
+    background: var(--error-bg);
+    border-left: 5px solid var(--error-color);
+    cursor: default;
+}
+
+.mode-worldwideweb .talk-break:hover {
+    border-left-color: var(--error-color);
+    box-shadow: 3px 3px 0px var(--error-color);
+}
+
 .mode-worldwideweb .past-semester {
     border: 3px solid var(--border-color);
     background: var(--accent-color);

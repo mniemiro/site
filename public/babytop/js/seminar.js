@@ -141,8 +141,16 @@ class SeminarRenderer {
 
     createTalkElement(talk, index) {
         const talkDiv = document.createElement('div');
-        talkDiv.className = 'talk';
-        talkDiv.addEventListener('click', () => this.toggleAbstract(index));
+        // Default break to false if not specified
+        const isBreak = talk.break === true;
+        
+        // Add break class if this is a break
+        if (isBreak) {
+            talkDiv.className = 'talk talk-break';
+        } else {
+            talkDiv.className = 'talk';
+            talkDiv.addEventListener('click', () => this.toggleAbstract(index));
+        }
 
         const headerDiv = document.createElement('div');
         headerDiv.className = 'talk-header';
@@ -157,36 +165,43 @@ class SeminarRenderer {
         titleDiv.className = 'talk-title';
         titleDiv.textContent = talk.title && talk.title.trim() ? talk.title : 'TBA';
 
-        // Create speaker element
-        const speakerDiv = document.createElement('div');
-        speakerDiv.className = 'talk-speaker';
-        speakerDiv.innerHTML = `${talk.speaker} <span class="talk-affiliation">(${talk.affiliation})</span>`;
-
-        // Create expand indicator
-        const expandIndicator = document.createElement('div');
-        expandIndicator.className = 'talk-expand-indicator';
-        expandIndicator.textContent = '∏';
-
         headerDiv.appendChild(dateDiv);
         headerDiv.appendChild(titleDiv);
-        headerDiv.appendChild(speakerDiv);
-        
-        // Position expander relative to the title
-        titleDiv.style.position = 'relative';
-        titleDiv.appendChild(expandIndicator);
 
-        const abstractDiv = document.createElement('div');
-        abstractDiv.className = 'talk-abstract';
-        abstractDiv.id = `abstract-${index}`;
+        // Only add speaker, expand indicator, and abstract for non-break talks
+        if (!isBreak) {
+            // Create speaker element
+            const speakerDiv = document.createElement('div');
+            speakerDiv.className = 'talk-speaker';
+            speakerDiv.innerHTML = `${talk.speaker} <span class="talk-affiliation">(${talk.affiliation})</span>`;
 
-        const abstractContent = document.createElement('div');
-        abstractContent.className = 'talk-abstract-content';
-        abstractContent.textContent = talk.abstract && talk.abstract.trim() ? talk.abstract : 'TBA';
+            // Create expand indicator
+            const expandIndicator = document.createElement('div');
+            expandIndicator.className = 'talk-expand-indicator';
+            expandIndicator.textContent = '∏';
 
-        abstractDiv.appendChild(abstractContent);
+            headerDiv.appendChild(speakerDiv);
+            
+            // Position expander relative to the title
+            titleDiv.style.position = 'relative';
+            titleDiv.appendChild(expandIndicator);
 
-        talkDiv.appendChild(headerDiv);
-        talkDiv.appendChild(abstractDiv);
+            const abstractDiv = document.createElement('div');
+            abstractDiv.className = 'talk-abstract';
+            abstractDiv.id = `abstract-${index}`;
+
+            const abstractContent = document.createElement('div');
+            abstractContent.className = 'talk-abstract-content';
+            abstractContent.textContent = talk.abstract && talk.abstract.trim() ? talk.abstract : 'TBA';
+
+            abstractDiv.appendChild(abstractContent);
+
+            talkDiv.appendChild(headerDiv);
+            talkDiv.appendChild(abstractDiv);
+        } else {
+            // For break boxes, just add the header
+            talkDiv.appendChild(headerDiv);
+        }
 
         return talkDiv;
     }
@@ -194,6 +209,12 @@ class SeminarRenderer {
     toggleAbstract(index) {
         const abstract = document.getElementById(`abstract-${index}`);
         const talkElement = abstract?.closest('.talk');
+        
+        // Don't toggle if this is a break box
+        if (talkElement?.classList.contains('talk-break')) {
+            return;
+        }
+        
         const expandIndicator = talkElement?.querySelector('.talk-expand-indicator');
         const abstractContent = abstract?.querySelector('.talk-abstract-content');
         
