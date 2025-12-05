@@ -90,6 +90,23 @@ class WebGLMorph {
       scrollingTerms.style.display = 'none';
     }
     
+    // Temporarily change fixed boxes to absolute for capture
+    const blackBox = seminarContent.querySelector('.black-box');
+    const orangeBox = seminarContent.querySelector('.orange-box');
+    const blackBoxOriginalPosition = blackBox ? blackBox.style.position : null;
+    const orangeBoxOriginalPosition = orangeBox ? orangeBox.style.position : null;
+    const blackBoxOriginalTop = blackBox ? blackBox.style.top : null;
+    const orangeBoxOriginalTop = orangeBox ? orangeBox.style.top : null;
+    
+    if (blackBox) {
+      blackBox.style.position = 'absolute';
+      blackBox.style.top = '0';
+    }
+    if (orangeBox) {
+      orangeBox.style.position = 'absolute';
+      orangeBox.style.top = '5rem';
+    }
+    
     seminarContent.style.opacity = '1';
     seminarContent.style.transform = 'scale(1)';
     seminarContent.style.clipPath = 'none';
@@ -135,6 +152,16 @@ class WebGLMorph {
         scrollingTerms.style.display = scrollingTermsOriginalDisplay || '';
       }
       
+      // Restore box positions
+      if (blackBox) {
+        blackBox.style.position = blackBoxOriginalPosition || '';
+        blackBox.style.top = blackBoxOriginalTop || '';
+      }
+      if (orangeBox) {
+        orangeBox.style.position = orangeBoxOriginalPosition || '';
+        orangeBox.style.top = orangeBoxOriginalTop || '';
+      }
+      
     } catch (error) {
       console.error('Failed to capture content texture:', error);
       this.useTextureRendering = false;
@@ -142,6 +169,16 @@ class WebGLMorph {
       // Restore scrolling text display even on error
       if (scrollingTerms) {
         scrollingTerms.style.display = scrollingTermsOriginalDisplay || '';
+      }
+      
+      // Restore box positions even on error
+      if (blackBox) {
+        blackBox.style.position = blackBoxOriginalPosition || '';
+        blackBox.style.top = blackBoxOriginalTop || '';
+      }
+      if (orangeBox) {
+        orangeBox.style.position = orangeBoxOriginalPosition || '';
+        orangeBox.style.top = orangeBoxOriginalTop || '';
       }
     }
   }
