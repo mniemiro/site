@@ -216,7 +216,8 @@ body {
 
 .talk-break:hover {
     border-color: #dc3545;
-    box-shadow: 0 2px 8px rgba(163, 31, 52, 0.15);
+    box-shadow: none;
+    transform: none;
 }
 
 .talk-header {

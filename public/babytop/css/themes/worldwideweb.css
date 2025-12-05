@@ -236,7 +236,15 @@
 
 .mode-worldwideweb .talk-break:hover {
     border-left-color: var(--error-color);
-    box-shadow: 3px 3px 0px var(--error-color);
+    box-shadow: none;
+    transform: none;
+}
+
+.mode-worldwideweb .talk-break .talk-header:hover {
+    background: var(--accent-color);
+    color: var(--text-color);
+    transform: none;
+    box-shadow: none;
 }
 
 .mode-worldwideweb .past-semester {
