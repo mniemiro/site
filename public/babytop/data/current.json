@@ -102,10 +102,18 @@
     {
       "date": "Dec 2",
       "year": "2025",
-      "title": "Categorical traces",
+      "title": "Abstract traces and the Hochschild homology of group algebras",
       "speaker": "Kush Singhal",
       "affiliation": "Harvard",
-      "abstract": ""
+      "abstract": "For G a group, there is a classical description of HH(Z[G]) in terms of the group theory of G. I will give a purely abstract nonsense proof of this, using the categorical trace description of HH."
+    },
+    {
+      "date": "Dec 9",
+      "year": "2025",
+      "title": "The (strong) Novikov conjecture for hyperbolic groups",
+      "speaker": "Joye Chen",
+      "affiliation": "MIT",
+      "abstract": "The strong Novikov conjecture asserts that the analytic assembly map from K_0(BG) to the K-theory of C^*_r(G) (the reduced C^*-algebra of G) is rationally injective. I will sketch Connes-Moscovici's proof in the case that G is hyperbolic; one of the main ideas is to construct a suitable algebra A lying between C\\Gamma and C^*_r(G) so that the inclusion maps induce injections on K_0 or on cyclic cohomology."
     }
   ]
 }
