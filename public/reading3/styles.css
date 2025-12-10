@@ -131,7 +131,7 @@ body {
   top: 6rem;
   left: 0;
   width: 100vw;
-  height: 42px;
+  height: 50px;
   background-color: rgb(255, 160, 0);
   z-index: 1;
   display: flex;
@@ -151,8 +151,8 @@ body {
   transform: translateY(-50%);
   z-index: 2;
   background-color: rgb(255, 160, 0);
-  font-size: 1.6rem;
-  line-height: 1rem;
+  font-size: 1.9rem;
+  line-height: 1.2rem;
 }
 
 .scrolling-terms.hidden {
