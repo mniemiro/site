@@ -128,7 +128,7 @@ body {
 
 .orange-box {
   position: fixed;
-  top: 5rem;
+  top: 6rem;
   left: 0;
   width: 100vw;
   height: 42px;
@@ -160,7 +160,7 @@ body {
 }
 
 .seminar-header {
-  padding-top: 8rem;
+  padding-top: 9rem;
   margin-bottom: 2rem;
   text-align: center;
 }
