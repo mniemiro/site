@@ -1,0 +1,76 @@
+{
+  "talks": [
+    {
+      "week": 1,
+      "date": "October 15, 2024",
+      "title": "Introduction to Spectral Sequences",
+      "description": "We introduce the notion of spectral sequences and discuss their applications in computing homology and cohomology groups."
+    },
+    {
+      "week": 2,
+      "date": "October 22, 2024",
+      "title": "The Serre Spectral Sequence",
+      "description": "An exploration of the Serre spectral sequence and its role in computing the homology of fiber bundles."
+    },
+    {
+      "week": 3,
+      "date": "October 29, 2024",
+      "title": "Applications to Homotopy Theory",
+      "description": "We discuss applications of spectral sequences to problems in homotopy theory, including computations of homotopy groups of spheres."
+    },
+    {
+      "week": 4,
+      "date": "November 5, 2024",
+      "title": "Cohomology Operations",
+      "description": "An introduction to cohomology operations and their role in stable homotopy theory. We explore Steenrod squares and their applications."
+    },
+    {
+      "week": 5,
+      "date": "November 12, 2024",
+      "title": "K-Theory and Vector Bundles",
+      "description": "We study topological K-theory and its relationship with vector bundles over manifolds. Applications to index theory and characteristic classes."
+    },
+    {
+      "week": 6,
+      "date": "November 19, 2024",
+      "title": "Cobordism Theory",
+      "description": "An exploration of cobordism groups and their computation using spectral sequences. We discuss Thom's theorem and its implications."
+    },
+    {
+      "week": 7,
+      "date": "November 26, 2024",
+      "title": "Characteristic Classes",
+      "description": "We study Chern classes, Stiefel-Whitney classes, and Pontryagin classes. Applications to classification of vector bundles and manifolds."
+    },
+    {
+      "week": 8,
+      "date": "December 3, 2024",
+      "title": "Fiber Bundles and Fibrations",
+      "description": "An in-depth look at fiber bundles, principal bundles, and their role in topology. We explore the long exact sequence of a fibration."
+    },
+    {
+      "week": 9,
+      "date": "December 10, 2024",
+      "title": "Homotopy Groups of Spheres",
+      "description": "Computational techniques for homotopy groups of spheres using spectral sequences. Discussion of stable and unstable homotopy groups."
+    },
+    {
+      "week": 10,
+      "date": "December 17, 2024",
+      "title": "Differential Forms and de Rham Cohomology",
+      "description": "Connections between differential geometry and algebraic topology. The de Rham theorem and its applications."
+    },
+    {
+      "week": 11,
+      "date": "December 24, 2024",
+      "title": "Atiyah-Singer Index Theorem",
+      "description": "An introduction to the Atiyah-Singer index theorem and its significance in connecting analysis, geometry, and topology."
+    },
+    {
+      "week": 12,
+      "date": "December 31, 2024",
+      "title": "Elliptic Cohomology",
+      "description": "We explore elliptic cohomology theories and their relationship with modular forms and string theory."
+    }
+  ]
+}
