@@ -116,11 +116,11 @@ body {
   color: white;
 }
 
-/* On wide screens, make container occupy middle third */
+/* On wide screens, make container occupy 2/5 of screen width */
 @media (min-width: 1024px) {
   .seminar-container {
-    max-width: 33.333%;
-    width: 33.333%;
+    max-width: 40%;
+    width: 40%;
   }
   
   /* Header breaks out to full width to prevent line-breaking */
