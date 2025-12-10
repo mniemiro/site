@@ -167,7 +167,7 @@ body {
 }
 
 .seminar-header h1 {
-  font-size: 48pt;
+  font-size: 76pt;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
@@ -175,6 +175,12 @@ body {
 .seminar-header .subtitle {
   font-size: 1.25rem;
   color: #d1d5db;
+}
+
+.seminar-header .seminar-description {
+  font-size: 1.25rem;
+  color: #d1d5db;
+  margin-top: 1rem;
 }
 
 .seminar-banner {
@@ -196,23 +202,20 @@ body {
 }
 
 .talk-item {
-  border-left: 4px solid white;
-  padding-left: 1rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
 }
 
-.talk-date {
-  font-size: 0.875rem;
-  color: #9ca3af;
-  margin-bottom: 0.25rem;
-}
-
-.talk-item h3 {
+.talk-date-title {
+  font-family: 'DotGothic16', sans-serif;
   font-size: 1.25rem;
-  font-weight: 600;
+  color: #ffffff;
   margin-bottom: 0.5rem;
+  line-height: 1.4;
 }
 
-.talk-item p {
+.talk-description {
+  font-family: 'Space Grotesk', sans-serif;
   color: #d1d5db;
   line-height: 1.6;
 }

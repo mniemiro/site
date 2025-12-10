@@ -9,6 +9,25 @@ async function loadTalks() {
     }
     
     const data = await response.json();
+    
+    // Render seminar description if it exists
+    if (data.description) {
+      const seminarHeader = document.querySelector('.seminar-header');
+      if (seminarHeader) {
+        // Remove existing description if any
+        const existingDescription = seminarHeader.querySelector('.seminar-description');
+        if (existingDescription) {
+          existingDescription.remove();
+        }
+        
+        // Create and add description
+        const description = document.createElement('p');
+        description.className = 'seminar-description';
+        description.textContent = data.description;
+        seminarHeader.appendChild(description);
+      }
+    }
+    
     const talksList = document.querySelector('.talks-list');
     
     if (!talksList) {
@@ -19,23 +38,36 @@ async function loadTalks() {
     // Clear any existing content
     talksList.innerHTML = '';
     
+    // Helper function to convert date string to M/D/YYYY format
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        // If parsing fails, return original string
+        return dateString;
+      }
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const year = date.getFullYear();
+      return `${month}/${day}/${year}`;
+    }
+    
     // Render each talk
     data.talks.forEach(talk => {
       const talkItem = document.createElement('div');
       talkItem.className = 'talk-item';
       
-      const dateDiv = document.createElement('div');
-      dateDiv.className = 'talk-date';
-      dateDiv.textContent = `Week ${talk.week} - ${talk.date}`;
+      // Date and title combined on first line
+      const dateTitle = document.createElement('div');
+      dateTitle.className = 'talk-date-title';
+      const formattedDate = formatDate(talk.date);
+      dateTitle.textContent = `(${formattedDate}) ${talk.title}`;
       
-      const title = document.createElement('h3');
-      title.textContent = talk.title;
-      
-      const description = document.createElement('p');
+      // Description on second line
+      const description = document.createElement('div');
+      description.className = 'talk-description';
       description.textContent = talk.description;
       
-      talkItem.appendChild(dateDiv);
-      talkItem.appendChild(title);
+      talkItem.appendChild(dateTitle);
       talkItem.appendChild(description);
       
       talksList.appendChild(talkItem);
