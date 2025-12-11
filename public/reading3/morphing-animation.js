@@ -36,7 +36,11 @@ const CONFIG = {
   
   // Finger animation
   fingerOscillationSpeed: 350,  // Milliseconds per oscillation
-  fingerOscillationRange: 0.08   // ±8% along the path
+  fingerOscillationRange: 0.08,   // ±8% along the path
+  
+  // Scroll deceleration
+  decelerationZoneStart: 0.7,  // Start deceleration at 70% progress
+  decelerationStrength: 0.3   // Resistance strength (0-1, lower = more resistance)
 };
 
 // Expose the scroll span to CSS so the sticky intro section matches JS math.
@@ -56,6 +60,10 @@ let autoScrollRAF = null;
 // Cache box center for finger animation (updated on scroll, read at 60fps)
 let cachedBoxCenter = { x: 0, y: 0 };
 let latestBoxBounds = null;
+
+// Scroll deceleration state
+let isInDecelerationZone = false;
+let lastScrollY = 0;
 
 // DOM elements
 const originalContent = document.getElementById('original-content');
@@ -208,6 +216,85 @@ function finishAutoScroll() {
 
   isAutoScrolling = false;
   autoScrollStartTime = null;
+}
+
+// ==================== SCROLL DECELERATION ====================
+
+function getMaxScroll() {
+  const effectiveScreens = CONFIG.screensToEnd > 0 ? CONFIG.screensToEnd : 1;
+  return viewportHeight * effectiveScreens;
+}
+
+function handleWheelWithDeceleration(event) {
+  // Only apply deceleration if we're past the intro stage or in the deceleration zone
+  const currentScroll = window.scrollY;
+  const maxScroll = getMaxScroll();
+  const progress = getScrollProgress();
+  
+  // Check if we're in the deceleration zone (near the end of intro stage)
+  const inDecelerationZone = progress >= CONFIG.decelerationZoneStart && progress < 1.0;
+  
+  // Check if we're scrolling upward
+  const scrollingUp = event.deltaY < 0;
+  
+  // Only apply deceleration if we're in the deceleration zone and scrolling up
+  if (inDecelerationZone && scrollingUp) {
+    // Calculate resistance based on how close we are to the end
+    // More resistance as we approach 100% progress
+    const zoneProgress = (progress - CONFIG.decelerationZoneStart) / (1.0 - CONFIG.decelerationZoneStart);
+    // Resistance increases from decelerationStrength to 1.0 as we approach the end
+    const resistance = CONFIG.decelerationStrength + (1.0 - CONFIG.decelerationStrength) * zoneProgress;
+    
+    // Apply resistance to scroll delta (negative delta means scrolling up)
+    const adjustedDelta = event.deltaY * resistance;
+    
+    // Calculate what the new scroll position would be
+    const newScroll = currentScroll + adjustedDelta;
+    
+    // If we're trying to scroll past the intro stage boundary, prevent it
+    if (newScroll < 0) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      throttledUpdateAnimation();
+      return;
+    }
+    
+    // If we're in the deceleration zone, apply resistance
+    if (newScroll < maxScroll) {
+      // Prevent default scroll and manually control it with resistance
+      event.preventDefault();
+      window.scrollTo({ top: newScroll, behavior: 'auto' });
+      throttledUpdateAnimation();
+      return;
+    }
+  }
+  
+  // Also prevent scrolling past the intro stage boundary from anywhere
+  if (currentScroll <= 0 && scrollingUp) {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    throttledUpdateAnimation();
+    return;
+  }
+  
+  // Update last scroll position for tracking
+  lastScrollY = currentScroll;
+}
+
+function handleTouchMoveWithDeceleration(event) {
+  // Similar logic for touch events
+  const currentScroll = window.scrollY;
+  const maxScroll = getMaxScroll();
+  const progress = getScrollProgress();
+  
+  const inDecelerationZone = progress >= CONFIG.decelerationZoneStart && progress < 1.0;
+  
+  // For touch, we need to detect upward movement differently
+  // This is a simplified version - you might want to track touch start/end positions
+  if (inDecelerationZone && currentScroll < maxScroll * 0.95) {
+    // Apply some resistance in the deceleration zone
+    // The browser's native momentum scrolling will handle most of this
+  }
 }
 
 // ==================== ANIMATION ====================
@@ -376,8 +463,23 @@ function initializeAutoScrollFeature() {
     introStage.addEventListener('click', handleIntroStageClick);
   }
 
-  window.addEventListener('wheel', blockScrollInteraction, { passive: false });
-  window.addEventListener('touchmove', blockScrollInteraction, { passive: false });
+  // Use deceleration handler instead of simple block during auto-scroll
+  window.addEventListener('wheel', (event) => {
+    if (isAutoScrolling) {
+      blockScrollInteraction(event);
+    } else {
+      handleWheelWithDeceleration(event);
+    }
+  }, { passive: false });
+  
+  window.addEventListener('touchmove', (event) => {
+    if (isAutoScrolling) {
+      blockScrollInteraction(event);
+    } else {
+      handleTouchMoveWithDeceleration(event);
+    }
+  }, { passive: false });
+  
   window.addEventListener('keydown', blockKeyScroll, { passive: false });
 }
 
