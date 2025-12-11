@@ -193,6 +193,7 @@ body {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.25rem;
   color: #ffffff;
+  text-align: justify;
 }
 
 .seminar-header .seminar-description {
