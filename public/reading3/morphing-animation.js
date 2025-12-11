@@ -40,7 +40,7 @@ const CONFIG = {
   
   // Scroll deceleration
   decelerationZoneStart: 0.7,  // Start deceleration at 70% progress
-  decelerationStrength: 0.15   // Resistance strength (0-1, lower = more resistance)
+  decelerationStrength: 0.05   // Resistance strength (0-1, lower = more resistance)
 };
 
 // Expose the scroll span to CSS so the sticky intro section matches JS math.
