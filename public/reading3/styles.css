@@ -116,11 +116,11 @@ body {
   color: white;
 }
 
-/* On wide screens, make container occupy 2/5 of screen width */
+/* On wide screens, make container occupy 45% of screen width */
 @media (min-width: 1024px) {
   .seminar-container {
-    max-width: 40%;
-    width: 40%;
+    max-width: 45;
+    width: 45%;
   }
   
   /* Header breaks out to full width to prevent line-breaking */
@@ -190,8 +190,9 @@ body {
 }
 
 .seminar-header .subtitle {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.25rem;
-  color: #d1d5db;
+  color: #ffffff;
 }
 
 .seminar-header .seminar-description {
@@ -220,7 +221,7 @@ body {
 
 .talk-item {
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.3rem;
 }
 
 .talk-date-title {
@@ -228,12 +229,12 @@ body {
   font-size: 1.25rem;
   color: #ffffff;
   margin-bottom: 0.5rem;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .talk-description {
   font-family: 'Space Grotesk', sans-serif;
-  color: #d1d5db;
-  line-height: 1.6;
+  color: #ffffff;
+  line-height: 1.1;
 }
 
