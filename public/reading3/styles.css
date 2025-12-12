@@ -197,11 +197,17 @@ body {
   line-height: 1.1;
 }
 
+.seminar-description-container {
+  width: 65%;
+  margin-top: 1rem;
+}
+
 .seminar-header .seminar-description {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.25rem;
   color: #ffffff;
-  margin-top: 1rem;
+  text-align: justify;
+  line-height: 1.1;
 }
 
 .seminar-banner {

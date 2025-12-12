@@ -14,17 +14,23 @@ async function loadTalks() {
     if (data.description) {
       const seminarHeader = document.querySelector('.seminar-header');
       if (seminarHeader) {
-        // Remove existing description if any
-        const existingDescription = seminarHeader.querySelector('.seminar-description');
-        if (existingDescription) {
-          existingDescription.remove();
+        // Remove existing description container if any
+        const existingContainer = seminarHeader.querySelector('.seminar-description-container');
+        if (existingContainer) {
+          existingContainer.remove();
         }
+        
+        // Create container for description
+        const container = document.createElement('div');
+        container.className = 'seminar-description-container';
         
         // Create and add description
         const description = document.createElement('p');
         description.className = 'seminar-description';
         description.textContent = data.description;
-        seminarHeader.appendChild(description);
+        
+        container.appendChild(description);
+        seminarHeader.appendChild(container);
       }
     }
     
