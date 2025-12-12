@@ -190,17 +190,17 @@ body {
 }
 
 .seminar-header .subtitle {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'DotGothic16', 'Space Grotesk', sans-serif;
   font-size: 1.25rem;
   color: #ffffff;
   text-align: justify;
   line-height: 1.1;
-  width: 65%;
 }
 
 .seminar-header .seminar-description {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.25rem;
-  color: #d1d5db;
+  color: #ffffff;
   margin-top: 1rem;
 }
 
