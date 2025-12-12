@@ -140,6 +140,7 @@ body {
   height: 6rem;
   background-color: #000000;
   z-index: 10;
+  display: none;
 }
 
 .orange-box {
@@ -150,7 +151,7 @@ body {
   height: 50px;
   background-color: rgb(255, 160, 0);
   z-index: 1;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   overflow: hidden;
