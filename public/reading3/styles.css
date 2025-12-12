@@ -68,7 +68,7 @@ body {
 #whats-in-the-box-text {
   position: fixed;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 2.166rem; /* 26pt ≈ 34.66px = 2.166rem */
+  font-size: 2.38rem; /* 10% bigger than 2.166rem */
   font-weight: 700;
   color: #000000;
   z-index: 3;
