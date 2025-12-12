@@ -463,22 +463,20 @@ function initializeAutoScrollFeature() {
     introStage.addEventListener('click', handleIntroStageClick);
   }
 
-  // Use deceleration handler instead of simple block during auto-scroll
+  // Disable deceleration - use simple block during auto-scroll only
   window.addEventListener('wheel', (event) => {
     if (isAutoScrolling) {
       blockScrollInteraction(event);
-    } else {
-      handleWheelWithDeceleration(event);
     }
-  }, { passive: false });
+    // Deceleration disabled - allow normal scrolling
+  }, { passive: true });
   
   window.addEventListener('touchmove', (event) => {
     if (isAutoScrolling) {
       blockScrollInteraction(event);
-    } else {
-      handleTouchMoveWithDeceleration(event);
     }
-  }, { passive: false });
+    // Deceleration disabled - allow normal scrolling
+  }, { passive: true });
   
   window.addEventListener('keydown', blockKeyScroll, { passive: false });
 }
