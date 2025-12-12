@@ -4,36 +4,37 @@
   let scrollingAnimationId = null;
   let visibilityChangeHandler = null;
   let hasStarted = false;
+  let termBank = [];
+  let termsLoaded = false;
 
-  const termBank = [
-    'SEMIADDITIVITY',
-    'AMBIDEXTERITY',
-    'HIGHER CHARACTER CORRESPONDENCES',
-    'TRANSCHROMATIC CHARACTER RINGS',
-    'PARAMETRIZED SEMIADDITIVITY',
-    'TEMPERED LOCAL SYSTEMS',
-    'E<sub>n</sub>-MODULE LOCAL SYSTEMS + f<sub>!</sub> ⊣ f<sup>*</sup> ⊣ f<sub>*</sub>',
-    'π-FINITE SPACES',
-    'CATEGORICAL TRACES',
-    'SPAN FUNCTORIALITY',
-    'HIGHER INTEGRATION',
-    'MODES',
-    'TRACES',
-    'ITERATED SPAN CATEGORIES',
-    'DECORATED COSPANS',
-    'THE 2-CATEGORY OF GROUPS',
-    'Pr<sup>ʟ</sup>',
-    'CATEGORIFICATION',
-    'An<sup>π-fin</sup>-PARAMETRIZED CATEGORIES + L<sub>K(t)</sub>E<sub>n</sub>',
-    'p-ADIC FREE LOOP SPACES',
-    'KAN EXTENSIONS COMPUTED FIBERWISE',
-    'HIGHER CARDINALITY',
-    'ADJUNCTIONS',
-    'HOMOTOPY THEORY',
-    'HIGHER ∞-CATEGORY THEORY'
-  ];
+  // Load terms from current.json
+  async function loadTerms() {
+    try {
+      const response = await fetch('data/current.json');
+      if (!response.ok) {
+        throw new Error(`Failed to load terms data: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.terms && Array.isArray(data.terms)) {
+        termBank = data.terms;
+        termsLoaded = true;
+      } else {
+        console.warn('No terms array found in current.json, using empty array');
+        termBank = [];
+        termsLoaded = true;
+      }
+    } catch (error) {
+      console.error('Error loading terms:', error);
+      termBank = [];
+      termsLoaded = true;
+    }
+  }
 
   function getNextTerm() {
+    if (termBank.length === 0) {
+      return '';
+    }
+
     if (currentTermIndex === 0) {
       currentTermIndex = 1;
       recentTerms = [termBank[0]];
@@ -130,6 +131,10 @@
 
   function startScrollingTerms() {
     if (hasStarted) return;
+    if (!termsLoaded || termBank.length === 0) {
+      // Wait for terms to load
+      return;
+    }
     hasStarted = true;
 
     const scrollingTerms = document.querySelector('.scrolling-terms');
@@ -231,8 +236,11 @@
   }
 
   // Check periodically if the animation has completed
-  function initScrollingTerms() {
-    // Check immediately
+  async function initScrollingTerms() {
+    // Load terms first
+    await loadTerms();
+    
+    // Check immediately after terms are loaded
     checkAndStart();
     
     // Also check periodically in case the class is added later
