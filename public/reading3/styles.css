@@ -140,6 +140,7 @@ body {
   height: 6rem;
   background-color: #000000;
   z-index: 10;
+  display: none;
 }
 
 .orange-box {
