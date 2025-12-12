@@ -194,6 +194,8 @@ body {
   font-size: 1.25rem;
   color: #ffffff;
   text-align: justify;
+  line-height: 1.1;
+  width: 65%;
 }
 
 .seminar-header .seminar-description {
