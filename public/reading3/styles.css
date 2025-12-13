@@ -197,7 +197,7 @@ body {
 }
 
 .seminar-description-container {
-  width: 65%;
+  width: 60%;
   margin-top: 1rem;
 }
 
@@ -206,9 +206,9 @@ body {
   font-size: 1.125rem;
   color: #ffffff;
   text-align: justify;
-  line-height: 1.1;
+  line-height: 1.25;
   padding-top: 2.5rem;
-  padding-bottom: 4rem;
+  padding-bottom: 3.5rem;
 }
 
 .seminar-banner {
