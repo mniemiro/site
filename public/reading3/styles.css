@@ -244,6 +244,7 @@ body {
 
 .talk-description {
   font-family: 'Space Grotesk', sans-serif;
+  text-align: justify;
   color: #ffffff;
   line-height: 1.1;
 }
