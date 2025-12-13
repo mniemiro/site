@@ -119,8 +119,8 @@ body {
 /* On wide screens, make container occupy 45% of screen width */
 @media (min-width: 1024px) {
   .seminar-container {
-    max-width: 45;
-    width: 45%;
+    max-width: 40;
+    width: 40%;
   }
   
   /* Header breaks out to full width to prevent line-breaking */
