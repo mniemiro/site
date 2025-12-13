@@ -27,7 +27,10 @@ async function loadTalks() {
         // Create and add description
         const description = document.createElement('p');
         description.className = 'seminar-description';
-        description.textContent = data.description;
+        description.innerHTML = data.description.replace(
+          'semiadditivity',
+          '<span style="color: rgb(255, 160, 0);">semiadditivity</span>'
+        );
         
         container.appendChild(description);
         seminarHeader.appendChild(container);
