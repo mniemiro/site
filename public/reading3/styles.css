@@ -183,9 +183,11 @@ body {
 }
 
 .header-image {
-  width: 130%;
+  width: 115%;
   height: auto;
   display: block;
+  margin-left: -7.5%;
+  margin-right: auto;
 }
 
 .seminar-header .subtitle {
