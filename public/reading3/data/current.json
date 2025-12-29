@@ -33,7 +33,7 @@
       "week": 1,
       "date": "October 15, 2024",
       "title": "Trivial Notions",
-      "description": "We introduce the notion of spectral sequences and discuss their applications in computing homology and cohomology groups."
+      "description": "The greatest stories do not begin with oo-category theory. Ours is no exception---the germs of semiadditivity subsist willingly upon ordinary categories, begging for swab and cultivation. We will start our seminar by documenting some of the most basic semiadditive phenomena (in particular, negative one and zero semiadditivity) as it is expressible in elementary and ordinary language, and we will anticipate the uses of higher algebra to extend the theory."
     },
     {
       "week": 2,
