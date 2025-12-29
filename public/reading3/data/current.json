@@ -32,31 +32,31 @@
     {
       "week": 1,
       "date": "October 15, 2024",
-      "title": "Introduction to Spectral Sequences",
+      "title": "Trivial Notions",
       "description": "We introduce the notion of spectral sequences and discuss their applications in computing homology and cohomology groups."
     },
     {
       "week": 2,
       "date": "October 22, 2024",
-      "title": "The Serre Spectral Sequence",
+      "title": "I am NORMal and can be trusted with both my left and right hands I",
       "description": "An exploration of the Serre spectral sequence and its role in computing the homology of fiber bundles."
     },
     {
       "week": 3,
       "date": "October 29, 2024",
-      "title": "Applications to Homotopy Theory",
+      "title": "I am NORMal and can be trusted with both my left and right hands II",
       "description": "We discuss applications of spectral sequences to problems in homotopy theory, including computations of homotopy groups of spheres."
     },
     {
       "week": 4,
       "date": "November 5, 2024",
-      "title": "Cohomology Operations",
+      "title": "Addition Rules the Nation I",
       "description": "An introduction to cohomology operations and their role in stable homotopy theory. We explore Steenrod squares and their applications."
     },
     {
       "week": 5,
       "date": "November 12, 2024",
-      "title": "K-Theory and Vector Bundles",
+      "title": "Addition Rules the Nation II",
       "description": "We study topological K-theory and its relationship with vector bundles over manifolds. Applications to index theory and characteristic classes."
     },
     {
