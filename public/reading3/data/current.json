@@ -31,73 +31,73 @@
   "talks": [
     {
       "week": 1,
-      "date": "October 15, 2024",
+      "date": "",
       "title": "Trivial Notions",
-      "description": "The greatest stories do not begin with oo-category theory. Ours is no exception---the germs of semiadditivity subsist willingly upon ordinary categories, begging for swab and cultivation. We will start our seminar by documenting some of the most basic semiadditive phenomena (in particular, negative one and zero semiadditivity) as it is expressible in elementary and ordinary language, and we will anticipate the uses of higher algebra to extend the theory."
+      "description": "The greatest stories do not begin with oo-category theory, and neither will ours---the germs of semiadditivity subsist willingly upon <i>ordinary</i> categories, ready for swab and cultivation. We will start our seminar by documenting some of the most basic semiadditive phenomena (in particular, negative one and zero semiadditivity) as it is expressible in ordinary language. Then we will anticipate higher algebraic extensions of the theory."
     },
     {
       "week": 2,
-      "date": "October 22, 2024",
+      "date": "",
       "title": "I am NORMal and can be trusted with BOTH MY LEFT AND RIGHT HANDS, I",
-      "description": "In this session, we will make the first definition of semiadditivity using AMBIDEXTERITY AND NORMS. The focus will be on intuition. In particular, we will BLACK BOX the general theory of norms, to be treated in the next session."
+      "description": "In this session, we will make the first definition of semiadditivity using <i>ambidexterity and norms</i>. The focus will be on intuition. In particular, we will BLACK BOX the general theory of norms, to be treated in the next session."
     },
     {
       "week": 3,
-      "date": "October 29, 2024",
+      "date": "",
       "title": "I am NORMal and can be trusted with BOTH MY LEFT AND RIGHT HANDS, II",
       "description": ""
     },
     {
       "week": 4,
-      "date": "November 5, 2024",
+      "date": "",
       "title": "Addition Rules the Nation I",
       "description": ""
     },
     {
       "week": 5,
-      "date": "November 12, 2024",
+      "date": "",
       "title": "Addition Rules the Nation II",
       "description": ""
     },
     {
       "week": 6,
-      "date": "November 19, 2024",
-      "title": "Cobordism Theory",
+      "date": "",
+      "title": "Cardinality",
       "description": ""
     },
     {
       "week": 7,
-      "date": "November 26, 2024",
+      "date": "",
       "title": "Characteristic Classes",
       "description": ""
     },
     {
       "week": 8,
-      "date": "December 3, 2024",
+      "date": "",
       "title": "Fiber Bundles and Fibrations",
       "description": ""
     },
     {
       "week": 9,
-      "date": "December 10, 2024",
+      "date": "",
       "title": "Homotopy Groups of Spheres",
       "description": ""
     },
     {
       "week": 10,
-      "date": "December 17, 2024",
+      "date": "",
       "title": "Differential Forms and de Rham Cohomology",
       "description": ""
     },
     {
       "week": 11,
-      "date": "December 24, 2024",
+      "date": "",
       "title": "Atiyah-Singer Index Theorem",
       "description": ""
     },
     {
       "week": 12,
-      "date": "December 31, 2024",
+      "date": "",
       "title": "Elliptic Cohomology",
       "description": ""
     }

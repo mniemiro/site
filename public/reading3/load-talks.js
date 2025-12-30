@@ -49,6 +49,10 @@ async function loadTalks() {
     
     // Helper function to convert date string to M/D/YYYY format
     function formatDate(dateString) {
+      // If date is blank or empty, return "TBD"
+      if (!dateString || dateString.trim() === '') {
+        return 'TBD';
+      }
       const date = new Date(dateString);
       if (isNaN(date.getTime())) {
         // If parsing fails, return original string
