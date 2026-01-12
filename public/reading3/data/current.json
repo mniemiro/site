@@ -33,18 +33,18 @@
       "week": 1,
       "date": "",
       "title": "Trivial Notions",
-      "description": "The greatest stories do not begin with oo-category theory, and neither will ours---the germs of semiadditivity subsist willingly upon <i>ordinary</i> categories, ready for swab and cultivation. We will start our seminar by documenting some of the most basic semiadditive phenomena (in particular, negative one and zero semiadditivity) as it is expressible in ordinary language. Then we will anticipate higher algebraic extensions of the theory."
+      "description": "The greatest stories do not begin with oo-category theory, and neither will ours—the germs of semiadditivity subsist willingly upon <i>ordinary</i> categories, ready for swab and cultivation. We will start our seminar by documenting some of the most basic semiadditive phenomena (in particular, negative one and zero semiadditivity) as it is expressible in ordinary language. Then we will anticipate higher algebraic extensions of the theory."
     },
     {
       "week": 2,
       "date": "",
-      "title": "I am NORMal and can be trusted with BOTH MY LEFT AND RIGHT HANDS, I",
+      "title": "I am NORMal and can be trusted with BOTH MY LEFT AND RIGHT HANDS",
       "description": "In this session, we will make the first definition of semiadditivity using <i>ambidexterity and norms</i>. The focus will be on intuition. In particular, we will BLACK BOX the general theory of norms, to be treated in the next session."
     },
     {
       "week": 3,
       "date": "",
-      "title": "I am NORMal and can be trusted with BOTH MY LEFT AND RIGHT HANDS, II",
+      "title": "Integration Bee",
       "description": ""
     },
     {
@@ -68,37 +68,31 @@
     {
       "week": 7,
       "date": "",
-      "title": "Characteristic Classes",
+      "title": "Telescopic semiadditivity",
       "description": ""
     },
     {
       "week": 8,
       "date": "",
-      "title": "Fiber Bundles and Fibrations",
+      "title": "Higher cyclocotomic extensions",
       "description": ""
     },
     {
       "week": 9,
       "date": "",
-      "title": "Homotopy Groups of Spheres",
+      "title": "Characters and semiadditivity",
       "description": ""
     },
     {
       "week": 10,
       "date": "",
-      "title": "Differential Forms and de Rham Cohomology",
+      "title": "Trace methods and semiadditivity",
       "description": ""
     },
     {
       "week": 11,
       "date": "",
-      "title": "Atiyah-Singer Index Theorem",
-      "description": ""
-    },
-    {
-      "week": 12,
-      "date": "",
-      "title": "Elliptic Cohomology",
+      "title": "Tsadi",
       "description": ""
     }
   ]
