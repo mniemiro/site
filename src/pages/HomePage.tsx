@@ -12,11 +12,11 @@ export const HomePage = () => {
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
-        This fall, I am organizing the <HolographicLink href="https://freeloop.space/babytop/" className="text-[17px]">Harvard-MIT Babytop seminar</HolographicLink> with Logan Hyslop.
+        This spring, I am organizing the <HolographicLink href="https://freeloop.space/babytop/" className="text-[17px]">Harvard-MIT Babytop seminar</HolographicLink> with Logan Hyslop.
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
-        Eventually, my site will use a new link: <a href="https://freeloop.space" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">www.freeloop.space</a>.
+        Eventually, my site will migrate to a new link: <a href="https://freeloop.space" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">www.freeloop.space</a>.
       </p>
     </div>
   );
