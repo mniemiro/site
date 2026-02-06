@@ -1,119 +1,104 @@
 {
-  "semester": "Fall 2025: Trace Methods I",
-  "topic": "This semester, Babytop will focus on trace methods in the classical setting, as well as their applications to algebraic geometry, topology, and representation theory.",
+  "semester": "Spring 2026: Trace Methods II",
+  "topic": "This semester, Babytop will focus on topological trace methods, as well as their applications to algebraic geometry, topology, and representation theory.",
   "meeting": "4:15pm on Tuesdays in Harvard SC 309 (unless otherwise noted)",
   "calendarLink": "https://calendar.google.com/calendar",
-  "organizers": ["Matthew Niemiro", "Logan Hyslop"],
+  "organizers": ["Matthew Niemiro", "Kush Singhal"],
   "talks": [
     {
-      "date": "Sep 9",
-      "year": "2025",
-      "title": "Introduction to trace methods",
-      "speaker": "Logan Hyslop",
-      "affiliation": "Harvard",
-      "abstract": "We will introduce the scope of the seminar, review the syllabus, and canvas speakers."
+      "date": "Feb 10",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
     },
     {
-      "date": "Sep 16",
-      "year": "2025",
-      "title": "An introduction to Hochschild homology",
-      "speaker": "Ari Krishna",
-      "affiliation": "Harvard",
-      "abstract": "We introduce Hochschild homology, which may be motivated as follows: given an associative algebra A and an A-bimodule M, we may ask for a universal A-bimodule from M for which the left and right actions agree. We will discuss how to compute it, talk about the bar resolution, and make explicit the relationship to the derived world via Tor. Lastly, we will discuss the HKR isomorphism relating Hochschild homology of smooth algebras to algebras of differential forms."
+      "date": "Feb 17",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
     },
     {
-      "date": "Sep 23",
-      "year": "2025",
-      "title": "HKR and derived categories",
-      "speaker": "Tyler Lane",
-      "affiliation": "Harvard",
-      "abstract": "We introduce some derived algebraic geometry and use it to prove a stronger version of the HKR isomorphism due to Ben-Zvi and Nadler."
+      "date": "Feb 24",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
     },
     {
-      "date": "Sep 30",
-      "year": "2025",
-      "title": "Cyclic homology",
-      "speaker": "Oakley Edens",
-      "affiliation": "Harvard",
-      "abstract": "In this talk, we will continue the discussion of the last two talks by defining a new homology theory called cyclic homology which we construct from Hochschild homology by taking group homology with respect to the various cyclic group actions on the cyclic bar complex. We give some intuition for this construction as \"taking homotopy orbits for the S^1-action on Hochschild homology\", something that will be elaborated on in future talks. We then discuss the Connes periodicity sequences for cyclic homology, the comparison with de Rham cohomology and the λ-decomposition on cyclic homology."
+      "date": "Mar 3",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
     },
     {
-      "date": "Oct 7",
-      "year": "2025",
-      "title": "Application: Lie algebra homology",
-      "speaker": "Jonathan Buchanan",
-      "affiliation": "MIT",
-      "abstract": "In this talk, we will discuss the Loday--Quillen--Tsygan theorem, which gives an isomorphism between the Lie algebra homology of the Lie algebra of matrices in some k-algebra A to the cyclic homology of A. We explain how to lift the trace map from gl(A) to A to a map of cyclic homologies and use this to construct the isomorphism."
+      "date": "Mar 10",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
     },
     {
-      "date": "Oct 14",
-      "year": "2025",
-      "title": "Circle Actions I",
-      "speaker": "Matthew Niemiro",
-      "affiliation": "Harvard",
-      "abstract": "Nor’easters usually occur when tropical Gulf Stream currents come up and off the Atlantic and meet colder arctic air masses coming down from Canada. In more ways than one, a nor’easter is here—in this talk, I will explain the less evident vortex of frigid algebra and humid topology that underscores the meteorological event which threatened my flight here and my bike ride to the gym. To be precise, I will present some models for our current algebraic formulations of Hochschild-type invariants and dwell upon the presence of S^1-actions in these models. This will offer alternative, new, and perhaps even interesting formulations of certain properties of our invariants that will be important moving forward. Time permitting, we may say something about consequences for the homology of group algebras."
-    },
-    {
-      "date": "Oct 21",
-      "year": "2025",
-      "title": "Circle Actions II",
-      "speaker": "Samuel Munoz",
-      "affiliation": "MIT",
-      "abstract": "Last time, we discussed three different ways to model the S^1-action on Hochschild homology, which lead to a better description of cyclic homologies. In this talk, I will use some of these models to explore several examples, including the cyclic homology of a cyclic space. As a consequence, we will see an interesting relationship between cyclic homology and S^1-equivariant homology of free loop spaces."
-    },
-    {
-      "date": "Oct 28",
-      "year": "2025",
-      "title": "Algebraic K-theory I",
-      "speaker": "Tyler Lane",
-      "affiliation": "Harvard",
-      "abstract": "We discuss the K_0, K_1, and K_2 of rings. Then we define higher algebraic K-theory via the plus construction."
-    },
-    {
-      "date": "Nov 4",
-      "year": "2025",
-      "title": "Algebraic K-theory II",
-      "speaker": "Tyler Lane",
-      "affiliation": "Harvard",
-      "abstract": "In this talk we will finally introduce the star of this seminar: the Dennis trace map.  The main focus of the talk will be the construction of the absolute Chern character from K-theory to negative cyclic homology.  From this we will obtain the Dennis trace map and other Chern characters valued in cyclic homology and periodic cyclic homology."
-    },
-    {
-      "date": "Nov 11",
-      "year": "2025",
-      "title": "Semi-topological K-theory",
-      "speaker": "Dhilan Lahoti",
-      "affiliation": "Harvard",
-      "abstract": "Semi-topological K-theory is an invariant of schemes (or stable categories) over the complex numbers which is in some ways better behaved than algebraic K-theory while retaining more refined information than topological K-theory. In this talk, we will introduce several definitions of semitopological K-theory and see why they agree. We will also use the trace methods discussed previously this semester to prove that semi-topological K-theory is a truncating invariant, following Konovalov."
-    },
-    {
-      "date": "Nov 18",
-      "year": "2025",
-      "title": "Connections to the Novikov Conjecture",
-      "speaker": "Natalie Stewart",
-      "affiliation": "Harvard",
-      "abstract": "We will discuss the Novikov conjecture, its statement in terms of the assembly map for L-theory, and sketch some of the known cases and analogs in terms of trace methods."
-    },
-    {
-      "date": "Nov 25",
-      "year": "2025",
-      "title": "No meeting - Thanksgiving break",
+      "date": "Mar 17",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": "",
       "break": true
     },
     {
-      "date": "Dec 2",
-      "year": "2025",
-      "title": "Abstract traces and the Hochschild homology of group algebras",
-      "speaker": "Kush Singhal",
-      "affiliation": "Harvard",
-      "abstract": "For G a group, there is a classical description of HH(Z[G]) in terms of the group theory of G. I will give a purely abstract nonsense proof of this, using the categorical trace description of HH."
+      "date": "Mar 24",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
     },
     {
-      "date": "Dec 9",
-      "year": "2025",
-      "title": "The (strong) Novikov conjecture for hyperbolic groups",
-      "speaker": "Joye Chen",
-      "affiliation": "MIT",
-      "abstract": "The strong Novikov conjecture asserts that the analytic assembly map from K_0(BG) to the K-theory of C^*_r(G) (the reduced C^*-algebra of G) is rationally injective. I will sketch Connes-Moscovici's proof in the case that G is hyperbolic; one of the main ideas is to construct a suitable algebra A lying between C\\Gamma and C^*_r(G) so that the inclusion maps induce injections on K_0 or on cyclic cohomology."
+      "date": "Apr 7",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
+    },
+    {
+      "date": "Apr 14",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
+    },
+    {
+      "date": "Apr 21",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
+    },
+    {
+      "date": "Apr 28",
+      "year": "2026",
+      "title": "",
+      "speaker": "",
+      "affiliation": "",
+      "abstract": ""
+    },
+    {
+      "date": "May 5",
+      "year": "2026",
+      "title": "",
+      "break": true
     }
   ]
 }
