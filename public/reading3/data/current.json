@@ -1,5 +1,5 @@
 {
-  "description": "In Spring 2026, the Harvard Thursday Seminar is a graduate student-constructed semiadditvity learning seminar. We meet on the fifth day of the week at 3:30pm in Harvard SC507.",
+  "description": "In Spring 2026, the Harvard Thursday Seminar is a graduate student-constructed semiadditivity learning seminar. We meet on the fifth day of the week at 3:30pm in Harvard SC507.",
   "terms": [
     "SEMIADDITIVITY",
     "AMBIDEXTERITY",
@@ -45,18 +45,18 @@
       "week": 3,
       "date": "",
       "title": "Integration Bee",
-      "description": ""
+      "description": "Last time, we described how norms (their existence and invertibility) govern semiadditivity, but we were vague about the mechanics. Today, we're looking under the hood. We will find that the main feature of an ambidextrous map q:X \to Y is that we can <i>integrate</i> sufficiently finite families of morphisms q^*A \to q^*B. In fact, this is how we will inductively construct norms. This affirms the slogan that semiadditivity is all about addition."
     },
     {
       "week": 4,
       "date": "",
-      "title": "Addition Rules the Nation I",
-      "description": ""
+      "title": "Addition Rules the Nation",
+      "description": "In the last two sessions, we defined semiadditivity in terms of ambidexterity. It was essential that ambidexterity permitted integration, which is a "higher" addition. In this session and the next, we will see just how essential this function of integration was: we will discuss the relationship between spans and addition, use spans to characterize semiadditivity in spanish, and look into the horizon."
     },
     {
       "week": 5,
       "date": "",
-      "title": "Addition Rules the Nation II",
+      "title": "Cardinality",
       "description": ""
     },
     {
