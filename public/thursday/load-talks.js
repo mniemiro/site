@@ -47,7 +47,7 @@ async function loadTalks() {
     // Clear any existing content
     talksList.innerHTML = '';
     
-    // Helper function to convert date string to M/D/YYYY format
+    // Helper function to convert date string to M/D format
     function formatDate(dateString) {
       // If date is blank or empty, return "TBD"
       if (!dateString || dateString.trim() === '') {
@@ -60,8 +60,7 @@ async function loadTalks() {
       }
       const month = date.getMonth() + 1;
       const day = date.getDate();
-      const year = date.getFullYear();
-      return `${month}/${day}/${year}`;
+      return `${month}/${day}`;
     }
     
     // Render each talk
