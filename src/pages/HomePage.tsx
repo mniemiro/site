@@ -12,7 +12,7 @@ export const HomePage = () => {
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
-        This spring, I am organizing the <HolographicLink href="https://freeloop.space/babytop/" className="text-[17px]">Harvard-MIT Babytop seminar</HolographicLink> with Logan Hyslop.
+        This spring, I am organizing the <HolographicLink href="https://freeloop.space/babytop/" className="text-[17px]">Harvard-MIT Babytop seminar</HolographicLink> with Kush Singhal. I am also organizing the <HolographicLink href="https://freeloop.space/thursday/" className="text-[17px]">Thursday Seminar</HolographicLink>.
       </p>
       <p>&nbsp;</p>
       <p className="text-[13px]">
