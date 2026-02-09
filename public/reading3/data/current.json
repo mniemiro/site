@@ -45,7 +45,7 @@
       "week": 3,
       "date": "",
       "title": "Integration Bee",
-      "description": "Last time, we described how norms (their existence and invertibility) govern semiadditivity, but we were vague about the mechanics. Today, we're looking under the hood. We will find that the main feature of an ambidextrous map q:X \to Y is that we can <i>integrate</i> sufficiently finite families of morphisms q^*A \to q^*B. In fact, this is how we will inductively construct norms. This affirms the slogan that semiadditivity is all about addition."
+      "description": "Last time, we described how norms (their existence and invertibility) govern semiadditivity, but we were vague about the mechanics. Today, we're looking under the hood. We will find that the main feature of an ambidextrous map q:X \\to Y is that we can <i>integrate</i> sufficiently finite families of morphisms q^*A \\to q^*B. In fact, this is how we will inductively construct norms. This affirms the slogan that semiadditivity is all about addition."
     },
     {
       "week": 4,
