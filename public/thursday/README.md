@@ -1,4 +1,4 @@
-# Reading3 - Morphing Box Animation
+# Thursday - Morphing Box Animation
 
 ## Overview
 
@@ -78,7 +78,7 @@ No JavaScript or CSS changes needed for content updates!
 
 ## Testing
 
-1. Navigate to `/reading3/` in your browser
+1. Navigate to `/thursday/` in your browser
 2. Scroll down to see the animation
 3. Watch for:
    - Black square starting in bottom-right
