@@ -74,12 +74,21 @@ async function loadTalks() {
       const formattedDate = formatDate(talk.date);
       dateTitle.textContent = `(${formattedDate}) ${talk.title}`;
       
-      // Description on second line
+      talkItem.appendChild(dateTitle);
+      
+      // Speaker on second line (if provided)
+      if (talk.speaker && talk.speaker.trim() !== '') {
+        const speaker = document.createElement('div');
+        speaker.className = 'talk-speaker';
+        speaker.textContent = talk.speaker;
+        talkItem.appendChild(speaker);
+      }
+      
+      // Description on third line
       const description = document.createElement('div');
       description.className = 'talk-description';
       description.textContent = talk.description;
       
-      talkItem.appendChild(dateTitle);
       talkItem.appendChild(description);
       
       talksList.appendChild(talkItem);
