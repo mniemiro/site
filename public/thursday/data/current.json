@@ -41,7 +41,7 @@
       "date": "Feb 19",
       "title": "I am NORMal and can be trusted with BOTH MY LEFT AND RIGHT HANDS",
       "speaker": "Matthew Niemiro (Harvard)",
-      "description": "In this session, we will make the first definition of semiadditivity using <i>ambidexterity and norms</i>. The basic idea is that semiadditivity amounts to the existence of certain bilimits, hence it is a property concerning certain families F : X \\to C where F and X are variable. This, in turn, may be understood inductively by analyzing the existence and invertibility of norm maps. But there's still a lot going on. The role of ambidexterity is to isolate that part of semiadditivity concerning X in a functorial and controllable manner, and this will help us run the machine. In particular, we will use ambidexterity to construct relative integration, a “higher” form of addition that will help understand the existence problem for norms."
+      "description": "In this session, we will make the first definition of semiadditivity using <i>ambidexterity and norms</i>. The basic idea is that semiadditivity amounts to the existence of certain bilimits, hence it is a property concerning certain families F : X \\to C where F and X are variable. This, in turn, may be understood inductively by analyzing the existence and invertibility of norm maps. But there's still a lot going on. The role of ambidexterity is to isolate that part of semiadditivity concerning X in a functorial and controllable manner, and this will help us run the machine. In particular, we will use ambidexterity to construct relative integration, a “higher” form of addition that will clarify the existence problem for norms."
     },
     {
       "week": 3,
