@@ -16,23 +16,23 @@
     {
       "date": "Feb 17",
       "year": "2026",
-      "title": "",
-      "speaker": "",
-      "affiliation": "",
+      "title": "Introduction to THH",
+      "speaker": "Kush Singhal (Harvard)",
+      "affiliation": "Harvard",
       "abstract": ""
     },
     {
       "date": "Feb 24",
       "year": "2026",
-      "title": "",
-      "speaker": "",
+      "title": "Structures on THH",
+      "speaker": "Natalie Stewart?",
       "affiliation": "",
       "abstract": ""
     },
     {
       "date": "Mar 3",
       "year": "2026",
-      "title": "",
+      "title": "TC, TP, and all that",
       "speaker": "",
       "affiliation": "",
       "abstract": ""
@@ -40,15 +40,15 @@
     {
       "date": "Mar 10",
       "year": "2026",
-      "title": "",
-      "speaker": "",
-      "affiliation": "",
+      "title": "THH(F_p)",
+      "speaker": "Keita Allen",
+      "affiliation": "MIT",
       "abstract": ""
     },
     {
       "date": "Mar 17",
       "year": "2026",
-      "title": "",
+      "title": "Harvard Spring Break",
       "speaker": "",
       "affiliation": "",
       "abstract": "",
@@ -57,41 +57,41 @@
     {
       "date": "Mar 24",
       "year": "2026",
-      "title": "",
-      "speaker": "",
-      "affiliation": "",
+      "title": "THH(Z_p)",
+      "speaker": "Kush Singhal",
+      "affiliation": "Harvard",
+      "abstract": ""
+    },
+    {
+      "date": "Mar 31",
+      "year": "2026",
+      "title": "Cyclotomic trace",
+      "speaker": "Dhilan Lahoti",
+      "affiliation": "Harvard",
       "abstract": ""
     },
     {
       "date": "Apr 7",
       "year": "2026",
-      "title": "",
-      "speaker": "",
-      "affiliation": "",
+      "title": "Motivic filtrations I",
+      "speaker": "Oakley Edens",
+      "affiliation": "Harvard",
       "abstract": ""
     },
     {
       "date": "Apr 14",
       "year": "2026",
-      "title": "",
-      "speaker": "",
-      "affiliation": "",
-      "abstract": ""
-    },
-    {
-      "date": "Apr 21",
-      "year": "2026",
-      "title": "",
-      "speaker": "",
-      "affiliation": "",
+      "title": "Motivic filtrations II",
+      "speaker": "Eunice Sukarto",
+      "affiliation": "Harvard",
       "abstract": ""
     },
     {
       "date": "Apr 28",
       "year": "2026",
-      "title": "",
-      "speaker": "",
-      "affiliation": "",
+      "title": "DGM",
+      "speaker": "Jonathan Buchanan",
+      "affiliation": "MIT",
       "abstract": ""
     },
     {
