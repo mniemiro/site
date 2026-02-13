@@ -213,6 +213,15 @@ body {
   padding-bottom: 3rem;
 }
 
+.seminar-header .seminar-description a {
+  color: rgb(255, 160, 0);
+  text-decoration: underline;
+}
+
+.seminar-header .seminar-description a:hover {
+  color: rgb(255, 200, 100);
+}
+
 .seminar-banner {
   background-color: #1f2937;
   padding: 1.5rem;
