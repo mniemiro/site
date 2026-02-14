@@ -55,7 +55,7 @@
       "date": "Mar 5",
       "title": "Beginner Spanish",
       "speaker": "Sam Munoz-Echaniz (MIT)",
-      "description": "We previously defined semiadditivity using ambidexterity. The essential biproduct of ambidexterity was integration, which is a \"higher\" addition, which we used to construct norms. In this talk, we will see just how essential integration was: we will discuss the relationship between spans and addition, characterize semiadditivity in spanish, and look into the horizon."
+      "description": "We previously defined semiadditivity using ambidexterity. The essential byproduct of ambidexterity was integration, which is a \"higher\" addition, which we used to construct norms. In this talk, we will see just how essential integration was: we will discuss the relationship between spans and addition, characterize semiadditivity in spanish, and look into the horizon."
     },
     {
       "week": 5,
@@ -67,37 +67,43 @@
     {
       "week": 6,
       "date": "Apr 2",
-      "title": "???",
+      "title": "Parametry and Prejudice",
+      "speaker": "Isabel Longbottom (Harvard)",
       "description": ""
     },
     {
       "week": 7,
       "date": "Apr 9",
-      "title": "???",
-      "description": ""
+      "title": "",
+      "description": "",
+      "speaker": "Natalie Stewart (Harvard)"
     },
     {
       "week": 8,
       "date": "Apr 16",
-      "title": "???",
+      "title": "Power operations and the 1-semiadditive sphere",
+      "speaker": "Eunice Sukarto (Harvard)?",
       "description": ""
     },
     {
       "week": 9,
       "date": "Apr 23",
-      "title": "???",
+      "title": "Chromatic Fourier transforms",
+      "speaker": "Keita Allen (MIT)?",
       "description": ""
     },
     {
       "week": 10,
       "date": "Apr 30",
-      "title": "???",
+      "title": "Higher Grothendieck-Witt theory?",
+      "speaker": "Kush Singhal (Harvard)",
       "description": ""
     },
     {
       "week": 11,
       "date": "May 7",
-      "title": "???",
+      "title": "Higher character theory",
+      "speaker": "Jonathan Buchanan (MIT)",
       "description": ""
     }
   ]
