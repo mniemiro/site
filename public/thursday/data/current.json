@@ -1,5 +1,5 @@
 {
-  "description": "In Spring 2026, the Harvard Thursday Seminar is a graduate student-constructed semiadditivity learning seminar. We meet on the fifth day of the week at 3:30pm in Harvard SC 507. <br>I am maintaining notes <a href=\"../docs/sloppy_thursdays.pdf\">here</a>.",
+  "description": "In Spring 2026, the Harvard Thursday Seminar is a graduate student-constructed semiadditivity learning seminar. We meet on the fifth day of the week at 3:30pm in Harvard SC 507. <br> <br>I am maintaining notes <a href=\"../docs/sloppy_thursdays.pdf\">here</a>.",
   "terms": [
     "SEMIADDITIVITY",
     "AMBIDEXTERITY",
@@ -34,7 +34,7 @@
       "date": "Feb 12",
       "title": "Trivial Notions",
       "speaker": "Matthew Niemiro (Harvard)",
-      "description": "The greatest stories do not begin with oo-category theory, and neither will ours. The germs of semiadditivity subsist willingly upon <i>ordinary</i> categories, ready for swab and cultivation. We will start our seminar by documenting some of the most basic semiadditive phenomena (in particular, negative one and zero semiadditivity) as it is expressible in ordinary language. Then we will anticipate higher algebraic extensions of the theory. Finally, we will create a <i>hostage situation</i> to canvass speakers."
+      "description": "The greatest stories do not begin with oo-category theory, and neither will ours. The germs of semiadditivity subsist willingly upon <i>ordinary</i> categories, ready for swab and cultivation. We will start our seminar by documenting some of the most basic semiadditive phenomena (in particular: bilimits, enrichments, norms, and ambidexterity for negative one and zero semiadditivity) as it is expressible in ordinary language. Then we will anticipate extensions of the theory. Finally, we will create a <i>hostage situation</i> to canvass speakers."
     },
     {
       "week": 2,
@@ -53,9 +53,9 @@
     {
       "week": 4,
       "date": "Mar 5",
-      "title": "Beginner Spanish",
+      "title": "Spanish",
       "speaker": "Sam Munoz-Echaniz (MIT)",
-      "description": "We previously defined semiadditivity using ambidexterity. The essential byproduct of ambidexterity was integration, which is a \"higher\" addition, which we used to construct norms. In this talk, we will see just how essential integration was: we will discuss the relationship between spans and addition, characterize semiadditivity in spanish, and look into the horizon."
+      "description": "We previously defined semiadditivity using ambidexterity. The essential byproduct of ambidexterity was integration, which is a \"higher\" addition we used to construct norms. In this talk, we will see just how essential integration was: we will discuss the relationship between spans and addition, characterize semiadditivity in spanish, and discuss examples."
     },
     {
       "week": 5,
