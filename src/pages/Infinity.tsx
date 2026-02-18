@@ -49,6 +49,17 @@ const Infinity = () => {
             </a>
             <span className="ml-2">With new and improved TeX!</span>
           </li>
+          <li>
+            <a 
+              href="/docs/nb2026.pdf" 
+              className="text-link hover:text-link-hover hover:underline"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              2026
+            </a>
+            <span className="ml-2"></span>
+          </li>
         </ul>
       </div>
     </div>
