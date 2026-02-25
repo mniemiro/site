@@ -98,6 +98,17 @@ const Miscellany = () => {
           </a>{' '}
           into SVG displacement filtering.
         </li>
+        <li>
+          <a
+            href="https://chronologia.org/en/math_impressions/images.html"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            MATHEMATICAL IMPRESSIONS
+          </a>{' '}
+          by Anatoly Fomenko.
+        </li>
       </ul>
       
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
