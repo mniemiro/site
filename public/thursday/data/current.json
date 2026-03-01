@@ -1,5 +1,5 @@
 {
-  "description": "In Spring 2026, the Harvard Thursday Seminar is a graduate student-constructed semiadditivity learning seminar. We meet on the fifth day of the week at 3:30pm in Harvard SC 507. <br> <br>I am maintaining notes <a href=\"/docs/sat2.pdf\">here</a>.",
+  "description": "In Spring 2026, the Harvard Thursday Seminar is a graduate student-constructed semiadditivity learning seminar. We meet on the fifth day of the week at 3:30pm in Harvard SC 507. <br> <br><a href=\"/docs/sat2.pdf\">Here</a> are notes.",
   "terms": [
     "SEMIADDITIVITY",
     "AMBIDEXTERITY",
@@ -48,12 +48,12 @@
       "date": "Feb 26",
       "title": "Cardinality and height",
       "speaker": "Tyler Lane (Harvard)",
-      "description": ""
+      "description": "After reviewing the basics of semiadditivity, I will define semiadditive height and establish some of its basic properties.  Afterwards, we will discuss the interactions between semiadditivity and chromatic homotopy theory.  In particular, we will show that higher semiadditive structure <i>dissolves the glue</i> in the chromatic fracture square.  We will also discuss modes."
     },
     {
       "week": 4,
       "date": "Mar 5",
-      "title": "Spanish",
+      "title": "Spanish 101",
       "speaker": "Sam Munoz-Echaniz (MIT)",
       "description": "We previously defined semiadditivity using ambidexterity. The essential byproduct of ambidexterity was integration, which is a \"higher\" addition we used to construct norms. In this talk, we will see just how essential integration was: we will discuss the relationship between spans and addition, characterize semiadditivity in spanish, and discuss examples."
     },
