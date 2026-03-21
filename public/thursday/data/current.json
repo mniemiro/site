@@ -60,15 +60,15 @@
     {
       "week": 5,
       "date": "Mar 26",
-      "title": "???",
+      "title": "K(n)-local semiadditivity",
       "speaker": "Howard Beck (Northwestern)",
-      "description": ""
+      "description": "We prove the result originally due to Hopkins-Lurie that the category of K(n)-local spectra is \\infty-semiadditive. Their proof relied on classical computations of the K(n)-cohomology of Eilenberg-MacLane anima by Ravenel-Wilson; we instead will present a more compact proof due to Ben-Moshe that uses more modern developments. It starts by bootstrapping off of classical Tate vanishing results in chromatically localized spectra (both Sp_T(n) and Sp_K(n)) due to Greenlees-Sadofsky, Hovey-Sadofsky, and Kuhn. We then induct on chromatic height using recent higher descent results on how algebraic K-theory interacts with higher semiadditivity (Ben-Moshe-Carmeli-Schlank-Yanovski), along with redshift phenomena of Lubin-Tate spectra (Yuan) and the Chromatic Nullstellensatz (Burklund-Schlank-Yuan). Along the way, we also show that the height n monochromatic categories Cat_{M_n} are also \\infty-semiadditive."
     },
     {
       "week": 6,
       "date": "Apr 2",
       "title": "Parametry and Prejudice",
-      "speaker": "Isabel Longbottom (Harvard)",
+      "speaker": "Matthew Niemiro(Harvard)",
       "description": ""
     },
     {
@@ -107,9 +107,16 @@
       "description": ""
     },
     {
+      "week": 9,
+      "date": "Apr 24",
+      "title": "???",
+      "speaker": "Will Fisher (Berkeley)?",
+      "description": ""
+    },
+    {
       "week": 10,
       "date": "Apr 30",
-      "title": "Higher Grothendieck-Witt theory?",
+      "title": "Chromatic cyclotomic extensions",
       "speaker": "Kush Singhal (Harvard)",
       "description": ""
     },
