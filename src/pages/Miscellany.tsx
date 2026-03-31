@@ -109,6 +109,17 @@ const Miscellany = () => {
           </a>{' '}
           by Anatoly Fomenko.
         </li>
+        <li>
+          <a
+            href="https://hmirra.net"
+            className="text-link hover:text-link-hover hover:border-b-2 hover:border-link-hover transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Helen Mirra
+          </a>
+          .
+        </li>
       </ul>
       
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
