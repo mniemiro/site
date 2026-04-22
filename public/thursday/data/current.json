@@ -95,15 +95,15 @@
     {
       "week": 9,
       "date": "Apr 23",
-      "title": "Chromatic Fourier transforms",
-      "speaker": "Keita Allen (MIT)?",
-      "description": ""
+      "title": "Thom twists, six functor formalisms, and semiadditivity",
+      "speaker": "Will Fisher (Berkeley)",
+      "description": "(MIT 4-231) There is an intimate relationship between six functor formalisms and semiadditivity, both boiling down to giving explicit descriptions of the free semiadditive parametrized category. I will begin by recalling the current state of the art for describing free semiadditive categories, emphasizing the ubiquitous truncation hypothesis in current literature. Then, I will discuss my own research which removes this hypothesis. In doing so, algebraic K-theory makes a surprising appearance which I will motivate as an abstraction of Atiyah duality."
     },
     {
       "week": 9,
       "date": "Apr 24",
-      "title": "???",
-      "speaker": "Will Fisher (Berkeley)",
+      "title": "Chromatic cyclotomic extensions",
+      "speaker": "Keita Allen (MIT)",
       "description": ""
     },
     {
