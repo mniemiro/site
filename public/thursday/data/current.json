@@ -123,9 +123,11 @@
     {
       "week": 11,
       "date": "May 8",
-      "title": "T(n)-local character theory",
-      "speaker": "Shaul Ragimov (Chicago)",
-      "description": ""
+      "title": "Higher semiadditive character theory",
+      "speaker": "Shauly Ragimov (Chicago)",
+      "description": "I will introduce higher semiadditive character theory, a framework generalizing the monoidal character and the transchromatic character. These characters are natural transformations compatible with restriction and transfer along pi-finite spaces, with a p-typical free loop space correction built into the target. I will explain why every infinity-commutative monoid, and in particular every T(n)-local object, admits a universal character of this kind, and discuss its main structural properties: blue-shift, higher cyclotomic descent, and compatibility with the semiadditive Fourier transform.
+
+I will then specialize to K(n)-local objects and explain how, for Morava E-theory, the universal character recovers the transchromatic character. This perspective allows many results from transchromatic character theory to extend to arbitrary K(n)-local objects. Finally, I will explain how the universal character can be used to compute the rationalization of K(n)-local cochains on pi-finite spaces, and to determine the ring of rational K(n)-local power operations."
     }
   ]
 }
