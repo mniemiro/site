@@ -116,7 +116,7 @@
 }
 
 .site-nav-links {
-  grid-column: 8 / span 1;
+  grid-column: 8 / span 3;
   text-align: right;
   pointer-events: auto;
 }
@@ -140,10 +140,10 @@
 }
 
 .site-nav .nav-idle {
-  font-weight: 600;
+  font-weight: 500;
   font-stretch: 125%;
-  font-variation-settings: "wdth" 125, "wght" 600;
-  opacity: 0.5;
+  font-variation-settings: "wdth" 125, "wght" 500;
+  opacity: 0.4;
 }
 
 .site-nav .nav-idle:hover {
