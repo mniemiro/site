@@ -140,7 +140,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
               </span>
             </div>
             {openIndex === index && paper.description && (
-              <div className="pl-4 mt-2 text-[11pt] leading-[1.125] max-w-[75%]">
+              <div className="pl-4 mt-2 text-[11px] leading-[1.125] max-w-[75%]">
                 {paper.description}
               </div>
             )}

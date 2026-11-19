@@ -10,8 +10,8 @@
     --background: 0 0% 95%;
     --foreground: 0 0% 0%;
     --frame-pad-top: 5rem;
-    --name-size: 1.75rem;
-    --name-line: 2.16rem;
+    --name-size: 1.925rem;
+    --name-line: 2.376rem;
     --name-gap: 1.65rem;
     --link-color: 221 83% 53%; /* Blue for light mode */
     --link-hover-color: 221 83% 43%; /* Darker blue for hover in light mode */
@@ -98,12 +98,13 @@
   grid-column: 4 / span 4;
   grid-row: 3;
   min-width: 0;
+  padding-top: 1rem;
   padding-bottom: 4rem;
 }
 
 .site-nav {
   position: fixed;
-  top: calc(var(--frame-pad-top) + var(--name-line) + var(--name-gap));
+  top: calc(var(--frame-pad-top) + var(--name-line) + var(--name-gap) + 1rem);
   left: 0;
   right: 0;
   z-index: 20;
