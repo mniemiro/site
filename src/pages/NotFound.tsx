@@ -12,7 +12,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <p className="text-[13px] leading-[1.45]">
+    <p className="text-[12px] leading-[1.45]">
       This page does not exist.
     </p>
   );

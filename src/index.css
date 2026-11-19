@@ -9,7 +9,7 @@
   :root {
     --background: 0 0% 95%;
     --foreground: 0 0% 0%;
-    --frame-pad-top: 3rem;
+    --frame-pad-top: 5rem;
     --name-size: 1.75rem;
     --name-line: 2.16rem;
     --name-gap: 1.65rem;

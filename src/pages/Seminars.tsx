@@ -1,10 +1,10 @@
 export const Seminars = () => {
   return (
     <div className="prose dark:prose-invert max-w-none">
-      <p className="text-[13px] mb-4">
+      <p className="text-[12px] mb-4">
         Here are some seminars I am organizing or have organized.
       </p>
-      <ul className="text-[13px] space-y-2 pl-6">
+      <ul className="text-[12px] space-y-2 pl-6">
         <li>(Spring 2026) <a href="https://freeloop.space/thursday/" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">Harvard Thursday Seminar</a> --- Semiadditivity learning seminar</li>
         <li>(Spring 2026) <a href="https://freeloop.space/babytop/" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">Harvard/MIT Babytop</a> --- Trace methods II, joint w/ Kush Singhal</li>
         <li>(Fall 2025) <a href="https://freeloop.space/babytop/" className="text-link hover:text-link-hover" target="_blank" rel="noopener noreferrer">Harvard/MIT Babytop</a> --- Trace methods I, joint w/ Logan Hyslop</li>

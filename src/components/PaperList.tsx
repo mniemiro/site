@@ -105,41 +105,42 @@ export const PaperList = ({ papers }: PaperListProps) => {
           >
             {paper.description && (
               <div className="absolute -left-4 -top-0.5">
-                <span className="text-[13px]">
+                <span className="text-[12px]">
                   {openIndex === index ? '-' : '+'}
                 </span>
               </div>
             )}
-            <div className="grid grid-cols-[1fr,auto] gap-4 items-start">
-              <div 
-                className={paper.description ? "cursor-pointer" : ""}
+            <div className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-px items-baseline">
+              <div
+                className={`font-bold text-[14px] leading-none tracking-[-1px] ${paper.description ? "cursor-pointer" : ""}`}
                 onClick={paper.description ? () => handleClick(index) : undefined}
               >
-                <div className="font-bold text-[14px] tracking-[-1px]">
-                  [{index + 1}] {paper.title}
-                </div>
-                <div className="font-light italic text-[12px] mt-[1px] tracking-wide">
-                  {paper.subtitle}
-                </div>
+                [{index + 1}] {paper.title}
               </div>
-              <div className="flex flex-col items-end leading-tight">
-                {paper.link && (
-                  <a 
-                    href={paper.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[13px] text-link hover:text-link-hover hover:underline"
-                  >
-                    [link]
-                  </a>
-                )}
-                <span className="text-[12px] text-muted-foreground opacity-80 mt-[1px]">
-                  {paper.date}
-                </span>
+              {paper.link ? (
+                <a
+                  href={paper.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12px] leading-none text-link hover:text-link-hover hover:underline"
+                >
+                  [link]
+                </a>
+              ) : (
+                <span />
+              )}
+              <div
+                className={`font-light italic text-[12px] leading-none tracking-wide ${paper.description ? "cursor-pointer" : ""}`}
+                onClick={paper.description ? () => handleClick(index) : undefined}
+              >
+                {paper.subtitle}
               </div>
+              <span className="justify-self-end text-[12px] leading-none text-muted-foreground opacity-80">
+                {paper.date}
+              </span>
             </div>
             {openIndex === index && paper.description && (
-              <div className="pl-4 mt-2 text-[13px] max-w-[75%]">
+              <div className="pl-4 mt-2 text-[11pt] leading-[1.125] max-w-[75%]">
                 {paper.description}
               </div>
             )}

@@ -7,7 +7,7 @@ const Miscellany = () => {
       <h3 className="mt-0 text-lg font-medium text-right mb-4">
         Various things
       </h3>
-      <ul className="list-disc pl-5 space-y-2 text-[13px]">
+      <ul className="list-disc pl-5 space-y-2 text-[12px]">
         <li>
           <a
             href="https://www.youtube.com/watch?v=cysvEtrxNck&list=LL&index=1"
@@ -125,7 +125,7 @@ const Miscellany = () => {
       <h3 className="mt-8 text-lg font-medium text-right mb-4">
         Biographical writing
       </h3>
-      <ul className="list-disc pl-5 space-y-2 text-[13px]">
+      <ul className="list-disc pl-5 space-y-2 text-[12px]">
         <li>
           <a 
             href="/postnikov_memorial.pdf" 
