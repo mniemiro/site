@@ -9,9 +9,9 @@
   :root {
     --background: 0 0% 95%;
     --foreground: 0 0% 0%;
-    --frame-pad-top: 4.75rem;
-    --name-size: 1.375rem;
-    --name-line: 1.7rem;
+    --frame-pad-top: 3rem;
+    --name-size: 1.75rem;
+    --name-line: 2.16rem;
     --name-gap: 1.65rem;
     --link-color: 221 83% 53%; /* Blue for light mode */
     --link-hover-color: 221 83% 43%; /* Darker blue for hover in light mode */
@@ -111,12 +111,12 @@
   grid-template-columns: repeat(11, minmax(0, 1fr));
   pointer-events: none;
   font-family: "Inconsolata", monospace;
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 19px;
+  line-height: 1.1;
 }
 
 .site-nav-links {
-  grid-column: 8 / span 2;
+  grid-column: 8 / span 1;
   text-align: right;
   pointer-events: auto;
 }
@@ -185,6 +185,7 @@
     grid-column: 1;
     grid-row: 2;
     margin-bottom: 1.75rem;
+    font-size: 13px;
   }
 
   .site-main {
