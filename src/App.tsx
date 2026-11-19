@@ -35,21 +35,23 @@ const App = () => (
       <Sonner />
       <MathJaxContext config={config}>
         <Router>
-          <div className="min-h-screen bg-background text-foreground">
-            <div className="frame-grid">
-              <Link to="/" className="site-name">
-                M.A. Niemiro
-              </Link>
-              <Navigation />
-              <main className="site-main">
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/notes" element={<Notes />} />
-                  <Route path="/miscellany" element={<Miscellany />} />
-                  <Route path="/seminars" element={<Seminars />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
+          <div className="page-shell min-h-screen bg-background text-foreground">
+            <Navigation />
+            <div className="frame-scroll">
+              <div className="frame-grid">
+                <Link to="/" className="site-name">
+                  M.A. Niemiro
+                </Link>
+                <main className="site-main">
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/notes" element={<Notes />} />
+                    <Route path="/miscellany" element={<Miscellany />} />
+                    <Route path="/seminars" element={<Seminars />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </main>
+              </div>
             </div>
           </div>
         </Router>
