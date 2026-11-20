@@ -23,6 +23,7 @@ export const HomePage = () => {
       </p>
 
       <figure className="my-[1.6em]">
+        <br />
         <figcaption className="mb-[0.75em]">Here is my favorite photo I've taken in Cambridge, MA:</figcaption>
         <img src="/photos/harvard.jpg" alt="" className="block w-full h-auto" />
       </figure>
