@@ -149,11 +149,6 @@
   opacity: 0.4;
 }
 
-.site-nav .nav-idle:hover {
-  color: hsl(var(--foreground));
-  opacity: 1;
-}
-
 .site-nav .nav-active {
   font-weight: 800;
   font-stretch: 125%;
@@ -161,7 +156,8 @@
   opacity: 1;
 }
 
-.site-nav .nav-active:hover {
+.site-nav a:hover,
+.site-nav button:hover {
   color: hsl(var(--foreground));
 }
 
