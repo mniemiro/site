@@ -112,7 +112,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
             )}
             <div className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-px items-baseline">
               <div
-                className={`font-bold text-[17.36px] leading-none tracking-[-1px] ${paper.description ? "cursor-pointer" : ""}`}
+                className={`font-bold text-[17.36px] leading-none tracking-[-0.5px] ${paper.description ? "cursor-pointer" : ""}`}
                 onClick={paper.description ? () => handleClick(index) : undefined}
               >
                 [{index + 1}] {paper.title}
