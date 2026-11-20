@@ -24,7 +24,7 @@ export const HomePage = () => {
 
       <figure className="my-[1.6em]">
         <figcaption className="mb-[0.75em]">Here is my favorite photo I've taken in Cambridge, MA:</figcaption>
-        <img src="/photos/cambridge.jpg" alt="" className="block w-full h-auto" />
+        <img src="/photos/harvard.jpg" alt="" className="block w-full h-auto" />
       </figure>
       <figure className="my-[1.6em]">
         <figcaption className="mb-[0.75em]">Kongenshave, Denmark:</figcaption>
