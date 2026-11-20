@@ -24,19 +24,19 @@ export const HomePage = () => {
 
       <figure className="my-[1.6em]">
         <figcaption className="mb-[0.75em]">Caption</figcaption>
-        <img src="/photos/1.jpg" alt="" className="block w-full h-auto" />
+        <img src="/photos/cambridge.jpg" alt="" className="block w-full h-auto" />
       </figure>
       <figure className="my-[1.6em]">
         <figcaption className="mb-[0.75em]">Caption</figcaption>
-        <img src="/photos/2.jpg" alt="" className="block w-full h-auto" />
+        <img src="/photos/kongenshave.jpg" alt="" className="block w-full h-auto" />
       </figure>
       <figure className="my-[1.6em]">
         <figcaption className="mb-[0.75em]">Caption</figcaption>
-        <img src="/photos/3.jpg" alt="" className="block w-full h-auto" />
+        <img src="/photos/shed.jpg" alt="" className="block w-full h-auto" />
       </figure>
       <figure className="my-[1.6em]">
         <figcaption className="mb-[0.75em]">Caption</figcaption>
-        <img src="/photos/4.jpg" alt="" className="block w-full h-auto" />
+        <img src="/photos/chicago.jpg" alt="" className="block w-full h-auto" />
       </figure>
     </div>
   );
