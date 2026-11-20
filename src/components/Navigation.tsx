@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
   { to: "/", label: "Front" },
@@ -26,6 +27,7 @@ export const Navigation = () => {
             </Link>
           );
         })}
+        <ThemeToggle className="nav-idle" />
       </div>
     </nav>
   );

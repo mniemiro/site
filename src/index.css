@@ -46,7 +46,7 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 0 0% 0%;
     --foreground: 210 40% 98%;
     --link-color: 24 95% 53%; /* Orange for dark mode */
     --link-hover-color: 24 95% 43%; /* Darker orange for hover in dark mode */
