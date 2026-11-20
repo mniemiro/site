@@ -23,19 +23,19 @@ export const HomePage = () => {
       </p>
 
       <figure className="my-[1.6em]">
-        <figcaption className="mb-[0.75em]">Caption</figcaption>
+        <figcaption className="mb-[0.75em]">Here is my favorite photo I've taken in Cambridge, MA:</figcaption>
         <img src="/photos/cambridge.jpg" alt="" className="block w-full h-auto" />
       </figure>
       <figure className="my-[1.6em]">
-        <figcaption className="mb-[0.75em]">Caption</figcaption>
+        <figcaption className="mb-[0.75em]">Kongenshave, Denmark:</figcaption>
         <img src="/photos/kongenshave.jpg" alt="" className="block w-full h-auto" />
       </figure>
       <figure className="my-[1.6em]">
-        <figcaption className="mb-[0.75em]">Caption</figcaption>
+        <figcaption className="mb-[0.75em]">My shed:</figcaption>
         <img src="/photos/shed.jpg" alt="" className="block w-full h-auto" />
       </figure>
       <figure className="my-[1.6em]">
-        <figcaption className="mb-[0.75em]">Caption</figcaption>
+        <figcaption className="mb-[0.75em]">My city Chicago:</figcaption>
         <img src="/photos/chicago.jpg" alt="" className="block w-full h-auto" />
       </figure>
     </div>
