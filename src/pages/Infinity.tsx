@@ -2,19 +2,19 @@ const Infinity = () => {
   return (
     <div className="space-y-4">
 
-      <p className="text-[12px] mb-6">
+      <p className="text-[14.88px] mb-6">
       It's a basic, cool, and important fact that spaces and categories have a common generalization in ∞-categories. This is a first step toward realizing an important relationship between space and algebra that opens for "homotopy theory" and "higher algebra." These are complicated subjects, but are also the decided language for a sizeable chunk of algebraic topology, geometry, K-theory, ... 
       </p>
 
-      <p className="text-[12px] mb-6">
+      <p className="text-[14.88px] mb-6">
       In undergraduate, I started a journal to record my ∞-category learning throes. I have learned a lot about the subject since then, and a lot about learning.
       </p>
 
-      <p className="text-[12px] mb-6">
+      <p className="text-[14.88px] mb-6">
       For accountability, and because it is easier than recompiling whenever I need to recall something,here are my notes (which I caution away from taking seriously):
       </p>
 
-      <div className="text-[12px]">
+      <div className="text-[14.88px]">
         <h3 className="font-semibold mb-2">Notebooks:</h3>
         <ul className="list-disc pl-8 space-y-1">
         <li>

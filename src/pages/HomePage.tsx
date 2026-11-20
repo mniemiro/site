@@ -1,6 +1,6 @@
 export const HomePage = () => {
   return (
-    <div className="text-[12px] leading-[1.45]">
+    <div className="text-[14.88px] leading-[1.45]">
       <p>
         Hi, my name is Matthew Niemiro. I am a PhD student at{" "}
         <a

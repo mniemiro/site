@@ -105,14 +105,14 @@ export const PaperList = ({ papers }: PaperListProps) => {
           >
             {paper.description && (
               <div className="absolute -left-4 -top-0.5">
-                <span className="text-[12px]">
+                <span className="text-[14.88px]">
                   {openIndex === index ? '-' : '+'}
                 </span>
               </div>
             )}
             <div className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-px items-baseline">
               <div
-                className={`font-bold text-[14px] leading-none tracking-[-1px] ${paper.description ? "cursor-pointer" : ""}`}
+                className={`font-bold text-[17.36px] leading-none tracking-[-1px] ${paper.description ? "cursor-pointer" : ""}`}
                 onClick={paper.description ? () => handleClick(index) : undefined}
               >
                 [{index + 1}] {paper.title}
@@ -122,7 +122,7 @@ export const PaperList = ({ papers }: PaperListProps) => {
                   href={paper.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[12px] leading-none text-link hover:text-link-hover hover:underline"
+                  className="text-[14.88px] leading-none text-link hover:text-link-hover hover:underline"
                 >
                   [link]
                 </a>
@@ -130,17 +130,17 @@ export const PaperList = ({ papers }: PaperListProps) => {
                 <span />
               )}
               <div
-                className={`font-light italic text-[12px] leading-none tracking-wide ${paper.description ? "cursor-pointer" : ""}`}
+                className={`font-light italic text-[14.88px] leading-none tracking-wide ${paper.description ? "cursor-pointer" : ""}`}
                 onClick={paper.description ? () => handleClick(index) : undefined}
               >
                 {paper.subtitle}
               </div>
-              <span className="justify-self-end text-[12px] leading-none text-muted-foreground opacity-80">
+              <span className="justify-self-end text-[14.88px] leading-none text-muted-foreground opacity-80">
                 {paper.date}
               </span>
             </div>
             {openIndex === index && paper.description && (
-              <div className="pl-4 mt-2 text-[11px] leading-[1.125] max-w-[75%]">
+              <div className="pl-4 mt-2 text-[13.64px] leading-[1.125] max-w-[75%]">
                 {paper.description}
               </div>
             )}
