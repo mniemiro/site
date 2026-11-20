@@ -28,7 +28,7 @@ export const HomePage = () => {
         <img src="/photos/harvard.jpg" alt="" className="block w-full h-auto" />
       </figure>
       <figure className="my-[1.6em]">
-        <figcaption className="mb-[0.75em]">Kongenshave, Denmark:</figcaption>
+        <figcaption className="mb-[0.75em]">Kongenshave Garden, Copenhagen:</figcaption>
         <img src="/photos/kongenshave.jpg" alt="" className="block w-full h-auto" />
       </figure>
       <figure className="my-[1.6em]">
