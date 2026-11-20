@@ -21,6 +21,23 @@ export const HomePage = () => {
         <a href="mailto:mniemiro@math.harvard.edu" className="text-link hover:text-link-hover">mniemiro@math.harvard.edu</a>.
         If you are really out to get me, I can be cornered in my office at Harvard SC 425c.
       </p>
+
+      <figure className="my-[1.6em]">
+        <figcaption className="mb-[0.75em]">Caption</figcaption>
+        <img src="/photos/1.jpg" alt="" className="block w-full h-auto" />
+      </figure>
+      <figure className="my-[1.6em]">
+        <figcaption className="mb-[0.75em]">Caption</figcaption>
+        <img src="/photos/2.jpg" alt="" className="block w-full h-auto" />
+      </figure>
+      <figure className="my-[1.6em]">
+        <figcaption className="mb-[0.75em]">Caption</figcaption>
+        <img src="/photos/3.jpg" alt="" className="block w-full h-auto" />
+      </figure>
+      <figure className="my-[1.6em]">
+        <figcaption className="mb-[0.75em]">Caption</figcaption>
+        <img src="/photos/4.jpg" alt="" className="block w-full h-auto" />
+      </figure>
     </div>
   );
 };
